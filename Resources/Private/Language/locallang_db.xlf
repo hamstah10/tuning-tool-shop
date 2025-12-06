@@ -28,6 +28,12 @@
             <trans-unit id="plugin.checkout.description" resname="plugin.checkout.description">
                 <source>One-Page Checkout für Bestellungen</source>
             </trans-unit>
+            <trans-unit id="plugin.minicart.title" resname="plugin.minicart.title">
+                <source>Shop: Mini Warenkorb</source>
+            </trans-unit>
+            <trans-unit id="plugin.minicart.description" resname="plugin.minicart.description">
+                <source>Zeigt einen kompakten Warenkorb mit letzten Produkten an</source>
+            </trans-unit>
 
             <!-- Produkt Tabelle -->
             <trans-unit id="tx_tuningtoolshop_domain_model_product" resname="tx_tuningtoolshop_domain_model_product">

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Hamstahstudio\TuningToolShop\Controller\ProductController;
 use Hamstahstudio\TuningToolShop\Controller\CartController;
-use Hamstahstudio\TuningToolShop\Controller\MiniCartController;
 use Hamstahstudio\TuningToolShop\Controller\CheckoutController;
 use Hamstahstudio\TuningToolShop\Controller\StripeController;
 use Hamstahstudio\TuningToolShop\Controller\PaymentController;
@@ -54,17 +53,6 @@ ExtensionUtility::configurePlugin(
     ],
     [
         CartController::class => 'add,update,remove',
-    ]
-);
-
-ExtensionUtility::configurePlugin(
-    'TuningToolShop',
-    'MiniCart',
-    [
-        MiniCartController::class => 'index',
-    ],
-    [
-        MiniCartController::class => '',
     ]
 );
 

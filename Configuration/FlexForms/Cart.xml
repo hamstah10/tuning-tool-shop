@@ -9,6 +9,24 @@
                 <sheetTitle>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.sheet.general</sheetTitle>
                 <type>array</type>
                 <el>
+                    <settings.displayMode>
+                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.displayMode</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <label>Normaler Warenkorb</label>
+                                    <value>normal</value>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>Mini Warenkorb</label>
+                                    <value>mini</value>
+                                </numIndex>
+                            </items>
+                            <default>normal</default>
+                        </config>
+                    </settings.displayMode>
                     <settings.showProductImages>
                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.showProductImages</label>
                         <config>

@@ -58,7 +58,7 @@
                 </f:if>
 
                 <f:if condition="{product.stock} > 0">
-                    <f:form action="add" controller="Cart" pluginName="Cart" extensionName="TuningToolShop" pageUid="{cartPid}" class="tts-product-detail__add-form" arguments="{product: product.uid, quantity: 1}">
+                    <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" class="tts-product-detail__add-form" arguments="{product: product.uid, quantity: 1}">
                         <div class="tts-quantity-selector">
                             <label for="quantity" class="tts-quantity-selector__label">Menge:</label>
                             <div class="tts-quantity-input">
@@ -138,7 +138,7 @@
                             <ul class="tts-document-list">
                                 <f:for each="{product.documents}" as="document">
                                     <li class="tts-document-item">
-                                        <a href="{f:uri.resource(path: 'fileadmin', extensionName: '', absolute: 1)}{document.originalResource.identifier}" target="_blank" class="tts-document-item__link">
+                                        <a href="{f:uri.resource(path: 'fileadmin', absolute: 1)}{document.originalResource.identifier}" target="_blank" class="tts-document-item__link">
                                             <span class="tts-document-item__icon">📄</span>
                                             <span class="tts-document-item__name">{document.originalResource.name}</span>
                                             <span class="tts-document-item__size">({document.originalResource.size -> f:format.bytes()})</span>

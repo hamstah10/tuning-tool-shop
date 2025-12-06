@@ -69,3 +69,5 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSi
     $pluginSignature,
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Checkout.xml'
 );
+
+

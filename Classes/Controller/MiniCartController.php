@@ -16,25 +16,36 @@ class MiniCartController extends ActionController
 
     public function indexAction(): ResponseInterface
     {
-        $cartItems = $this->getCartItems();
-        $itemCount = 0;
-        $totalGross = 0.0;
+        try {
+            $sessionId = $this->getSessionId();
+            $cartItems = $this->cartItemRepository->findBySessionId($sessionId)->toArray();
+            $itemCount = 0;
+            $totalGross = 0.0;
 
-        foreach ($cartItems as $cartItem) {
-            if ($cartItem->getProduct() !== null) {
-                $itemCount += $cartItem->getQuantity();
-                $totalGross += $cartItem->getSubtotal();
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->getProduct() !== null) {
+                    $itemCount += $cartItem->getQuantity();
+                    $totalGross += $cartItem->getSubtotal();
+                }
             }
+
+            $cartPid = (int)($this->settings['cartPid'] ?? 0);
+
+            $this->view->assignMultiple([
+                'cartItems' => $cartItems,
+                'itemCount' => $itemCount,
+                'total' => $totalGross,
+                'cartPid' => $cartPid,
+            ]);
+        } catch (\Exception $e) {
+            // Fallback wenn Error
+            $this->view->assignMultiple([
+                'cartItems' => [],
+                'itemCount' => 0,
+                'total' => 0.0,
+                'cartPid' => 0,
+            ]);
         }
-
-        $cartPid = (int)($this->settings['cartPid'] ?? 0);
-
-        $this->view->assignMultiple([
-            'cartItems' => $cartItems,
-            'itemCount' => $itemCount,
-            'total' => $totalGross,
-            'cartPid' => $cartPid,
-        ]);
 
         return $this->htmlResponse();
     }

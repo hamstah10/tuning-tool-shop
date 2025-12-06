@@ -26,17 +26,21 @@ class CartController extends ActionController
         $totalGross = 0.0;
         $totalNet = 0.0;
         $totalTax = 0.0;
+        $itemCount = 0;
 
         foreach ($cartItems as $cartItem) {
             if ($cartItem->getProduct() !== null) {
                 $totalGross += $cartItem->getSubtotal();
                 $totalNet += $cartItem->getSubtotalNet();
                 $totalTax += $cartItem->getTaxAmount();
+                $itemCount += $cartItem->getQuantity();
             }
         }
 
         $checkoutPid = (int)($this->settings['checkoutPid'] ?? 0);
         $continuePid = (int)($this->settings['continuePid'] ?? 0);
+        $displayMode = $this->settings['displayMode'] ?? 'normal';
+        $cartPid = (int)($this->settings['cartPid'] ?? 0);
 
         $this->view->assignMultiple([
             'cartItems' => $cartItems,
@@ -45,6 +49,9 @@ class CartController extends ActionController
             'totalTax' => $totalTax,
             'checkoutPid' => $checkoutPid,
             'continuePid' => $continuePid,
+            'displayMode' => $displayMode,
+            'cartPid' => $cartPid,
+            'itemCount' => $itemCount,
         ]);
 
         return $this->htmlResponse();
