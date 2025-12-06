@@ -1,0 +1,420 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tts-checkout">
+        <h1 class="tts-checkout__title">Kasse</h1>
+
+        <f:if condition="{cartItems}">
+            <f:then>
+                <f:form action="process" controller="Checkout" object="{order}" objectName="order" class="tts-checkout__form">
+                    <div class="tts-checkout__content">
+                        <div class="tts-checkout__main">
+                            <!-- Kundendaten -->
+                            <section class="tts-checkout-section">
+                                <h2 class="tts-checkout-section__title">
+                                    <span class="tts-checkout-section__number">1</span>
+                                    Kundendaten
+                                </h2>
+                                <div class="tts-form-grid">
+                                    <div class="tts-form-group">
+                                        <label for="customerFirstName" class="tts-form-label">Vorname *</label>
+                                        <f:form.textfield property="customerFirstName" id="customerFirstName" class="tts-form-input" required="required" />
+                                    </div>
+                                    <div class="tts-form-group">
+                                        <label for="customerLastName" class="tts-form-label">Nachname *</label>
+                                        <f:form.textfield property="customerLastName" id="customerLastName" class="tts-form-input" required="required" />
+                                    </div>
+                                    <div class="tts-form-group tts-form-group--full">
+                                        <label for="customerEmail" class="tts-form-label">E-Mail *</label>
+                                        <f:form.textfield property="customerEmail" id="customerEmail" type="email" class="tts-form-input" required="required" />
+                                    </div>
+                                    <div class="tts-form-group">
+                                        <label for="customerPhone" class="tts-form-label">Telefon</label>
+                                        <f:form.textfield property="customerPhone" id="customerPhone" type="tel" class="tts-form-input" />
+                                    </div>
+                                    <div class="tts-form-group">
+                                        <label for="customerCompany" class="tts-form-label">Firma</label>
+                                        <f:form.textfield property="customerCompany" id="customerCompany" class="tts-form-input" />
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Rechnungsadresse -->
+                            <section class="tts-checkout-section">
+                                <h2 class="tts-checkout-section__title">
+                                    <span class="tts-checkout-section__number">2</span>
+                                    Rechnungsadresse
+                                </h2>
+                                <div class="tts-form-grid">
+                                    <div class="tts-form-group tts-form-group--full">
+                                        <label for="billingStreet" class="tts-form-label">Straße und Hausnummer *</label>
+                                        <f:form.textfield property="billingStreet" id="billingStreet" class="tts-form-input" required="required" />
+                                    </div>
+                                    <div class="tts-form-group">
+                                        <label for="billingZip" class="tts-form-label">PLZ *</label>
+                                        <f:form.textfield property="billingZip" id="billingZip" class="tts-form-input" required="required" />
+                                    </div>
+                                    <div class="tts-form-group">
+                                        <label for="billingCity" class="tts-form-label">Ort *</label>
+                                        <f:form.textfield property="billingCity" id="billingCity" class="tts-form-input" required="required" />
+                                    </div>
+                                    <div class="tts-form-group tts-form-group--full">
+                                        <label for="billingCountry" class="tts-form-label">Land *</label>
+                                        <f:form.select property="billingCountry" id="billingCountry" options="{countries}" class="tts-form-select" required="required" />
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Versandart -->
+                            <section class="tts-checkout-section">
+                                <h2 class="tts-checkout-section__title">
+                                    <span class="tts-checkout-section__number">3</span>
+                                    Versandart *
+                                </h2>
+                                <div class="tts-shipping-methods d-flex flex-wrap gap-2" id="shippingMethodsGroup">
+                                    <f:for each="{shippingMethods}" as="shippingMethod">
+                                        <f:form.radio property="shippingMethod" id="shipping_{shippingMethod.uid}" value="{shippingMethod.uid}" class="btn-check tts-shipping-method-radio" required="required" data-price="{shippingMethod.price}" autocomplete="off" />
+                                        <label for="shipping_{shippingMethod.uid}" class="btn btn-outline-secondary tts-shipping-method__label">
+                                            <f:if condition="{shippingMethod.logo}">
+                                                <img src="{shippingMethod.logo}" alt="{shippingMethod.provider}" class="tts-shipping-method__logo" />
+                                            </f:if>
+                                            <div class="tts-shipping-method__info">
+                                                <span class="tts-shipping-method__name">{shippingMethod.title}</span>
+                                                <span class="tts-shipping-method__provider">{shippingMethod.provider}</span>
+                                                <f:if condition="{shippingMethod.description}">
+                                                    <span class="tts-shipping-method__description">{shippingMethod.description}</span>
+                                                </f:if>
+                                            </div>
+                                            <span class="tts-shipping-method__price">
+                                                +<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{shippingMethod.price}</f:format.currency>
+                                            </span>
+                                        </label>
+                                    </f:for>
+                                </div>
+                                <div class="tts-shipping-method-error" id="shippingMethodError" style="display: none;">
+                                    <p class="tts-form-error">Bitte wählen Sie eine Versandart aus</p>
+                                </div>
+                            </section>
+
+                            <!-- Lieferadresse -->
+                            <section class="tts-checkout-section">
+                                <h2 class="tts-checkout-section__title">
+                                    <span class="tts-checkout-section__number">4</span>
+                                    Lieferadresse
+                                </h2>
+
+                                <div class="tts-form-group tts-form-group--checkbox">
+                                    <f:form.checkbox property="shippingSameAsBilling" id="shippingSameAsBilling" value="1" checked="1" class="tts-form-checkbox" />
+                                    <label for="shippingSameAsBilling" class="tts-form-label tts-form-label--checkbox">
+                                        Lieferadresse entspricht der Rechnungsadresse
+                                    </label>
+                                </div>
+
+                                <div class="tts-shipping-address" id="shippingAddressFields">
+                                    <div class="tts-form-grid">
+                                        <div class="tts-form-group">
+                                            <label for="shippingFirstName" class="tts-form-label">Vorname</label>
+                                            <f:form.textfield property="shippingFirstName" id="shippingFirstName" class="tts-form-input" />
+                                        </div>
+                                        <div class="tts-form-group">
+                                            <label for="shippingLastName" class="tts-form-label">Nachname</label>
+                                            <f:form.textfield property="shippingLastName" id="shippingLastName" class="tts-form-input" />
+                                        </div>
+                                        <div class="tts-form-group tts-form-group--full">
+                                            <label for="shippingCompany" class="tts-form-label">Firma</label>
+                                            <f:form.textfield property="shippingCompany" id="shippingCompany" class="tts-form-input" />
+                                        </div>
+                                        <div class="tts-form-group tts-form-group--full">
+                                            <label for="shippingStreet" class="tts-form-label">Straße und Hausnummer</label>
+                                            <f:form.textfield property="shippingStreet" id="shippingStreet" class="tts-form-input" />
+                                        </div>
+                                        <div class="tts-form-group">
+                                            <label for="shippingZip" class="tts-form-label">PLZ</label>
+                                            <f:form.textfield property="shippingZip" id="shippingZip" class="tts-form-input" />
+                                        </div>
+                                        <div class="tts-form-group">
+                                            <label for="shippingCity" class="tts-form-label">Ort</label>
+                                            <f:form.textfield property="shippingCity" id="shippingCity" class="tts-form-input" />
+                                        </div>
+                                        <div class="tts-form-group tts-form-group--full">
+                                            <label for="shippingCountry" class="tts-form-label">Land</label>
+                                            <f:form.select property="shippingCountry" id="shippingCountry" options="{countries}" class="tts-form-select" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Zahlungsart -->
+                            <section class="tts-checkout-section">
+                                <h2 class="tts-checkout-section__title">
+                                    <span class="tts-checkout-section__number">5</span>
+                                    Zahlungsart *
+                                 </h2>
+                                 <div class="tts-payment-methods d-flex flex-wrap gap-2" id="paymentMethodsGroup">
+                                     <f:for each="{paymentMethods}" as="paymentMethod">
+                                         <div style="flex: 0 1 auto;">
+                                             <f:form.radio property="paymentMethod" id="payment_{paymentMethod.uid}" value="{paymentMethod.uid}" class="btn-check tts-payment-method-radio" required="required" autocomplete="off" />
+                                             <label for="payment_{paymentMethod.uid}" class="btn btn-outline-secondary tts-payment-method__label d-flex flex-column align-items-center">
+                                                 <f:if condition="{paymentMethod.icon}">
+                                                     <f:image image="{paymentMethod.icon}" alt="" class="tts-payment-method__icon" width="50" height="50" />
+                                                 </f:if>
+                                                 <span class="tts-payment-method__name mt-2">{paymentMethod.title}</span>
+                                             </label>
+                                         </div>
+                                     </f:for>
+                                 </div>
+                                 <div class="tts-payment-method-error" id="paymentMethodError" style="display: none;">
+                                     <p class="tts-form-error">Bitte wählen Sie eine Zahlungsart aus</p>
+                                 </div>
+                             </section>
+
+                            <!-- Bemerkungen -->
+                            <section class="tts-checkout-section">
+                                <h2 class="tts-checkout-section__title">
+                                    <span class="tts-checkout-section__number">6</span>
+                                    Bemerkungen
+                                </h2>
+                                <div class="tts-form-group">
+                                    <label for="comment" class="tts-form-label">Anmerkungen zur Bestellung</label>
+                                    <f:form.textarea property="comment" id="comment" rows="4" class="tts-form-textarea" placeholder="Besondere Wünsche oder Hinweise..." />
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Bestellübersicht Sidebar -->
+                        <aside class="tts-checkout__sidebar">
+                            <div class="tts-order-summary">
+                                <h2 class="tts-order-summary__title">Ihre Bestellung</h2>
+
+                                <div class="tts-order-summary__items">
+                                    <f:for each="{cartItems}" as="item">
+                                        <div class="tts-order-summary__item">
+                                            <div class="tts-order-summary__item-info">
+                                                <span class="tts-order-summary__item-quantity">{item.quantity}×</span>
+                                                <span class="tts-order-summary__item-title">{item.product.title}</span>
+                                            </div>
+                                            <span class="tts-order-summary__item-price">
+                                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
+                                            </span>
+                                        </div>
+                                    </f:for>
+                                </div>
+
+                                <div class="tts-order-summary__totals">
+                                    <div class="tts-order-summary__row">
+                                        <span>Netto:</span>
+                                        <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalNet}</f:format.currency></span>
+                                    </div>
+                                    <div class="tts-order-summary__row">
+                                        <span>MwSt.:</span>
+                                        <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalTax}</f:format.currency></span>
+                                    </div>
+                                    <div class="tts-order-summary__row tts-order-summary__row--shipping">
+                                        <span>Versandkosten:</span>
+                                        <span id="shippingCostSummary">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">0,00</f:format.currency>
+                                        </span>
+                                    </div>
+                                    <div class="tts-order-summary__row tts-order-summary__row--total">
+                                        <span>Gesamtsumme (Brutto):</span>
+                                        <span id="totalSummary" data-total="{total}"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency></span>
+                                    </div>
+                                </div>
+
+                                <p class="tts-order-summary__tax-info">Preise inkl. MwSt.</p>
+
+                                <f:link.page pageUid="{cartPid}" class="tts-order-summary__edit-link">
+                                    Warenkorb bearbeiten
+                                </f:link.page>
+                            </div>
+
+                            <!-- AGB & Bestellbutton -->
+                            <div class="tts-checkout__submit">
+                                <div class="tts-form-group tts-form-group--checkbox">
+                                    <f:form.checkbox property="acceptTerms" id="acceptTerms" value="1" class="tts-form-checkbox" required="required" />
+                                    <label for="acceptTerms" class="tts-form-label tts-form-label--checkbox">
+                                        Ich akzeptiere die <a href="{termsLink}" target="_blank">AGB</a> und habe die <a href="{privacyLink}" target="_blank">Datenschutzerklärung</a> gelesen. *
+                                    </label>
+                                </div>
+
+                                <div class="tts-form-group tts-form-group--checkbox">
+                                    <f:form.checkbox property="acceptCancellation" id="acceptCancellation" value="1" class="tts-form-checkbox" required="required" />
+                                    <label for="acceptCancellation" class="tts-form-label tts-form-label--checkbox">
+                                        Ich habe die <a href="{cancellationLink}" target="_blank">Widerrufsbelehrung</a> zur Kenntnis genommen. *
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="tts-btn tts-btn--primary tts-btn--large tts-btn--block">
+                                    Zahlungspflichtig bestellen
+                                </button>
+
+                                <p class="tts-checkout__secure-info">
+                                    🔒 Sichere Datenübertragung
+                                </p>
+                            </div>
+                        </aside>
+                    </div>
+                </f:form>
+            </f:then>
+            <f:else>
+                <div class="tts-empty-state">
+                    <p>Ihr Warenkorb ist leer. Bitte fügen Sie zunächst Produkte hinzu.</p>
+                    <f:link.page pageUid="{shopPid}" class="tts-btn tts-btn--primary">
+                        Zum Shop
+                    </f:link.page>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sameAsBillingCheckbox = document.getElementById('shippingSameAsBilling');
+            const shippingFields = document.getElementById('shippingAddressFields');
+            const form = document.querySelector('.tts-checkout__form');
+            const paymentMethodRadios = document.querySelectorAll('.tts-payment-method-radio');
+            const paymentMethodError = document.getElementById('paymentMethodError');
+            const shippingMethodRadios = document.querySelectorAll('.tts-shipping-method-radio');
+            const shippingMethodError = document.getElementById('shippingMethodError');
+            const shippingCostDisplay = document.getElementById('shippingCostSummary');
+            const totalDisplay = document.getElementById('totalSummary');
+            const baseTotal = parseFloat(totalDisplay.dataset.total.replace(',', '.'));
+
+            // Format currency
+            function formatCurrency(amount) {
+                return amount.toFixed(2).replace('.', ',') + ' €';
+            }
+
+            // Update shipping cost and total
+            function updateShippingCost() {
+                const selectedShipping = document.querySelector('.tts-shipping-method-radio:checked');
+                let shippingCost = 0;
+
+                if (selectedShipping) {
+                    shippingCost = parseFloat(selectedShipping.dataset.price) || 0;
+                }
+
+                if (shippingCostDisplay) {
+                    shippingCostDisplay.textContent = formatCurrency(shippingCost);
+                }
+
+                if (totalDisplay) {
+                    totalDisplay.textContent = formatCurrency(baseTotal + shippingCost);
+                }
+            }
+
+            // Bind shipping method change
+            shippingMethodRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateShippingCost();
+                    if (shippingMethodError) {
+                        shippingMethodError.style.display = 'none';
+                    }
+                });
+            });
+
+            // Toggle shipping address fields
+            function toggleShippingFields() {
+                const shippingInputs = shippingFields.querySelectorAll('input[type="text"], input[type="tel"], select');
+                
+                if (sameAsBillingCheckbox.checked) {
+                    shippingFields.style.display = 'none';
+                    // Remove required attribute when hidden
+                    shippingInputs.forEach(input => {
+                        input.removeAttribute('required');
+                    });
+                } else {
+                    shippingFields.style.display = 'block';
+                    // Add required attribute when visible
+                    shippingInputs.forEach(input => {
+                        // Only make text/tel/select inputs required, not company field
+                        if (input.id !== 'shippingCompany') {
+                            input.setAttribute('required', 'required');
+                        }
+                    });
+                }
+            }
+
+            if (sameAsBillingCheckbox && shippingFields) {
+                sameAsBillingCheckbox.addEventListener('change', toggleShippingFields);
+                toggleShippingFields();
+            }
+
+            // Validate payment method selection
+            function validatePaymentMethod() {
+                let anyChecked = false;
+                paymentMethodRadios.forEach(radio => {
+                    if (radio.checked) {
+                        anyChecked = true;
+                    }
+                });
+
+                if (!anyChecked) {
+                    paymentMethodError.style.display = 'block';
+                    return false;
+                } else {
+                    paymentMethodError.style.display = 'none';
+                    return true;
+                }
+            }
+
+            // Validate shipping method selection
+            function validateShippingMethod() {
+                let anyChecked = false;
+                shippingMethodRadios.forEach(radio => {
+                    if (radio.checked) {
+                        anyChecked = true;
+                    }
+                });
+
+                if (!anyChecked) {
+                    if (shippingMethodError) {
+                        shippingMethodError.style.display = 'block';
+                    }
+                    return false;
+                } else {
+                    if (shippingMethodError) {
+                        shippingMethodError.style.display = 'none';
+                    }
+                    return true;
+                }
+            }
+
+            // Add form submit validation
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const paymentValid = validatePaymentMethod();
+                    const shippingValid = validateShippingMethod();
+
+                    if (!shippingValid) {
+                        e.preventDefault();
+                        document.getElementById('shippingMethodsGroup').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        return;
+                    }
+
+                    if (!paymentValid) {
+                        e.preventDefault();
+                        document.getElementById('paymentMethodsGroup').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+
+            // Hide error message when a payment method is selected
+            paymentMethodRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        paymentMethodError.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initialize shipping cost display
+            updateShippingCost();
+        });
+    </script>
+</f:section>
+
+</html>

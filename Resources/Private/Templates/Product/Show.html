@@ -1,0 +1,228 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <article class="tts-product-detail">
+        <div class="tts-product-detail__main">
+            <div class="tts-product-detail__gallery">
+                <f:render partial="Product/Gallery" arguments="{images: product.images, alt: product.title}" />
+            </div>
+
+            <div class="tts-product-detail__info">
+                <h1 class="tts-product-detail__title">{product.title}</h1>
+
+                <f:if condition="{product.sku}">
+                    <p class="tts-product-detail__sku">Art.-Nr.: {product.sku}</p>
+                </f:if>
+
+                <div class="tts-product-detail__price-wrapper">
+                    <f:if condition="{product.specialPrice}">
+                        <f:then>
+                            <span class="tts-product-detail__price tts-product-detail__price--old">
+                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                            </span>
+                            <span class="tts-product-detail__price tts-product-detail__price--discount">
+                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                            </span>
+                        </f:then>
+                        <f:else>
+                            <span class="tts-product-detail__price">
+                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                            </span>
+                        </f:else>
+                    </f:if>
+                    <span class="tts-product-detail__tax-info">zzgl. MwSt. und Versandkosten</span>
+                </div>
+
+                <div class="tts-product-detail__stock">
+                    <f:if condition="{product.stock} > 0">
+                        <f:then>
+                            <span class="tts-stock tts-stock--available">
+                                ✓ Auf Lager ({product.stock} verfügbar)
+                            </span>
+                        </f:then>
+                        <f:else>
+                            <span class="tts-stock tts-stock--unavailable">
+                                ✗ Derzeit nicht verfügbar
+                            </span>
+                        </f:else>
+                    </f:if>
+                </div>
+
+                <f:if condition="{product.shortDescription}">
+                    <div class="tts-product-detail__short-desc">
+                        <f:format.html>{product.shortDescription}</f:format.html>
+                    </div>
+                </f:if>
+
+                <f:if condition="{product.stock} > 0">
+                    <f:form action="add" controller="Cart" pluginName="Cart" extensionName="TuningToolShop" pageUid="{cartPid}" class="tts-product-detail__add-form" arguments="{product: product.uid, quantity: 1}">
+                        <div class="tts-quantity-selector">
+                            <label for="quantity" class="tts-quantity-selector__label">Menge:</label>
+                            <div class="tts-quantity-input">
+                                <button type="button" class="tts-quantity-input__btn tts-quantity-input__btn--minus">-</button>
+                                <input type="number" name="tx_tuningtoolshop_cart[quantity]" value="1" id="quantity" min="1" max="{product.stock}" class="tts-quantity-input__field" />
+                                <button type="button" class="tts-quantity-input__btn tts-quantity-input__btn--plus">+</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="tts-btn tts-btn--primary tts-btn--large">
+                            In den Warenkorb
+                        </button>
+                    </f:form>
+                </f:if>
+
+                <f:if condition="{product.categories}">
+                    <div class="tts-product-detail__categories">
+                        <strong>Kategorien:</strong>
+                        <f:for each="{product.categories}" as="category" iteration="iter">
+                            <f:link.action action="category" controller="Product" arguments="{category: category}">{category.title}</f:link.action><f:if condition="!{iter.isLast}">, </f:if>
+                        </f:for>
+                    </div>
+                </f:if>
+            </div>
+        </div>
+
+        <div class="tts-product-detail__tabs">
+            <div class="tts-tabs">
+                <div class="tts-tabs__nav">
+                    <button type="button" class="tts-tabs__btn tts-tabs__btn--active" data-tab="description">Beschreibung</button>
+                    <f:if condition="{product.videos}">
+                        <button type="button" class="tts-tabs__btn" data-tab="videos">Videos</button>
+                    </f:if>
+                    <f:if condition="{product.documents}">
+                        <button type="button" class="tts-tabs__btn" data-tab="documents">Downloads</button>
+                    </f:if>
+                    <f:if condition="{product.links}">
+                        <button type="button" class="tts-tabs__btn" data-tab="links">Links</button>
+                    </f:if>
+                </div>
+
+                <div class="tts-tabs__content">
+                    <div class="tts-tabs__panel tts-tabs__panel--active" data-panel="description">
+                        <f:if condition="{product.description}">
+                            <f:then>
+                                <div class="tts-product-description">
+                                    <f:format.html>{product.description}</f:format.html>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <p>Keine Beschreibung verfügbar.</p>
+                            </f:else>
+                        </f:if>
+                    </div>
+
+                    <f:if condition="{product.videos}">
+                        <div class="tts-tabs__panel" data-panel="videos">
+                            <div class="tts-video-list">
+                                <f:for each="{product.videos}" as="video">
+                                    <div class="tts-video-item">
+                                        <h4 class="tts-video-item__title">{video.title}</h4>
+                                        <f:if condition="{video.videoUrl}">
+                                            <div class="tts-video-item__embed">
+                                                <iframe src="{video.videoUrl}" allowfullscreen class="tts-video-item__iframe"></iframe>
+                                            </div>
+                                        </f:if>
+                                        <f:if condition="{video.description}">
+                                            <p class="tts-video-item__description">{video.description}</p>
+                                        </f:if>
+                                    </div>
+                                </f:for>
+                            </div>
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{product.documents}">
+                        <div class="tts-tabs__panel" data-panel="documents">
+                            <ul class="tts-document-list">
+                                <f:for each="{product.documents}" as="document">
+                                    <li class="tts-document-item">
+                                        <a href="{f:uri.resource(path: 'fileadmin', extensionName: '', absolute: 1)}{document.originalResource.identifier}" target="_blank" class="tts-document-item__link">
+                                            <span class="tts-document-item__icon">📄</span>
+                                            <span class="tts-document-item__name">{document.originalResource.name}</span>
+                                            <span class="tts-document-item__size">({document.originalResource.size -> f:format.bytes()})</span>
+                                        </a>
+                                    </li>
+                                </f:for>
+                            </ul>
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{product.links}">
+                        <div class="tts-tabs__panel" data-panel="links">
+                            <ul class="tts-link-list">
+                                <f:for each="{product.links}" as="link">
+                                    <li class="tts-link-item">
+                                        <a href="{link.url}" target="_blank" rel="noopener" class="tts-link-item__link">
+                                            <span class="tts-link-item__icon">🔗</span>
+                                            <span class="tts-link-item__title">{link.title}</span>
+                                        </a>
+                                        <f:if condition="{link.description}">
+                                            <p class="tts-link-item__description">{link.description}</p>
+                                        </f:if>
+                                    </li>
+                                </f:for>
+                            </ul>
+                        </div>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+
+        <f:if condition="{relatedProducts}">
+            <div class="tts-product-detail__related">
+                <h2>Ähnliche Produkte</h2>
+                <div class="tts-product-grid tts-product-grid--small">
+                    <f:for each="{relatedProducts}" as="relatedProduct">
+                        <f:render partial="Product/Card" arguments="{product: relatedProduct}" />
+                    </f:for>
+                </div>
+            </div>
+        </f:if>
+    </article>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tabs functionality
+            const tabBtns = document.querySelectorAll('.tts-tabs__btn');
+            const tabPanels = document.querySelectorAll('.tts-tabs__panel');
+
+            tabBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+
+                    tabBtns.forEach(function(b) { b.classList.remove('tts-tabs__btn--active'); });
+                    tabPanels.forEach(function(p) { p.classList.remove('tts-tabs__panel--active'); });
+
+                    this.classList.add('tts-tabs__btn--active');
+                    document.querySelector('[data-panel="' + tabId + '"]').classList.add('tts-tabs__panel--active');
+                });
+            });
+
+            // Quantity input
+            const quantityInputs = document.querySelectorAll('.tts-quantity-input');
+            quantityInputs.forEach(function(wrapper) {
+                const input = wrapper.querySelector('.tts-quantity-input__field');
+                const minusBtn = wrapper.querySelector('.tts-quantity-input__btn--minus');
+                const plusBtn = wrapper.querySelector('.tts-quantity-input__btn--plus');
+
+                minusBtn.addEventListener('click', function() {
+                    const min = parseInt(input.min) || 1;
+                    if (parseInt(input.value) > min) {
+                        input.value = parseInt(input.value) - 1;
+                    }
+                });
+
+                plusBtn.addEventListener('click', function() {
+                    const max = parseInt(input.max) || 999;
+                    if (parseInt(input.value) < max) {
+                        input.value = parseInt(input.value) + 1;
+                    }
+                });
+            });
+        });
+    </script>
+</f:section>
+
+</html>

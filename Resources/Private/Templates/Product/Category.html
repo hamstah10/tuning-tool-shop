@@ -1,0 +1,68 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tts-category">
+        <header class="tts-category__header">
+            <h1 class="tts-category__title">{category.title}</h1>
+            <f:if condition="{category.description}">
+                <div class="tts-category__description">
+                    <f:format.html>{category.description}</f:format.html>
+                </div>
+            </f:if>
+        </header>
+
+        <f:if condition="{subcategories}">
+            <div class="tts-category__subcategories">
+                <h2>Unterkategorien</h2>
+                <div class="tts-subcategory-grid">
+                    <f:for each="{subcategories}" as="subcategory">
+                        <f:link.action action="category" controller="Product" arguments="{category: subcategory}" class="tts-subcategory-card">
+                            <f:if condition="{subcategory.image}">
+                                <f:image image="{subcategory.image}" alt="{subcategory.title}" class="tts-subcategory-card__image" width="200" height="150" />
+                            </f:if>
+                            <span class="tts-subcategory-card__title">{subcategory.title}</span>
+                            <span class="tts-subcategory-card__count">({subcategory.productCount} Produkte)</span>
+                        </f:link.action>
+                    </f:for>
+                </div>
+            </div>
+        </f:if>
+
+        <div class="tts-category__toolbar">
+            <f:form action="category" controller="Product" arguments="{category: category}" method="get" class="tts-filter-form">
+                <div class="tts-filter-form__group">
+                    <label for="sortBy" class="tts-filter-form__label">Sortierung:</label>
+                    <f:form.select name="sortBy" id="sortBy" options="{sortOptions}" value="{selectedSort}" class="tts-filter-form__select" />
+                </div>
+                <button type="submit" class="tts-btn tts-btn--secondary">Anwenden</button>
+            </f:form>
+
+            <p class="tts-category__result-count">{totalProducts} Produkte gefunden</p>
+        </div>
+
+        <f:if condition="{products}">
+            <f:then>
+                <div class="tts-product-grid">
+                    <f:for each="{products}" as="product">
+                        <f:render partial="Product/Card" arguments="{product: product}" />
+                    </f:for>
+                </div>
+
+                <f:render partial="Pagination" arguments="{pagination: pagination, action: 'category', arguments: {category: category.uid, sortBy: selectedSort}}" />
+            </f:then>
+            <f:else>
+                <div class="tts-empty-state">
+                    <p>Keine Produkte in dieser Kategorie gefunden.</p>
+                    <f:link.action action="list" controller="Product" class="tts-btn tts-btn--primary">
+                        Alle Produkte anzeigen
+                    </f:link.action>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

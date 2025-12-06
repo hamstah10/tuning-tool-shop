@@ -1,0 +1,17 @@
+# cat=basic; type=string; label=Stripe API Key (Secret):
+stripe.apiKey=
+
+# cat=basic; type=string; label=Stripe Publishable Key:
+stripe.publishableKey=
+
+# cat=basic; type=string; label=Stripe Webhook Secret:
+stripe.webhookSecret=
+
+# cat=basic; type=string; label=PayPal Sandbox Mode:
+paypal.sandbox=1
+
+# cat=basic; type=string; label=PayPal Business Account:
+paypal.business=
+
+# cat=basic; type=string; label=PayPal Currency:
+paypal.currency=EUR

@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{pagination.numberOfPages} > 1">
+    <nav class="tts-pagination" aria-label="Seitennavigation">
+        <ul class="tts-pagination__list">
+            <f:if condition="{pagination.previousPage}">
+                <li class="tts-pagination__item">
+                    <f:link.action action="{action}" arguments="{currentPage: pagination.previousPage}" class="tts-pagination__link tts-pagination__link--prev">
+                        ‹ Zurück
+                    </f:link.action>
+                </li>
+            </f:if>
+
+            <f:for each="{pagination.pages}" as="page">
+                <li class="tts-pagination__item">
+                    <f:if condition="{page.isCurrent}">
+                        <f:then>
+                            <span class="tts-pagination__link tts-pagination__link--current">{page.number}</span>
+                        </f:then>
+                        <f:else>
+                            <f:link.action action="{action}" arguments="{currentPage: page.number}" class="tts-pagination__link">
+                                {page.number}
+                            </f:link.action>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+
+            <f:if condition="{pagination.nextPage}">
+                <li class="tts-pagination__item">
+                    <f:link.action action="{action}" arguments="{currentPage: pagination.nextPage}" class="tts-pagination__link tts-pagination__link--next">
+                        Weiter ›
+                    </f:link.action>
+                </li>
+            </f:if>
+        </ul>
+    </nav>
+</f:if>
+
+</html>

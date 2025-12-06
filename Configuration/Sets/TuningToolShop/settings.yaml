@@ -1,0 +1,16 @@
+settings:
+  tuningToolShop:
+    shop:
+      currency: EUR
+      currencySymbol: €
+      taxRate: 19
+      taxIncluded: true
+      itemsPerPage: 12
+      showOutOfStock: true
+    checkout:
+      requireLogin: false
+      termsRequired: true
+      minOrderValue: 0
+    email:
+      senderName: Tuning Tool Shop
+      senderEmail: shop@example.com

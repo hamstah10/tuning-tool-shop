@@ -1,0 +1,42 @@
+plugin.tx_tuningtoolshop {
+    view {
+        templateRootPaths.0 = EXT:tuning_tool_shop/Resources/Private/Templates/
+        partialRootPaths.0 = EXT:tuning_tool_shop/Resources/Private/Partials/
+        layoutRootPaths.0 = EXT:tuning_tool_shop/Resources/Private/Layouts/
+    }
+    persistence {
+        storagePid = {$plugin.tx_tuningtoolshop.persistence.storagePid}
+    }
+    settings {
+        shop {
+            currency = {$settings.tuningToolShop.shop.currency}
+            currencySymbol = {$settings.tuningToolShop.shop.currencySymbol}
+            taxRate = {$settings.tuningToolShop.shop.taxRate}
+            taxIncluded = {$settings.tuningToolShop.shop.taxIncluded}
+            itemsPerPage = {$settings.tuningToolShop.shop.itemsPerPage}
+            showOutOfStock = {$settings.tuningToolShop.shop.showOutOfStock}
+        }
+        checkout {
+            requireLogin = {$settings.tuningToolShop.checkout.requireLogin}
+            termsRequired = {$settings.tuningToolShop.checkout.termsRequired}
+            minOrderValue = {$settings.tuningToolShop.checkout.minOrderValue}
+        }
+        email {
+            senderName = {$settings.tuningToolShop.email.senderName}
+            senderEmail = {$settings.tuningToolShop.email.senderEmail}
+        }
+        payment {
+            successPid = {$settings.tuningToolShop.payment.successPid}
+            cancelPid = {$settings.tuningToolShop.payment.cancelPid}
+            notifyPid = {$settings.tuningToolShop.payment.notifyPid}
+        }
+        paypal {
+            sandbox = {$settings.tuningToolShop.paypal.sandbox}
+            business = {$settings.tuningToolShop.paypal.business}
+            currency = {$settings.tuningToolShop.paypal.currency}
+        }
+    }
+}
+
+page.includeCSS.tuningToolShop = EXT:tuning_tool_shop/Resources/Public/Css/shop.css
+page.includeJSFooter.tuningToolShop = EXT:tuning_tool_shop/Resources/Public/JavaScript/shop.js

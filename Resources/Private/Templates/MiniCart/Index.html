@@ -1,0 +1,63 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="main">
+    <div class="tts-mini-cart">
+        <div class="tts-mini-cart__header">
+            <f:link.page pageUid="{cartPid}" class="tts-mini-cart__link">
+                <span class="tts-mini-cart__icon">🛒</span>
+                <span class="tts-mini-cart__label">Warenkorb</span>
+                <f:if condition="{itemCount}">
+                    <span class="tts-mini-cart__badge">{itemCount}</span>
+                </f:if>
+            </f:link.page>
+        </div>
+
+        <f:if condition="{cartItems}">
+            <f:then>
+                <div class="tts-mini-cart__content">
+                    <div class="tts-mini-cart__items">
+                        <f:for each="{cartItems}" as="item">
+                            <f:if condition="{item.product}">
+                                <div class="tts-mini-cart__item">
+                                    <div class="tts-mini-cart__item-info">
+                                        <f:link.page pageUid="{cartPid}" class="tts-mini-cart__item-title">
+                                            {item.product.title}
+                                        </f:link.page>
+                                        <div class="tts-mini-cart__item-details">
+                                            {item.quantity}x 
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.price}</f:format.currency>
+                                        </div>
+                                    </div>
+                                    <div class="tts-mini-cart__item-price">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotal}</f:format.currency>
+                                    </div>
+                                </div>
+                            </f:if>
+                        </f:for>
+                    </div>
+
+                    <div class="tts-mini-cart__footer">
+                        <div class="tts-mini-cart__total">
+                            <span>Gesamt:</span>
+                            <span>
+                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency>
+                            </span>
+                        </div>
+
+                        <f:link.page pageUid="{cartPid}" class="tts-btn tts-btn--primary tts-btn--small tts-btn--block">
+                            Zum Warenkorb
+                        </f:link.page>
+                    </div>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="tts-mini-cart__empty">
+                    <p>Warenkorb leer</p>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{images}">
+    <div class="tts-gallery">
+        <div class="tts-gallery__main">
+            <f:if condition="{images.0}">
+                <f:image image="{images.0}" alt="{alt}" class="tts-gallery__main-image" id="tts-gallery-main" width="600" height="600" />
+            </f:if>
+        </div>
+
+        <f:if condition="{images -> f:count()} > 1">
+            <div class="tts-gallery__thumbnails">
+                <f:for each="{images}" as="image" iteration="iter">
+                    <button type="button"
+                            class="tts-gallery__thumb-btn{f:if(condition: iter.isFirst, then: ' tts-gallery__thumb-btn--active')}"
+                            data-image-index="{iter.index}"
+                            data-image-src="{f:uri.image(image: image, width: 600, height: 600)}">
+                        <f:image image="{image}" alt="{alt} - Bild {iter.cycle}" class="tts-gallery__thumb" width="80" height="80" />
+                    </button>
+                </f:for>
+            </div>
+        </f:if>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbButtons = document.querySelectorAll('.tts-gallery__thumb-btn');
+            const mainImage = document.getElementById('tts-gallery-main');
+
+            thumbButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    thumbButtons.forEach(function(b) { b.classList.remove('tts-gallery__thumb-btn--active'); });
+                    this.classList.add('tts-gallery__thumb-btn--active');
+                    mainImage.src = this.dataset.imageSrc;
+                });
+            });
+        });
+    </script>
+</f:if>
+
+</html>

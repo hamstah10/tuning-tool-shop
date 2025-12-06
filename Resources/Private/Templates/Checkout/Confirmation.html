@@ -1,0 +1,171 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tts-confirmation">
+        <div class="tts-confirmation__header">
+            <div class="tts-confirmation__icon">✓</div>
+            <h1 class="tts-confirmation__title">Vielen Dank für Ihre Bestellung!</h1>
+            <p class="tts-confirmation__subtitle">
+                Ihre Bestellung wurde erfolgreich aufgegeben.
+            </p>
+        </div>
+
+        <div class="tts-confirmation__content">
+            <div class="tts-confirmation__order-info">
+                <div class="tts-order-info-box">
+                    <h2>Bestellinformationen</h2>
+                    <dl class="tts-order-info-list">
+                        <dt>Bestellnummer:</dt>
+                        <dd><strong>{order.orderNumber}</strong></dd>
+
+                        <dt>Bestelldatum:</dt>
+                         <dd><f:format.date format="d.m.Y H:i">{order.createdAt}</f:format.date></dd>
+
+                        <dt>Status:</dt>
+                        <dd>{order.statusLabel}</dd>
+
+                        <dt>Zahlungsart:</dt>
+                        <dd>{order.paymentMethod.title}</dd>
+
+                        <dt>Versandart:</dt>
+                        <dd>
+                            <f:if condition="{order.shippingMethod}">
+                                <f:then>{order.shippingMethod.title} ({order.shippingMethod.provider})</f:then>
+                                <f:else>-</f:else>
+                            </f:if>
+                        </dd>
+                    </dl>
+                </div>
+
+                <p class="tts-confirmation__email-notice">
+                    Eine Bestellbestätigung wurde an <strong>{order.customerEmail}</strong> gesendet.
+                </p>
+            </div>
+
+            <div class="tts-confirmation__details">
+                <div class="tts-confirmation__addresses">
+                    <div class="tts-address-box">
+                        <h3>Rechnungsadresse</h3>
+                        <address>
+                            <f:if condition="{order.customerCompany}">
+                                {order.customerCompany}<br />
+                            </f:if>
+                            {order.customerFirstName} {order.customerLastName}<br />
+                            {order.billingStreet}<br />
+                            {order.billingZip} {order.billingCity}<br />
+                            {order.billingCountryName}
+                        </address>
+                    </div>
+
+                    <div class="tts-address-box">
+                        <h3>Lieferadresse</h3>
+                        <address>
+                            <f:if condition="{order.shippingSameAsBilling}">
+                                <f:then>
+                                    <em>Wie Rechnungsadresse</em>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{order.shippingCompany}">
+                                        {order.shippingCompany}<br />
+                                    </f:if>
+                                    {order.shippingFirstName} {order.shippingLastName}<br />
+                                    {order.shippingStreet}<br />
+                                    {order.shippingZip} {order.shippingCity}<br />
+                                    {order.shippingCountryName}
+                                </f:else>
+                            </f:if>
+                        </address>
+                    </div>
+                </div>
+
+                <div class="tts-confirmation__items">
+                    <h3>Bestellte Artikel</h3>
+                    <table class="tts-order-items-table">
+                        <thead>
+                            <tr>
+                                <th>Produkt</th>
+                                <th>Menge</th>
+                                <th>Preis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{order.items}" as="item">
+                                <tr>
+                                    <td>
+                                        <strong>{item.productName}</strong>
+                                        <f:if condition="{item.productId}">
+                                            <br /><small>Produkt-ID: {item.productId}</small>
+                                        </f:if>
+                                    </td>
+                                    <td>{item.quantity}</td>
+                                    <td>
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotal}</f:format.currency>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">Zwischensumme:</td>
+                                <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.subtotal}</f:format.currency></td>
+                            </tr>
+                            <f:if condition="{order.discount}">
+                                <tr class="tts-order-items-table__discount">
+                                    <td colspan="2">Rabatt:</td>
+                                    <td>-<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.discount}</f:format.currency></td>
+                                </tr>
+                            </f:if>
+                            <tr>
+                                <td colspan="2">Versandkosten:</td>
+                                <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency></td>
+                            </tr>
+                            <tr class="tts-order-items-table__total">
+                                <td colspan="2"><strong>Gesamtsumme:</strong></td>
+                                <td><strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <p class="tts-confirmation__tax-info">inkl. MwSt.</p>
+                </div>
+
+                <f:if condition="{order.comment}">
+                    <div class="tts-confirmation__comment">
+                        <h3>Ihre Anmerkungen</h3>
+                        <p>{order.comment}</p>
+                    </div>
+                </f:if>
+            </div>
+
+            <f:if condition="{paymentInstructions}">
+                <div class="tts-confirmation__payment-instructions">
+                    <h3>Zahlungshinweise</h3>
+                    <f:format.html>{paymentInstructions}</f:format.html>
+                </div>
+            </f:if>
+
+            <div class="tts-confirmation__next-steps">
+                <h3>Wie geht es weiter?</h3>
+                <ol class="tts-next-steps-list">
+                    <li>Sie erhalten in Kürze eine Bestellbestätigung per E-Mail.</li>
+                    <li>Wir bereiten Ihre Bestellung vor.</li>
+                    <li>Sie werden über den Versand Ihrer Bestellung informiert.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="tts-confirmation__actions">
+            <f:link.page pageUid="{shopPid}" class="tts-btn tts-btn--primary">
+                Weiter einkaufen
+            </f:link.page>
+
+            <button type="button" class="tts-btn tts-btn--secondary" onclick="window.print();">
+                Bestellung drucken
+            </button>
+        </div>
+    </div>
+</f:section>
+
+</html>

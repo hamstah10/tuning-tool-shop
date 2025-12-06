@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<tr class="tts-cart-item">
+    <td class="tts-cart-item__image-cell">
+        <f:if condition="{item.product.images.0}">
+            <f:then>
+                <f:image image="{item.product.images.0}" alt="{item.product.title}" class="tts-cart-item__image" width="80" height="80" />
+            </f:then>
+            <f:else>
+                <div class="tts-cart-item__no-image">-</div>
+            </f:else>
+        </f:if>
+    </td>
+
+    <td class="tts-cart-item__info-cell">
+        <span class="tts-cart-item__title">{item.product.title}</span>
+        <f:if condition="{item.product.sku}">
+            <span class="tts-cart-item__sku">Art.-Nr.: {item.product.sku}</span>
+        </f:if>
+    </td>
+
+    <td class="tts-cart-item__price-cell">
+        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency>
+        <small class="tts-cart-item__tax-rate">Netto</small>
+    </td>
+
+    <td class="tts-cart-item__quantity-cell">
+        <f:form action="update" controller="Cart" class="tts-cart-item__quantity-form">
+            <f:form.hidden name="cartItem" value="{item.uid}" />
+            <div class="tts-quantity-input">
+                <f:form.textfield name="quantity" value="{item.quantity}" class="tts-quantity-input__field" additionalAttributes="{min: '1', type: 'number'}" />
+            </div>
+            <button type="submit" class="tts-btn tts-btn--small tts-btn--secondary">Aktualisieren</button>
+        </f:form>
+    </td>
+
+    <td class="tts-cart-item__total-cell">
+        <strong>
+            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
+        </strong>
+    </td>
+
+    <td class="tts-cart-item__actions-cell">
+        <f:form action="remove" controller="Cart" class="tts-cart-item__remove-form">
+            <f:form.hidden name="cartItem" value="{item.uid}" />
+            <button type="submit" class="tts-btn tts-btn--danger tts-btn--small" title="Entfernen">
+                ✕
+            </button>
+        </f:form>
+    </td>
+</tr>
+
+</html>

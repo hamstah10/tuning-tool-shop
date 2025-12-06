@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tts-payment-redirect">
+        <div class="tts-payment-redirect__content">
+            <h1 class="tts-payment-redirect__title">Weiterleitung zu {paymentMethod.title}</h1>
+            <p class="tts-payment-redirect__message">
+                Sie werden jetzt zu {paymentMethod.title} weitergeleitet, um Ihre Zahlung abzuschließen.
+            </p>
+            <p class="tts-payment-redirect__info">
+                <strong>Bestellnummer:</strong> {order.orderNumber}<br>
+                <strong>Betrag:</strong> <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency>
+            </p>
+
+            <form id="paymentForm" action="{formAction}" method="post" class="tts-payment-redirect__form">
+                <f:for each="{formFields}" as="value" key="name">
+                    <input type="hidden" name="{name}" value="{value}" />
+                </f:for>
+
+                <noscript>
+                    <button type="submit" class="tts-btn tts-btn--primary tts-btn--large">
+                        Jetzt zu {paymentMethod.title} wechseln
+                    </button>
+                </noscript>
+            </form>
+
+            <div class="tts-payment-redirect__loader">
+                <div class="tts-spinner"></div>
+                <p>Bitte warten...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('paymentForm').submit();
+        });
+    </script>
+</f:section>
+
+</html>

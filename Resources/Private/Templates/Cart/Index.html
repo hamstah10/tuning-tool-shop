@@ -1,0 +1,92 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tts-cart">
+        <h1 class="tts-cart__title">Warenkorb</h1>
+
+        <f:if condition="{cartItems}">
+            <f:then>
+                <div class="tts-cart__content">
+                    <div class="tts-cart__items">
+                        <table class="tts-cart-table">
+                            <thead>
+                                <tr>
+                                    <th class="tts-cart-table__th">Bild</th>
+                                    <th class="tts-cart-table__th">Produkt</th>
+                                    <th class="tts-cart-table__th">Einzelpreis</th>
+                                    <th class="tts-cart-table__th">Menge</th>
+                                    <th class="tts-cart-table__th">Gesamt</th>
+                                    <th class="tts-cart-table__th"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{cartItems}" as="item">
+                                    <f:render partial="Cart/Item" arguments="{item: item}" />
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <aside class="tts-cart__summary">
+                        <div class="tts-cart-summary">
+                            <h2 class="tts-cart-summary__title">Zusammenfassung</h2>
+
+                            <div class="tts-cart-summary__row">
+                                <span>Netto:</span>
+                                <span>
+                                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalNet}</f:format.currency>
+                                </span>
+                            </div>
+
+                            <div class="tts-cart-summary__row">
+                                <span>MwSt.:</span>
+                                <span>
+                                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalTax}</f:format.currency>
+                                </span>
+                            </div>
+
+                            <div class="tts-cart-summary__row tts-cart-summary__row--shipping">
+                                <span>Versandkosten:</span>
+                                <span>wird im Checkout berechnet</span>
+                            </div>
+
+                            <div class="tts-cart-summary__row tts-cart-summary__row--total">
+                                <span>Zwischensumme (Brutto):</span>
+                                <span>
+                                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency>
+                                </span>
+                            </div>
+
+                            <p class="tts-cart-summary__tax-info">Alle Preise zzgl. Versandkosten</p>
+
+                            <div class="tts-cart-summary__actions">
+                                <f:link.page pageUid="{checkoutPid}" class="tts-btn tts-btn--primary tts-btn--large tts-btn--block">
+                                    Zur Kasse
+                                </f:link.page>
+
+                                <f:link.page pageUid="{continuePid}" class="tts-btn tts-btn--secondary tts-btn--block">
+                                    Weiter einkaufen
+                                </f:link.page>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="tts-empty-state">
+                    <div class="tts-empty-state__icon">🛒</div>
+                    <h2>Ihr Warenkorb ist leer</h2>
+                    <p>Fügen Sie Produkte hinzu, um mit dem Einkauf zu beginnen.</p>
+                    <f:link.page pageUid="{continuePid}" class="tts-btn tts-btn--primary tts-btn--large">
+                        Jetzt einkaufen
+                    </f:link.page>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

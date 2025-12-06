@@ -1,0 +1,74 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<article class="tts-product-card">
+    <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="tts-product-card__link">
+        <div class="tts-product-card__image-wrapper">
+            <f:if condition="{product.images.0}">
+                <f:then>
+                    <f:image image="{product.images.0}" alt="{product.title}" class="tts-product-card__image" width="300" height="300" />
+                </f:then>
+                <f:else>
+                    <div class="tts-product-card__no-image">
+                        <span>Kein Bild</span>
+                    </div>
+                </f:else>
+            </f:if>
+            <f:if condition="{product.isNew}">
+                <span class="tts-product-card__badge tts-product-card__badge--new">NEU</span>
+            </f:if>
+            <f:if condition="{product.discountPrice}">
+                <span class="tts-product-card__badge tts-product-card__badge--sale">SALE</span>
+            </f:if>
+        </div>
+
+        <div class="tts-product-card__content">
+            <h3 class="tts-product-card__title">{product.title}</h3>
+
+            <f:if condition="{product.shortDescription}">
+                <p class="tts-product-card__description">{product.shortDescription}</p>
+            </f:if>
+
+            <div class="tts-product-card__price-wrapper">
+                <f:if condition="{product.specialPrice}">
+                    <f:then>
+                        <span class="tts-product-card__price tts-product-card__price--old">
+                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                        </span>
+                        <span class="tts-product-card__price tts-product-card__price--discount">
+                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                        </span>
+                    </f:then>
+                    <f:else>
+                        <span class="tts-product-card__price">
+                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                        </span>
+                    </f:else>
+                </f:if>
+                <span class="tts-product-card__tax-info">zzgl. MwSt.</span>
+            </div>
+
+            <f:if condition="{product.stock} > 0">
+                <f:then>
+                    <span class="tts-product-card__stock tts-product-card__stock--available">Auf Lager</span>
+                </f:then>
+                <f:else>
+                    <span class="tts-product-card__stock tts-product-card__stock--unavailable">Nicht verfügbar</span>
+                </f:else>
+            </f:if>
+        </div>
+    </f:link.action>
+
+    <div class="d-grid gap-2 p-3">
+        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-primary tts-product-card__details-btn">
+            Details
+        </f:link.action>
+        <f:form action="add" controller="Cart" pluginName="Cart" extensionName="TuningToolShop" pageUid="{cartPid}" class="" arguments="{product: product.uid, quantity: 1}">
+            <button type="submit" class="btn btn-secondary tts-product-card__add-btn">
+                In den Warenkorb
+            </button>
+        </f:form>
+    </div>
+</article>
+
+</html>

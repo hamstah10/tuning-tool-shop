@@ -1,0 +1,128 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="main">
+    <div class="tts-stripe-checkout">
+        <div class="tts-stripe-checkout__container">
+            <h1 class="tts-stripe-checkout__title">Zahlung mit Stripe</h1>
+
+            <div class="tts-stripe-checkout__content">
+                <div class="tts-stripe-checkout__form">
+                    <div id="card-element" class="tts-stripe-element"></div>
+                    <div id="card-errors" class="tts-stripe-errors" role="alert"></div>
+
+                    <button id="card-button" type="button" class="tts-btn tts-btn--primary tts-btn--large tts-btn--block">
+                        Bezahlen: <span id="amount"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></span>
+                    </button>
+
+                    <p class="tts-stripe-checkout__info">
+                        Sichere Zahlung mit Stripe. Ihre Kartendaten werden verschlüsselt übertragen.
+                    </p>
+                </div>
+
+                <aside class="tts-stripe-checkout__summary">
+                    <h2>Bestellübersicht</h2>
+                    <table class="tts-stripe-checkout__items">
+                        <tbody>
+                            <f:for each="{order.items}" as="item">
+                                <tr>
+                                    <td class="tts-stripe-checkout__item-name">{item.productName}</td>
+                                    <td class="tts-stripe-checkout__item-qty">{item.quantity}x</td>
+                                    <td class="tts-stripe-checkout__item-price">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotal}</f:format.currency>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                    </table>
+
+                    <div class="tts-stripe-checkout__totals">
+                        <div class="tts-stripe-checkout__total-row">
+                            <span>Netto:</span>
+                            <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalNet}</f:format.currency></span>
+                        </div>
+                        <div class="tts-stripe-checkout__total-row">
+                            <span>MwSt.:</span>
+                            <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalTax}</f:format.currency></span>
+                        </div>
+                        <div class="tts-stripe-checkout__total-row tts-stripe-checkout__total-row--grand">
+                            <span>Gesamtsumme:</span>
+                            <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        (function() {
+            const stripe = Stripe('{stripePublishableKey}');
+            const elements = stripe.elements();
+            const cardElement = elements.create('card');
+            cardElement.mount('#card-element');
+
+            const cardButton = document.querySelector('#card-button');
+            const cardErrors = document.querySelector('#card-errors');
+
+            cardElement.on('change', function(event) {
+                if (event.error) {
+                    cardErrors.textContent = event.error.message;
+                } else {
+                    cardErrors.textContent = '';
+                }
+            });
+
+            cardButton.addEventListener('click', async function(e) {
+                e.preventDefault();
+                cardButton.disabled = true;
+                cardButton.textContent = 'Wird verarbeitet...';
+
+                try {
+                    // Create payment intent on server
+                    const response = await fetch('{createPaymentIntentUrl}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            order: {orderId}
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (!data.clientSecret) {
+                        throw new Error(data.error || 'Failed to create payment intent');
+                    }
+
+                    // Confirm payment with Stripe
+                    const result = await stripe.confirmCardPayment(data.clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: {
+                                name: '{order.customerName}',
+                                email: '{order.customerEmail}'
+                            }
+                        }
+                    });
+
+                    if (result.error) {
+                        cardErrors.textContent = result.error.message;
+                        cardButton.disabled = false;
+                        cardButton.textContent = 'Bezahlen';
+                    } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
+                        // Redirect to success page
+                        window.location.href = '{successUrl}?payment_intent=' + result.paymentIntent.id;
+                    }
+                } catch (error) {
+                    cardErrors.textContent = error.message;
+                    cardButton.disabled = false;
+                    cardButton.textContent = 'Bezahlen';
+                }
+            });
+        })();
+    </script>
+</f:section>
+
+</html>

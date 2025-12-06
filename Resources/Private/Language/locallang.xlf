@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="de" datatype="plaintext" original="messages" date="2024-01-01T00:00:00Z">
+        <header/>
+        <body>
+            <!-- Allgemein -->
+            <trans-unit id="general.currency" resname="general.currency">
+                <source>€</source>
+            </trans-unit>
+            <trans-unit id="general.incl_tax" resname="general.incl_tax">
+                <source>inkl. MwSt.</source>
+            </trans-unit>
+            <trans-unit id="general.excl_tax" resname="general.excl_tax">
+                <source>zzgl. MwSt.</source>
+            </trans-unit>
+            <trans-unit id="general.plus_shipping" resname="general.plus_shipping">
+                <source>zzgl. Versandkosten</source>
+            </trans-unit>
+            <trans-unit id="general.back" resname="general.back">
+                <source>Zurück</source>
+            </trans-unit>
+            <trans-unit id="general.continue" resname="general.continue">
+                <source>Weiter</source>
+            </trans-unit>
+            <trans-unit id="general.save" resname="general.save">
+                <source>Speichern</source>
+            </trans-unit>
+            <trans-unit id="general.cancel" resname="general.cancel">
+                <source>Abbrechen</source>
+            </trans-unit>
+
+            <!-- Produkte -->
+            <trans-unit id="product.list_title" resname="product.list_title">
+                <source>Produkte</source>
+            </trans-unit>
+            <trans-unit id="product.detail_title" resname="product.detail_title">
+                <source>Produktdetails</source>
+            </trans-unit>
+            <trans-unit id="product.sku" resname="product.sku">
+                <source>Artikelnummer</source>
+            </trans-unit>
+            <trans-unit id="product.price" resname="product.price">
+                <source>Preis</source>
+            </trans-unit>
+            <trans-unit id="product.quantity" resname="product.quantity">
+                <source>Menge</source>
+            </trans-unit>
+            <trans-unit id="product.in_stock" resname="product.in_stock">
+                <source>Auf Lager</source>
+            </trans-unit>
+            <trans-unit id="product.out_of_stock" resname="product.out_of_stock">
+                <source>Nicht auf Lager</source>
+            </trans-unit>
+            <trans-unit id="product.add_to_cart" resname="product.add_to_cart">
+                <source>In den Warenkorb</source>
+            </trans-unit>
+            <trans-unit id="product.added_to_cart" resname="product.added_to_cart">
+                <source>Produkt wurde in den Warenkorb gelegt</source>
+            </trans-unit>
+            <trans-unit id="product.description" resname="product.description">
+                <source>Beschreibung</source>
+            </trans-unit>
+            <trans-unit id="product.no_products" resname="product.no_products">
+                <source>Keine Produkte gefunden</source>
+            </trans-unit>
+
+            <!-- Kategorien -->
+            <trans-unit id="category.list_title" resname="category.list_title">
+                <source>Kategorien</source>
+            </trans-unit>
+            <trans-unit id="category.all_products" resname="category.all_products">
+                <source>Alle Produkte</source>
+            </trans-unit>
+
+            <!-- Warenkorb -->
+            <trans-unit id="cart.title" resname="cart.title">
+                <source>Warenkorb</source>
+            </trans-unit>
+            <trans-unit id="cart.empty" resname="cart.empty">
+                <source>Ihr Warenkorb ist leer</source>
+            </trans-unit>
+            <trans-unit id="cart.product" resname="cart.product">
+                <source>Produkt</source>
+            </trans-unit>
+            <trans-unit id="cart.quantity" resname="cart.quantity">
+                <source>Menge</source>
+            </trans-unit>
+            <trans-unit id="cart.price" resname="cart.price">
+                <source>Preis</source>
+            </trans-unit>
+            <trans-unit id="cart.total" resname="cart.total">
+                <source>Summe</source>
+            </trans-unit>
+            <trans-unit id="cart.subtotal" resname="cart.subtotal">
+                <source>Zwischensumme</source>
+            </trans-unit>
+            <trans-unit id="cart.shipping" resname="cart.shipping">
+                <source>Versandkosten</source>
+            </trans-unit>
+            <trans-unit id="cart.tax" resname="cart.tax">
+                <source>MwSt.</source>
+            </trans-unit>
+            <trans-unit id="cart.grand_total" resname="cart.grand_total">
+                <source>Gesamtsumme</source>
+            </trans-unit>
+            <trans-unit id="cart.update" resname="cart.update">
+                <source>Warenkorb aktualisieren</source>
+            </trans-unit>
+            <trans-unit id="cart.remove" resname="cart.remove">
+                <source>Entfernen</source>
+            </trans-unit>
+            <trans-unit id="cart.continue_shopping" resname="cart.continue_shopping">
+                <source>Weiter einkaufen</source>
+            </trans-unit>
+            <trans-unit id="cart.to_checkout" resname="cart.to_checkout">
+                <source>Zur Kasse</source>
+            </trans-unit>
+            <trans-unit id="cart.item_count" resname="cart.item_count">
+                <source>Artikel im Warenkorb</source>
+            </trans-unit>
+
+            <!-- Checkout -->
+            <trans-unit id="checkout.title" resname="checkout.title">
+                <source>Kasse</source>
+            </trans-unit>
+            <trans-unit id="checkout.step_address" resname="checkout.step_address">
+                <source>Adresse</source>
+            </trans-unit>
+            <trans-unit id="checkout.step_shipping" resname="checkout.step_shipping">
+                <source>Versand</source>
+            </trans-unit>
+            <trans-unit id="checkout.step_payment" resname="checkout.step_payment">
+                <source>Zahlung</source>
+            </trans-unit>
+            <trans-unit id="checkout.step_confirm" resname="checkout.step_confirm">
+                <source>Bestätigung</source>
+            </trans-unit>
+            <trans-unit id="checkout.billing_address" resname="checkout.billing_address">
+                <source>Rechnungsadresse</source>
+            </trans-unit>
+            <trans-unit id="checkout.shipping_address" resname="checkout.shipping_address">
+                <source>Lieferadresse</source>
+            </trans-unit>
+            <trans-unit id="checkout.same_as_billing" resname="checkout.same_as_billing">
+                <source>Lieferadresse entspricht Rechnungsadresse</source>
+            </trans-unit>
+            <trans-unit id="checkout.shipping_method" resname="checkout.shipping_method">
+                <source>Versandart</source>
+            </trans-unit>
+            <trans-unit id="checkout.payment_method" resname="checkout.payment_method">
+                <source>Zahlungsart</source>
+            </trans-unit>
+            <trans-unit id="checkout.order_summary" resname="checkout.order_summary">
+                <source>Bestellübersicht</source>
+            </trans-unit>
+            <trans-unit id="checkout.place_order" resname="checkout.place_order">
+                <source>Zahlungspflichtig bestellen</source>
+            </trans-unit>
+            <trans-unit id="checkout.accept_terms" resname="checkout.accept_terms">
+                <source>Ich akzeptiere die AGB</source>
+            </trans-unit>
+            <trans-unit id="checkout.terms_required" resname="checkout.terms_required">
+                <source>Bitte akzeptieren Sie die AGB</source>
+            </trans-unit>
+
+            <!-- Adressfelder -->
+            <trans-unit id="address.salutation" resname="address.salutation">
+                <source>Anrede</source>
+            </trans-unit>
+            <trans-unit id="address.salutation_mr" resname="address.salutation_mr">
+                <source>Herr</source>
+            </trans-unit>
+            <trans-unit id="address.salutation_mrs" resname="address.salutation_mrs">
+                <source>Frau</source>
+            </trans-unit>
+            <trans-unit id="address.salutation_diverse" resname="address.salutation_diverse">
+                <source>Divers</source>
+            </trans-unit>
+            <trans-unit id="address.first_name" resname="address.first_name">
+                <source>Vorname</source>
+            </trans-unit>
+            <trans-unit id="address.last_name" resname="address.last_name">
+                <source>Nachname</source>
+            </trans-unit>
+            <trans-unit id="address.company" resname="address.company">
+                <source>Firma</source>
+            </trans-unit>
+            <trans-unit id="address.street" resname="address.street">
+                <source>Straße und Hausnummer</source>
+            </trans-unit>
+            <trans-unit id="address.zip" resname="address.zip">
+                <source>PLZ</source>
+            </trans-unit>
+            <trans-unit id="address.city" resname="address.city">
+                <source>Ort</source>
+            </trans-unit>
+            <trans-unit id="address.country" resname="address.country">
+                <source>Land</source>
+            </trans-unit>
+            <trans-unit id="address.email" resname="address.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="address.phone" resname="address.phone">
+                <source>Telefon</source>
+            </trans-unit>
+
+            <!-- Bestellung -->
+            <trans-unit id="order.title" resname="order.title">
+                <source>Bestellung</source>
+            </trans-unit>
+            <trans-unit id="order.number" resname="order.number">
+                <source>Bestellnummer</source>
+            </trans-unit>
+            <trans-unit id="order.date" resname="order.date">
+                <source>Bestelldatum</source>
+            </trans-unit>
+            <trans-unit id="order.status" resname="order.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="order.status_pending" resname="order.status_pending">
+                <source>Ausstehend</source>
+            </trans-unit>
+            <trans-unit id="order.status_confirmed" resname="order.status_confirmed">
+                <source>Bestätigt</source>
+            </trans-unit>
+            <trans-unit id="order.status_processing" resname="order.status_processing">
+                <source>In Bearbeitung</source>
+            </trans-unit>
+            <trans-unit id="order.status_shipped" resname="order.status_shipped">
+                <source>Versendet</source>
+            </trans-unit>
+            <trans-unit id="order.status_delivered" resname="order.status_delivered">
+                <source>Zugestellt</source>
+            </trans-unit>
+            <trans-unit id="order.status_cancelled" resname="order.status_cancelled">
+                <source>Storniert</source>
+            </trans-unit>
+            <trans-unit id="order.confirmation_title" resname="order.confirmation_title">
+                <source>Vielen Dank für Ihre Bestellung!</source>
+            </trans-unit>
+            <trans-unit id="order.confirmation_text" resname="order.confirmation_text">
+                <source>Ihre Bestellung wurde erfolgreich aufgegeben. Sie erhalten in Kürze eine Bestätigungs-E-Mail.</source>
+            </trans-unit>
+            <trans-unit id="order.my_orders" resname="order.my_orders">
+                <source>Meine Bestellungen</source>
+            </trans-unit>
+            <trans-unit id="order.no_orders" resname="order.no_orders">
+                <source>Sie haben noch keine Bestellungen aufgegeben.</source>
+            </trans-unit>
+
+            <!-- Validierung -->
+            <trans-unit id="validation.required" resname="validation.required">
+                <source>Dieses Feld ist erforderlich</source>
+            </trans-unit>
+            <trans-unit id="validation.email_invalid" resname="validation.email_invalid">
+                <source>Bitte geben Sie eine gültige E-Mail-Adresse ein</source>
+            </trans-unit>
+            <trans-unit id="validation.min_quantity" resname="validation.min_quantity">
+                <source>Mindestmenge ist 1</source>
+            </trans-unit>
+
+            <!-- Zahlung -->
+            <trans-unit id="payment.prepayment" resname="payment.prepayment">
+                <source>Vorkasse</source>
+            </trans-unit>
+            <trans-unit id="payment.invoice" resname="payment.invoice">
+                <source>Rechnung</source>
+            </trans-unit>
+            <trans-unit id="payment.paypal" resname="payment.paypal">
+                <source>PayPal</source>
+            </trans-unit>
+
+            <!-- Versand -->
+            <trans-unit id="shipping.standard" resname="shipping.standard">
+                <source>Standardversand</source>
+            </trans-unit>
+            <trans-unit id="shipping.express" resname="shipping.express">
+                <source>Expressversand</source>
+            </trans-unit>
+            <trans-unit id="shipping.free" resname="shipping.free">
+                <source>Kostenloser Versand</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

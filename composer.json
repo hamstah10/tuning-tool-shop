@@ -1,0 +1,27 @@
+{
+    "name": "hamstahstudio/tuning-tool-shop",
+    "version": "1.0.0",
+    "type": "typo3-cms-extension",
+    "description": "Shop Extension für Chiptuning Geräte und Zubehör",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Hamstahstudio",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "typo3/cms-core": "^13.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hamstahstudio\\TuningToolShop\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "tuning_tool_shop"
+        }
+    }
+}

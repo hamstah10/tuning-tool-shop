@@ -1,0 +1,40 @@
+plugin.tx_tuningtoolshop {
+    persistence {
+        storagePid = 0
+    }
+}
+
+settings.tuningToolShop {
+    shop {
+        currency = EUR
+        currencySymbol = €
+        taxRate = 19
+        taxIncluded = 1
+        itemsPerPage = 12
+        showOutOfStock = 1
+    }
+    checkout {
+        requireLogin = 0
+        termsRequired = 1
+        minOrderValue = 0
+    }
+    email {
+        senderName = Tuning Tool Shop
+        senderEmail = shop@example.com
+    }
+    payment {
+        successPid = 0
+        cancelPid = 0
+        notifyPid = 0
+    }
+    paypal {
+        sandbox = 1
+        business = shop@example.com
+        currency = EUR
+    }
+    stripe {
+        apiKey = 
+        webhookSecret = 
+        publishableKey = 
+    }
+}

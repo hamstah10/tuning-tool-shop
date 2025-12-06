@@ -1,0 +1,182 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Backend" />
+
+<f:section name="Content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.title" />
+            #{order.orderNumber}
+        </h1>
+        <f:link.action action="orders" class="btn btn-secondary">
+            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:action.backToOrders" />
+        </f:link.action>
+    </div>
+
+    <f:flashMessages />
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.items" />
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderItem.sku" /></th>
+                                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderItem.title" /></th>
+                                <th class="text-end"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderItem.price" /></th>
+                                <th class="text-center"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderItem.quantity" /></th>
+                                <th class="text-end"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderItem.total" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{order.items}" as="item">
+                                <tr>
+                                    <td>{item.sku}</td>
+                                    <td>{item.title}</td>
+                                    <td class="text-end">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.price}</f:format.currency>
+                                    </td>
+                                    <td class="text-center">{item.quantity}</td>
+                                    <td class="text-end">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.total}</f:format.currency>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <td colspan="4" class="text-end"><strong><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.subtotal" /></strong></td>
+                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalNet}</f:format.currency></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-end"><strong><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.vat" /></strong></td>
+                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalVat}</f:format.currency></td>
+                            </tr>
+                            <tr class="table-dark">
+                                <td colspan="4" class="text-end"><strong><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.total" /></strong></td>
+                                <td class="text-end"><strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalGross}</f:format.currency></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.billingAddress" />
+                        </div>
+                        <div class="card-body">
+                            <address class="mb-0">
+                                <strong>{order.billingFirstName} {order.billingLastName}</strong><br>
+                                <f:if condition="{order.billingCompany}">
+                                    {order.billingCompany}<br>
+                                </f:if>
+                                {order.billingStreet}<br>
+                                {order.billingZip} {order.billingCity}<br>
+                                {order.billingCountry}<br>
+                                <f:if condition="{order.phone}">
+                                    <abbr title="Telefon">Tel:</abbr> {order.phone}
+                                </f:if>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.shippingAddress" />
+                        </div>
+                        <div class="card-body">
+                            <address class="mb-0">
+                                <strong>{order.shippingFirstName} {order.shippingLastName}</strong><br>
+                                <f:if condition="{order.shippingCompany}">
+                                    {order.shippingCompany}<br>
+                                </f:if>
+                                {order.shippingStreet}<br>
+                                {order.shippingZip} {order.shippingCity}<br>
+                                {order.shippingCountry}
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.orderInfo" />
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.orderNumber" /></dt>
+                        <dd class="col-sm-7">{order.orderNumber}</dd>
+
+                        <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.date" /></dt>
+                        <dd class="col-sm-7"><f:format.date format="d.m.Y H:i">{order.crdate}</f:format.date></dd>
+
+                        <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.email" /></dt>
+                        <dd class="col-sm-7"><a href="mailto:{order.email}">{order.email}</a></dd>
+
+                        <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.paymentMethod" /></dt>
+                        <dd class="col-sm-7">
+                            <f:if condition="{order.paymentMethod}">
+                                {order.paymentMethod.name}
+                            </f:if>
+                        </dd>
+
+                        <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.status" /></dt>
+                        <dd class="col-sm-7">
+                            <f:switch expression="{order.status}">
+                                <f:case value="0"><span class="badge bg-secondary">Neu</span></f:case>
+                                <f:case value="1"><span class="badge bg-info">In Bearbeitung</span></f:case>
+                                <f:case value="2"><span class="badge bg-primary">Versendet</span></f:case>
+                                <f:case value="3"><span class="badge bg-success">Abgeschlossen</span></f:case>
+                                <f:case value="4"><span class="badge bg-danger">Storniert</span></f:case>
+                                <f:defaultCase><span class="badge bg-secondary">Unbekannt</span></f:defaultCase>
+                            </f:switch>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.updateStatus" />
+                </div>
+                <div class="card-body">
+                    <f:form action="updateOrderStatus" method="post">
+                        <f:form.hidden name="order" value="{order.uid}" />
+                        <div class="mb-3">
+                            <f:form.select name="status" class="form-select" options="{0: 'Neu', 1: 'In Bearbeitung', 2: 'Versendet', 3: 'Abgeschlossen', 4: 'Storniert'}" value="{order.status}" />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:action.updateStatus" />
+                        </button>
+                    </f:form>
+                </div>
+            </div>
+
+            <f:if condition="{order.comment}">
+                <div class="card">
+                    <div class="card-header">
+                        <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.comment" />
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{order.comment}</p>
+                    </div>
+                </div>
+            </f:if>
+        </div>
+    </div>
+</f:section>
+
+</html>

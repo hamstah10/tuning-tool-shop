@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{breadcrumbs}">
+    <nav class="tts-breadcrumb" aria-label="Breadcrumb">
+        <ol class="tts-breadcrumb__list">
+            <li class="tts-breadcrumb__item">
+                <f:link.action action="list" controller="Product" class="tts-breadcrumb__link">Shop</f:link.action>
+            </li>
+            <f:for each="{breadcrumbs}" as="crumb" iteration="iter">
+                <li class="tts-breadcrumb__item">
+                    <span class="tts-breadcrumb__separator">›</span>
+                    <f:if condition="{iter.isLast}">
+                        <f:then>
+                            <span class="tts-breadcrumb__current">{crumb.title}</span>
+                        </f:then>
+                        <f:else>
+                            <f:link.action action="{crumb.action}" controller="{crumb.controller}" arguments="{crumb.arguments}" class="tts-breadcrumb__link">
+                                {crumb.title}
+                            </f:link.action>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+    </nav>
+</f:if>
+
+</html>

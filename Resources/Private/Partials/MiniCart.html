@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="tts-mini-cart-widget">
+    <f:if condition="{cartItems}">
+        <f:then>
+            <f:link.page pageUid="{cartPid}" class="tts-mini-cart-widget__link">
+                <span class="tts-mini-cart-widget__icon">🛒</span>
+                <span class="tts-mini-cart-widget__badge">{itemCount}</span>
+            </f:link.page>
+        </f:then>
+        <f:else>
+            <f:link.page pageUid="{cartPid}" class="tts-mini-cart-widget__link tts-mini-cart-widget__link--empty">
+                <span class="tts-mini-cart-widget__icon">🛒</span>
+            </f:link.page>
+        </f:else>
+    </f:if>
+</div>
+
+</html>

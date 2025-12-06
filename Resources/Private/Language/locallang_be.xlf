@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="de" datatype="plaintext" original="messages" date="2024-01-01T00:00:00Z">
+        <header/>
+        <body>
+            <!-- Backend Modul -->
+            <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+                <source>Tuning Tool Shop</source>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
+                <source>Shop-Verwaltung für Tuning Tools</source>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel">
+                <source>Tuning Tool Shop</source>
+            </trans-unit>
+
+            <!-- Modul Navigation -->
+            <trans-unit id="module.title" resname="module.title">
+                <source>Tuning Tool Shop</source>
+            </trans-unit>
+            <trans-unit id="module.description" resname="module.description">
+                <source>Verwalten Sie Produkte, Kategorien und Bestellungen</source>
+            </trans-unit>
+
+            <!-- Dashboard -->
+            <trans-unit id="dashboard.title" resname="dashboard.title">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="dashboard.overview" resname="dashboard.overview">
+                <source>Übersicht</source>
+            </trans-unit>
+            <trans-unit id="dashboard.total_orders" resname="dashboard.total_orders">
+                <source>Bestellungen gesamt</source>
+            </trans-unit>
+            <trans-unit id="dashboard.pending_orders" resname="dashboard.pending_orders">
+                <source>Offene Bestellungen</source>
+            </trans-unit>
+            <trans-unit id="dashboard.total_products" resname="dashboard.total_products">
+                <source>Produkte gesamt</source>
+            </trans-unit>
+            <trans-unit id="dashboard.low_stock_products" resname="dashboard.low_stock_products">
+                <source>Produkte mit niedrigem Bestand</source>
+            </trans-unit>
+            <trans-unit id="dashboard.revenue_today" resname="dashboard.revenue_today">
+                <source>Umsatz heute</source>
+            </trans-unit>
+            <trans-unit id="dashboard.revenue_month" resname="dashboard.revenue_month">
+                <source>Umsatz diesen Monat</source>
+            </trans-unit>
+            <trans-unit id="dashboard.recent_orders" resname="dashboard.recent_orders">
+                <source>Aktuelle Bestellungen</source>
+            </trans-unit>
+
+            <!-- Produkte -->
+            <trans-unit id="products.title" resname="products.title">
+                <source>Produkte</source>
+            </trans-unit>
+            <trans-unit id="products.list" resname="products.list">
+                <source>Produktliste</source>
+            </trans-unit>
+            <trans-unit id="products.new" resname="products.new">
+                <source>Neues Produkt</source>
+            </trans-unit>
+            <trans-unit id="products.edit" resname="products.edit">
+                <source>Produkt bearbeiten</source>
+            </trans-unit>
+            <trans-unit id="products.delete" resname="products.delete">
+                <source>Produkt löschen</source>
+            </trans-unit>
+            <trans-unit id="products.delete_confirm" resname="products.delete_confirm">
+                <source>Möchten Sie dieses Produkt wirklich löschen?</source>
+            </trans-unit>
+
+            <!-- Kategorien -->
+            <trans-unit id="categories.title" resname="categories.title">
+                <source>Kategorien</source>
+            </trans-unit>
+            <trans-unit id="categories.list" resname="categories.list">
+                <source>Kategorienliste</source>
+            </trans-unit>
+            <trans-unit id="categories.new" resname="categories.new">
+                <source>Neue Kategorie</source>
+            </trans-unit>
+            <trans-unit id="categories.edit" resname="categories.edit">
+                <source>Kategorie bearbeiten</source>
+            </trans-unit>
+            <trans-unit id="categories.delete" resname="categories.delete">
+                <source>Kategorie löschen</source>
+            </trans-unit>
+            <trans-unit id="categories.delete_confirm" resname="categories.delete_confirm">
+                <source>Möchten Sie diese Kategorie wirklich löschen?</source>
+            </trans-unit>
+
+            <!-- Bestellungen -->
+            <trans-unit id="orders.title" resname="orders.title">
+                <source>Bestellungen</source>
+            </trans-unit>
+            <trans-unit id="orders.list" resname="orders.list">
+                <source>Bestellungsliste</source>
+            </trans-unit>
+            <trans-unit id="orders.view" resname="orders.view">
+                <source>Bestellung ansehen</source>
+            </trans-unit>
+            <trans-unit id="orders.edit" resname="orders.edit">
+                <source>Bestellung bearbeiten</source>
+            </trans-unit>
+            <trans-unit id="orders.delete" resname="orders.delete">
+                <source>Bestellung löschen</source>
+            </trans-unit>
+            <trans-unit id="orders.delete_confirm" resname="orders.delete_confirm">
+                <source>Möchten Sie diese Bestellung wirklich löschen?</source>
+            </trans-unit>
+            <trans-unit id="orders.update_status" resname="orders.update_status">
+                <source>Status aktualisieren</source>
+            </trans-unit>
+            <trans-unit id="orders.print" resname="orders.print">
+                <source>Bestellung drucken</source>
+            </trans-unit>
+            <trans-unit id="orders.export" resname="orders.export">
+                <source>Bestellungen exportieren</source>
+            </trans-unit>
+
+            <!-- Einstellungen -->
+            <trans-unit id="settings.title" resname="settings.title">
+                <source>Einstellungen</source>
+            </trans-unit>
+            <trans-unit id="settings.general" resname="settings.general">
+                <source>Allgemeine Einstellungen</source>
+            </trans-unit>
+            <trans-unit id="settings.shop" resname="settings.shop">
+                <source>Shop-Einstellungen</source>
+            </trans-unit>
+            <trans-unit id="settings.email" resname="settings.email">
+                <source>E-Mail-Einstellungen</source>
+            </trans-unit>
+            <trans-unit id="settings.payment" resname="settings.payment">
+                <source>Zahlungseinstellungen</source>
+            </trans-unit>
+            <trans-unit id="settings.shipping" resname="settings.shipping">
+                <source>Versandeinstellungen</source>
+            </trans-unit>
+
+            <!-- Aktionen -->
+            <trans-unit id="action.save" resname="action.save">
+                <source>Speichern</source>
+            </trans-unit>
+            <trans-unit id="action.save_close" resname="action.save_close">
+                <source>Speichern und schließen</source>
+            </trans-unit>
+            <trans-unit id="action.save_new" resname="action.save_new">
+                <source>Speichern und neu</source>
+            </trans-unit>
+            <trans-unit id="action.cancel" resname="action.cancel">
+                <source>Abbrechen</source>
+            </trans-unit>
+            <trans-unit id="action.delete" resname="action.delete">
+                <source>Löschen</source>
+            </trans-unit>
+            <trans-unit id="action.back" resname="action.back">
+                <source>Zurück</source>
+            </trans-unit>
+            <trans-unit id="action.refresh" resname="action.refresh">
+                <source>Aktualisieren</source>
+            </trans-unit>
+
+            <!-- Meldungen -->
+            <trans-unit id="message.saved" resname="message.saved">
+                <source>Erfolgreich gespeichert</source>
+            </trans-unit>
+            <trans-unit id="message.deleted" resname="message.deleted">
+                <source>Erfolgreich gelöscht</source>
+            </trans-unit>
+            <trans-unit id="message.error" resname="message.error">
+                <source>Ein Fehler ist aufgetreten</source>
+            </trans-unit>
+            <trans-unit id="message.no_records" resname="message.no_records">
+                <source>Keine Einträge gefunden</source>
+            </trans-unit>
+            <trans-unit id="message.status_updated" resname="message.status_updated">
+                <source>Status wurde aktualisiert</source>
+            </trans-unit>
+
+            <!-- Filter -->
+            <trans-unit id="filter.all" resname="filter.all">
+                <source>Alle</source>
+            </trans-unit>
+            <trans-unit id="filter.active" resname="filter.active">
+                <source>Aktiv</source>
+            </trans-unit>
+            <trans-unit id="filter.inactive" resname="filter.inactive">
+                <source>Inaktiv</source>
+            </trans-unit>
+            <trans-unit id="filter.search" resname="filter.search">
+                <source>Suchen</source>
+            </trans-unit>
+            <trans-unit id="filter.reset" resname="filter.reset">
+                <source>Filter zurücksetzen</source>
+            </trans-unit>
+
+            <!-- Dashboard erweitert -->
+            <trans-unit id="dashboard.products" resname="dashboard.products">
+                <source>Produkte</source>
+            </trans-unit>
+            <trans-unit id="dashboard.categories" resname="dashboard.categories">
+                <source>Kategorien</source>
+            </trans-unit>
+            <trans-unit id="dashboard.manufacturers" resname="dashboard.manufacturers">
+                <source>Hersteller</source>
+            </trans-unit>
+            <trans-unit id="dashboard.orders" resname="dashboard.orders">
+                <source>Bestellungen</source>
+            </trans-unit>
+            <trans-unit id="dashboard.newOrders" resname="dashboard.newOrders">
+                <source>Neue Bestellungen</source>
+            </trans-unit>
+            <trans-unit id="dashboard.processingOrders" resname="dashboard.processingOrders">
+                <source>In Bearbeitung</source>
+            </trans-unit>
+            <trans-unit id="dashboard.recentOrders" resname="dashboard.recentOrders">
+                <source>Letzte Bestellungen</source>
+            </trans-unit>
+            <trans-unit id="dashboard.viewOrders" resname="dashboard.viewOrders">
+                <source>Bestellungen anzeigen</source>
+            </trans-unit>
+            <trans-unit id="dashboard.noOrders" resname="dashboard.noOrders">
+                <source>Keine Bestellungen vorhanden</source>
+            </trans-unit>
+
+            <!-- Bestellungen erweitert -->
+            <trans-unit id="orders.noOrders" resname="orders.noOrders">
+                <source>Keine Bestellungen vorhanden</source>
+            </trans-unit>
+            <trans-unit id="order.orderNumber" resname="order.orderNumber">
+                <source>Bestellnummer</source>
+            </trans-unit>
+            <trans-unit id="order.customer" resname="order.customer">
+                <source>Kunde</source>
+            </trans-unit>
+            <trans-unit id="order.email" resname="order.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="order.total" resname="order.total">
+                <source>Gesamt</source>
+            </trans-unit>
+            <trans-unit id="order.subtotal" resname="order.subtotal">
+                <source>Zwischensumme</source>
+            </trans-unit>
+            <trans-unit id="order.vat" resname="order.vat">
+                <source>MwSt.</source>
+            </trans-unit>
+            <trans-unit id="order.paymentMethod" resname="order.paymentMethod">
+                <source>Zahlungsart</source>
+            </trans-unit>
+            <trans-unit id="order.status" resname="order.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="order.date" resname="order.date">
+                <source>Datum</source>
+            </trans-unit>
+            <trans-unit id="order.actions" resname="order.actions">
+                <source>Aktionen</source>
+            </trans-unit>
+
+            <!-- Bestelldetails -->
+            <trans-unit id="orderDetail.title" resname="orderDetail.title">
+                <source>Bestelldetails</source>
+            </trans-unit>
+            <trans-unit id="orderDetail.items" resname="orderDetail.items">
+                <source>Bestellpositionen</source>
+            </trans-unit>
+            <trans-unit id="orderDetail.billingAddress" resname="orderDetail.billingAddress">
+                <source>Rechnungsadresse</source>
+            </trans-unit>
+            <trans-unit id="orderDetail.shippingAddress" resname="orderDetail.shippingAddress">
+                <source>Lieferadresse</source>
+            </trans-unit>
+            <trans-unit id="orderDetail.orderInfo" resname="orderDetail.orderInfo">
+                <source>Bestellinformationen</source>
+            </trans-unit>
+            <trans-unit id="orderDetail.updateStatus" resname="orderDetail.updateStatus">
+                <source>Status ändern</source>
+            </trans-unit>
+            <trans-unit id="orderDetail.comment" resname="orderDetail.comment">
+                <source>Kundenkommentar</source>
+            </trans-unit>
+            <trans-unit id="orderItem.sku" resname="orderItem.sku">
+                <source>Artikelnr.</source>
+            </trans-unit>
+            <trans-unit id="orderItem.title" resname="orderItem.title">
+                <source>Artikel</source>
+            </trans-unit>
+            <trans-unit id="orderItem.price" resname="orderItem.price">
+                <source>Preis</source>
+            </trans-unit>
+            <trans-unit id="orderItem.quantity" resname="orderItem.quantity">
+                <source>Menge</source>
+            </trans-unit>
+            <trans-unit id="orderItem.total" resname="orderItem.total">
+                <source>Summe</source>
+            </trans-unit>
+
+            <!-- Aktionen erweitert -->
+            <trans-unit id="action.details" resname="action.details">
+                <source>Details</source>
+            </trans-unit>
+            <trans-unit id="action.backToDashboard" resname="action.backToDashboard">
+                <source>Zurück zur Übersicht</source>
+            </trans-unit>
+            <trans-unit id="action.backToOrders" resname="action.backToOrders">
+                <source>Zurück zur Liste</source>
+            </trans-unit>
+            <trans-unit id="action.updateStatus" resname="action.updateStatus">
+                <source>Status aktualisieren</source>
+            </trans-unit>
+
+            <!-- FlexForm -->
+            <trans-unit id="flexform.sheet.general" resname="flexform.sheet.general">
+                <source>Allgemein</source>
+            </trans-unit>
+            <trans-unit id="flexform.sheet.filter" resname="flexform.sheet.filter">
+                <source>Filter</source>
+            </trans-unit>
+            <trans-unit id="flexform.sheet.pages" resname="flexform.sheet.pages">
+                <source>Seiten</source>
+            </trans-unit>
+            <trans-unit id="flexform.sheet.email" resname="flexform.sheet.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="flexform.storagePid" resname="flexform.storagePid">
+                <source>Datensatzsammlung (Ordner mit Produkten)</source>
+            </trans-unit>
+            <trans-unit id="flexform.itemsPerPage" resname="flexform.itemsPerPage">
+                <source>Produkte pro Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortBy" resname="flexform.sortBy">
+                <source>Sortierung</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortBy.title" resname="flexform.sortBy.title">
+                <source>Titel</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortBy.price" resname="flexform.sortBy.price">
+                <source>Preis</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortBy.sku" resname="flexform.sortBy.sku">
+                <source>Artikelnummer</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortBy.crdate" resname="flexform.sortBy.crdate">
+                <source>Erstellungsdatum</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortDirection" resname="flexform.sortDirection">
+                <source>Sortierrichtung</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortDirection.asc" resname="flexform.sortDirection.asc">
+                <source>Aufsteigend</source>
+            </trans-unit>
+            <trans-unit id="flexform.sortDirection.desc" resname="flexform.sortDirection.desc">
+                <source>Absteigend</source>
+            </trans-unit>
+            <trans-unit id="flexform.categories" resname="flexform.categories">
+                <source>Kategorien</source>
+            </trans-unit>
+            <trans-unit id="flexform.manufacturers" resname="flexform.manufacturers">
+                <source>Hersteller</source>
+            </trans-unit>
+            <trans-unit id="flexform.showOnlyActive" resname="flexform.showOnlyActive">
+                <source>Nur aktive Produkte anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailPid" resname="flexform.detailPid">
+                <source>Detailseite</source>
+            </trans-unit>
+            <trans-unit id="flexform.listPid" resname="flexform.listPid">
+                <source>Listenseite</source>
+            </trans-unit>
+            <trans-unit id="flexform.cartPid" resname="flexform.cartPid">
+                <source>Warenkorbseite</source>
+            </trans-unit>
+            <trans-unit id="flexform.checkoutPid" resname="flexform.checkoutPid">
+                <source>Checkout-Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.confirmationPid" resname="flexform.confirmationPid">
+                <source>Bestätigungsseite</source>
+            </trans-unit>
+            <trans-unit id="flexform.termsAndConditionsPid" resname="flexform.termsAndConditionsPid">
+                <source>AGB-Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.privacyPid" resname="flexform.privacyPid">
+                <source>Datenschutzseite</source>
+            </trans-unit>
+            <trans-unit id="flexform.cancellationPid" resname="flexform.cancellationPid">
+                <source>Widerrufsseite (Widerrufsbelehrung)</source>
+            </trans-unit>
+            <trans-unit id="flexform.continuePid" resname="flexform.continuePid">
+                <source>Weiter einkaufen (Seite)</source>
+            </trans-unit>
+            <trans-unit id="flexform.showRelatedProducts" resname="flexform.showRelatedProducts">
+                <source>Ähnliche Produkte anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.relatedProductsLimit" resname="flexform.relatedProductsLimit">
+                <source>Anzahl ähnlicher Produkte</source>
+            </trans-unit>
+            <trans-unit id="flexform.showManufacturer" resname="flexform.showManufacturer">
+                <source>Hersteller anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showSku" resname="flexform.showSku">
+                <source>Artikelnummer anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showStock" resname="flexform.showStock">
+                <source>Lagerbestand anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showProductImages" resname="flexform.showProductImages">
+                <source>Produktbilder anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.allowQuantityChange" resname="flexform.allowQuantityChange">
+                <source>Mengenänderung erlauben</source>
+            </trans-unit>
+            <trans-unit id="flexform.showVat" resname="flexform.showVat">
+                <source>MwSt. anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.requireLogin" resname="flexform.requireLogin">
+                <source>Login erforderlich</source>
+            </trans-unit>
+            <trans-unit id="flexform.enableGuestCheckout" resname="flexform.enableGuestCheckout">
+                <source>Gast-Checkout aktivieren</source>
+            </trans-unit>
+            <trans-unit id="flexform.showOrderSummary" resname="flexform.showOrderSummary">
+                <source>Bestellübersicht anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.senderEmail" resname="flexform.senderEmail">
+                <source>Absender E-Mail</source>
+            </trans-unit>
+            <trans-unit id="flexform.senderName" resname="flexform.senderName">
+                <source>Absender Name</source>
+            </trans-unit>
+            <trans-unit id="flexform.adminEmail" resname="flexform.adminEmail">
+                <source>Admin E-Mail (für Benachrichtigungen)</source>
+            </trans-unit>
+            <trans-unit id="flexform.shopPid" resname="flexform.shopPid">
+                <source>Shop-Seite (Produktliste)</source>
+            </trans-unit>
+            <!-- Payment Configuration -->
+            <trans-unit id="flexform.sheet.payment" resname="flexform.sheet.payment">
+                <source>Zahlung</source>
+            </trans-unit>
+            <trans-unit id="flexform.paymentSuccessPid" resname="flexform.paymentSuccessPid">
+                <source>Erfolgreiches Zahlung - Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.paymentCancelPid" resname="flexform.paymentCancelPid">
+                <source>Abgebrochene Zahlung - Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.paymentNotifyPid" resname="flexform.paymentNotifyPid">
+                <source>Zahlungsbestätigung (IPN) - Seite</source>
+            </trans-unit>
+            <!-- PayPal Configuration -->
+            <trans-unit id="flexform.sheet.paypal" resname="flexform.sheet.paypal">
+                <source>PayPal</source>
+            </trans-unit>
+            <trans-unit id="flexform.paypalSandbox" resname="flexform.paypalSandbox">
+                <source>PayPal Sandbox-Modus (Test)</source>
+            </trans-unit>
+            <trans-unit id="flexform.paypalBusiness" resname="flexform.paypalBusiness">
+                <source>PayPal Business-E-Mail</source>
+            </trans-unit>
+            <trans-unit id="flexform.paypalCurrency" resname="flexform.paypalCurrency">
+                <source>Währung</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
