@@ -52,15 +52,19 @@
                         <tfoot class="table-light">
                             <tr>
                                 <td colspan="4" class="text-end"><strong><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.subtotal" /></strong></td>
-                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalNet}</f:format.currency></td>
+                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.subtotal}</f:format.currency></td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-end"><strong><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.vat" /></strong></td>
-                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalVat}</f:format.currency></td>
+                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total - order.subtotal - order.shippingCost + order.discount}</f:format.currency></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-end"><strong>Versand</strong></td>
+                                <td class="text-end"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency></td>
                             </tr>
                             <tr class="table-dark">
                                 <td colspan="4" class="text-end"><strong><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.total" /></strong></td>
-                                <td class="text-end"><strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalGross}</f:format.currency></strong></td>
+                                <td class="text-end"><strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></strong></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -74,19 +78,16 @@
                             <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:orderDetail.billingAddress" />
                         </div>
                         <div class="card-body">
-                            <address class="mb-0">
-                                <strong>{order.billingFirstName} {order.billingLastName}</strong><br>
-                                <f:if condition="{order.billingCompany}">
-                                    {order.billingCompany}<br>
-                                </f:if>
-                                {order.billingStreet}<br>
-                                {order.billingZip} {order.billingCity}<br>
-                                {order.billingCountry}<br>
-                                <f:if condition="{order.phone}">
-                                    <abbr title="Telefon">Tel:</abbr> {order.phone}
-                                </f:if>
-                            </address>
-                        </div>
+                             <address class="mb-0">
+                                 <strong>{order.customerFirstName} {order.customerLastName}</strong><br>
+                                 <f:if condition="{order.customerCompany}">
+                                     {order.customerCompany}<br>
+                                 </f:if>
+                                 {order.billingStreet}<br>
+                                 {order.billingZip} {order.billingCity}<br>
+                                 {order.billingCountry}
+                             </address>
+                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -121,10 +122,10 @@
                         <dd class="col-sm-7">{order.orderNumber}</dd>
 
                         <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.date" /></dt>
-                        <dd class="col-sm-7"><f:format.date format="d.m.Y H:i">{order.crdate}</f:format.date></dd>
+                         <dd class="col-sm-7"><f:format.date format="d.m.Y H:i">{order.createdAt}</f:format.date></dd>
 
-                        <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.email" /></dt>
-                        <dd class="col-sm-7"><a href="mailto:{order.email}">{order.email}</a></dd>
+                         <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.email" /></dt>
+                         <dd class="col-sm-7"><a href="mailto:{order.customerEmail}">{order.customerEmail}</a></dd>
 
                         <dt class="col-sm-5"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:order.paymentMethod" /></dt>
                         <dd class="col-sm-7">

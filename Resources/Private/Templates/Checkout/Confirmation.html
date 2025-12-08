@@ -122,6 +122,10 @@
                                 <td colspan="2">Versandkosten:</td>
                                 <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency></td>
                             </tr>
+                            <tr>
+                                <td colspan="2">MwSt.:</td>
+                                <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total - order.subtotal - order.shippingCost + order.discount}</f:format.currency></td>
+                            </tr>
                             <tr class="tts-order-items-table__total">
                                 <td colspan="2"><strong>Gesamtsumme:</strong></td>
                                 <td><strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></strong></td>

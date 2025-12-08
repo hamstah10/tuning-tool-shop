@@ -1,2 +1,165 @@
 name: hamstahstudio/tuning-tool-shop
 label: Tuning Tool Shop
+
+settingsDefinitions:
+  # Shop Settings
+  settings.tuningToolShop.shop.currency:
+    type: string
+    default: EUR
+    label: 'Währung'
+  settings.tuningToolShop.shop.currencySymbol:
+    type: string
+    default: '€'
+    label: 'Währungssymbol'
+  settings.tuningToolShop.shop.taxRate:
+    type: int
+    default: 19
+    label: 'Steuersatz (%)'
+  settings.tuningToolShop.shop.taxIncluded:
+    type: bool
+    default: true
+    label: 'Steuern im Preis enthalten'
+  settings.tuningToolShop.shop.itemsPerPage:
+    type: int
+    default: 12
+    label: 'Produkte pro Seite'
+  settings.tuningToolShop.shop.showOutOfStock:
+    type: bool
+    default: true
+    label: 'Ausverkaufte Produkte anzeigen'
+
+  # Email
+  settings.tuningToolShop.email.senderName:
+    type: string
+    default: 'Tuning Tool Shop'
+    label: 'Absender-Name für E-Mails'
+  settings.tuningToolShop.email.senderEmail:
+    type: string
+    default: 'shop@example.com'
+    label: 'Absender-Email'
+
+  # Stripe
+  settings.tuningToolShop.payments.stripe.enabled:
+    type: bool
+    default: true
+    label: '💳 Stripe aktivieren'
+  settings.tuningToolShop.payments.stripe.apiKey:
+    type: string
+    default: ''
+    label: 'Stripe API Key (Secret)'
+    description: 'sk_live_... oder sk_test_...'
+  settings.tuningToolShop.payments.stripe.publishableKey:
+    type: string
+    default: ''
+    label: 'Stripe Publishable Key'
+    description: 'pk_live_... oder pk_test_...'
+  settings.tuningToolShop.payments.stripe.webhookSecret:
+    type: string
+    default: ''
+    label: 'Stripe Webhook Secret'
+    description: 'whsec_...'
+  settings.tuningToolShop.payments.stripe.currency:
+    type: string
+    default: eur
+    label: 'Stripe Währung'
+
+  # PayPal
+  settings.tuningToolShop.payments.paypal.enabled:
+    type: bool
+    default: true
+    label: '🅿️ PayPal aktivieren'
+  settings.tuningToolShop.payments.paypal.clientId:
+    type: string
+    default: ''
+    label: 'PayPal Client ID'
+  settings.tuningToolShop.payments.paypal.secret:
+    type: string
+    default: ''
+    label: 'PayPal Secret'
+  settings.tuningToolShop.payments.paypal.sandbox:
+    type: bool
+    default: true
+    label: 'PayPal Sandbox-Modus'
+  settings.tuningToolShop.payments.paypal.business:
+    type: string
+    default: 'shop@example.com'
+    label: 'PayPal Business Email'
+  settings.tuningToolShop.payments.paypal.currency:
+    type: string
+    default: EUR
+    label: 'PayPal Währung'
+
+  # Klarna
+  settings.tuningToolShop.payments.klarna.enabled:
+    type: bool
+    default: true
+    label: 'Klarna aktivieren'
+  settings.tuningToolShop.payments.klarna.apiKey:
+    type: string
+    default: ''
+    label: 'Klarna API Key'
+  settings.tuningToolShop.payments.klarna.merchantId:
+    type: string
+    default: ''
+    label: 'Klarna Merchant ID'
+  settings.tuningToolShop.payments.klarna.baseUrl:
+    type: string
+    default: 'https://api.playground.klarna.com'
+    label: 'Klarna API URL'
+    description: 'Sandbox oder Live URL'
+  settings.tuningToolShop.payments.klarna.currency:
+    type: string
+    default: EUR
+    label: 'Klarna Währung'
+
+  # Checkout
+  settings.tuningToolShop.checkout.requireLogin:
+    type: bool
+    default: false
+    label: 'Login erforderlich für Checkout'
+  settings.tuningToolShop.checkout.termsRequired:
+    type: bool
+    default: true
+    label: 'AGB-Akzeptanz erforderlich'
+  settings.tuningToolShop.checkout.minOrderValue:
+    type: int
+    default: 0
+    label: 'Minimale Bestellmenge'
+
+  # Product Detail
+  settings.tuningToolShop.product.detail.showShortDescription:
+    type: bool
+    default: true
+    label: 'Kurzbeschreibung anzeigen'
+  settings.tuningToolShop.product.detail.showLongDescription:
+    type: bool
+    default: true
+    label: 'Langbeschreibung anzeigen'
+  settings.tuningToolShop.product.detail.showPrice:
+    type: bool
+    default: true
+    label: 'Preis anzeigen'
+  settings.tuningToolShop.product.detail.showAddToCart:
+    type: bool
+    default: true
+    label: 'In den Warenkorb Button anzeigen'
+  settings.tuningToolShop.product.detail.showManufacturerInfo:
+    type: bool
+    default: true
+    label: 'Herstellerinformationen anzeigen'
+  settings.tuningToolShop.product.detail.showRelatedProducts:
+    type: bool
+    default: true
+    label: 'Ähnliche Produkte anzeigen'
+  settings.tuningToolShop.product.detail.relatedProductsCount:
+    type: int
+    default: 4
+    label: 'Anzahl ähnlicher Produkte'
+  settings.tuningToolShop.product.detail.showReviews:
+    type: bool
+    default: true
+    label: 'Bewertungen anzeigen'
+  settings.tuningToolShop.product.detail.showAvailability:
+    type: bool
+    default: true
+    label: 'Verfügbarkeit anzeigen'

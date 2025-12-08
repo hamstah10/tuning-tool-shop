@@ -20,9 +20,9 @@
         </f:if>
     </td>
 
-    <td class="tts-cart-item__price-cell">
-        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency>
-        <small class="tts-cart-item__tax-rate">Netto</small>
+    <td class="tts-cart-item__price-cell text-light">
+        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency><br>
+        <small class="tts-cart-item__tax-rate">zzgl. MwSt.</small>
     </td>
 
     <td class="tts-cart-item__quantity-cell">
@@ -35,7 +35,7 @@
         </f:form>
     </td>
 
-    <td class="tts-cart-item__total-cell">
+    <td class="tts-cart-item__total-cell text-light">
         <strong>
             <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
         </strong>

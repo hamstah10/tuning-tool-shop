@@ -1,74 +1,107 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<article class="tts-product-card">
-    <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="tts-product-card__link">
-        <div class="tts-product-card__image-wrapper">
-            <f:if condition="{product.images.0}">
+<div class="card h-100 border-light shadow-sm">
+    <!-- Image Section -->
+    <div class="position-relative overflow-hidden bg-light" style="aspect-ratio: 1;">
+        <f:if condition="{product.images.0}">
+            <f:then>
+                <f:image image="{product.images.0}" alt="{product.title}" class="card-img-top w-100 h-100" style="object-fit: cover;" />
+            </f:then>
+            <f:else>
+                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
+                    <i class="bi bi-image fs-1"></i>
+                </div>
+            </f:else>
+        </f:if>
+
+        <!-- Badges -->
+        <f:if condition="{product.isNew}">
+            <span class="badge bg-success position-absolute top-0 start-0 m-2">NEU</span>
+        </f:if>
+        <f:if condition="{product.discountPrice}">
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">SALE</span>
+        </f:if>
+    </div>
+
+    <!-- Card Body -->
+    <div class="card-body d-flex flex-column">
+        <!-- Manufacturer -->
+        <h6 class="card-subtitle mb-2 text-muted small">
+            {product.manufacturer.title}
+        </h6>
+
+        <!-- Title -->
+        <h5 class="card-title mb-2 flex-grow-1">
+            {product.title}
+        </h5>
+
+        <f:comment>
+        <!-- Description -->
+        <f:if condition="{product.shortDescription}">
+            <p class="card-text text-muted small mb-3">
+                {product.shortDescription}
+            </p>
+        </f:if>
+        </f:comment>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <f:if condition="{product.specialPrice}">
                 <f:then>
-                    <f:image image="{product.images.0}" alt="{product.title}" class="tts-product-card__image" width="300" height="300" />
+                    <span class="text-muted text-decoration-line-through">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                    </span>
+                    <br />
+                    <span class="fw-bold text-danger fs-5">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                    </span>
                 </f:then>
                 <f:else>
-                    <div class="tts-product-card__no-image">
-                        <span>Kein Bild</span>
-                    </div>
+                    <span class="fw-bold fs-5">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                    </span>
                 </f:else>
             </f:if>
-            <f:if condition="{product.isNew}">
-                <span class="tts-product-card__badge tts-product-card__badge--new">NEU</span>
-            </f:if>
-            <f:if condition="{product.discountPrice}">
-                <span class="tts-product-card__badge tts-product-card__badge--sale">SALE</span>
-            </f:if>
+            <f:comment>
+            <div class="small text-muted">zzgl. MwSt.</div>
+            </f:comment>
         </div>
-
-        <div class="tts-product-card__content">
-            <h3 class="tts-product-card__title">{product.title}</h3>
-
-            <f:if condition="{product.shortDescription}">
-                <p class="tts-product-card__description">{product.shortDescription}</p>
-            </f:if>
-
-            <div class="tts-product-card__price-wrapper">
-                <f:if condition="{product.specialPrice}">
-                    <f:then>
-                        <span class="tts-product-card__price tts-product-card__price--old">
-                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
-                        </span>
-                        <span class="tts-product-card__price tts-product-card__price--discount">
-                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
-                        </span>
-                    </f:then>
-                    <f:else>
-                        <span class="tts-product-card__price">
-                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
-                        </span>
-                    </f:else>
-                </f:if>
-                <span class="tts-product-card__tax-info">zzgl. MwSt.</span>
-            </div>
-
+        <f:comment>
+        <!-- Stock Status -->
+        <div class="mb-3">
             <f:if condition="{product.stock} > 0">
                 <f:then>
-                    <span class="tts-product-card__stock tts-product-card__stock--available">Auf Lager</span>
+                    <span class="badge bg-success-subtle text-success">Auf Lager</span>
                 </f:then>
                 <f:else>
-                    <span class="tts-product-card__stock tts-product-card__stock--unavailable">Nicht verfügbar</span>
+                    <span class="badge bg-danger-subtle text-danger">Nicht verfügbar</span>
                 </f:else>
             </f:if>
         </div>
-    </f:link.action>
+    </f:comment>
+    </div>
 
-    <div class="d-grid gap-2 p-3">
-        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-primary tts-product-card__details-btn">
-            Details
+    <!-- Card Footer with Actions -->
+    <div class="card-footer bg-transparent border-top d-grid gap-2">
+        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-eye"></i> Details anzeigen
         </f:link.action>
-        <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" class="" arguments="{product: product.uid, quantity: 1}">
-            <button type="submit" class="btn btn-secondary tts-product-card__add-btn">
-                In den Warenkorb
-            </button>
+        <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="w-100">
+            <f:if condition="{product.stock} > 0">
+                <f:then>
+                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-cart-plus"></i> In den Warenkorb
+                    </button>
+                </f:then>
+                <f:else>
+                    <button type="button" class="btn btn-secondary btn-sm w-100" disabled>
+                        <i class="bi bi-x-circle"></i> Nicht verfügbar
+                    </button>
+                </f:else>
+            </f:if>
         </f:form>
     </div>
-</article>
+</div>
 
 </html>

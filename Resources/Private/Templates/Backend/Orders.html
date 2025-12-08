@@ -33,9 +33,9 @@
                             <f:for each="{orders}" as="order">
                                 <tr>
                                     <td><strong>{order.orderNumber}</strong></td>
-                                    <td>{order.billingFirstName} {order.billingLastName}</td>
-                                    <td><a href="mailto:{order.email}">{order.email}</a></td>
-                                    <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalGross}</f:format.currency></td>
+                                    <td>{order.customerFirstName} {order.customerLastName}</td>
+                                    <td><a href="mailto:{order.customerEmail}">{order.customerEmail}</a></td>
+                                    <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></td>
                                     <td>
                                         <f:if condition="{order.paymentMethod}">
                                             {order.paymentMethod.name}
@@ -51,7 +51,7 @@
                                             <f:defaultCase><span class="badge bg-secondary">Unbekannt</span></f:defaultCase>
                                         </f:switch>
                                     </td>
-                                    <td><f:format.date format="d.m.Y H:i">{order.crdate}</f:format.date></td>
+                                    <td><f:format.date format="d.m.Y H:i">{order.createdAt}</f:format.date></td>
                                     <td>
                                         <f:link.action action="orderDetail" arguments="{order: order}" class="btn btn-sm btn-primary">
                                             <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:action.details" />

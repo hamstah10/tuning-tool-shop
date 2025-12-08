@@ -19,6 +19,8 @@ class ShippingMethod extends AbstractEntity
 
     protected float $price = 0.0;
 
+    protected float $maxWeight = 0.0;
+
     protected bool $isActive = true;
 
     protected int $sortOrder = 0;
@@ -71,6 +73,16 @@ class ShippingMethod extends AbstractEntity
     public function setPrice(float $price): void
     {
         $this->price = $price;
+    }
+
+    public function getMaxWeight(): float
+    {
+        return $this->maxWeight;
+    }
+
+    public function setMaxWeight(float $maxWeight): void
+    {
+        $this->maxWeight = $maxWeight;
     }
 
     public function getIsActive(): bool

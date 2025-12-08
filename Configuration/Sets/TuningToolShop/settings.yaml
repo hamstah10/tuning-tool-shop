@@ -1,16 +1,49 @@
-settings:
-  tuningToolShop:
-    shop:
-      currency: EUR
-      currencySymbol: €
-      taxRate: 19
-      taxIncluded: true
-      itemsPerPage: 12
-      showOutOfStock: true
-    checkout:
-      requireLogin: false
-      termsRequired: true
-      minOrderValue: 0
-    email:
-      senderName: Tuning Tool Shop
-      senderEmail: shop@example.com
+# Shop Settings
+settings.tuningToolShop.shop.currency: EUR
+settings.tuningToolShop.shop.currencySymbol: €
+settings.tuningToolShop.shop.taxRate: 19
+settings.tuningToolShop.shop.taxIncluded: true
+settings.tuningToolShop.shop.itemsPerPage: 12
+settings.tuningToolShop.shop.showOutOfStock: true
+
+# Checkout
+settings.tuningToolShop.checkout.requireLogin: false
+settings.tuningToolShop.checkout.termsRequired: true
+settings.tuningToolShop.checkout.minOrderValue: 0
+
+# Email
+settings.tuningToolShop.email.senderName: 'Tuning Tool Shop'
+settings.tuningToolShop.email.senderEmail: 'shop@example.com'
+
+# Stripe
+settings.tuningToolShop.payments.stripe.enabled: true
+settings.tuningToolShop.payments.stripe.apiKey: ''
+settings.tuningToolShop.payments.stripe.publishableKey: ''
+settings.tuningToolShop.payments.stripe.webhookSecret: ''
+settings.tuningToolShop.payments.stripe.currency: eur
+
+# PayPal
+settings.tuningToolShop.payments.paypal.enabled: true
+settings.tuningToolShop.payments.paypal.clientId: ''
+settings.tuningToolShop.payments.paypal.secret: ''
+settings.tuningToolShop.payments.paypal.sandbox: true
+settings.tuningToolShop.payments.paypal.business: 'shop@example.com'
+settings.tuningToolShop.payments.paypal.currency: EUR
+
+# Klarna
+settings.tuningToolShop.payments.klarna.enabled: true
+settings.tuningToolShop.payments.klarna.apiKey: ''
+settings.tuningToolShop.payments.klarna.merchantId: ''
+settings.tuningToolShop.payments.klarna.baseUrl: 'https://api.playground.klarna.com'
+settings.tuningToolShop.payments.klarna.currency: EUR
+
+# Product Detail
+settings.tuningToolShop.product.detail.showShortDescription: true
+settings.tuningToolShop.product.detail.showLongDescription: true
+settings.tuningToolShop.product.detail.showPrice: true
+settings.tuningToolShop.product.detail.showAddToCart: true
+settings.tuningToolShop.product.detail.showManufacturerInfo: true
+settings.tuningToolShop.product.detail.showRelatedProducts: true
+settings.tuningToolShop.product.detail.relatedProductsCount: 4
+settings.tuningToolShop.product.detail.showReviews: true
+settings.tuningToolShop.product.detail.showAvailability: true

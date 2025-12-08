@@ -34,6 +34,33 @@ plugin.tx_tuningtoolshop {
             sandbox = {$settings.tuningToolShop.paypal.sandbox}
             business = {$settings.tuningToolShop.paypal.business}
             currency = {$settings.tuningToolShop.paypal.currency}
+            clientId = {$settings.tuningToolShop.paypal.clientId}
+            secret = {$settings.tuningToolShop.paypal.secret}
+        }
+        stripe {
+            apiKey = {$settings.tuningToolShop.stripe.apiKey}
+            webhookSecret = {$settings.tuningToolShop.stripe.webhookSecret}
+            publishableKey = {$settings.tuningToolShop.stripe.publishableKey}
+            currency = {$settings.tuningToolShop.stripe.currency}
+        }
+        klarna {
+            apiKey = {$settings.tuningToolShop.klarna.apiKey}
+            merchantId = {$settings.tuningToolShop.klarna.merchantId}
+            baseUrl = {$settings.tuningToolShop.klarna.baseUrl}
+            currency = {$settings.tuningToolShop.klarna.currency}
+        }
+        product {
+            detail {
+                showShortDescription = {$settings.tuningToolShop.product.detail.showShortDescription}
+                showLongDescription = {$settings.tuningToolShop.product.detail.showLongDescription}
+                showPrice = {$settings.tuningToolShop.product.detail.showPrice}
+                showAddToCart = {$settings.tuningToolShop.product.detail.showAddToCart}
+                showManufacturerInfo = {$settings.tuningToolShop.product.detail.showManufacturerInfo}
+                showRelatedProducts = {$settings.tuningToolShop.product.detail.showRelatedProducts}
+                relatedProductsCount = {$settings.tuningToolShop.product.detail.relatedProductsCount}
+                showReviews = {$settings.tuningToolShop.product.detail.showReviews}
+                showAvailability = {$settings.tuningToolShop.product.detail.showAvailability}
+            }
         }
     }
 }

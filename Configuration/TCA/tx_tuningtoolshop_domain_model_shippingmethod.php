@@ -87,6 +87,24 @@ return [
                 'eval' => 'required',
             ],
         ],
+        'max_weight' => [
+            'exclude' => true,
+            'label' => 'Max. Gewicht (kg)',
+            'displayCond' => 'VERSION:IS:false',
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'maxWeight' => [
+            'exclude' => true,
+            'label' => 'Max. Gewicht (kg)',
+            'config' => [
+                'type' => 'number',
+                'format' => 'decimal',
+                'size' => 10,
+                'default' => 0,
+            ],
+        ],
         'sortOrder' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_shippingmethod.sortOrder',
@@ -121,6 +139,7 @@ return [
                     description,
                     logo,
                     price,
+                    maxWeight,
                     sortOrder,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                     --palette--;;hidden,

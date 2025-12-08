@@ -73,10 +73,8 @@ class Order extends AbstractEntity
 
     protected float $shippingCost = 0.0;
 
-    #[Extbase\ORM\Lazy]
     protected ?PaymentMethod $paymentMethod = null;
 
-    #[Extbase\ORM\Lazy]
     protected ?ShippingMethod $shippingMethod = null;
 
     protected int $status = self::STATUS_PENDING;

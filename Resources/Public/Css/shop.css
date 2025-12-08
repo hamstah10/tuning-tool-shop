@@ -6,7 +6,7 @@
    Variables
    -------------------------------------------------------------------------- */
 :root {
-    --tts-primary: #2563eb;
+    --tts-primary: #bd1e23;
     --tts-primary-dark: #1d4ed8;
     --tts-secondary: #64748b;
     --tts-success: #22c55e;
@@ -32,7 +32,7 @@
     line-height: 1.6;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
+    
 }
 
 /* --------------------------------------------------------------------------
@@ -562,7 +562,7 @@
 
 .tts-cart-item__title {
     font-weight: 600;
-    color: var(--tts-dark);
+    color: var(--tts-light);
     text-decoration: none;
 }
 

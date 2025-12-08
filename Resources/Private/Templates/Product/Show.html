@@ -4,6 +4,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+    <f:debug>{_all}</f:debug>
     <article class="tts-product-detail">
         <div class="tts-product-detail__main">
             <div class="tts-product-detail__gallery">
@@ -11,11 +12,36 @@
             </div>
 
             <div class="tts-product-detail__info">
-                <h1 class="tts-product-detail__title">{product.title}</h1>
-
-                <f:if condition="{product.sku}">
-                    <p class="tts-product-detail__sku">Art.-Nr.: {product.sku}</p>
+                <div class="d-flex justify-content-between">
+                    <f:if condition="{product.sku}">
+                    <p class="tts-product-detail__sku text-light">Art.-Nr.: {product.sku}</p>
                 </f:if>
+                <f:if condition="{product.manufacturer}">
+                    <div class="tts-manufacturer-info mb-3">
+                        <f:if condition="{product.manufacturer.logo}">
+                            <f:then>
+                            <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="tts-manufacturer-logo" width="80"  />
+                            </f:then>
+                            <f:else>
+                                <h4 class="tts-product-card__subtitle text-light">{product.manufacturer.title}</h4>
+                            </f:else>
+                        </f:if>
+
+                        
+                    </div>
+                </f:if>
+                </div>
+               
+                <h1 class="tts-product-detail__title text-light fw-bold mt-4">{product.title}</h1>
+                <f:if condition="{product.shortDescription}">
+                    <div class="tts-product-detail__short-desc text-light mt-4">
+                        <f:format.html>{product.shortDescription}</f:format.html>
+                    </div>
+                </f:if>
+                
+                
+
+                
 
                 <div class="tts-product-detail__price-wrapper">
                     <f:if condition="{product.specialPrice}">
@@ -28,7 +54,7 @@
                             </span>
                         </f:then>
                         <f:else>
-                            <span class="tts-product-detail__price">
+                            <span class="tts-product-detail__price text-light">
                                 <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
                             </span>
                         </f:else>
@@ -37,37 +63,35 @@
                 </div>
 
                 <div class="tts-product-detail__stock">
-                    <f:if condition="{product.stock} > 0">
+                    <f:if condition="{product.stock} > 0 && {settings.showStock} == 1">
                         <f:then>
                             <span class="tts-stock tts-stock--available">
                                 ✓ Auf Lager ({product.stock} verfügbar)
                             </span>
                         </f:then>
                         <f:else>
+                            <f:if condition="{settings.showStock} == 1">
                             <span class="tts-stock tts-stock--unavailable">
                                 ✗ Derzeit nicht verfügbar
                             </span>
+                            </f:if>
                         </f:else>
                     </f:if>
                 </div>
 
-                <f:if condition="{product.shortDescription}">
-                    <div class="tts-product-detail__short-desc">
-                        <f:format.html>{product.shortDescription}</f:format.html>
-                    </div>
-                </f:if>
+                
 
                 <f:if condition="{product.stock} > 0">
                     <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" class="tts-product-detail__add-form" arguments="{product: product.uid, quantity: 1}">
                         <div class="tts-quantity-selector">
-                            <label for="quantity" class="tts-quantity-selector__label">Menge:</label>
+                            <label for="quantity" class="tts-quantity-selector__label text-light">Menge:</label>
                             <div class="tts-quantity-input">
                                 <button type="button" class="tts-quantity-input__btn tts-quantity-input__btn--minus">-</button>
                                 <input type="number" name="tx_tuningtoolshop_cart[quantity]" value="1" id="quantity" min="1" max="{product.stock}" class="tts-quantity-input__field" />
                                 <button type="button" class="tts-quantity-input__btn tts-quantity-input__btn--plus">+</button>
                             </div>
                         </div>
-                        <button type="submit" class="tts-btn tts-btn--primary tts-btn--large">
+                        <button type="submit" class="btn btn-primary">
                             In den Warenkorb
                         </button>
                     </f:form>
@@ -88,6 +112,9 @@
             <div class="tts-tabs">
                 <div class="tts-tabs__nav">
                     <button type="button" class="tts-tabs__btn tts-tabs__btn--active" data-tab="description">Beschreibung</button>
+                    <f:if condition="{product.lieferumfang}">
+                        <button type="button" class="tts-tabs__btn" data-tab="lieferumfang">Lieferumfang</button>
+                    </f:if>
                     <f:if condition="{product.videos}">
                         <button type="button" class="tts-tabs__btn" data-tab="videos">Videos</button>
                     </f:if>
@@ -103,7 +130,7 @@
                     <div class="tts-tabs__panel tts-tabs__panel--active" data-panel="description">
                         <f:if condition="{product.description}">
                             <f:then>
-                                <div class="tts-product-description">
+                                <div class="tts-product-description text-light">
                                     <f:format.html>{product.description}</f:format.html>
                                 </div>
                             </f:then>
@@ -112,6 +139,14 @@
                             </f:else>
                         </f:if>
                     </div>
+
+                    <f:if condition="{product.lieferumfang}">
+                        <div class="tts-tabs__panel" data-panel="lieferumfang">
+                            <div class="tts-product-lieferumfang text-light">
+                                <f:format.html>{product.lieferumfang}</f:format.html>
+                            </div>
+                        </div>
+                    </f:if>
 
                     <f:if condition="{product.videos}">
                         <div class="tts-tabs__panel" data-panel="videos">

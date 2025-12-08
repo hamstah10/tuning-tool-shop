@@ -12,7 +12,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class ManufacturerRepository extends Repository
 {
     protected $defaultOrderings = [
-        'name' => QueryInterface::ORDER_ASCENDING,
+        'title' => QueryInterface::ORDER_ASCENDING,
     ];
 
     public function findBySlug(string $slug): ?Manufacturer

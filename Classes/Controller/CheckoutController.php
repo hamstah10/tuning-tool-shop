@@ -42,7 +42,12 @@ class CheckoutController extends ActionController
         }
 
         $totals = $this->calculateTotals($cartItems->toArray());
+        $totalWeight = $this->calculateTotalWeight($cartItems->toArray());
         $countries = $this->getCountries();
+        
+        // Filter shipping methods by weight and select the best match
+        $availableShippingMethods = $this->filterShippingMethodsByWeight($shippingMethods, $totalWeight);
+        $selectedShippingMethod = $this->selectBestShippingMethod($availableShippingMethods, $totalWeight);
         
         $termsLink = $this->buildPageLink((int)($this->settings['termsAndConditionsPid'] ?? 0));
         $privacyLink = $this->buildPageLink((int)($this->settings['privacyPid'] ?? 0));
@@ -51,10 +56,12 @@ class CheckoutController extends ActionController
         $this->view->assignMultiple([
             'cartItems' => $cartItems,
             'paymentMethods' => $paymentMethods,
-            'shippingMethods' => $shippingMethods,
+            'shippingMethods' => $availableShippingMethods,
+            'selectedShippingMethod' => $selectedShippingMethod,
             'total' => $totals['gross'],
             'totalNet' => $totals['net'],
             'totalTax' => $totals['tax'],
+            'totalWeight' => $totalWeight,
             'cartPid' => $cartPid,
             'shopPid' => $shopPid,
             'countries' => $countries,
@@ -85,33 +92,33 @@ class CheckoutController extends ActionController
         $order->setPid((int)($this->settings['storagePid'] ?? $GLOBALS['TSFE']->id));
 
         // Customer data
-        $order->setCustomerEmail((string)($orderData['customerEmail'] ?? ''));
-        $order->setCustomerFirstName((string)($orderData['customerFirstName'] ?? ''));
-        $order->setCustomerLastName((string)($orderData['customerLastName'] ?? ''));
-        $order->setCustomerCompany((string)($orderData['customerCompany'] ?? ''));
+        $order->setCustomerEmail(trim((string)($orderData['customerEmail'] ?? '')));
+        $order->setCustomerFirstName(trim((string)($orderData['customerFirstName'] ?? '')));
+        $order->setCustomerLastName(trim((string)($orderData['customerLastName'] ?? '')));
+        $order->setCustomerCompany(trim((string)($orderData['customerCompany'] ?? '')));
 
         // Billing address
-        $order->setBillingStreet((string)($orderData['billingStreet'] ?? ''));
-        $order->setBillingZip((string)($orderData['billingZip'] ?? ''));
-        $order->setBillingCity((string)($orderData['billingCity'] ?? ''));
-        $order->setBillingCountry((string)($orderData['billingCountry'] ?? ''));
+        $order->setBillingStreet(trim((string)($orderData['billingStreet'] ?? '')));
+        $order->setBillingZip(substr(trim((string)($orderData['billingZip'] ?? '')), 0, 50));
+        $order->setBillingCity(trim((string)($orderData['billingCity'] ?? '')));
+        $order->setBillingCountry(substr(trim((string)($orderData['billingCountry'] ?? '')), 0, 2));
 
         // Shipping address
         $shippingSameAsBilling = isset($orderData['shippingSameAsBilling']) && $orderData['shippingSameAsBilling'];
         $order->setShippingSameAsBilling($shippingSameAsBilling);
         
         if (!$shippingSameAsBilling) {
-            $order->setShippingFirstName((string)($orderData['shippingFirstName'] ?? ''));
-            $order->setShippingLastName((string)($orderData['shippingLastName'] ?? ''));
-            $order->setShippingCompany((string)($orderData['shippingCompany'] ?? ''));
-            $order->setShippingStreet((string)($orderData['shippingStreet'] ?? ''));
-            $order->setShippingZip((string)($orderData['shippingZip'] ?? ''));
-            $order->setShippingCity((string)($orderData['shippingCity'] ?? ''));
-            $order->setShippingCountry((string)($orderData['shippingCountry'] ?? ''));
+            $order->setShippingFirstName(trim((string)($orderData['shippingFirstName'] ?? '')));
+            $order->setShippingLastName(trim((string)($orderData['shippingLastName'] ?? '')));
+            $order->setShippingCompany(trim((string)($orderData['shippingCompany'] ?? '')));
+            $order->setShippingStreet(trim((string)($orderData['shippingStreet'] ?? '')));
+            $order->setShippingZip(substr(trim((string)($orderData['shippingZip'] ?? '')), 0, 50));
+            $order->setShippingCity(trim((string)($orderData['shippingCity'] ?? '')));
+            $order->setShippingCountry(substr(trim((string)($orderData['shippingCountry'] ?? '')), 0, 2));
         }
 
         // Comment
-        $order->setComment((string)($orderData['comment'] ?? ''));
+        $order->setComment(trim((string)($orderData['comment'] ?? '')));
 
         // Payment method
         $paymentMethodId = (int)($orderData['paymentMethod'] ?? 0);
@@ -132,26 +139,28 @@ class CheckoutController extends ActionController
             }
         }
 
-        $subtotal = 0.0;
         $items = [];
         
         foreach ($cartItems as $cartItem) {
             if ($cartItem->getProduct() !== null) {
                 $itemSubtotal = $cartItem->getProduct()->getPrice() * $cartItem->getQuantity();
                 $items[] = [
+                    'sku' => $cartItem->getProduct()->getSku(),
+                    'title' => $cartItem->getProduct()->getTitle(),
                     'productName' => $cartItem->getProduct()->getTitle(),
                     'productId' => $cartItem->getProduct()->getUid(),
                     'quantity' => $cartItem->getQuantity(),
                     'price' => $cartItem->getProduct()->getPrice(),
                     'subtotal' => $itemSubtotal,
+                    'total' => $itemSubtotal,
                 ];
-                $subtotal += $itemSubtotal;
             }
         }
 
-        $order->setSubtotal($subtotal);
+        $totals = $this->calculateTotals($cartItems->toArray());
+        $order->setSubtotal($totals['net']);
         $order->setItemsJson(json_encode($items));
-        $order->setTotalAmount($subtotal + $order->getShippingCost() - $order->getDiscount());
+        $order->setTotalAmount($totals['gross'] + $order->getShippingCost() - $order->getDiscount());
 
         $this->orderRepository->add($order);
 
@@ -263,5 +272,60 @@ class CheckoutController extends ActionController
             'net' => $net,
             'tax' => $tax,
         ];
+    }
+
+    private function calculateTotalWeight(array $cartItems): float
+    {
+        $totalWeight = 0.0;
+
+        foreach ($cartItems as $cartItem) {
+            if ($cartItem->getProduct() !== null) {
+                $totalWeight += $cartItem->getProduct()->getWeight() * $cartItem->getQuantity();
+            }
+        }
+
+        return $totalWeight;
+    }
+
+    private function filterShippingMethodsByWeight(object $shippingMethods, float $totalWeight): array
+    {
+        $availableMethods = [];
+
+        foreach ($shippingMethods as $shippingMethod) {
+            // Include method if maxWeight is 0 (unlimited) or >= totalWeight
+            if ($shippingMethod->getMaxWeight() === 0.0 || $shippingMethod->getMaxWeight() >= $totalWeight) {
+                $availableMethods[] = $shippingMethod;
+            }
+        }
+
+        return $availableMethods;
+    }
+
+    private function selectBestShippingMethod(array $availableMethods, float $totalWeight): ?object
+    {
+        if (empty($availableMethods)) {
+            return null;
+        }
+
+        // Select the shipping method with the lowest maxWeight that still fits
+        // This ensures the most cost-effective option
+        $bestMethod = null;
+        $lowestMaxWeight = PHP_FLOAT_MAX;
+
+        foreach ($availableMethods as $method) {
+            $maxWeight = $method->getMaxWeight();
+            
+            // If unlimited (0), only use if no other option exists
+            if ($maxWeight === 0.0) {
+                if ($bestMethod === null) {
+                    $bestMethod = $method;
+                }
+            } elseif ($maxWeight >= $totalWeight && $maxWeight < $lowestMaxWeight) {
+                $bestMethod = $method;
+                $lowestMaxWeight = $maxWeight;
+            }
+        }
+
+        return $bestMethod ?? ($availableMethods[0] ?? null);
     }
 }

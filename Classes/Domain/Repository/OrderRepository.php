@@ -15,9 +15,28 @@ class OrderRepository extends Repository
         'crdate' => QueryInterface::ORDER_DESCENDING,
     ];
 
-    public function findByOrderNumber(string $orderNumber): ?Order
+    protected $defaultQuerySettings = null;
+
+    public function initializeObject(): void
+    {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setIgnoreEnableFields(false);
+        $querySettings->setRespectStoragePage(false);
+        $this->defaultQuerySettings = $querySettings;
+    }
+
+    protected function getQuery(): QueryInterface
     {
         $query = $this->createQuery();
+        if ($this->defaultQuerySettings !== null) {
+            $query->setQuerySettings($this->defaultQuerySettings);
+        }
+        return $query;
+    }
+
+    public function findByOrderNumber(string $orderNumber): ?Order
+    {
+        $query = $this->getQuery();
         $query->matching(
             $query->equals('orderNumber', $orderNumber)
         );
@@ -26,7 +45,7 @@ class OrderRepository extends Repository
 
     public function findByCustomerEmail(string $email): QueryResultInterface
     {
-        $query = $this->createQuery();
+        $query = $this->getQuery();
         $query->matching(
             $query->equals('customerEmail', $email)
         );
@@ -35,7 +54,7 @@ class OrderRepository extends Repository
 
     public function findByStatus(int $status): QueryResultInterface
     {
-        $query = $this->createQuery();
+        $query = $this->getQuery();
         $query->matching(
             $query->equals('status', $status)
         );
@@ -44,7 +63,7 @@ class OrderRepository extends Repository
 
     public function countByStatus(int $status): int
     {
-        $query = $this->createQuery();
+        $query = $this->getQuery();
         $query->matching(
             $query->equals('status', $status)
         );
@@ -53,14 +72,14 @@ class OrderRepository extends Repository
 
     public function findRecent(int $limit = 10): QueryResultInterface
     {
-        $query = $this->createQuery();
+        $query = $this->getQuery();
         $query->setLimit($limit);
         return $query->execute();
     }
 
     public function findOneByTransactionId(string $transactionId): ?Order
     {
-        $query = $this->createQuery();
+        $query = $this->getQuery();
         $query->matching(
             $query->equals('transactionId', $transactionId)
         );
@@ -69,6 +88,6 @@ class OrderRepository extends Repository
 
     public function countAll(): int
     {
-        return $this->createQuery()->execute()->count();
+        return $this->getQuery()->execute()->count();
     }
 }

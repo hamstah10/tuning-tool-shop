@@ -69,35 +69,48 @@
                             </section>
 
                             <!-- Versandart -->
-                            <section class="tts-checkout-section">
-                                <h2 class="tts-checkout-section__title">
-                                    <span class="tts-checkout-section__number">3</span>
-                                    Versandart *
-                                </h2>
-                                <div class="tts-shipping-methods d-flex flex-wrap gap-2" id="shippingMethodsGroup">
-                                    <f:for each="{shippingMethods}" as="shippingMethod">
-                                        <f:form.radio property="shippingMethod" id="shipping_{shippingMethod.uid}" value="{shippingMethod.uid}" class="btn-check tts-shipping-method-radio" required="required" data-price="{shippingMethod.price}" autocomplete="off" />
-                                        <label for="shipping_{shippingMethod.uid}" class="btn btn-outline-secondary tts-shipping-method__label">
-                                            <f:if condition="{shippingMethod.logo}">
-                                                <img src="{shippingMethod.logo}" alt="{shippingMethod.provider}" class="tts-shipping-method__logo" />
-                                            </f:if>
-                                            <div class="tts-shipping-method__info">
-                                                <span class="tts-shipping-method__name">{shippingMethod.title}</span>
-                                                <span class="tts-shipping-method__provider">{shippingMethod.provider}</span>
-                                                <f:if condition="{shippingMethod.description}">
-                                                    <span class="tts-shipping-method__description">{shippingMethod.description}</span>
-                                                </f:if>
-                                            </div>
-                                            <span class="tts-shipping-method__price">
-                                                +<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{shippingMethod.price}</f:format.currency>
-                                            </span>
-                                        </label>
-                                    </f:for>
-                                </div>
-                                <div class="tts-shipping-method-error" id="shippingMethodError" style="display: none;">
-                                    <p class="tts-form-error">Bitte wählen Sie eine Versandart aus</p>
-                                </div>
-                            </section>
+                             <section class="tts-checkout-section">
+                                  <h2 class="tts-checkout-section__title">
+                                      <span class="tts-checkout-section__number">3</span>
+                                      Versandart *
+                                  </h2>
+                                  <f:if condition="{shippingMethods}">
+                                      <f:then>
+                                          <div class="tts-shipping-methods" id="shippingMethodsGroup">
+                                              <f:for each="{shippingMethods}" as="shippingMethod">
+                                                  <div class="tts-shipping-method-option">
+                                                      <f:form.radio property="shippingMethod" id="shipping_{shippingMethod.uid}" value="{shippingMethod.uid}" checked="{shippingMethod.uid == selectedShippingMethod.uid}" class="tts-shipping-method-radio" data-price="{shippingMethod.price}" required="required" />
+                                                      <label for="shipping_{shippingMethod.uid}" class="tts-shipping-method__label">
+                                                          <div class="tts-shipping-method-content">
+                                                              <f:if condition="{shippingMethod.logo}">
+                                                                  <img src="{shippingMethod.logo}" alt="{shippingMethod.provider}" class="tts-shipping-method__logo" style="max-width: 50px; height: auto;" />
+                                                              </f:if>
+                                                              <div class="tts-shipping-method-info">
+                                                                  <h5 class="mb-0">{shippingMethod.title}</h5>
+                                                                  <p class="mb-1 text-muted small">{shippingMethod.provider}</p>
+                                                                  <f:if condition="{shippingMethod.description}">
+                                                                      <p class="mb-0 small">{shippingMethod.description}</p>
+                                                                  </f:if>
+                                                              </div>
+                                                              <div class="tts-shipping-method-price">
+                                                                  <strong>+<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{shippingMethod.price}</f:format.currency></strong>
+                                                              </div>
+                                                          </div>
+                                                      </label>
+                                                  </div>
+                                              </f:for>
+                                          </div>
+                                          <div class="tts-shipping-method-error" id="shippingMethodError" style="display: none;">
+                                              <p class="tts-form-error">Bitte wählen Sie eine Versandart aus</p>
+                                          </div>
+                                      </f:then>
+                                      <f:else>
+                                          <div class="alert alert-warning">
+                                              Keine passende Versandart für das aktuelle Gesamtgewicht ({totalWeight} kg) gefunden.
+                                          </div>
+                                      </f:else>
+                                  </f:if>
+                              </section>
 
                             <!-- Lieferadresse -->
                             <section class="tts-checkout-section">
@@ -215,7 +228,7 @@
                                     <div class="tts-order-summary__row tts-order-summary__row--shipping">
                                         <span>Versandkosten:</span>
                                         <span id="shippingCostSummary">
-                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">0,00</f:format.currency>
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{selectedShippingMethod.price}</f:format.currency>
                                         </span>
                                     </div>
                                     <div class="tts-order-summary__row tts-order-summary__row--total">

@@ -27,6 +27,8 @@ class Product extends AbstractEntity
 
     protected string $headline = '';
 
+    protected string $lieferumfang = '';
+
     protected ?Manufacturer $manufacturer = null;
 
     /**
@@ -164,6 +166,16 @@ class Product extends AbstractEntity
     public function setHeadline(string $headline): void
     {
         $this->headline = $headline;
+    }
+
+    public function getLieferumfang(): string
+    {
+        return $this->lieferumfang;
+    }
+
+    public function setLieferumfang(string $lieferumfang): void
+    {
+        $this->lieferumfang = $lieferumfang;
     }
 
     public function getManufacturer(): ?Manufacturer

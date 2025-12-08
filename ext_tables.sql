@@ -32,6 +32,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     description text,
     short_description text,
     headline varchar(255) NOT NULL DEFAULT '',
+    lieferumfang text,
     manufacturer int unsigned NOT NULL DEFAULT 0,
     categories int unsigned NOT NULL DEFAULT 0,
     images int unsigned NOT NULL DEFAULT 0,
@@ -54,6 +55,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_shippingmethod (
     provider varchar(255) NOT NULL DEFAULT '',
     logo int unsigned NOT NULL DEFAULT 0,
     price decimal(10,2) NOT NULL DEFAULT 0.00,
+    maxWeight decimal(10,3) NOT NULL DEFAULT 0.000,
     is_active tinyint(1) unsigned NOT NULL DEFAULT 1,
     sort_order int NOT NULL DEFAULT 0
 );
@@ -83,7 +85,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_order (
     customer_company varchar(255) NOT NULL DEFAULT '',
     billing_address text,
     billing_street varchar(255) NOT NULL DEFAULT '',
-    billing_zip varchar(20) NOT NULL DEFAULT '',
+    billing_zip varchar(50) NOT NULL DEFAULT '',
     billing_city varchar(255) NOT NULL DEFAULT '',
     billing_country varchar(2) NOT NULL DEFAULT '',
     shipping_address text,
@@ -91,7 +93,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_order (
     shipping_last_name varchar(255) NOT NULL DEFAULT '',
     shipping_company varchar(255) NOT NULL DEFAULT '',
     shipping_street varchar(255) NOT NULL DEFAULT '',
-    shipping_zip varchar(20) NOT NULL DEFAULT '',
+    shipping_zip varchar(50) NOT NULL DEFAULT '',
     shipping_city varchar(255) NOT NULL DEFAULT '',
     shipping_country varchar(2) NOT NULL DEFAULT '',
     shipping_same_as_billing tinyint(1) unsigned NOT NULL DEFAULT 1,

@@ -1,5 +1,8 @@
 plugin.tx_tuningtoolshop {
     persistence {
+        # Storage page ID for shop data (orders, cart items)
+        # Set to page UID where shop data should be stored
+        # Leave 0 to store on current page
         storagePid = 0
     }
 }
@@ -31,10 +34,32 @@ settings.tuningToolShop {
         sandbox = 1
         business = shop@example.com
         currency = EUR
+        clientId = 
+        secret = 
     }
     stripe {
         apiKey = 
         webhookSecret = 
         publishableKey = 
+        currency = eur
+    }
+    klarna {
+        apiKey = 
+        merchantId = 
+        baseUrl = https://api.playground.klarna.com
+        currency = EUR
+    }
+    product {
+        detail {
+            showShortDescription = 1
+            showLongDescription = 1
+            showPrice = 1
+            showAddToCart = 1
+            showManufacturerInfo = 1
+            showRelatedProducts = 1
+            relatedProductsCount = 4
+            showReviews = 1
+            showAvailability = 1
+        }
     }
 }

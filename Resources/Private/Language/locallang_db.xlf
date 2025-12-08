@@ -81,6 +81,9 @@
             <trans-unit id="tx_tuningtoolshop_domain_model_product.short_description" resname="tx_tuningtoolshop_domain_model_product.short_description">
                 <source>Kurzbeschreibung</source>
             </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.lieferumfang" resname="tx_tuningtoolshop_domain_model_product.lieferumfang">
+                <source>Lieferumfang</source>
+            </trans-unit>
             <trans-unit id="tx_tuningtoolshop_domain_model_product.manufacturer" resname="tx_tuningtoolshop_domain_model_product.manufacturer">
                 <source>Hersteller</source>
             </trans-unit>

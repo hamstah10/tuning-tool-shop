@@ -21,21 +21,26 @@ class ProductController extends ActionController
         protected readonly ManufacturerRepository $manufacturerRepository,
     ) {}
 
-    public function listAction(int $category = 0, string $sortBy = ''): ResponseInterface
+    public function listAction(int $category = 0, int $manufacturer = 0, string $sortBy = ''): ResponseInterface
     {
         $categories = $this->categoryRepository->findAll();
         $manufacturers = $this->manufacturerRepository->findAll();
+        $products = $this->productRepository->findAll();
 
         // Filter by category if selected
         if ($category > 0) {
             $selectedCategory = $this->categoryRepository->findByUid($category);
             if ($selectedCategory !== null) {
                 $products = $this->productRepository->findByCategory($selectedCategory);
-            } else {
-                $products = $this->productRepository->findAll();
             }
-        } else {
-            $products = $this->productRepository->findAll();
+        }
+
+        // Filter by manufacturer if selected
+        if ($manufacturer > 0) {
+            $selectedManufacturer = $this->manufacturerRepository->findByUid($manufacturer);
+            if ($selectedManufacturer !== null) {
+                $products = $this->productRepository->findByManufacturer($selectedManufacturer);
+            }
         }
 
         // Apply sorting
@@ -59,6 +64,7 @@ class ProductController extends ActionController
             'detailPid' => $detailPid,
             'cartPid' => $cartPid,
             'selectedCategory' => $category,
+            'selectedManufacturer' => $manufacturer,
             'selectedSort' => $sortBy,
             'sortOptions' => $sortOptions,
         ]);

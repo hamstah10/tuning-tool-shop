@@ -4,45 +4,87 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="tts-product-list">
-        <header class="tts-product-list__header">
-            <h1 class="tts-product-list__title">Produkte</h1>
-
-            <div class="tts-product-list__toolbar">
-                <f:form action="list" controller="Product" method="post" class="tts-filter-form">
-                    <div class="tts-filter-form__group">
-                        <label for="category" class="tts-filter-form__label">Kategorie:</label>
-                        <f:form.select name="category" id="category" options="{categories}" optionLabelField="title" optionValueField="uid" prependOptionLabel="Alle Kategorien" prependOptionValue="0" value="{selectedCategory}" class="tts-filter-form__select" />
-                    </div>
-
-                    <div class="tts-filter-form__group">
-                        <label for="sortBy" class="tts-filter-form__label">Sortierung:</label>
-                        <f:form.select name="sortBy" id="sortBy" options="{sortOptions}" value="{selectedSort}" class="tts-filter-form__select" />
-                    </div>
-
-                    <button type="submit" class="tts-btn tts-btn--secondary">Filtern</button>
-                </f:form>
-
-                <f:form action="search" controller="Product" method="post" class="tts-search-form">
-                    <f:form.textfield name="search" placeholder="Produkt suchen..." class="tts-search-form__input" />
-                    <button type="submit" class="tts-btn tts-btn--primary">Suchen</button>
-                </f:form>
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-6 mb-4">Produkte</h1>
             </div>
-        </header>
+        </div>
 
+        <!-- Filter & Search -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-light">
+                    <div class="card-body">
+                        <form method="post" action="" class="row g-3 align-items-end">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="category" class="form-label">Kategorie</label>
+                                <f:form.select name="category" id="category" options="{categories}" optionLabelField="title" optionValueField="uid" prependOptionLabel="Alle Kategorien" prependOptionValue="0" value="{selectedCategory}" class="form-select" />
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="manufacturer" class="form-label">Hersteller</label>
+                                <f:form.select name="manufacturer" id="manufacturer" options="{manufacturers}" optionLabelField="title" optionValueField="uid" prependOptionLabel="Alle Hersteller" prependOptionValue="0" value="{selectedManufacturer}" class="form-select" />
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="sortBy" class="form-label">Sortierung</label>
+                                <f:form.select name="sortBy" id="sortBy" options="{sortOptions}" value="{selectedSort}" class="form-select" />
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-funnel"></i> Filtern
+                                </button>
+                            </div>
+
+                            <f:if condition="{selectedCategory} || {selectedManufacturer}">
+                                <div class="col-12">
+                                    <f:link.page class="btn btn-outline-secondary">Alle anzeigen</f:link.page>
+                                </div>
+                            </f:if>
+                        </form>
+
+                        <form method="post" action="" class="row mt-3">
+                            <div class="col-12 col-md-8">
+                                <f:form.textfield name="search" placeholder="Produkt suchen..." class="form-control" />
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <button type="submit" class="btn btn-secondary w-100">
+                                    <i class="bi bi-search"></i> Suchen
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products -->
         <f:if condition="{products}">
             <f:then>
-                <div class="tts-product-grid">
+                <div class="row g-4 mb-4">
                     <f:for each="{products}" as="product">
-                        <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-4">
+                            <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
+                        </div>
                     </f:for>
                 </div>
 
-                <f:render partial="Pagination" arguments="{pagination: pagination, action: 'list', arguments: {category: selectedCategory, sortBy: selectedSort}}" />
+                <div class="row">
+                    <div class="col-12">
+                        <f:render partial="Pagination" arguments="{pagination: pagination, action: 'list', arguments: {category: selectedCategory, sortBy: selectedSort}}" />
+                    </div>
+                </div>
             </f:then>
             <f:else>
-                <div class="tts-empty-state">
-                    <p>Keine Produkte gefunden.</p>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Keine Produkte gefunden</h4>
+                            <p>Versuchen Sie, die Filter anzupassen oder ein anderes Suchkriterium zu verwenden.</p>
+                        </div>
+                    </div>
                 </div>
             </f:else>
         </f:if>

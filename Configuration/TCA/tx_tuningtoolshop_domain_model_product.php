@@ -172,16 +172,26 @@ return [
             ],
         ],
         'headline' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.headline',
-            'config' => [
-                'type' => 'input',
-                'size' => 50,
-                'max' => 255,
-                'eval' => 'trim',
-            ],
-        ],
-        'manufacturer' => [
+             'exclude' => true,
+             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.headline',
+             'config' => [
+                 'type' => 'input',
+                 'size' => 50,
+                 'max' => 255,
+                 'eval' => 'trim',
+             ],
+         ],
+         'lieferumfang' => [
+             'exclude' => true,
+             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.lieferumfang',
+             'config' => [
+                 'type' => 'text',
+                 'enableRichtext' => true,
+                 'cols' => 40,
+                 'rows' => 5,
+             ],
+         ],
+         'manufacturer' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.manufacturer',
             'config' => [
@@ -304,20 +314,6 @@ return [
                 'default' => 0,
             ],
         ],
-        'shipping_methods' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.shipping_methods',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
-                'foreign_table' => 'tx_tuningtoolshop_domain_model_shippingmethod',
-                'foreign_table_where' => 'AND {#tx_tuningtoolshop_domain_model_shippingmethod}.{#hidden} = 0 ORDER BY tx_tuningtoolshop_domain_model_shippingmethod.sort_order, tx_tuningtoolshop_domain_model_shippingmethod.title',
-                'MM' => 'tx_tuningtoolshop_product_shippingmethod_mm',
-                'size' => 5,
-                'autoSizeMax' => 10,
-                'maxitems' => 9999,
-            ],
-        ],
     ],
     'types' => [
         '1' => [
@@ -327,12 +323,12 @@ return [
                     --palette--;;sku_headline,
                     --palette--;;prices,
                     short_description,
-                    description,
-                --div--;LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tabs.relations,
+                     description,
+                     lieferumfang,
+                    --div--;LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tabs.relations,
                     manufacturer,
                     categories,
-                    shipping_methods,
-                --div--;LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tabs.media,
+                    --div--;LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tabs.media,
                     images,
                     videos,
                     documents,
