@@ -5,30 +5,26 @@
 
 <f:section name="main">
     <div class="container-fluid">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h1 class="display-6 mb-4">Produkte</h1>
-            </div>
-        </div>
+      
 
         <!-- Filter & Search -->
-        <div class="row mb-4">
+        <div class="row mb-0">
             <div class="col-12">
-                <div class="card border-light">
-                    <div class="card-body">
+                
+                   
                         <form method="post" action="" class="row g-3 align-items-end">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="category" class="form-label">Kategorie</label>
+                                
                                 <f:form.select name="category" id="category" options="{categories}" optionLabelField="title" optionValueField="uid" prependOptionLabel="Alle Kategorien" prependOptionValue="0" value="{selectedCategory}" class="form-select" />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="manufacturer" class="form-label">Hersteller</label>
+                                
                                 <f:form.select name="manufacturer" id="manufacturer" options="{manufacturers}" optionLabelField="title" optionValueField="uid" prependOptionLabel="Alle Hersteller" prependOptionValue="0" value="{selectedManufacturer}" class="form-select" />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="sortBy" class="form-label">Sortierung</label>
+                                
                                 <f:form.select name="sortBy" id="sortBy" options="{sortOptions}" value="{selectedSort}" class="form-select" />
                             </div>
 
@@ -44,7 +40,7 @@
                                 </div>
                             </f:if>
                         </form>
-
+                        <f:comment>
                         <form method="post" action="" class="row mt-3">
                             <div class="col-12 col-md-8">
                                 <f:form.textfield name="search" placeholder="Produkt suchen..." class="form-control" />
@@ -55,8 +51,9 @@
                                 </button>
                             </div>
                         </form>
-                    </div>
-                </div>
+                        </f:comment>
+                    
+                
             </div>
         </div>
 

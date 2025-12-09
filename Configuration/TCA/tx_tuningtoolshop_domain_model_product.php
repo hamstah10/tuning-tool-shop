@@ -21,7 +21,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,sku,description,short_description,headline',
-        'iconfile' => 'EXT:tuning_tool_shop/Resources/Public/Icons/tx_tuningtoolshop_domain_model_product.svg',
+        'iconfile' => 'EXT:tuning_tool_shop/Resources/Public/Icons/tuning-icon.svg',
         'security' => [
             'ignorePageTypeRestriction' => true,
         ],
