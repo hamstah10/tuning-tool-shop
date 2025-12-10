@@ -1,9 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
-<div class="widget-content">
-    <div class="widget-header">
-        <h2><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title" /></h2>
-    </div>
-
+<div class="widget-content-main">
     <div class="widget-stats">
         <div class="stat-box">
             <div class="stat-value">{totalProducts}</div>
@@ -14,14 +10,16 @@
     <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.recent" /></h3>
     <f:if condition="{recentProducts}">
         <f:then>
-            <ul class="product-list">
+            <div class="products-list-wrapper">
+                <ul class="product-list">
                 <f:for each="{recentProducts}" as="product">
                     <li class="product-item">
                         <div class="product-name">{product.title}</div>
                         <div class="product-price">€ {product.price -> f:format.currency(currencySign: '€', decimals: 2)}</div>
                     </li>
                 </f:for>
-            </ul>
+                </ul>
+            </div>
         </f:then>
         <f:else>
             <div class="text-center text-muted">
@@ -32,22 +30,6 @@
 </div>
 
 <style>
-    .widget-content {
-        padding: 1rem;
-    }
-
-    .widget-header {
-        margin-bottom: 1.5rem;
-        border-bottom: 1px solid #e9ecef;
-        padding-bottom: 1rem;
-    }
-
-    .widget-header h2 {
-        margin: 0;
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
     .widget-stats {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -75,10 +57,15 @@
     }
 
     h3 {
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-        font-size: 1rem;
+        margin: 1rem 0 0.75rem 0;
+        font-size: 0.95rem;
         font-weight: 600;
+    }
+
+    .products-list-wrapper {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
     }
 
     .product-list {

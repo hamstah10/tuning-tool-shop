@@ -88,3 +88,9 @@ ExtensionUtility::configurePlugin(
         StripeController::class => 'createPaymentIntent,success,cancel,webhook',
     ]
 );
+
+// Register dashboard widget groups
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] = array_merge(
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] ?? [],
+    require ExtensionManagementUtility::extPath('tuning_tool_shop') . 'Configuration/Backend/DashboardWidgetGroups.php'
+);

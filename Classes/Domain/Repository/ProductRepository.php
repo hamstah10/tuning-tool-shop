@@ -109,4 +109,16 @@ class ProductRepository extends Repository
         $query->setLimit($limit);
         return $query->execute();
     }
+
+    public function findAllIgnoreStorage(): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        return $query->execute();
+    }
+
+    public function countAll(): int
+    {
+        return $this->findAllIgnoreStorage()->count();
+    }
 }

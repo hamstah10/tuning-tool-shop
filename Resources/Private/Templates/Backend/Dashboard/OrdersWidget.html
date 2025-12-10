@@ -1,9 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
-<div class="widget-content">
-    <div class="widget-header">
-        <h2><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.title" /></h2>
-    </div>
-
+<div class="widget-content-main">
     <div class="widget-stats">
         <div class="stat-box">
             <div class="stat-value">€ {totalRevenue -> f:format.currency(currencySign: '€', decimals: 2)}</div>
@@ -16,7 +12,8 @@
     </div>
 
     <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.recentOrders" /></h3>
-    <table class="table table-hover">
+    <div class="orders-table-wrapper">
+        <table class="table table-hover">
         <thead>
             <tr>
                 <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.orderNumber" /></th>
@@ -34,7 +31,14 @@
                             <td>{order.customerFirstName} {order.customerLastName}</td>
                             <td>€ {order.total -> f:format.currency(currencySign: '€', decimals: 2)}</td>
                             <td>
-                                <span class="badge badge-{order.status -> f:switch(default: 'secondary', case: {0: 'danger', 1: 'warning', 2: 'info', 3: 'primary', 4: 'success'})}">{order.statusLabel}</span>
+                                <f:switch expression="{order.status}">
+                                    <f:case value="0"><span class="badge badge-danger">{order.statusLabel}</span></f:case>
+                                    <f:case value="1"><span class="badge badge-warning">{order.statusLabel}</span></f:case>
+                                    <f:case value="2"><span class="badge badge-info">{order.statusLabel}</span></f:case>
+                                    <f:case value="3"><span class="badge badge-primary">{order.statusLabel}</span></f:case>
+                                    <f:case value="4"><span class="badge badge-success">{order.statusLabel}</span></f:case>
+                                    <f:defaultCase><span class="badge badge-secondary">{order.statusLabel}</span></f:defaultCase>
+                                </f:switch>
                             </td>
                         </tr>
                     </f:for>
@@ -48,26 +52,11 @@
                 </f:else>
             </f:if>
         </tbody>
-    </table>
+        </table>
+    </div>
 </div>
 
 <style>
-    .widget-content {
-        padding: 1rem;
-    }
-
-    .widget-header {
-        margin-bottom: 1.5rem;
-        border-bottom: 1px solid #e9ecef;
-        padding-bottom: 1rem;
-    }
-
-    .widget-header h2 {
-        margin: 0;
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
     .widget-stats {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -94,8 +83,34 @@
         margin-top: 0.5rem;
     }
 
+    h3 {
+        margin: 1rem 0 0.75rem 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .orders-table-wrapper {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
     .table {
         font-size: 0.875rem;
+        margin: 0;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .table thead {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa;
+        z-index: 10;
     }
 
     .badge {

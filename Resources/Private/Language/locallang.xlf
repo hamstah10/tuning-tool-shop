@@ -65,6 +65,68 @@
                 <source>No products available</source>
                 <target>Keine Produkte vorhanden</target>
             </trans-unit>
+
+            <trans-unit id="dashboard.group.title">
+                <source>Tuning Tool Shop</source>
+                <target>Tuning Tool Shop</target>
+            </trans-unit>
+
+            <trans-unit id="dashboard.inventory.title">
+                <source>Inventory Management</source>
+                <target>Lagerverwaltung</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.description">
+                <source>Product inventory and stock status overview</source>
+                <target>Produktbestand und Lagerstatus Übersicht</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.totalStock">
+                <source>Total Stock</source>
+                <target>Gesamtbestand</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.productsCount">
+                <source>Products</source>
+                <target>Produkte</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.lowStockCount">
+                <source>Low Stock Items</source>
+                <target>Niedrige Bestände</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.lowStockProducts">
+                <source>Low Stock Products (≤10)</source>
+                <target>Produkte mit niedrigem Bestand (≤10)</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.productName">
+                <source>Product Name</source>
+                <target>Produktname</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.sku">
+                <source>SKU</source>
+                <target>SKU</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.stock">
+                <source>Stock</source>
+                <target>Bestand</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.outOfStock">
+                <source>Out of Stock</source>
+                <target>Nicht verfügbar</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.criticalStock">
+                <source>Critical Stock</source>
+                <target>Kritischer Bestand</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.lowStock">
+                <source>Low Stock</source>
+                <target>Niedriger Bestand</target>
+            </trans-unit>
+            <trans-unit id="dashboard.inventory.allStocked">
+                <source>All products have sufficient stock.</source>
+                <target>Alle Produkte haben ausreichend Bestand.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -6,28 +6,46 @@ services:
 
   Hamstahstudio\TuningToolShop\:
     resource: '../Classes/*'
+    public: true
+    exclude:
+      - '../Classes/Payment/PaymentResult.php'
 
-  # Dashboard Widgets
-  dashboard.widget.tuning_tool_shop.orders:
-    class: Hamstahstudio\TuningToolShop\Dashboard\OrdersWidget
+  Hamstahstudio\TuningToolShop\Payment\PaymentResult:
+    public: true
+    autowire: false
+
+  Hamstahstudio\TuningToolShop\Dashboard\OrdersWidget:
+    public: true
     tags:
       - name: dashboard.widget
-        identifier: tuning_tool_shop.orders
-        groupNames: tuning_tool_shop
+        identifier: 'tuning_tool_shop_orders'
         title: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.title'
         description: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.description'
         iconIdentifier: 'content-widget-table'
-        height: medium
-        width: medium
+        groupNames: 'tuning_tool_shop'
+        height: 'medium'
+        width: 'medium'
 
-  dashboard.widget.tuning_tool_shop.products:
-    class: Hamstahstudio\TuningToolShop\Dashboard\ProductsWidget
+  Hamstahstudio\TuningToolShop\Dashboard\ProductsWidget:
+    public: true
     tags:
       - name: dashboard.widget
-        identifier: tuning_tool_shop.products
-        groupNames: tuning_tool_shop
+        identifier: 'tuning_tool_shop_products'
         title: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title'
         description: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.description'
         iconIdentifier: 'content-widget-list'
-        height: medium
-        width: medium
+        groupNames: 'tuning_tool_shop'
+        height: 'medium'
+        width: 'medium'
+
+  Hamstahstudio\TuningToolShop\Dashboard\InventoryWidget:
+    public: true
+    tags:
+      - name: dashboard.widget
+        identifier: 'tuning_tool_shop_inventory'
+        title: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.title'
+        description: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.description'
+        iconIdentifier: 'content-widget-list'
+        groupNames: 'tuning_tool_shop'
+        height: 'large'
+        width: 'medium'

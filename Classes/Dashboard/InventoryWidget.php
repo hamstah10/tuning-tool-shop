@@ -10,7 +10,7 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class ProductsWidget implements WidgetInterface
+class InventoryWidget implements WidgetInterface
 {
     public function __construct(
         private readonly WidgetConfigurationInterface $configuration,
@@ -24,26 +24,36 @@ class ProductsWidget implements WidgetInterface
         $view->setTemplateRootPaths([
             'EXT:tuning_tool_shop/Resources/Private/Templates/Backend',
         ]);
-        $view->setTemplate('Dashboard/ProductsWidget');
+        $view->setTemplate('Dashboard/InventoryWidget');
 
         // Ignoriere Storage Page für Dashboard Widget
         $allProducts = $this->productRepository->findAllIgnoreStorage();
-        $recentProducts = $this->productRepository->findRecent(5);
-        
-        // Fallback: Wenn keine aktiven Produkte, zeige die letzten 5 Produkte insgesamt
-        if ($recentProducts->count() === 0) {
-            $recentProducts = [];
-            $count = 0;
-            foreach ($allProducts as $product) {
-                if ($count >= 5) break;
-                $recentProducts[] = $product;
-                $count++;
+        $lowStockProducts = [];
+        $totalStock = 0;
+        $productsCount = 0;
+
+        foreach ($allProducts as $product) {
+            $productsCount++;
+            $stock = $product->getStock();
+            $totalStock += $stock;
+
+            if ($stock <= 10) {
+                $lowStockProducts[] = $product;
             }
         }
 
+        // Sortiere low stock Produkte nach Bestand
+        usort($lowStockProducts, static function($a, $b) {
+            return $a->getStock() <=> $b->getStock();
+        });
+
+        // Limit auf 15 Produkte
+        $lowStockProducts = array_slice($lowStockProducts, 0, 15);
+
         $view->assignMultiple([
-            'totalProducts' => $allProducts->count(),
-            'recentProducts' => $recentProducts,
+            'totalStock' => $totalStock,
+            'productsCount' => $productsCount,
+            'lowStockProducts' => $lowStockProducts,
         ]);
 
         return $view->render();
@@ -51,17 +61,17 @@ class ProductsWidget implements WidgetInterface
 
     public function getTitle(): string
     {
-        return 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title';
+        return 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.title';
     }
 
     public function getDescription(): string
     {
-        return 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.description';
+        return 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.description';
     }
 
     public function getIdentifier(): string
     {
-        return 'tuning_tool_shop_products';
+        return 'tuning_tool_shop_inventory';
     }
 
     public function getIconIdentifier(): string

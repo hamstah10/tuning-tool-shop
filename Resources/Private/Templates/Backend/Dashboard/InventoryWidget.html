@@ -1,0 +1,189 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<div class="widget-content-main">
+    <div class="widget-stats">
+        <div class="stat-box">
+            <div class="stat-value">{totalStock}</div>
+            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.totalStock" /></div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">{productsCount}</div>
+            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.productsCount" /></div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">{lowStockProducts -> f:count()}</div>
+            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStockCount" /></div>
+        </div>
+    </div>
+
+    <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStockProducts" /></h3>
+    <f:if condition="{lowStockProducts}">
+        <f:then>
+            <div class="inventory-table-wrapper">
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.productName" /></th>
+                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.sku" /></th>
+                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.stock" /></th>
+                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.status" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{lowStockProducts}" as="product">
+                        <tr>
+                            <td>
+                                <strong>{product.title}</strong>
+                            </td>
+                            <td>{product.sku}</td>
+                            <td>
+                                <span class="stock-badge badge-{product.stock -> f:switch(default: 'critical', case: {0: 'critical', case: {1: 'critical', 2: 'critical', 3: 'critical', 4: 'critical', 5: 'warning', 6: 'warning', 7: 'warning', 8: 'warning', 9: 'warning', 10: 'warning'}})}">{product.stock}</span>
+                            </td>
+                            <td>
+                                <f:if condition="{product.stock} == 0">
+                                    <f:then>
+                                        <span class="badge badge-critical"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.outOfStock" /></span>
+                                    </f:then>
+                                    <f:else>
+                                        <f:if condition="{product.stock} <= 5">
+                                            <f:then>
+                                                <span class="badge badge-critical"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.criticalStock" /></span>
+                                            </f:then>
+                                            <f:else>
+                                                <span class="badge badge-warning"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStock" /></span>
+                                            </f:else>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
+                            </td>
+                        </tr>
+                    </f:for>
+                </tbody>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <div class="alert alert-success">
+                <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.allStocked" />
+            </div>
+        </f:else>
+    </f:if>
+</div>
+
+<style>
+    .widget-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.25rem;
+        text-align: center;
+        border-left: 3px solid #007bff;
+    }
+
+    .stat-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .inventory-table-wrapper {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    .table thead {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .table th {
+        padding: 0.75rem;
+        text-align: left;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .table td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .stock-badge {
+        display: inline-block;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.6rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        font-size: 0.75rem;
+    }
+
+    .badge-critical {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .badge-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .alert {
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        margin-top: 1rem;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+</style>
+</html>

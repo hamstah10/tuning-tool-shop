@@ -34,7 +34,14 @@
                             <td>{order.customerFirstName} {order.customerLastName}</td>
                             <td>€ {order.total -> f:format.currency(currencySign: '€', decimals: 2)}</td>
                             <td>
-                                <span class="badge badge-{order.status -> f:switch(default: 'secondary', case: {0: 'danger', 1: 'warning', 2: 'info', 3: 'primary', 4: 'success'})}">{order.statusLabel}</span>
+                                <f:switch expression="{order.status}">
+                                    <f:case value="0"><span class="badge badge-danger">{order.statusLabel}</span></f:case>
+                                    <f:case value="1"><span class="badge badge-warning">{order.statusLabel}</span></f:case>
+                                    <f:case value="2"><span class="badge badge-info">{order.statusLabel}</span></f:case>
+                                    <f:case value="3"><span class="badge badge-primary">{order.statusLabel}</span></f:case>
+                                    <f:case value="4"><span class="badge badge-success">{order.statusLabel}</span></f:case>
+                                    <f:defaultCase><span class="badge badge-secondary">{order.statusLabel}</span></f:defaultCase>
+                                </f:switch>
                             </td>
                         </tr>
                     </f:for>
