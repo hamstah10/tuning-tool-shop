@@ -6,5 +6,28 @@ services:
 
   Hamstahstudio\TuningToolShop\:
     resource: '../Classes/*'
-    exclude:
-      - '../Classes/Domain/Model/*'
+
+  # Dashboard Widgets
+  dashboard.widget.tuning_tool_shop.orders:
+    class: Hamstahstudio\TuningToolShop\Dashboard\OrdersWidget
+    tags:
+      - name: dashboard.widget
+        identifier: tuning_tool_shop.orders
+        groupNames: tuning_tool_shop
+        title: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.title'
+        description: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.description'
+        iconIdentifier: 'content-widget-table'
+        height: medium
+        width: medium
+
+  dashboard.widget.tuning_tool_shop.products:
+    class: Hamstahstudio\TuningToolShop\Dashboard\ProductsWidget
+    tags:
+      - name: dashboard.widget
+        identifier: tuning_tool_shop.products
+        groupNames: tuning_tool_shop
+        title: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title'
+        description: 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.description'
+        iconIdentifier: 'content-widget-list'
+        height: medium
+        width: medium

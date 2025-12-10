@@ -1,0 +1,122 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<div class="widget-content">
+    <div class="widget-header">
+        <h2><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title" /></h2>
+    </div>
+
+    <div class="widget-stats">
+        <div class="stat-box">
+            <div class="stat-value">{totalProducts}</div>
+            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.total" /></div>
+        </div>
+    </div>
+
+    <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.recent" /></h3>
+    <f:if condition="{recentProducts}">
+        <f:then>
+            <ul class="product-list">
+                <f:for each="{recentProducts}" as="product">
+                    <li class="product-item">
+                        <div class="product-name">{product.title}</div>
+                        <div class="product-price">€ {product.price -> f:format.currency(currencySign: '€', decimals: 2)}</div>
+                    </li>
+                </f:for>
+            </ul>
+        </f:then>
+        <f:else>
+            <div class="text-center text-muted">
+                <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.noProducts" />
+            </div>
+        </f:else>
+    </f:if>
+</div>
+
+<style>
+    .widget-content {
+        padding: 1rem;
+    }
+
+    .widget-header {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 1rem;
+    }
+
+    .widget-header h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .widget-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.25rem;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #666;
+        margin-top: 0.5rem;
+    }
+
+    h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .product-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .product-item {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .product-item:last-child {
+        border-bottom: none;
+    }
+
+    .product-name {
+        font-weight: 500;
+        color: #333;
+        flex: 1;
+    }
+
+    .product-price {
+        color: #666;
+        margin-left: 1rem;
+        text-align: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-muted {
+        color: #6c757d;
+    }
+</style>
+</html>

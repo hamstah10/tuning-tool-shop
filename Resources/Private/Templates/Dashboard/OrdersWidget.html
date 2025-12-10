@@ -1,0 +1,145 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<div class="widget-content">
+    <div class="widget-header">
+        <h2><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.title" /></h2>
+    </div>
+
+    <div class="widget-stats">
+        <div class="stat-box">
+            <div class="stat-value">€ {totalRevenue -> f:format.currency(currencySign: '€', decimals: 2)}</div>
+            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.totalRevenue" /></div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">{pendingOrders -> f:count()}</div>
+            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.pendingOrders" /></div>
+        </div>
+    </div>
+
+    <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.recentOrders" /></h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.orderNumber" /></th>
+                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.customer" /></th>
+                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.amount" /></th>
+                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.status" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            <f:if condition="{recentOrders}">
+                <f:then>
+                    <f:for each="{recentOrders}" as="order">
+                        <tr>
+                            <td>{order.orderNumber}</td>
+                            <td>{order.customerFirstName} {order.customerLastName}</td>
+                            <td>€ {order.total -> f:format.currency(currencySign: '€', decimals: 2)}</td>
+                            <td>
+                                <span class="badge badge-{order.status -> f:switch(default: 'secondary', case: {0: 'danger', 1: 'warning', 2: 'info', 3: 'primary', 4: 'success'})}">{order.statusLabel}</span>
+                            </td>
+                        </tr>
+                    </f:for>
+                </f:then>
+                <f:else>
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">
+                            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.noOrders" />
+                        </td>
+                    </tr>
+                </f:else>
+            </f:if>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .widget-content {
+        padding: 1rem;
+    }
+
+    .widget-header {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 1rem;
+    }
+
+    .widget-header h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .widget-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.25rem;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #666;
+        margin-top: 0.5rem;
+    }
+
+    .table {
+        font-size: 0.875rem;
+    }
+
+    .badge {
+        padding: 0.25rem 0.6rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+    }
+
+    .badge-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .badge-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+    }
+
+    .badge-primary {
+        background-color: #d1ecf1;
+        color: #004085;
+    }
+
+    .badge-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .badge-secondary {
+        background-color: #e2e3e5;
+        color: #383d41;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-muted {
+        color: #6c757d;
+    }
+</style>
+</html>
