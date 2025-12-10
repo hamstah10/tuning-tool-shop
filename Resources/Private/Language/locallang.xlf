@@ -5,7 +5,7 @@
         <body>
             <!-- Dashboard Widget Strings -->
             <trans-unit id="dashboard.orders.title">
-                <source>Orders</source>
+                <source>Bestellungen</source>
                 <target>Bestellungen</target>
             </trans-unit>
             <trans-unit id="dashboard.orders.description">
@@ -46,15 +46,15 @@
             </trans-unit>
 
             <trans-unit id="dashboard.products.title">
-                <source>Products</source>
+                <source>Produkte</source>
                 <target>Produkte</target>
             </trans-unit>
             <trans-unit id="dashboard.products.description">
-                <source>Product overview and recent additions</source>
+                <source>Produktübersicht und letzte Hinzufügungen</source>
                 <target>Produktübersicht und letzte Hinzufügungen</target>
             </trans-unit>
             <trans-unit id="dashboard.products.total">
-                <source>Total Products</source>
+                <source>Gesamtprodukte</source>
                 <target>Gesamtprodukte</target>
             </trans-unit>
             <trans-unit id="dashboard.products.recent">
