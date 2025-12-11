@@ -121,6 +121,39 @@
             <trans-unit id="tx_tuningtoolshop_domain_model_product.shipping_methods" resname="tx_tuningtoolshop_domain_model_product.shipping_methods">
                 <source>Versandarten</source>
             </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.product_type" resname="tx_tuningtoolshop_domain_model_product.product_type">
+                <source>Produkttyp</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.normal" resname="tx_tuningtoolshop_domain_model_product.product_type.normal">
+                <source>Normal</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.starter" resname="tx_tuningtoolshop_domain_model_product.product_type.starter">
+                <source>Starter Paket</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.operating_costs" resname="tx_tuningtoolshop_domain_model_product.operating_costs">
+                <source>Betriebskosten</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.extensions" resname="tx_tuningtoolshop_domain_model_product.extensions">
+                <source>Erweiterungen</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.startup_help_headline" resname="tx_tuningtoolshop_domain_model_product.startup_help_headline">
+                <source>Starthilfe - Überschrift</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.startup_help_text" resname="tx_tuningtoolshop_domain_model_product.startup_help_text">
+                <source>Starthilfe - Text</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.features_headline" resname="tx_tuningtoolshop_domain_model_product.features_headline">
+                <source>Features - Überschrift</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.features_text" resname="tx_tuningtoolshop_domain_model_product.features_text">
+                <source>Features - Text</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.recommendation_headline" resname="tx_tuningtoolshop_domain_model_product.recommendation_headline">
+                <source>Empfehlung - Überschrift</source>
+            </trans-unit>
+            <trans-unit id="tx_tuningtoolshop_domain_model_product.recommendation_text" resname="tx_tuningtoolshop_domain_model_product.recommendation_text">
+                <source>Empfehlung - Text</source>
+            </trans-unit>
 
             <!-- Steuersatz Tabelle -->
             <trans-unit id="tx_tuningtoolshop_domain_model_tax" resname="tx_tuningtoolshop_domain_model_tax">
@@ -372,6 +405,9 @@
             </trans-unit>
             <trans-unit id="tabs.inventory" resname="tabs.inventory">
                 <source>Bestand</source>
+            </trans-unit>
+            <trans-unit id="tabs.starter_package" resname="tabs.starter_package">
+                <source>Starter Paket</source>
             </trans-unit>
             <trans-unit id="tab.pricing" resname="tab.pricing">
                 <source>Preise &amp; Lager</source>

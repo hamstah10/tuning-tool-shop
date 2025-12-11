@@ -10,18 +10,40 @@
                 <type>array</type>
                 <el>
                     <settings.selectedProducts>
-                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.selectedProducts</label>
-                        <config>
-                            <type>select</type>
-                            <renderType>selectMultipleSideBySide</renderType>
-                            <foreign_table>tx_tuningtoolshop_domain_model_product</foreign_table>
-                            <foreign_table_where>ORDER BY tx_tuningtoolshop_domain_model_product.title</foreign_table_where>
-                            <size>10</size>
-                            <minitems>0</minitems>
-                            <maxitems>999</maxitems>
-                        </config>
-                    </settings.selectedProducts>
-                </el>
+                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.selectedProducts</label>
+                         <config>
+                             <type>select</type>
+                             <renderType>selectMultipleSideBySide</renderType>
+                             <foreign_table>tx_tuningtoolshop_domain_model_product</foreign_table>
+                             <foreign_table_where>ORDER BY tx_tuningtoolshop_domain_model_product.title</foreign_table_where>
+                             <size>10</size>
+                             <minitems>0</minitems>
+                             <maxitems>999</maxitems>
+                         </config>
+                     </settings.selectedProducts>
+                     <settings.selectedProductsLayout>
+                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout</label>
+                         <config>
+                             <type>select</type>
+                             <renderType>selectSingle</renderType>
+                             <items>
+                                 <numIndex index="0">
+                                     <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout.grid</numIndex>
+                                     <numIndex index="1">grid</numIndex>
+                                 </numIndex>
+                                 <numIndex index="1">
+                                     <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout.gridWithType</numIndex>
+                                     <numIndex index="1">gridWithType</numIndex>
+                                 </numIndex>
+                                 <numIndex index="2">
+                                     <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout.list</numIndex>
+                                     <numIndex index="1">list</numIndex>
+                                 </numIndex>
+                             </items>
+                             <default>grid</default>
+                         </config>
+                     </settings.selectedProductsLayout>
+                    </el>
             </ROOT>
         </sDEF>
         <sPages>

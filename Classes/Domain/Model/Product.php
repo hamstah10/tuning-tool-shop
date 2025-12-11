@@ -74,6 +74,24 @@ class Product extends AbstractEntity
     #[Extbase\ORM\Lazy]
     protected ObjectStorage $shippingMethods;
 
+    protected string $productType = 'normal';
+
+    protected string $operatingCosts = '';
+
+    protected string $extensions = '';
+
+    protected string $startupHelpHeadline = '';
+
+    protected string $startupHelpText = '';
+
+    protected string $featuresHeadline = '';
+
+    protected string $featuresText = '';
+
+    protected string $recommendationHeadline = '';
+
+    protected string $recommendationText = '';
+
     public function __construct()
     {
         $this->initializeObject();
@@ -405,5 +423,95 @@ class Product extends AbstractEntity
     public function removeShippingMethod(ShippingMethod $shippingMethod): void
     {
         $this->shippingMethods->detach($shippingMethod);
+    }
+
+    public function getProductType(): string
+    {
+        return $this->productType;
+    }
+
+    public function setProductType(string $productType): void
+    {
+        $this->productType = $productType;
+    }
+
+    public function getOperatingCosts(): string
+    {
+        return $this->operatingCosts;
+    }
+
+    public function setOperatingCosts(string $operatingCosts): void
+    {
+        $this->operatingCosts = $operatingCosts;
+    }
+
+    public function getExtensions(): string
+    {
+        return $this->extensions;
+    }
+
+    public function setExtensions(string $extensions): void
+    {
+        $this->extensions = $extensions;
+    }
+
+    public function getStartupHelpHeadline(): string
+    {
+        return $this->startupHelpHeadline;
+    }
+
+    public function setStartupHelpHeadline(string $startupHelpHeadline): void
+    {
+        $this->startupHelpHeadline = $startupHelpHeadline;
+    }
+
+    public function getStartupHelpText(): string
+    {
+        return $this->startupHelpText;
+    }
+
+    public function setStartupHelpText(string $startupHelpText): void
+    {
+        $this->startupHelpText = $startupHelpText;
+    }
+
+    public function getFeaturesHeadline(): string
+    {
+        return $this->featuresHeadline;
+    }
+
+    public function setFeaturesHeadline(string $featuresHeadline): void
+    {
+        $this->featuresHeadline = $featuresHeadline;
+    }
+
+    public function getFeaturesText(): string
+    {
+        return $this->featuresText;
+    }
+
+    public function setFeaturesText(string $featuresText): void
+    {
+        $this->featuresText = $featuresText;
+    }
+
+    public function getRecommendationHeadline(): string
+    {
+        return $this->recommendationHeadline;
+    }
+
+    public function setRecommendationHeadline(string $recommendationHeadline): void
+    {
+        $this->recommendationHeadline = $recommendationHeadline;
+    }
+
+    public function getRecommendationText(): string
+    {
+        return $this->recommendationText;
+    }
+
+    public function setRecommendationText(string $recommendationText): void
+    {
+        $this->recommendationText = $recommendationText;
     }
 }

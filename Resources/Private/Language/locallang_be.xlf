@@ -469,6 +469,30 @@
             <trans-unit id="flexform.selectedProducts" resname="flexform.selectedProducts">
                 <source>Produkte</source>
             </trans-unit>
+            <trans-unit id="flexform.productLayout" resname="flexform.productLayout">
+                <source>Produktdetail-Layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.productLayout.auto" resname="flexform.productLayout.auto">
+                <source>Automatisch (Produkttyp bestimmt Layout)</source>
+            </trans-unit>
+            <trans-unit id="flexform.productLayout.normal" resname="flexform.productLayout.normal">
+                <source>Normales Layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.productLayout.starter" resname="flexform.productLayout.starter">
+                <source>Starter Paket Layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.listLayout" resname="flexform.listLayout">
+                <source>Produktlisten-Layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.listLayout.grid" resname="flexform.listLayout.grid">
+                <source>Grid (4 Spalten)</source>
+            </trans-unit>
+            <trans-unit id="flexform.listLayout.gridWithType" resname="flexform.listLayout.gridWithType">
+                <source>Grid mit Produkttyp-Kennzeichnung</source>
+            </trans-unit>
+            <trans-unit id="flexform.listLayout.list" resname="flexform.listLayout.list">
+                <source>Listenansicht</source>
+            </trans-unit>
             </body>
             </file>
             </xliff>

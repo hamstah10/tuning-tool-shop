@@ -61,7 +61,29 @@
                             <default>asc</default>
                         </config>
                     </settings.sortDirection>
-                </el>
+                    <settings.listLayout>
+                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout.grid</numIndex>
+                                    <numIndex index="1">grid</numIndex>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout.gridWithType</numIndex>
+                                    <numIndex index="1">gridWithType</numIndex>
+                                </numIndex>
+                                <numIndex index="2">
+                                    <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.listLayout.list</numIndex>
+                                    <numIndex index="1">list</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>grid</default>
+                        </config>
+                    </settings.listLayout>
+                    </el>
             </ROOT>
         </sDEF>
         <sFilter>

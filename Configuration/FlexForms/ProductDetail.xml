@@ -39,13 +39,35 @@
                         </config>
                     </settings.showSku>
                     <settings.showStock>
-                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.showStock</label>
-                        <config>
-                            <type>check</type>
-                            <default>1</default>
-                        </config>
-                    </settings.showStock>
-                </el>
+                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.showStock</label>
+                         <config>
+                             <type>check</type>
+                             <default>1</default>
+                         </config>
+                     </settings.showStock>
+                     <settings.productLayout>
+                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.productLayout</label>
+                         <config>
+                             <type>select</type>
+                             <renderType>selectSingle</renderType>
+                             <items>
+                                 <numIndex index="0">
+                                     <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.productLayout.auto</numIndex>
+                                     <numIndex index="1">auto</numIndex>
+                                 </numIndex>
+                                 <numIndex index="1">
+                                     <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.productLayout.normal</numIndex>
+                                     <numIndex index="1">normal</numIndex>
+                                 </numIndex>
+                                 <numIndex index="2">
+                                     <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.productLayout.starter</numIndex>
+                                     <numIndex index="1">starter</numIndex>
+                                 </numIndex>
+                             </items>
+                             <default>auto</default>
+                         </config>
+                     </settings.productLayout>
+                    </el>
             </ROOT>
         </sDEF>
         <sPages>

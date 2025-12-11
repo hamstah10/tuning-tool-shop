@@ -4,7 +4,325 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="container">
+    <f:if condition="{settings.productLayout} == 'auto' ? {product.productType} == 'starter' : {settings.productLayout} == 'starter'">
+        <f:then>
+            <!-- Starter Package Layout -->
+            <div class="container">
+                <!-- Header with Gallery -->
+                <div class="row g-4 mb-5">
+                    <!-- Gallery -->
+                    <div class="col-12 col-lg-6">
+                        <f:render partial="Product/Gallery" arguments="{images: product.images, alt: product.title}" />
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="col-12 col-lg-6">
+                        <!-- Manufacturer & SKU -->
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <f:if condition="{product.sku}">
+                                <small class="text-muted">Art.-Nr.: {product.sku}</small>
+                            </f:if>
+                            <f:if condition="{product.manufacturer}">
+                                <div class="text-end">
+                                    <f:if condition="{product.manufacturer.logo}">
+                                        <f:then>
+                                            <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="img-fluid" width="80" />
+                                        </f:then>
+                                        <f:else>
+                                            <small class="d-block">{product.manufacturer.title}</small>
+                                        </f:else>
+                                    </f:if>
+                                </div>
+                            </f:if>
+                        </div>
+
+                        <!-- Title & Description -->
+                        <h1 class="fw-bold mb-3">{product.title}</h1>
+                        <f:if condition="{product.shortDescription}">
+                            <div class="mb-4 text-muted">
+                                <f:format.html>{product.shortDescription}</f:format.html>
+                            </div>
+                        </f:if>
+
+                        <!-- Price -->
+                        <div class="mb-4">
+                            <f:if condition="{product.specialPrice}">
+                                <f:then>
+                                    <del class="text-muted d-block">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                    </del>
+                                    <h3 class="text-danger fw-bold">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                                    </h3>
+                                </f:then>
+                                <f:else>
+                                    <h3 class="fw-bold">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                    </h3>
+                                </f:else>
+                            </f:if>
+                            <small class="text-muted d-block mt-2">zzgl. MwSt. und Versandkosten</small>
+                        </div>
+
+                        <!-- Stock Status -->
+                        <div class="mb-4">
+                            <f:if condition="{product.stock} > 0 && {settings.showStock} == 1">
+                                <f:then>
+                                    <span class="badge bg-success">
+                                        ✓ Auf Lager ({product.stock} verfügbar)
+                                    </span>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{settings.showStock} == 1">
+                                        <span class="badge bg-danger">
+                                            ✗ Derzeit nicht verfügbar
+                                        </span>
+                                    </f:if>
+                                </f:else>
+                            </f:if>
+                        </div>
+
+                        <!-- Add to Cart -->
+                        <f:if condition="{product.stock} > 0">
+                            <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" class="mb-4" arguments="{product: product.uid, quantity: 1}">
+                                <div class="d-flex gap-2 mb-3">
+                                    <div class="input-group" style="width: 120px;">
+                                        <button type="button" class="btn btn-outline-secondary quantity-minus">−</button>
+                                        <input type="number" name="tx_tuningtoolshop_cart[quantity]" value="1" min="1" max="{product.stock}" class="form-control text-center quantity-input" />
+                                        <button type="button" class="btn btn-outline-secondary quantity-plus">+</button>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-cart-plus"></i> In den Warenkorb
+                                    </button>
+                                </div>
+                            </f:form>
+                        </f:if>
+
+                        <!-- Categories -->
+                        <f:if condition="{product.categories}">
+                            <div class="pt-3 border-top">
+                                <small class="text-muted d-block mb-2">Kategorien:</small>
+                                <p class="mb-0">
+                                    <f:for each="{product.categories}" as="category" iteration="iter">
+                                        <f:link.action action="category" controller="Product" arguments="{category: category}" class="badge bg-secondary text-decoration-none">{category.title}</f:link.action>
+                                    </f:for>
+                                </p>
+                            </div>
+                        </f:if>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="mb-5">
+                    <!-- Description Tab -->
+                    <f:if condition="{product.description}">
+                        <div class="mb-5">
+                            <h2 class="fw-bold mb-3">Beschreibung</h2>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <f:format.html>{product.description}</f:format.html>
+                                </div>
+                            </div>
+                        </div>
+                    </f:if>
+
+                    <!-- Pricing Grid - Operating Costs, Extensions -->
+                    <div class="row g-4 mb-5">
+                        <f:if condition="{product.operatingCosts}">
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold mb-3">
+                                            <i class="bi bi-lightning-charge text-warning"></i> Betriebskosten
+                                        </h5>
+                                        <div class="card-text">
+                                            <f:format.html>{product.operatingCosts}</f:format.html>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{product.extensions}">
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold mb-3">
+                                            <i class="bi bi-puzzle text-primary"></i> Erweiterungen
+                                        </h5>
+                                        <div class="card-text">
+                                            <f:format.html>{product.extensions}</f:format.html>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:if>
+                    </div>
+
+                    <!-- Pricing Grid - Features, Startup Help, Recommendation -->
+                    <div class="row g-4 mb-5">
+                        <f:if condition="{product.startupHelpText}">
+                            <div class="col-md-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <f:if condition="{product.startupHelpHeadline}">
+                                            <h5 class="card-title fw-bold mb-3">
+                                                <i class="bi bi-hand-thumbs-up text-success"></i> {product.startupHelpHeadline}
+                                            </h5>
+                                        </f:if>
+                                        <div class="card-text">
+                                            <f:format.html>{product.startupHelpText}</f:format.html>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{product.featuresText}">
+                            <div class="col-md-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <f:if condition="{product.featuresHeadline}">
+                                            <h5 class="card-title fw-bold mb-3">
+                                                <i class="bi bi-star text-warning"></i> {product.featuresHeadline}
+                                            </h5>
+                                        </f:if>
+                                        <div class="card-text">
+                                            <f:format.html>{product.featuresText}</f:format.html>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{product.recommendationText}">
+                            <div class="col-md-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <f:if condition="{product.recommendationHeadline}">
+                                            <h5 class="card-title fw-bold mb-3">
+                                                <i class="bi bi-chat-heart text-danger"></i> {product.recommendationHeadline}
+                                            </h5>
+                                        </f:if>
+                                        <div class="card-text">
+                                            <f:format.html>{product.recommendationText}</f:format.html>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:if>
+                    </div>
+                </div>
+
+                <!-- Tabs (Lieferumfang, Videos, Documents, Links) -->
+                <f:if condition="{product.lieferumfang} || {product.videos} || {product.documents} || {product.links}">
+                    <ul class="nav nav-tabs mb-4" role="tablist">
+                        <f:if condition="{product.lieferumfang}">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="lieferumfang-tab" data-bs-toggle="tab" data-bs-target="#lieferumfang" type="button" role="tab">Lieferumfang</button>
+                            </li>
+                        </f:if>
+                        <f:if condition="{product.videos}">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab">Videos</button>
+                            </li>
+                        </f:if>
+                        <f:if condition="{product.documents}">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab">Downloads</button>
+                            </li>
+                        </f:if>
+                        <f:if condition="{product.links}">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button" role="tab">Links</button>
+                            </li>
+                        </f:if>
+                    </ul>
+
+                    <div class="tab-content mb-5">
+                        <f:if condition="{product.lieferumfang}">
+                            <div class="tab-pane fade show active" id="lieferumfang" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <f:format.html>{product.lieferumfang}</f:format.html>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{product.videos}">
+                            <div class="tab-pane fade" id="videos" role="tabpanel">
+                                <div class="row g-4">
+                                    <f:for each="{product.videos}" as="video">
+                                        <div class="col-12 col-lg-6">
+                                            <h5>{video.title}</h5>
+                                            <f:if condition="{video.videoUrl}">
+                                                <div class="ratio ratio-16x9 mb-3">
+                                                    <iframe src="{video.videoUrl}" allowfullscreen></iframe>
+                                                </div>
+                                            </f:if>
+                                            <f:if condition="{video.description}">
+                                                <p class="text-muted small">{video.description}</p>
+                                            </f:if>
+                                        </div>
+                                    </f:for>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{product.documents}">
+                            <div class="tab-pane fade" id="documents" role="tabpanel">
+                                <div class="list-group">
+                                    <f:for each="{product.documents}" as="document">
+                                        <a href="{f:uri.resource(path: 'fileadmin', absolute: 1)}{document.originalResource.identifier}" target="_blank" class="list-group-item list-group-item-action">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1">{document.originalResource.name}</h6>
+                                                    <small class="text-muted">{document.originalResource.size -> f:format.bytes()}</small>
+                                                </div>
+                                                <i class="bi bi-download"></i>
+                                            </div>
+                                        </a>
+                                    </f:for>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{product.links}">
+                            <div class="tab-pane fade" id="links" role="tabpanel">
+                                <div class="list-group">
+                                    <f:for each="{product.links}" as="link">
+                                        <a href="{link.url}" target="_blank" rel="noopener" class="list-group-item list-group-item-action">
+                                            <h6 class="mb-1">{link.title}</h6>
+                                            <f:if condition="{link.description}">
+                                                <p class="mb-0 small text-muted">{link.description}</p>
+                                            </f:if>
+                                        </a>
+                                    </f:for>
+                                </div>
+                            </div>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <!-- Related Products -->
+                <f:if condition="{relatedProducts}">
+                    <div class="border-top pt-5">
+                        <h2 class="mb-4">Ähnliche Produkte</h2>
+                        <div class="row g-4">
+                            <f:for each="{relatedProducts}" as="relatedProduct">
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <f:render partial="Product/Card" arguments="{product: relatedProduct}" />
+                                </div>
+                            </f:for>
+                        </div>
+                    </div>
+                </f:if>
+            </div>
+        </f:then>
+        <f:else>
+            <!-- Normal Product Layout -->
+            <div class="container">
         <div class="row g-4 mb-5">
             <!-- Gallery -->
             <div class="col-12 col-lg-6">
@@ -229,6 +547,8 @@
             </div>
         </f:if>
     </div>
+        </f:else>
+    </f:if>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

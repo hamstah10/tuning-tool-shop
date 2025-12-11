@@ -21,13 +21,138 @@
         <!-- Selected Products -->
         <f:if condition="{products}">
             <f:then>
-                <div class="row">
-                    <f:for each="{products}" as="product">
-                        <div class="col-12 col-sm-6 col-lg-3 col-xl-3">
-                            <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
-                        </div>
-                    </f:for>
-                </div>
+                <!-- Grid Layout (Standard) -->
+                <f:if condition="{settings.selectedProductsLayout} == 'grid'">
+                    <div class="row">
+                        <f:for each="{products}" as="product">
+                            <div class="col-12 col-sm-6 col-lg-3 col-xl-3">
+                                <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
+                            </div>
+                        </f:for>
+                    </div>
+                </f:if>
+
+                <!-- Grid Layout with Product Type Badge -->
+                <f:if condition="{settings.selectedProductsLayout} == 'gridWithType'">
+                    <div class="row g-4">
+                        <f:for each="{products}" as="product">
+                            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                <div class="position-relative">
+                                    <!-- Starter Package Badge -->
+                                    <f:if condition="{product.productType} == 'starter'">
+                                        <f:then>
+                                            <div class="position-absolute top-0 start-50 translate-middle-x" style="z-index: 10;">
+                                                <span class="badge bg-danger px-3 py-2">
+                                                    <i class="bi bi-star-fill"></i> EMPFOHLEN
+                                                </span>
+                                            </div>
+                                            <!-- Card with Border for Starter Packages -->
+                                            <div class="h-100 border-2 border-danger">
+                                                <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <!-- Card without special Border -->
+                                            <div class="h-100 border">
+                                                <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
+                                            </div>
+                                        </f:else>
+                                    </f:if>
+                                </div>
+                            </div>
+                        </f:for>
+                    </div>
+                </f:if>
+
+                <!-- List Layout -->
+                <f:if condition="{settings.selectedProductsLayout} == 'list'">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 50px;">Bild</th>
+                                    <th>Produkt</th>
+                                    <th style="width: 150px;">Kategorie</th>
+                                    <th style="width: 100px;">Preis</th>
+                                    <th style="width: 80px;">Bestand</th>
+                                    <th style="width: 100px;">Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{products}" as="product">
+                                    <tr>
+                                        <td>
+                                            <f:if condition="{product.images.0}">
+                                                <f:then>
+                                                    <f:image image="{product.images.0}" alt="{product.title}" width="40" height="40" style="object-fit: cover; border-radius: 4px;" />
+                                                </f:then>
+                                                <f:else>
+                                                    <i class="bi bi-image"></i>
+                                                </f:else>
+                                            </f:if>
+                                        </td>
+                                        <td>
+                                            <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="text-decoration-none">
+                                                <strong>{product.title}</strong>
+                                            </f:link.action>
+                                            <f:if condition="{product.productType} == 'starter'">
+                                                <br />
+                                                <span class="badge bg-success">Starter Paket</span>
+                                            </f:if>
+                                        </td>
+                                        <td>
+                                            <f:for each="{product.categories}" as="category" iteration="iter">
+                                                <f:if condition="{iter.isFirst}">
+                                                    {category.title}
+                                                </f:if>
+                                            </f:for>
+                                        </td>
+                                        <td>
+                                            <f:if condition="{product.specialPrice}">
+                                                <f:then>
+                                                    <del class="text-muted small">
+                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                                    </del>
+                                                    <br />
+                                                    <span class="text-danger fw-bold">
+                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                                                    </span>
+                                                </f:then>
+                                                <f:else>
+                                                    <span class="fw-bold">
+                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                                    </span>
+                                                </f:else>
+                                            </f:if>
+                                        </td>
+                                        <td>
+                                            <f:if condition="{product.stock} > 0">
+                                                <f:then>
+                                                    <span class="badge bg-success">Lager: {product.stock}</span>
+                                                </f:then>
+                                                <f:else>
+                                                    <span class="badge bg-danger">Nicht verfügbar</span>
+                                                </f:else>
+                                            </f:if>
+                                        </td>
+                                        <td>
+                                            <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-sm btn-outline-primary" title="Details">
+                                                <i class="bi bi-eye"></i>
+                                            </f:link.action>
+                                            <f:if condition="{product.stock} > 0">
+                                                <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-outline-success" title="In den Warenkorb">
+                                                        <i class="bi bi-cart-plus"></i>
+                                                    </button>
+                                                </f:form>
+                                            </f:if>
+                                        </td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </div>
+                </f:if>
             </f:then>
             <f:else>
                 <div class="row">
