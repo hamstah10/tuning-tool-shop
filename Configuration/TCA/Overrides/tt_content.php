@@ -10,7 +10,7 @@ ExtensionUtility::registerPlugin(
     'TuningToolShop',
     'ProductList',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.productlist.title',
-    'tuning-tool-shop-productlist'
+    'mimetypes-x-content-domain-content'
 );
 
 $pluginSignature = 'tuningtoolshop_productlist';
@@ -24,9 +24,25 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSi
 
 ExtensionUtility::registerPlugin(
     'TuningToolShop',
+    'SelectedProducts',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.selectedproducts.title',
+    'mimetypes-x-content-domain-content'
+);
+
+$pluginSignature = 'tuningtoolshop_selectedproducts';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $pluginSignature,
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/SelectedProducts.xml'
+);
+
+ExtensionUtility::registerPlugin(
+    'TuningToolShop',
     'ProductDetail',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.productdetail.title',
-    'tuning-tool-shop-productdetail'
+    'mimetypes-x-content-domain-content'
 );
 
 $pluginSignature = 'tuningtoolshop_productdetail';
@@ -42,7 +58,7 @@ ExtensionUtility::registerPlugin(
     'TuningToolShop',
     'Cart',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.cart.title',
-    'tuning-tool-shop-cart'
+    'mimetypes-x-content-domain-content'
 );
 
 $pluginSignature = 'tuningtoolshop_cart';
@@ -58,7 +74,7 @@ ExtensionUtility::registerPlugin(
     'TuningToolShop',
     'Checkout',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.checkout.title',
-    'tuning-tool-shop-checkout'
+    'mimetypes-x-content-domain-content'
 );
 
 $pluginSignature = 'tuningtoolshop_checkout';

@@ -1,12 +1,11 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 <div class="product_item">
-                      <a class="item_image"
-                        href="https://html.merku.love/promotors/shop_details.html"
-                        >
+     <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="item_image">
+                      
                         <f:if condition="{product.images.0}">
                             <f:then>
-                                <f:image image="{product.images.0}" alt="{product.title}" class="card-img-top w-100 h-100" style="object-fit: cover;" />
+                                <f:image image="{product.images.0}" alt="{product.title}" />
                             </f:then>
                             <f:else>
                                 <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
@@ -14,13 +13,13 @@
                                 </div>
                             </f:else>
                         </f:if>
-                    </a>
+                   </f:link.action>
                       <div class="item_content">
                         <h3 class="item_title">
-                          <a 
-                            href="https://html.merku.love/promotors/shop_details.html"
-                            > {product.title}</a
-                          >
+                              <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}">
+
+                                        {product.title}
+                              </f:link.action>
                         </h3>
                         <a class="item_brand" href="#!">{product.manufacturer.title}</a>
                         <div class="item_footer">
@@ -44,11 +43,11 @@
                                 </f:if>
                             </span>
                           </div>
-                           <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="w-100">
+                           <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="mb-0">
                             <f:if condition="{product.stock} > 0">
                                 <f:then>
                                     <button type="submit" class="btn-link">
-                                        <span class="btn_icon"><i class="bi bi-cart-plus"></i></span> 
+                                        <span class="btn_icon"><span class="iconpack bi-chevron-right"></span></span> 
                                         <span class="btn_text">In den Warenkorb</span>
                                     </button>
                                 </f:then>

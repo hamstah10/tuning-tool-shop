@@ -2,49 +2,49 @@
       data-namespace-typo3-fluid="true">
 
 <tr class="tts-cart-item">
-    <td class="tts-cart-item__image-cell">
+    <td>
         <f:if condition="{item.product.images.0}">
             <f:then>
-                <f:image image="{item.product.images.0}" alt="{item.product.title}" class="tts-cart-item__image" width="80" height="80" />
+                <f:image image="{item.product.images.0}" alt="{item.product.title}" class="img-fluid rounded" width="80" height="80" />
             </f:then>
             <f:else>
-                <div class="tts-cart-item__no-image">-</div>
+                <div class="text-muted text-center" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">-</div>
             </f:else>
         </f:if>
     </td>
 
-    <td class="tts-cart-item__info-cell">
-        <span class="tts-cart-item__title">{item.product.title}</span>
+    <td>
+        <strong class="d-block mb-1">{item.product.title}</strong>
         <f:if condition="{item.product.sku}">
-            <span class="tts-cart-item__sku">Art.-Nr.: {item.product.sku}</span>
+            <small class="text-muted">Art.-Nr.: {item.product.sku}</small>
         </f:if>
     </td>
 
-    <td class="tts-cart-item__price-cell text-light">
-        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency><br>
-        <small class="tts-cart-item__tax-rate">zzgl. MwSt.</small>
+    <td>
+        <div>
+            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency>
+        </div>
+        <small class="text-muted">zzgl. MwSt.</small>
     </td>
 
-    <td class="tts-cart-item__quantity-cell">
-        <f:form action="update" controller="Cart" class="tts-cart-item__quantity-form">
+    <td>
+        <f:form action="update" controller="Cart" class="d-flex gap-2">
             <f:form.hidden name="cartItem" value="{item.uid}" />
-            <div class="tts-quantity-input">
-                <f:form.textfield name="quantity" value="{item.quantity}" class="tts-quantity-input__field" additionalAttributes="{min: '1', type: 'number'}" />
-            </div>
-            <button type="submit" class="tts-btn tts-btn--small tts-btn--secondary">Aktualisieren</button>
+            <f:form.textfield name="quantity" value="{item.quantity}" class="form-control form-control-sm" style="width: 60px;" additionalAttributes="{min: '1', type: 'number'}" />
+            <button type="submit" class="btn btn-sm btn-outline-secondary">OK</button>
         </f:form>
     </td>
 
-    <td class="tts-cart-item__total-cell text-light">
+    <td>
         <strong>
             <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
         </strong>
     </td>
 
-    <td class="tts-cart-item__actions-cell">
-        <f:form action="remove" controller="Cart" class="tts-cart-item__remove-form">
+    <td class="text-center">
+        <f:form action="remove" controller="Cart" class="d-inline">
             <f:form.hidden name="cartItem" value="{item.uid}" />
-            <button type="submit" class="tts-btn tts-btn--danger tts-btn--small" title="Entfernen">
+            <button type="submit" class="btn btn-sm btn-danger" title="Entfernen">
                 ✕
             </button>
         </f:form>

@@ -4,252 +4,248 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <f:debug>{_all}</f:debug>
-    <article class="tts-product-detail">
-        <div class="tts-product-detail__main">
-            <div class="tts-product-detail__gallery">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <!-- Gallery -->
+            <div class="col-12 col-lg-6">
                 <f:render partial="Product/Gallery" arguments="{images: product.images, alt: product.title}" />
             </div>
 
-            <div class="tts-product-detail__info">
-                <div class="d-flex justify-content-between">
+            <!-- Product Info -->
+            <div class="col-12 col-lg-6">
+                <!-- Manufacturer & SKU -->
+                <div class="d-flex justify-content-between align-items-start mb-3">
                     <f:if condition="{product.sku}">
-                    <p class="tts-product-detail__sku text-light">Art.-Nr.: {product.sku}</p>
-                </f:if>
-                <f:if condition="{product.manufacturer}">
-                    <div class="tts-manufacturer-info mb-3">
-                        <f:if condition="{product.manufacturer.logo}">
-                            <f:then>
-                            <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="tts-manufacturer-logo" width="80"  />
-                            </f:then>
-                            <f:else>
-                                <h4 class="tts-product-card__subtitle text-light">{product.manufacturer.title}</h4>
-                            </f:else>
-                        </f:if>
-
-                        
-                    </div>
-                </f:if>
+                        <small class="text-muted">Art.-Nr.: {product.sku}</small>
+                    </f:if>
+                    <f:if condition="{product.manufacturer}">
+                        <div class="text-end">
+                            <f:if condition="{product.manufacturer.logo}">
+                                <f:then>
+                                    <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="img-fluid" width="80" />
+                                </f:then>
+                                <f:else>
+                                    <small class="d-block">{product.manufacturer.title}</small>
+                                </f:else>
+                            </f:if>
+                        </div>
+                    </f:if>
                 </div>
-               
-                <h1 class="tts-product-detail__title text-light fw-bold mt-4">{product.title}</h1>
+
+                <!-- Title & Description -->
+                <h1 class="fw-bold mb-3">{product.title}</h1>
                 <f:if condition="{product.shortDescription}">
-                    <div class="tts-product-detail__short-desc text-light mt-4">
+                    <div class="mb-4 text-muted">
                         <f:format.html>{product.shortDescription}</f:format.html>
                     </div>
                 </f:if>
-                
-                
 
-                
-
-                <div class="tts-product-detail__price-wrapper">
+                <!-- Price -->
+                <div class="mb-4">
                     <f:if condition="{product.specialPrice}">
                         <f:then>
-                            <span class="tts-product-detail__price tts-product-detail__price--old">
+                            <del class="text-muted d-block">
                                 <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
-                            </span>
-                            <span class="tts-product-detail__price tts-product-detail__price--discount">
+                            </del>
+                            <h3 class="text-danger fw-bold">
                                 <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
-                            </span>
+                            </h3>
                         </f:then>
                         <f:else>
-                            <span class="tts-product-detail__price text-light">
+                            <h3 class="fw-bold">
                                 <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
-                            </span>
+                            </h3>
                         </f:else>
                     </f:if>
-                    <span class="tts-product-detail__tax-info">zzgl. MwSt. und Versandkosten</span>
+                    <small class="text-muted d-block mt-2">zzgl. MwSt. und Versandkosten</small>
                 </div>
 
-                <div class="tts-product-detail__stock">
+                <!-- Stock Status -->
+                <div class="mb-4">
                     <f:if condition="{product.stock} > 0 && {settings.showStock} == 1">
                         <f:then>
-                            <span class="tts-stock tts-stock--available">
+                            <span class="badge bg-success">
                                 ✓ Auf Lager ({product.stock} verfügbar)
                             </span>
                         </f:then>
                         <f:else>
                             <f:if condition="{settings.showStock} == 1">
-                            <span class="tts-stock tts-stock--unavailable">
-                                ✗ Derzeit nicht verfügbar
-                            </span>
+                                <span class="badge bg-danger">
+                                    ✗ Derzeit nicht verfügbar
+                                </span>
                             </f:if>
                         </f:else>
                     </f:if>
                 </div>
 
-                
-
+                <!-- Add to Cart -->
                 <f:if condition="{product.stock} > 0">
-                    <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" class="tts-product-detail__add-form" arguments="{product: product.uid, quantity: 1}">
-                        <div class="tts-quantity-selector">
-                            <label for="quantity" class="tts-quantity-selector__label text-light">Menge:</label>
-                            <div class="tts-quantity-input">
-                                <button type="button" class="tts-quantity-input__btn tts-quantity-input__btn--minus">-</button>
-                                <input type="number" name="tx_tuningtoolshop_cart[quantity]" value="1" id="quantity" min="1" max="{product.stock}" class="tts-quantity-input__field" />
-                                <button type="button" class="tts-quantity-input__btn tts-quantity-input__btn--plus">+</button>
+                    <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" class="mb-4" arguments="{product: product.uid, quantity: 1}">
+                        <div class="d-flex gap-2 mb-3">
+                            <div class="input-group" style="width: 120px;">
+                                <button type="button" class="btn btn-outline-secondary quantity-minus">−</button>
+                                <input type="number" name="tx_tuningtoolshop_cart[quantity]" value="1" min="1" max="{product.stock}" class="form-control text-center quantity-input" />
+                                <button type="button" class="btn btn-outline-secondary quantity-plus">+</button>
                             </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-cart-plus"></i> In den Warenkorb
+                            </button>
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            In den Warenkorb
-                        </button>
                     </f:form>
                 </f:if>
 
+                <!-- Categories -->
                 <f:if condition="{product.categories}">
-                    <div class="tts-product-detail__categories">
-                        <strong>Kategorien:</strong>
-                        <f:for each="{product.categories}" as="category" iteration="iter">
-                            <f:link.action action="category" controller="Product" arguments="{category: category}">{category.title}</f:link.action><f:if condition="!{iter.isLast}">, </f:if>
-                        </f:for>
+                    <div class="pt-3 border-top">
+                        <small class="text-muted d-block mb-2">Kategorien:</small>
+                        <p class="mb-0">
+                            <f:for each="{product.categories}" as="category" iteration="iter">
+                                <f:link.action action="category" controller="Product" arguments="{category: category}" class="badge bg-secondary text-decoration-none">{category.title}</f:link.action>
+                            </f:for>
+                        </p>
                     </div>
                 </f:if>
             </div>
         </div>
 
-        <div class="tts-product-detail__tabs">
-            <div class="tts-tabs">
-                <div class="tts-tabs__nav">
-                    <button type="button" class="tts-tabs__btn tts-tabs__btn--active" data-tab="description">Beschreibung</button>
-                    <f:if condition="{product.lieferumfang}">
-                        <button type="button" class="tts-tabs__btn" data-tab="lieferumfang">Lieferumfang</button>
-                    </f:if>
-                    <f:if condition="{product.videos}">
-                        <button type="button" class="tts-tabs__btn" data-tab="videos">Videos</button>
-                    </f:if>
-                    <f:if condition="{product.documents}">
-                        <button type="button" class="tts-tabs__btn" data-tab="documents">Downloads</button>
-                    </f:if>
-                    <f:if condition="{product.links}">
-                        <button type="button" class="tts-tabs__btn" data-tab="links">Links</button>
-                    </f:if>
-                </div>
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Beschreibung</button>
+            </li>
+            <f:if condition="{product.lieferumfang}">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="lieferumfang-tab" data-bs-toggle="tab" data-bs-target="#lieferumfang" type="button" role="tab">Lieferumfang</button>
+                </li>
+            </f:if>
+            <f:if condition="{product.videos}">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab">Videos</button>
+                </li>
+            </f:if>
+            <f:if condition="{product.documents}">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab">Downloads</button>
+                </li>
+            </f:if>
+            <f:if condition="{product.links}">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button" role="tab">Links</button>
+                </li>
+            </f:if>
+        </ul>
 
-                <div class="tts-tabs__content">
-                    <div class="tts-tabs__panel tts-tabs__panel--active" data-panel="description">
-                        <f:if condition="{product.description}">
-                            <f:then>
-                                <div class="tts-product-description text-light">
-                                    <f:format.html>{product.description}</f:format.html>
-                                </div>
-                            </f:then>
-                            <f:else>
-                                <p>Keine Beschreibung verfügbar.</p>
-                            </f:else>
-                        </f:if>
-                    </div>
-
-                    <f:if condition="{product.lieferumfang}">
-                        <div class="tts-tabs__panel" data-panel="lieferumfang">
-                            <div class="tts-product-lieferumfang text-light">
-                                <f:format.html>{product.lieferumfang}</f:format.html>
+        <div class="tab-content mb-5">
+            <div class="tab-pane fade show active" id="description" role="tabpanel">
+                <f:if condition="{product.description}">
+                    <f:then>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <f:format.html>{product.description}</f:format.html>
                             </div>
                         </div>
-                    </f:if>
-
-                    <f:if condition="{product.videos}">
-                        <div class="tts-tabs__panel" data-panel="videos">
-                            <div class="tts-video-list">
-                                <f:for each="{product.videos}" as="video">
-                                    <div class="tts-video-item">
-                                        <h4 class="tts-video-item__title">{video.title}</h4>
-                                        <f:if condition="{video.videoUrl}">
-                                            <div class="tts-video-item__embed">
-                                                <iframe src="{video.videoUrl}" allowfullscreen class="tts-video-item__iframe"></iframe>
-                                            </div>
-                                        </f:if>
-                                        <f:if condition="{video.description}">
-                                            <p class="tts-video-item__description">{video.description}</p>
-                                        </f:if>
-                                    </div>
-                                </f:for>
-                            </div>
-                        </div>
-                    </f:if>
-
-                    <f:if condition="{product.documents}">
-                        <div class="tts-tabs__panel" data-panel="documents">
-                            <ul class="tts-document-list">
-                                <f:for each="{product.documents}" as="document">
-                                    <li class="tts-document-item">
-                                        <a href="{f:uri.resource(path: 'fileadmin', absolute: 1)}{document.originalResource.identifier}" target="_blank" class="tts-document-item__link">
-                                            <span class="tts-document-item__icon">📄</span>
-                                            <span class="tts-document-item__name">{document.originalResource.name}</span>
-                                            <span class="tts-document-item__size">({document.originalResource.size -> f:format.bytes()})</span>
-                                        </a>
-                                    </li>
-                                </f:for>
-                            </ul>
-                        </div>
-                    </f:if>
-
-                    <f:if condition="{product.links}">
-                        <div class="tts-tabs__panel" data-panel="links">
-                            <ul class="tts-link-list">
-                                <f:for each="{product.links}" as="link">
-                                    <li class="tts-link-item">
-                                        <a href="{link.url}" target="_blank" rel="noopener" class="tts-link-item__link">
-                                            <span class="tts-link-item__icon">🔗</span>
-                                            <span class="tts-link-item__title">{link.title}</span>
-                                        </a>
-                                        <f:if condition="{link.description}">
-                                            <p class="tts-link-item__description">{link.description}</p>
-                                        </f:if>
-                                    </li>
-                                </f:for>
-                            </ul>
-                        </div>
-                    </f:if>
-                </div>
+                    </f:then>
+                    <f:else>
+                        <p class="text-muted">Keine Beschreibung verfügbar.</p>
+                    </f:else>
+                </f:if>
             </div>
+
+            <f:if condition="{product.lieferumfang}">
+                <div class="tab-pane fade" id="lieferumfang" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <f:format.html>{product.lieferumfang}</f:format.html>
+                        </div>
+                    </div>
+                </div>
+            </f:if>
+
+            <f:if condition="{product.videos}">
+                <div class="tab-pane fade" id="videos" role="tabpanel">
+                    <div class="row g-4">
+                        <f:for each="{product.videos}" as="video">
+                            <div class="col-12 col-lg-6">
+                                <h5>{video.title}</h5>
+                                <f:if condition="{video.videoUrl}">
+                                    <div class="ratio ratio-16x9 mb-3">
+                                        <iframe src="{video.videoUrl}" allowfullscreen></iframe>
+                                    </div>
+                                </f:if>
+                                <f:if condition="{video.description}">
+                                    <p class="text-muted small">{video.description}</p>
+                                </f:if>
+                            </div>
+                        </f:for>
+                    </div>
+                </div>
+            </f:if>
+
+            <f:if condition="{product.documents}">
+                <div class="tab-pane fade" id="documents" role="tabpanel">
+                    <div class="list-group">
+                        <f:for each="{product.documents}" as="document">
+                            <a href="{f:uri.resource(path: 'fileadmin', absolute: 1)}{document.originalResource.identifier}" target="_blank" class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{document.originalResource.name}</h6>
+                                        <small class="text-muted">{document.originalResource.size -> f:format.bytes()}</small>
+                                    </div>
+                                    <i class="bi bi-download"></i>
+                                </div>
+                            </a>
+                        </f:for>
+                    </div>
+                </div>
+            </f:if>
+
+            <f:if condition="{product.links}">
+                <div class="tab-pane fade" id="links" role="tabpanel">
+                    <div class="list-group">
+                        <f:for each="{product.links}" as="link">
+                            <a href="{link.url}" target="_blank" rel="noopener" class="list-group-item list-group-item-action">
+                                <h6 class="mb-1">{link.title}</h6>
+                                <f:if condition="{link.description}">
+                                    <p class="mb-0 small text-muted">{link.description}</p>
+                                </f:if>
+                            </a>
+                        </f:for>
+                    </div>
+                </div>
+            </f:if>
         </div>
 
+        <!-- Related Products -->
         <f:if condition="{relatedProducts}">
-            <div class="tts-product-detail__related">
-                <h2>Ähnliche Produkte</h2>
-                <div class="tts-product-grid tts-product-grid--small">
+            <div class="border-top pt-5">
+                <h2 class="mb-4">Ähnliche Produkte</h2>
+                <div class="row g-4">
                     <f:for each="{relatedProducts}" as="relatedProduct">
-                        <f:render partial="Product/Card" arguments="{product: relatedProduct}" />
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <f:render partial="Product/Card" arguments="{product: relatedProduct}" />
+                        </div>
                     </f:for>
                 </div>
             </div>
         </f:if>
-    </article>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Tabs functionality
-            const tabBtns = document.querySelectorAll('.tts-tabs__btn');
-            const tabPanels = document.querySelectorAll('.tts-tabs__panel');
-
-            tabBtns.forEach(function(btn) {
+            // Quantity input handlers
+            document.querySelectorAll('.quantity-minus').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const tabId = this.dataset.tab;
-
-                    tabBtns.forEach(function(b) { b.classList.remove('tts-tabs__btn--active'); });
-                    tabPanels.forEach(function(p) { p.classList.remove('tts-tabs__panel--active'); });
-
-                    this.classList.add('tts-tabs__btn--active');
-                    document.querySelector('[data-panel="' + tabId + '"]').classList.add('tts-tabs__panel--active');
-                });
-            });
-
-            // Quantity input
-            const quantityInputs = document.querySelectorAll('.tts-quantity-input');
-            quantityInputs.forEach(function(wrapper) {
-                const input = wrapper.querySelector('.tts-quantity-input__field');
-                const minusBtn = wrapper.querySelector('.tts-quantity-input__btn--minus');
-                const plusBtn = wrapper.querySelector('.tts-quantity-input__btn--plus');
-
-                minusBtn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
                     const min = parseInt(input.min) || 1;
                     if (parseInt(input.value) > min) {
                         input.value = parseInt(input.value) - 1;
                     }
                 });
+            });
 
-                plusBtn.addEventListener('click', function() {
+            document.querySelectorAll('.quantity-plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
                     const max = parseInt(input.max) || 999;
                     if (parseInt(input.value) < max) {
                         input.value = parseInt(input.value) + 1;

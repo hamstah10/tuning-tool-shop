@@ -1,17 +1,19 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<div class="tts-mini-cart-widget">
+<div class="tts-mini-cart-widget position-relative">
     <f:if condition="{cartItems}">
         <f:then>
-            <f:link.page pageUid="{cartPid}" class="tts-mini-cart-widget__link">
-                <span class="tts-mini-cart-widget__icon">🛒</span>
-                <span class="tts-mini-cart-widget__badge">{itemCount}</span>
+            <f:link.page pageUid="{cartPid}" class="btn btn-light position-relative" title="Zum Warenkorb">
+                <span style="font-size: 24px;">🛒</span>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {itemCount}
+                </span>
             </f:link.page>
         </f:then>
         <f:else>
-            <f:link.page pageUid="{cartPid}" class="tts-mini-cart-widget__link tts-mini-cart-widget__link--empty">
-                <span class="tts-mini-cart-widget__icon">🛒</span>
+            <f:link.page pageUid="{cartPid}" class="btn btn-light opacity-50" title="Zum Warenkorb">
+                <span style="font-size: 24px;">🛒</span>
             </f:link.page>
         </f:else>
     </f:if>

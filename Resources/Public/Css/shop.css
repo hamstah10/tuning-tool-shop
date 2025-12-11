@@ -522,109 +522,24 @@
     font-size: 28px;
 }
 
-.tts-cart__content {
-    display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 40px;
-    margin-bottom: 32px;
+/* Bootstrap 5 Grid - .row and .col-lg-8 .col-lg-4 handle the layout */
+
+/* Bootstrap 5 Table - cart items already styled via Bootstrap table classes */
+.tts-cart-item {
+    transition: background var(--tts-transition);
 }
 
-@media (max-width: 900px) {
-    .tts-cart__content {
-        grid-template-columns: 1fr;
-    }
-}
-
-.tts-cart-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.tts-cart-table__th {
-    text-align: left;
-    padding: 12px;
-    border-bottom: 2px solid var(--tts-border);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--tts-text-muted);
-}
-
-.tts-cart-item td {
-    padding: 16px 12px;
-    border-bottom: 1px solid var(--tts-border);
-    vertical-align: middle;
-}
-
-.tts-cart-item__image {
-    border-radius: 6px;
-}
-
-.tts-cart-item__title {
-    font-weight: 600;
-    color: var(--tts-light);
-    text-decoration: none;
-}
-
-.tts-cart-item__title:hover {
-    color: var(--tts-primary);
-}
-
-.tts-cart-item__sku {
-    display: block;
-    font-size: 12px;
-    color: var(--tts-text-muted);
-    margin-top: 4px;
-}
-
-.tts-cart-item__quantity-form {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.tts-cart-item:hover {
+    background: var(--tts-light);
 }
 
 /* --------------------------------------------------------------------------
    Cart Summary
    -------------------------------------------------------------------------- */
+/* Bootstrap 5 Card - cart summary already styled via Bootstrap card classes */
 .tts-cart-summary {
-    background: var(--tts-light);
-    border-radius: var(--tts-radius);
-    padding: 24px;
     position: sticky;
     top: 20px;
-}
-
-.tts-cart-summary__title {
-    margin: 0 0 20px;
-    font-size: 18px;
-}
-
-.tts-cart-summary__row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--tts-border);
-}
-
-.tts-cart-summary__row--discount {
-    color: var(--tts-success);
-}
-
-.tts-cart-summary__row--total {
-    font-size: 18px;
-    font-weight: 700;
-    border-bottom: none;
-    padding-top: 16px;
-}
-
-.tts-cart-summary__tax-info {
-    font-size: 12px;
-    color: var(--tts-text-muted);
-    margin: 8px 0 20px;
-}
-
-.tts-cart-summary__coupon {
-    margin-bottom: 20px;
 }
 
 .tts-coupon-form {
@@ -638,12 +553,6 @@
     border: 1px solid var(--tts-border);
     border-radius: var(--tts-radius);
     font-size: 14px;
-}
-
-.tts-cart-summary__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
 }
 
 /* --------------------------------------------------------------------------
@@ -666,179 +575,14 @@
     }
 }
 
-.tts-checkout-section {
-    background: #fff;
-    border: 1px solid var(--tts-border);
-    border-radius: var(--tts-radius);
-    padding: 24px;
-    margin-bottom: 24px;
-}
-
-.tts-checkout-section__title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 0 0 20px;
-    font-size: 18px;
-}
-
-.tts-checkout-section__number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: var(--tts-primary);
-    color: #fff;
-    border-radius: 50%;
-    font-size: 14px;
-    font-weight: 700;
-}
+/* Bootstrap 5 handles checkout sections and form elements */
 
 /* --------------------------------------------------------------------------
-   Form Elements
+   Payment Methods (Bootstrap 5 btn-check buttons)
    -------------------------------------------------------------------------- */
-.tts-form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-}
-
-@media (max-width: 600px) {
-    .tts-form-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.tts-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.tts-form-group--full {
-    grid-column: 1 / -1;
-}
-
-.tts-form-group--checkbox {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.tts-form-label {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.tts-form-label--checkbox {
-    font-weight: 400;
-    line-height: 1.4;
-}
-
-.tts-form-input,
-.tts-form-select,
-.tts-form-textarea {
-    padding: 12px 14px;
-    border: 1px solid var(--tts-border);
-    border-radius: var(--tts-radius);
-    font-size: 14px;
-    transition: border-color var(--tts-transition);
-}
-
-.tts-form-input:focus,
-.tts-form-select:focus,
-.tts-form-textarea:focus {
-    outline: none;
-    border-color: var(--tts-primary);
-}
-
-.tts-form-checkbox,
-.tts-form-radio {
-    width: 18px;
-    height: 18px;
-    margin-top: 2px;
-    flex-shrink: 0;
-}
-
-.tts-shipping-address {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--tts-border);
-}
-
-/* --------------------------------------------------------------------------
-   Payment Methods
-   -------------------------------------------------------------------------- */
-.tts-payment-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.tts-payment-method {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.tts-payment-method__label {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: var(--tts-light);
-    border-radius: var(--tts-radius);
-    cursor: pointer;
-    transition: background var(--tts-transition);
-}
-
-.tts-payment-method__label:hover {
-    background: var(--tts-border);
-}
-
-.tts-payment-method__icon {
-    height: 24px;
-    width: auto;
-}
-
-.tts-payment-method__name {
-    font-weight: 600;
-}
-
-.tts-payment-method__description {
-    flex-basis: 100%;
-    font-size: 13px;
-    color: var(--tts-text-muted);
-}
-
-.tts-payment-method__fee {
-    margin-left: auto;
-    font-size: 13px;
-    color: var(--tts-text-muted);
-}
-
 .tts-payment-method-radio {
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    flex-shrink: 0;
     accent-color: var(--tts-primary);
 }
-
-.tts-payment-method-radio:checked + .tts-payment-method__label {
-    background: #dbeafe;
-    border: 2px solid var(--tts-primary);
-    padding: 14px;
-}
-
-.tts-payment-method-error {
-    margin-top: 12px;
-    padding: 12px;
-    background: #fee2e2;
     border-left: 4px solid var(--tts-danger);
     border-radius: 4px;
 }
@@ -938,144 +682,7 @@
 /* --------------------------------------------------------------------------
    Confirmation
    -------------------------------------------------------------------------- */
-.tts-confirmation__header {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #dcfce7, #d1fae5);
-    border-radius: var(--tts-radius);
-    margin-bottom: 32px;
-}
-
-.tts-confirmation__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    background: var(--tts-success);
-    color: #fff;
-    font-size: 40px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-.tts-confirmation__title {
-    margin: 0 0 8px;
-    font-size: 28px;
-    color: #166534;
-}
-
-.tts-confirmation__subtitle {
-    margin: 0;
-    font-size: 16px;
-    color: #166534;
-}
-
-.tts-order-info-box {
-    background: var(--tts-light);
-    border-radius: var(--tts-radius);
-    padding: 24px;
-    margin-bottom: 20px;
-}
-
-.tts-order-info-list {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 8px 16px;
-    margin: 0;
-}
-
-.tts-order-info-list dt {
-    color: var(--tts-text-muted);
-}
-
-.tts-order-info-list dd {
-    margin: 0;
-}
-
-.tts-confirmation__email-notice {
-    background: #fef3c7;
-    padding: 16px;
-    border-radius: var(--tts-radius);
-    color: #92400e;
-}
-
-.tts-confirmation__addresses {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-bottom: 32px;
-}
-
-@media (max-width: 600px) {
-    .tts-confirmation__addresses {
-        grid-template-columns: 1fr;
-    }
-}
-
-.tts-address-box {
-    background: var(--tts-light);
-    border-radius: var(--tts-radius);
-    padding: 20px;
-}
-
-.tts-address-box h3 {
-    margin: 0 0 12px;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: var(--tts-text-muted);
-}
-
-.tts-address-box address {
-    font-style: normal;
-    line-height: 1.7;
-}
-
-.tts-order-items-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 32px;
-}
-
-.tts-order-items-table th,
-.tts-order-items-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--tts-border);
-}
-
-.tts-order-items-table thead th {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: var(--tts-text-muted);
-}
-
-.tts-order-items-table tfoot td {
-    border-bottom: none;
-}
-
-.tts-order-items-table__total td {
-    font-size: 18px;
-    padding-top: 16px;
-}
-
-.tts-next-steps-list {
-    background: var(--tts-light);
-    border-radius: var(--tts-radius);
-    padding: 24px 24px 24px 48px;
-    margin: 0 0 32px;
-}
-
-.tts-next-steps-list li {
-    padding: 8px 0;
-}
-
-.tts-confirmation__actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-}
+/* Bootstrap 5 handles all confirmation styling */
 
 /* --------------------------------------------------------------------------
    Search & Filter
@@ -1639,50 +1246,9 @@
     font-size: 14px;
 }
 
+/* Bootstrap 5 Button - mini cart widget already styled via Bootstrap button classes */
 .tts-mini-cart-widget {
     position: relative;
-}
-
-.tts-mini-cart-widget__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    color: var(--tts-text);
-    text-decoration: none;
-    transition: all var(--tts-transition);
-    border-radius: var(--tts-radius);
-}
-
-.tts-mini-cart-widget__link:hover {
-    background: var(--tts-light);
-    color: var(--tts-primary);
-}
-
-.tts-mini-cart-widget__link--empty {
-    opacity: 0.6;
-}
-
-.tts-mini-cart-widget__icon {
-    font-size: 24px;
-}
-
-.tts-mini-cart-widget__badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    background: var(--tts-danger);
-    color: #fff;
-    font-size: 11px;
-    font-weight: bold;
-    border-radius: 50%;
 }
 
 /* --------------------------------------------------------------------------

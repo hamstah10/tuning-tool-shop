@@ -38,6 +38,15 @@ ExtensionUtility::configurePlugin(
 
 ExtensionUtility::configurePlugin(
     'TuningToolShop',
+    'SelectedProducts',
+    [
+        ProductController::class => 'selected',
+    ],
+    []
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
     'ProductDetail',
     [
         ProductController::class => 'show',

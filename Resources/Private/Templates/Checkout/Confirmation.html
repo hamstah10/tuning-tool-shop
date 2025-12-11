@@ -5,167 +5,185 @@
 
 <f:section name="main">
     <div class="tts-confirmation">
-        <div class="tts-confirmation__header">
-            <div class="tts-confirmation__icon">✓</div>
-            <h1 class="tts-confirmation__title">Vielen Dank für Ihre Bestellung!</h1>
-            <p class="tts-confirmation__subtitle">
-                Ihre Bestellung wurde erfolgreich aufgegeben.
-            </p>
+        <div class="text-center mb-5 py-5" style="background: linear-gradient(135deg, var(--tts-primary) 0%, var(--tts-primary-dark) 100%); color: #fff; border-radius: 8px;">
+            <div style="font-size: 64px; margin-bottom: 20px;">✓</div>
+            <h1 class="mb-2">Vielen Dank für Ihre Bestellung!</h1>
+            <p class="mb-0">Ihre Bestellung wurde erfolgreich aufgegeben.</p>
         </div>
 
-        <div class="tts-confirmation__content">
-            <div class="tts-confirmation__order-info">
-                <div class="tts-order-info-box">
-                    <h2>Bestellinformationen</h2>
-                    <dl class="tts-order-info-list">
-                        <dt>Bestellnummer:</dt>
-                        <dd><strong>{order.orderNumber}</strong></dd>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title mb-4">Bestellinformationen</h2>
+                            <dl class="row">
+                                <dt class="col-sm-4">Bestellnummer:</dt>
+                                <dd class="col-sm-8"><strong>{order.orderNumber}</strong></dd>
 
-                        <dt>Bestelldatum:</dt>
-                         <dd><f:format.date format="d.m.Y H:i">{order.createdAt}</f:format.date></dd>
+                                <dt class="col-sm-4">Bestelldatum:</dt>
+                                <dd class="col-sm-8"><f:format.date format="d.m.Y H:i">{order.createdAt}</f:format.date></dd>
 
-                        <dt>Status:</dt>
-                        <dd>{order.statusLabel}</dd>
+                                <dt class="col-sm-4">Status:</dt>
+                                <dd class="col-sm-8">{order.statusLabel}</dd>
 
-                        <dt>Zahlungsart:</dt>
-                        <dd>{order.paymentMethod.title}</dd>
+                                <dt class="col-sm-4">Zahlungsart:</dt>
+                                <dd class="col-sm-8">{order.paymentMethod.title}</dd>
 
-                        <dt>Versandart:</dt>
-                        <dd>
-                            <f:if condition="{order.shippingMethod}">
-                                <f:then>{order.shippingMethod.title} ({order.shippingMethod.provider})</f:then>
-                                <f:else>-</f:else>
-                            </f:if>
-                        </dd>
-                    </dl>
+                                <dt class="col-sm-4">Versandart:</dt>
+                                <dd class="col-sm-8">
+                                    <f:if condition="{order.shippingMethod}">
+                                        <f:then>{order.shippingMethod.title} ({order.shippingMethod.provider})</f:then>
+                                        <f:else>-</f:else>
+                                    </f:if>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        Eine Bestellbestätigung wurde an <strong>{order.customerEmail}</strong> gesendet.
+                    </div>
                 </div>
-
-                <p class="tts-confirmation__email-notice">
-                    Eine Bestellbestätigung wurde an <strong>{order.customerEmail}</strong> gesendet.
-                </p>
             </div>
 
-            <div class="tts-confirmation__details">
-                <div class="tts-confirmation__addresses">
-                    <div class="tts-address-box">
-                        <h3>Rechnungsadresse</h3>
-                        <address>
-                            <f:if condition="{order.customerCompany}">
-                                {order.customerCompany}<br />
-                            </f:if>
-                            {order.customerFirstName} {order.customerLastName}<br />
-                            {order.billingStreet}<br />
-                            {order.billingZip} {order.billingCity}<br />
-                            {order.billingCountryName}
-                        </address>
-                    </div>
-
-                    <div class="tts-address-box">
-                        <h3>Lieferadresse</h3>
-                        <address>
-                            <f:if condition="{order.shippingSameAsBilling}">
-                                <f:then>
-                                    <em>Wie Rechnungsadresse</em>
-                                </f:then>
-                                <f:else>
-                                    <f:if condition="{order.shippingCompany}">
-                                        {order.shippingCompany}<br />
-                                    </f:if>
-                                    {order.shippingFirstName} {order.shippingLastName}<br />
-                                    {order.shippingStreet}<br />
-                                    {order.shippingZip} {order.shippingCity}<br />
-                                    {order.shippingCountryName}
-                                </f:else>
-                            </f:if>
-                        </address>
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Rechnungsadresse</h3>
+                            <address style="font-style: normal;">
+                                <f:if condition="{order.customerCompany}">
+                                    <div>{order.customerCompany}</div>
+                                </f:if>
+                                <div>{order.customerFirstName} {order.customerLastName}</div>
+                                <div>{order.billingStreet}</div>
+                                <div>{order.billingZip} {order.billingCity}</div>
+                                <div>{order.billingCountryName}</div>
+                            </address>
+                        </div>
                     </div>
                 </div>
 
-                <div class="tts-confirmation__items">
-                    <h3>Bestellte Artikel</h3>
-                    <table class="tts-order-items-table">
-                        <thead>
-                            <tr>
-                                <th>Produkt</th>
-                                <th>Menge</th>
-                                <th>Preis</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <f:for each="{order.items}" as="item">
-                                <tr>
-                                    <td>
-                                        <strong>{item.productName}</strong>
-                                        <f:if condition="{item.productId}">
-                                            <br /><small>Produkt-ID: {item.productId}</small>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Lieferadresse</h3>
+                            <address style="font-style: normal;">
+                                <f:if condition="{order.shippingSameAsBilling}">
+                                    <f:then>
+                                        <em>Wie Rechnungsadresse</em>
+                                    </f:then>
+                                    <f:else>
+                                        <f:if condition="{order.shippingCompany}">
+                                            <div>{order.shippingCompany}</div>
                                         </f:if>
-                                    </td>
-                                    <td>{item.quantity}</td>
-                                    <td>
-                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotal}</f:format.currency>
-                                    </td>
-                                </tr>
-                            </f:for>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">Zwischensumme:</td>
-                                <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.subtotal}</f:format.currency></td>
-                            </tr>
-                            <f:if condition="{order.discount}">
-                                <tr class="tts-order-items-table__discount">
-                                    <td colspan="2">Rabatt:</td>
-                                    <td>-<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.discount}</f:format.currency></td>
-                                </tr>
-                            </f:if>
-                            <tr>
-                                <td colspan="2">Versandkosten:</td>
-                                <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">MwSt.:</td>
-                                <td><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total - order.subtotal - order.shippingCost + order.discount}</f:format.currency></td>
-                            </tr>
-                            <tr class="tts-order-items-table__total">
-                                <td colspan="2"><strong>Gesamtsumme:</strong></td>
-                                <td><strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <p class="tts-confirmation__tax-info">inkl. MwSt.</p>
+                                        <div>{order.shippingFirstName} {order.shippingLastName}</div>
+                                        <div>{order.shippingStreet}</div>
+                                        <div>{order.shippingZip} {order.shippingCity}</div>
+                                        <div>{order.shippingCountryName}</div>
+                                    </f:else>
+                                </f:if>
+                            </address>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <f:if condition="{order.comment}">
-                    <div class="tts-confirmation__comment">
-                        <h3>Ihre Anmerkungen</h3>
+            <div class="card border-0 shadow-sm mb-5">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Bestellte Artikel</h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Produkt</th>
+                                    <th scope="col" style="width: 80px;">Menge</th>
+                                    <th scope="col" style="width: 100px; text-align: right;">Preis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{order.items}" as="item">
+                                    <tr>
+                                        <td>
+                                            <strong>{item.productName}</strong>
+                                            <f:if condition="{item.productId}">
+                                                <br /><small class="text-muted">Produkt-ID: {item.productId}</small>
+                                            </f:if>
+                                        </td>
+                                        <td>{item.quantity}</td>
+                                        <td style="text-align: right;">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotal}</f:format.currency>
+                                        </td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td colspan="2">Zwischensumme:</td>
+                                    <td style="text-align: right;"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.subtotal}</f:format.currency></td>
+                                </tr>
+                                <f:if condition="{order.discount}">
+                                    <tr>
+                                        <td colspan="2" class="text-success">Rabatt:</td>
+                                        <td style="text-align: right;" class="text-success">-<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.discount}</f:format.currency></td>
+                                    </tr>
+                                </f:if>
+                                <tr>
+                                    <td colspan="2">Versandkosten:</td>
+                                    <td style="text-align: right;"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">MwSt.:</td>
+                                    <td style="text-align: right;"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total - order.subtotal - order.shippingCost + order.discount}</f:format.currency></td>
+                                </tr>
+                                <tr class="fw-bold">
+                                    <td colspan="2">Gesamtsumme:</td>
+                                    <td style="text-align: right;"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.total}</f:format.currency></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <p class="small text-muted mb-0">inkl. MwSt.</p>
+                </div>
+            </div>
+
+            <f:if condition="{order.comment}">
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body">
+                        <h3 class="card-title">Ihre Anmerkungen</h3>
                         <p>{order.comment}</p>
                     </div>
-                </f:if>
-            </div>
-
-            <f:if condition="{paymentInstructions}">
-                <div class="tts-confirmation__payment-instructions">
-                    <h3>Zahlungshinweise</h3>
-                    <f:format.html>{paymentInstructions}</f:format.html>
                 </div>
             </f:if>
 
-            <div class="tts-confirmation__next-steps">
-                <h3>Wie geht es weiter?</h3>
-                <ol class="tts-next-steps-list">
-                    <li>Sie erhalten in Kürze eine Bestellbestätigung per E-Mail.</li>
-                    <li>Wir bereiten Ihre Bestellung vor.</li>
-                    <li>Sie werden über den Versand Ihrer Bestellung informiert.</li>
-                </ol>
+            <f:if condition="{paymentInstructions}">
+                <div class="card border-0 shadow-sm alert alert-info mb-5">
+                    <div class="card-body">
+                        <h3 class="card-title">Zahlungshinweise</h3>
+                        <f:format.html>{paymentInstructions}</f:format.html>
+                    </div>
+                </div>
+            </f:if>
+
+            <div class="card border-0 shadow-sm mb-5">
+                <div class="card-body">
+                    <h3 class="card-title">Wie geht es weiter?</h3>
+                    <ol class="mb-0">
+                        <li>Sie erhalten in Kürze eine Bestellbestätigung per E-Mail.</li>
+                        <li>Wir bereiten Ihre Bestellung vor.</li>
+                        <li>Sie werden über den Versand Ihrer Bestellung informiert.</li>
+                    </ol>
+                </div>
             </div>
         </div>
 
-        <div class="tts-confirmation__actions">
-            <f:link.page pageUid="{shopPid}" class="tts-btn tts-btn--primary">
+        <div class="text-center mt-5 pt-4 border-top">
+            <f:link.page pageUid="{shopPid}" class="btn btn-primary me-2">
                 Weiter einkaufen
             </f:link.page>
 
-            <button type="button" class="tts-btn tts-btn--secondary" onclick="window.print();">
+            <button type="button" class="btn btn-outline-secondary" onclick="window.print();">
                 Bestellung drucken
             </button>
         </div>

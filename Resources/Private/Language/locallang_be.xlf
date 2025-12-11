@@ -365,6 +365,9 @@
             <trans-unit id="flexform.showOnlyActive" resname="flexform.showOnlyActive">
                 <source>Nur aktive Produkte anzeigen</source>
             </trans-unit>
+            <trans-unit id="flexform.shopListPid" resname="flexform.shopListPid">
+                <source>Shop Listenseite</source>
+            </trans-unit>
             <trans-unit id="flexform.detailPid" resname="flexform.detailPid">
                 <source>Detailseite</source>
             </trans-unit>
@@ -463,6 +466,9 @@
             <trans-unit id="flexform.paypalCurrency" resname="flexform.paypalCurrency">
                 <source>Währung</source>
             </trans-unit>
-        </body>
-    </file>
-</xliff>
+            <trans-unit id="flexform.selectedProducts" resname="flexform.selectedProducts">
+                <source>Produkte</source>
+            </trans-unit>
+            </body>
+            </file>
+            </xliff>

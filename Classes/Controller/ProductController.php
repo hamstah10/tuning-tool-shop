@@ -46,6 +46,12 @@ class ProductController extends ActionController
         // Apply sorting
         $products = $this->applySorting($products, $sortBy);
 
+        // Apply items per page limit from FlexForm or TypoScript
+        $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? $this->settings['shop']['itemsPerPage'] ?? 12);
+        if ($itemsPerPage > 0 && is_array($products)) {
+            $products = array_slice($products, 0, $itemsPerPage);
+        }
+
         $detailPid = (int)($this->settings['detailPid'] ?? 0);
         $cartPid = (int)($this->settings['cartPid'] ?? 0);
 
@@ -67,6 +73,7 @@ class ProductController extends ActionController
             'selectedManufacturer' => $manufacturer,
             'selectedSort' => $sortBy,
             'sortOptions' => $sortOptions,
+            'itemsPerPage' => $itemsPerPage,
         ]);
 
         return $this->htmlResponse();
@@ -74,11 +81,11 @@ class ProductController extends ActionController
 
     protected function applySorting($products, string $sortBy)
     {
-        if ($sortBy === '' || $products->count() === 0) {
-            return $products;
-        }
-
         $productsArray = $products->toArray();
+
+        if ($sortBy === '' || count($productsArray) === 0) {
+            return $productsArray;
+        }
 
         switch ($sortBy) {
             case 'title':
@@ -148,6 +155,35 @@ class ProductController extends ActionController
         $this->view->assignMultiple([
             'searchTerm' => $searchTerm,
             'products' => $products,
+        ]);
+
+        return $this->htmlResponse();
+    }
+
+    public function selectedAction(): ResponseInterface
+    {
+        $selectedProductUids = (string)($this->settings['selectedProducts'] ?? '');
+        $products = [];
+
+        if ($selectedProductUids !== '') {
+            $uids = array_map('intval', array_filter(explode(',', $selectedProductUids)));
+            foreach ($uids as $uid) {
+                $product = $this->productRepository->findByUidIgnoreStorage($uid);
+                if ($product !== null) {
+                    $products[] = $product;
+                }
+            }
+        }
+
+        $shopListPid = (int)($this->settings['shopListPid'] ?? 0);
+        $detailPid = (int)($this->settings['detailPid'] ?? 0);
+        $cartPid = (int)($this->settings['cartPid'] ?? 0);
+
+        $this->view->assignMultiple([
+            'products' => $products,
+            'shopListPid' => $shopListPid,
+            'detailPid' => $detailPid,
+            'cartPid' => $cartPid,
         ]);
 
         return $this->htmlResponse();

@@ -34,6 +34,12 @@
             <trans-unit id="plugin.minicart.description" resname="plugin.minicart.description">
                 <source>Zeigt einen kompakten Warenkorb mit letzten Produkten an</source>
             </trans-unit>
+            <trans-unit id="plugin.selectedproducts.title" resname="plugin.selectedproducts.title">
+                <source>Shop: Ausgewählte Produkte</source>
+            </trans-unit>
+            <trans-unit id="plugin.selectedproducts.description" resname="plugin.selectedproducts.description">
+                <source>Zeigt manuell ausgewählte Produkte an</source>
+            </trans-unit>
 
             <!-- Produkt Tabelle -->
             <trans-unit id="tx_tuningtoolshop_domain_model_product" resname="tx_tuningtoolshop_domain_model_product">
