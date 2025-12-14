@@ -86,4 +86,20 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSi
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Checkout.xml'
 );
 
+ExtensionUtility::registerPlugin(
+    'TuningToolShop',
+    'Orders',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.orders.title',
+    'mimetypes-x-content-domain-content'
+);
+
+$pluginSignature = 'tuningtoolshop_orders';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $pluginSignature,
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Orders.xml'
+);
+
 

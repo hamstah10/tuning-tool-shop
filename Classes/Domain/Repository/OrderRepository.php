@@ -90,4 +90,24 @@ class OrderRepository extends Repository
     {
         return $this->getQuery()->execute()->count();
     }
+
+    public function findByFrontendUserId(int $userId): QueryResultInterface
+    {
+        $query = $this->getQuery();
+        // Sortiere nach neuesten Bestellungen zuerst
+        $query->setOrderings(['createdAt' => QueryInterface::ORDER_DESCENDING]);
+        $query->matching(
+            $query->equals('frontendUserId', $userId)
+        );
+        return $query->execute();
+    }
+
+    public function findByUidIgnoreStorage(int $uid): ?Order
+    {
+        $query = $this->getQuery();
+        $query->matching(
+            $query->equals('uid', $uid)
+        );
+        return $query->execute()->getFirst();
+    }
 }

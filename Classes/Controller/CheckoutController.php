@@ -64,6 +64,7 @@ class CheckoutController extends ActionController
         $termsLink = $this->buildPageLink((int)($this->settings['termsAndConditionsPid'] ?? 0));
         $privacyLink = $this->buildPageLink((int)($this->settings['privacyPid'] ?? 0));
         $cancellationLink = $this->buildPageLink((int)($this->settings['cancellationPid'] ?? 0));
+        $checkoutUrl = $this->uriBuilder->reset()->setTargetPageUid((int)$GLOBALS['TSFE']->id)->build();
 
         $this->view->assignMultiple([
             'cartItems' => $cartItems,
@@ -83,6 +84,7 @@ class CheckoutController extends ActionController
             'termsLink' => $termsLink,
             'privacyLink' => $privacyLink,
             'cancellationLink' => $cancellationLink,
+            'checkoutUrl' => $checkoutUrl,
             'loginPid' => $loginPid,
             'registrationPid' => $registrationPid,
         ]);
@@ -95,8 +97,7 @@ class CheckoutController extends ActionController
         // Check if user is logged in
         if (!$this->authenticationService->isUserLoggedIn($this->request)) {
             $this->addFlashMessage('Sie müssen angemeldet sein, um eine Bestellung zu erstellen.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
-            $loginUrl = $this->authenticationService->getLoginPageUrl($this->settings);
-            return $this->redirectToUri($loginUrl);
+            return $this->redirect('index', 'Checkout');
         }
 
         $sessionId = $this->getSessionId();
@@ -110,9 +111,11 @@ class CheckoutController extends ActionController
         $orderData = $this->request->hasArgument('order') ? $this->request->getArgument('order') : [];
 
         // Store checkout data in session for later order creation after payment
-        $frontendUser = $this->request->getAttribute('frontend.user');
-        if ($frontendUser !== null) {
-            $frontendUser->setAndSaveSessionData('tx_tuningtoolshop_checkout', [
+        $frontendUserObject = $this->request->getAttribute('frontend.user');
+        $frontendUser = $this->authenticationService->getFrontendUser($this->request);
+        
+        if ($frontendUserObject !== null) {
+            $frontendUserObject->setAndSaveSessionData('tx_tuningtoolshop_checkout', [
                 'orderData' => $orderData,
                 'cartSessionId' => $sessionId,
                 'paymentMethodId' => (int)($orderData['paymentMethod'] ?? 0),
@@ -127,6 +130,11 @@ class CheckoutController extends ActionController
         $tempOrder->setCreatedAt(new \DateTime());
         $tempOrder->setStatus(Order::STATUS_NEW);
         $tempOrder->setPid((int)($this->settings['storagePid'] ?? $GLOBALS['TSFE']->id));
+        
+        // Set frontend user ID
+        if ($frontendUser !== null) {
+            $tempOrder->setFrontendUserId((int)($frontendUser['uid'] ?? 0));
+        }
 
         // Customer data
         $tempOrder->setCustomerEmail(trim((string)($orderData['customerEmail'] ?? '')));
@@ -196,6 +204,7 @@ class CheckoutController extends ActionController
 
         $totals = $this->calculateTotals($cartItems->toArray());
         $tempOrder->setSubtotal($totals['net']);
+        $tempOrder->setTaxAmount($totals['tax']);
         $tempOrder->setItemsJson(json_encode($items));
         $tempOrder->setTotalAmount($totals['gross'] + $tempOrder->getShippingCost() - $tempOrder->getDiscount());
 

@@ -39,10 +39,16 @@ class AuthenticationService
     /**
      * Get the femanager login page URL from settings
      */
-    public function getLoginPageUrl(array $settings): string
+    public function getLoginPageUrl(array $settings, ?string $returnUrl = null): string
     {
         $loginPid = (int)($settings['femanagerLoginPid'] ?? 0);
-        return $loginPid > 0 ? '/index.php?id=' . $loginPid : '/';
+        $url = $loginPid > 0 ? '/index.php?id=' . $loginPid : '/';
+        
+        if ($returnUrl) {
+            $url .= (strpos($url, '?') !== false ? '&' : '?') . 'redirect_url=' . urlencode($returnUrl);
+        }
+        
+        return $url;
     }
 
     /**

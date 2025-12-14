@@ -359,6 +359,29 @@ return [
                 'readOnly' => true,
             ],
         ],
+        'frontend_user_id' => [
+            'exclude' => true,
+            'label' => 'Frontend-Benutzer',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'fe_users',
+                'foreign_table_where' => 'ORDER BY fe_users.username',
+                'default' => 0,
+                'readOnly' => true,
+            ],
+        ],
+        'tax_amount' => [
+            'exclude' => true,
+            'label' => 'MwSt.-Betrag',
+            'config' => [
+                'type' => 'number',
+                'format' => 'decimal',
+                'size' => 10,
+                'default' => 0,
+                'readOnly' => true,
+            ],
+        ],
     ],
     'types' => [
         '1' => [

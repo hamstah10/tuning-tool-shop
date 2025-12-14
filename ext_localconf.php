@@ -7,6 +7,7 @@ use Hamstahstudio\TuningToolShop\Controller\CartController;
 use Hamstahstudio\TuningToolShop\Controller\CheckoutController;
 use Hamstahstudio\TuningToolShop\Controller\StripeController;
 use Hamstahstudio\TuningToolShop\Controller\PaymentController;
+use Hamstahstudio\TuningToolShop\Controller\OrdersController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -96,6 +97,15 @@ ExtensionUtility::configurePlugin(
     [
         StripeController::class => 'createPaymentIntent,success,cancel,webhook',
     ]
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
+    'Orders',
+    [
+        OrdersController::class => 'list,detail',
+    ],
+    []
 );
 
 // Register dashboard widget groups

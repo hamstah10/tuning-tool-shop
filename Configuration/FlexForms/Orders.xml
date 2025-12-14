@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:flexform.sheet.general</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.listView>
+                        <TCEforms>
+                            <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:flexform.orders.defaultAction</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:flexform.orders.list</numIndex>
+                                        <numIndex index="1">list</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>list</default>
+                            </config>
+                        </TCEforms>
+                    </settings.listView>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

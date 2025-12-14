@@ -1,0 +1,284 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tts-order-detail">
+        <div class="mb-4">
+            <f:link.action action="list" controller="Orders" class="btn btn-outline-primary">
+                ← Zurück zu Bestellungen
+            </f:link.action>
+        </div>
+
+        <h1 class="tts-order-detail__title mb-4">Bestellung {order.orderNumber}</h1>
+
+        <div class="row g-4 mb-5">
+            <!-- Bestellstatus -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Status</h5>
+                        <f:if condition="{order.status} == 'pending'">
+                            <f:then>
+                                <span class="badge bg-warning">Ausstehend</span>
+                            </f:then>
+                            <f:else>
+                                <f:if condition="{order.status} == 'confirmed'">
+                                    <f:then>
+                                        <span class="badge bg-success">Bestätigt</span>
+                                    </f:then>
+                                    <f:else>
+                                        <f:if condition="{order.status} == 'shipped'">
+                                            <f:then>
+                                                <span class="badge bg-info">Versendet</span>
+                                            </f:then>
+                                            <f:else>
+                                                <f:if condition="{order.status} == 'delivered'">
+                                                    <f:then>
+                                                        <span class="badge bg-success">Geliefert</span>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <span class="badge bg-secondary">{order.status}</span>
+                                                    </f:else>
+                                                </f:if>
+                                            </f:else>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
+                            </f:else>
+                        </f:if>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zahlungsstatus -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Zahlungsstatus</h5>
+                        <f:if condition="{order.paymentStatus} == 'pending'">
+                            <f:then>
+                                <span class="badge bg-warning">Ausstehend</span>
+                            </f:then>
+                            <f:else>
+                                <f:if condition="{order.paymentStatus} == 'paid'">
+                                    <f:then>
+                                        <span class="badge bg-success">Bezahlt</span>
+                                    </f:then>
+                                    <f:else>
+                                        <f:if condition="{order.paymentStatus} == 'failed'">
+                                            <f:then>
+                                                <span class="badge bg-danger">Fehlgeschlagen</span>
+                                            </f:then>
+                                            <f:else>
+                                                <span class="badge bg-secondary">{order.paymentStatus}</span>
+                                            </f:else>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
+                            </f:else>
+                        </f:if>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bestelldatum -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bestelldatum</h5>
+                        <p class="mb-0">
+                            <f:format.date format="d.m.Y H:i">{order.createdAt}</f:format.date>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gesamtbetrag -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gesamtbetrag</h5>
+                        <p class="mb-0 h5">
+                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalAmount}</f:format.currency>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bestellte Produkte -->
+        <div class="card mb-5">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Bestellte Produkte</h5>
+            </div>
+            <div class="card-body">
+                <f:if condition="{order.itemsJson}">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Produkt</th>
+                                    <th class="text-center">Menge</th>
+                                    <th class="text-end">Preis</th>
+                                    <th class="text-end">Gesamt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{order.parsedItems}" as="item">
+                                    <tr>
+                                        <td>
+                                            <strong>{item.productName}</strong><br>
+                                            <small class="text-muted">SKU: {item.sku}</small>
+                                        </td>
+                                        <td class="text-center">
+                                            {item.quantity}
+                                        </td>
+                                        <td class="text-end">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.price}</f:format.currency>
+                                        </td>
+                                        <td class="text-end">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotal}</f:format.currency>
+                                        </td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </div>
+                </f:if>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- Rechnungsadresse -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Rechnungsadresse</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">
+                            <strong>{order.customerFirstName} {order.customerLastName}</strong><br>
+                            <f:if condition="{order.customerCompany}">
+                                {order.customerCompany}<br>
+                            </f:if>
+                            {order.billingStreet}<br>
+                            {order.billingZip} {order.billingCity}<br>
+                            {order.billingCountry}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lieferadresse -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Lieferadresse</h5>
+                    </div>
+                    <div class="card-body">
+                        <f:if condition="{order.shippingSameAsBilling}">
+                            <f:then>
+                                <p class="mb-0 text-muted">
+                                    <em>Wie Rechnungsadresse</em>
+                                </p>
+                            </f:then>
+                            <f:else>
+                                <p class="mb-0">
+                                    <strong>{order.shippingFirstName} {order.shippingLastName}</strong><br>
+                                    <f:if condition="{order.shippingCompany}">
+                                        {order.shippingCompany}<br>
+                                    </f:if>
+                                    {order.shippingStreet}<br>
+                                    {order.shippingZip} {order.shippingCity}<br>
+                                    {order.shippingCountry}
+                                </p>
+                            </f:else>
+                        </f:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zahlungs- und Versandmethode -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Zahlungsmethode</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">
+                            <f:if condition="{order.paymentMethod}">
+                                {order.paymentMethod.title}
+                            </f:if>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Versandmethode</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">
+                            <f:if condition="{order.shippingMethod}">
+                                {order.shippingMethod.title} ({order.shippingMethod.provider})<br>
+                                <small class="text-muted">
+                                    Versandkosten: <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency>
+                                </small>
+                            </f:if>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bestellübersicht -->
+        <div class="card mb-5">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Bestellübersicht</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Netto:</span>
+                            <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.subtotal}</f:format.currency></span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                            <span>MwSt.:</span>
+                            <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.taxAmount}</f:format.currency></span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                            <span>Versandkosten:</span>
+                            <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.shippingCost}</f:format.currency></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <strong>Gesamtsumme:</strong>
+                            <strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{order.totalAmount}</f:format.currency></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bemerkungen -->
+        <f:if condition="{order.comment}">
+            <div class="card mb-5">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Bemerkungen</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">{order.comment}</p>
+                </div>
+            </div>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

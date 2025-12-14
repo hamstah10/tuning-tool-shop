@@ -4,6 +4,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+    
     <div class="tts-checkout">
         <h1 class="tts-checkout__title mb-5">Kasse</h1>
 
@@ -303,12 +304,12 @@
                                         </div>
                                         <p class="small text-muted mb-4">Preise inkl. MwSt.</p>
                                         <f:if condition="{loginPid}">
-                                            <f:link.page pageUid="{loginPid}" class="btn btn-primary w-100 mb-3">
+                                            <f:link.page pageUid="{loginPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-primary w-100 mb-3">
                                                 Anmelden
                                             </f:link.page>
                                         </f:if>
                                         <f:if condition="{registrationPid}">
-                                            <f:link.page pageUid="{registrationPid}" class="btn btn-outline-primary w-100 mb-3">
+                                            <f:link.page pageUid="{registrationPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-outline-primary w-100 mb-3">
                                                 Registrieren
                                             </f:link.page>
                                         </f:if>

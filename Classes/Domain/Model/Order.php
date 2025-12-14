@@ -87,6 +87,10 @@ class Order extends AbstractEntity
 
     protected ?\DateTime $createdAt = null;
 
+    protected ?int $frontendUserId = null;
+
+    protected float $taxAmount = 0.0;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -577,5 +581,45 @@ class Order extends AbstractEntity
     public function setShippingMethod(?ShippingMethod $shippingMethod): void
     {
         $this->shippingMethod = $shippingMethod;
+    }
+
+    public function getFrontendUserId(): ?int
+    {
+        return $this->frontendUserId;
+    }
+
+    public function setFrontendUserId(?int $frontendUserId): void
+    {
+        $this->frontendUserId = $frontendUserId;
+    }
+
+    public function getTaxAmount(): float
+    {
+        return $this->taxAmount;
+    }
+
+    public function setTaxAmount(float $taxAmount): void
+    {
+        $this->taxAmount = $taxAmount;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getParsedItems(): array
+    {
+        return $this->getItems();
+    }
+
+    public function getStatusString(): string
+    {
+        return match ($this->status) {
+            self::STATUS_PENDING => 'pending',
+            self::STATUS_CONFIRMED => 'confirmed',
+            self::STATUS_SHIPPED => 'shipped',
+            self::STATUS_COMPLETED => 'delivered',
+            self::STATUS_CANCELLED => 'cancelled',
+            default => 'unknown',
+        };
     }
 }

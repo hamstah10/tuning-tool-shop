@@ -42,6 +42,21 @@
 			<trans-unit id="plugin.checkout.title" resname="plugin.checkout.title">
 				<source>Shop: Checkout</source>
 			</trans-unit>
+			<trans-unit id="plugin.orders.description" resname="plugin.orders.description">
+				<source>Zeigt die Bestellungen des eingeloggten Benutzers</source>
+			</trans-unit>
+			<trans-unit id="plugin.orders.title" resname="plugin.orders.title">
+				<source>Shop: Meine Bestellungen</source>
+			</trans-unit>
+			<trans-unit id="flexform.sheet.general" resname="flexform.sheet.general">
+				<source>Allgemein</source>
+			</trans-unit>
+			<trans-unit id="flexform.orders.defaultAction" resname="flexform.orders.defaultAction">
+				<source>Standard-Aktion</source>
+			</trans-unit>
+			<trans-unit id="flexform.orders.list" resname="flexform.orders.list">
+				<source>Bestellungen anzeigen</source>
+			</trans-unit>
 			<trans-unit id="plugin.minicart.description" resname="plugin.minicart.description">
 				<source>Zeigt einen kompakten Warenkorb mit letzten Produkten an</source>
 			</trans-unit>
