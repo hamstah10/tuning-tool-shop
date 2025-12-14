@@ -1,475 +1,631 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf" date="2025-12-13T23:05:48Z" product-name="tuning_tool_shop">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf" date="2025-12-13T23:05:48Z" product-name="tuning_tool_shop">
 		<header/>
 		<body>
 			<trans-unit id="palette.address" resname="palette.address">
 				<source>Adresse</source>
+				<target>Adresse</target>
 			</trans-unit>
 			<trans-unit id="palette.contact" resname="palette.contact">
 				<source>Kontakt</source>
+				<target>Kontakt</target>
 			</trans-unit>
 			<trans-unit id="palette.general" resname="palette.general">
 				<source>Allgemein</source>
+				<target>Allgemein</target>
 			</trans-unit>
 			<trans-unit id="palette.media" resname="palette.media">
 				<source>Medien</source>
+				<target>Medien</target>
 			</trans-unit>
 			<trans-unit id="palette.order_details" resname="palette.order_details">
 				<source>Bestelldetails</source>
+				<target>Bestelldetails</target>
 			</trans-unit>
 			<trans-unit id="palette.payment" resname="palette.payment">
 				<source>Zahlung</source>
+				<target>Zahlung</target>
 			</trans-unit>
 			<trans-unit id="palette.price" resname="palette.price">
 				<source>Preis</source>
+				<target>Preis</target>
 			</trans-unit>
 			<trans-unit id="palette.relations" resname="palette.relations">
 				<source>Beziehungen</source>
+				<target>Beziehungen</target>
 			</trans-unit>
 			<trans-unit id="palette.stock" resname="palette.stock">
 				<source>Lager</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.cart.description" resname="plugin.cart.description">
 				<source>Zeigt den Warenkorb an</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.cart.title" resname="plugin.cart.title">
 				<source>Shop: Warenkorb</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.checkout.description" resname="plugin.checkout.description">
 				<source>One-Page Checkout für Bestellungen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.checkout.title" resname="plugin.checkout.title">
 				<source>Shop: Checkout</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.minicart.description" resname="plugin.minicart.description">
 				<source>Zeigt einen kompakten Warenkorb mit letzten Produkten an</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.minicart.title" resname="plugin.minicart.title">
 				<source>Shop: Mini Warenkorb</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.productdetail.description" resname="plugin.productdetail.description">
 				<source>Zeigt die Detailansicht eines Produkts</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.productdetail.title" resname="plugin.productdetail.title">
 				<source>Shop: Produktdetails</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.productlist.description" resname="plugin.productlist.description">
 				<source>Zeigt eine Liste von Produkten an</source>
+				<target>Zeigt eine Liste von Produkten an</target>
 			</trans-unit>
 			<trans-unit id="plugin.productlist.title" resname="plugin.productlist.title">
 				<source>Shop: Produktliste</source>
+				<target>Shop: Produktliste</target>
 			</trans-unit>
 			<trans-unit id="plugin.selectedproducts.description" resname="plugin.selectedproducts.description">
 				<source>Zeigt manuell ausgewählte Produkte an</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="plugin.selectedproducts.title" resname="plugin.selectedproducts.title">
 				<source>Shop: Ausgewählte Produkte</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tab.addresses" resname="tab.addresses">
 				<source>Adressen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tab.general" resname="tab.general">
 				<source>Allgemein</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tab.items" resname="tab.items">
 				<source>Positionen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tab.media" resname="tab.media">
 				<source>Medien</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tab.pricing" resname="tab.pricing">
 				<source>Preise &amp; Lager</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tab.relations" resname="tab.relations">
 				<source>Beziehungen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.addresses" resname="tabs.addresses">
 				<source>Adressen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.inventory" resname="tabs.inventory">
 				<source>Bestand</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.items" resname="tabs.items">
 				<source>Positionen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.media" resname="tabs.media">
 				<source>Medien</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.notes" resname="tabs.notes">
 				<source>Notizen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.payment" resname="tabs.payment">
 				<source>Zahlung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.relations" resname="tabs.relations">
 				<source>Beziehungen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tabs.starter_package" resname="tabs.starter_package">
 				<source>Starter Paket</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address" resname="tx_tuningtoolshop_domain_model_address">
 				<source>Adresse</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.city" resname="tx_tuningtoolshop_domain_model_address.city">
 				<source>Ort</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.company" resname="tx_tuningtoolshop_domain_model_address.company">
 				<source>Firma</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.country" resname="tx_tuningtoolshop_domain_model_address.country">
 				<source>Land</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.email" resname="tx_tuningtoolshop_domain_model_address.email">
 				<source>E-Mail</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.first_name" resname="tx_tuningtoolshop_domain_model_address.first_name">
 				<source>Vorname</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.last_name" resname="tx_tuningtoolshop_domain_model_address.last_name">
 				<source>Nachname</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.phone" resname="tx_tuningtoolshop_domain_model_address.phone">
 				<source>Telefon</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.salutation" resname="tx_tuningtoolshop_domain_model_address.salutation">
 				<source>Anrede</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.street" resname="tx_tuningtoolshop_domain_model_address.street">
 				<source>Straße</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address.zip" resname="tx_tuningtoolshop_domain_model_address.zip">
 				<source>PLZ</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category" resname="tx_tuningtoolshop_domain_model_category">
 				<source>Kategorie</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category.description" resname="tx_tuningtoolshop_domain_model_category.description">
 				<source>Beschreibung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category.image" resname="tx_tuningtoolshop_domain_model_category.image">
 				<source>Bild</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category.parent" resname="tx_tuningtoolshop_domain_model_category.parent">
 				<source>Übergeordnete Kategorie</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category.products" resname="tx_tuningtoolshop_domain_model_category.products">
 				<source>Produkte</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category.slug" resname="tx_tuningtoolshop_domain_model_category.slug">
 				<source>URL-Segment</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_category.title" resname="tx_tuningtoolshop_domain_model_category.title">
 				<source>Titel</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer" resname="tx_tuningtoolshop_domain_model_manufacturer">
 				<source>Hersteller</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.description" resname="tx_tuningtoolshop_domain_model_manufacturer.description">
 				<source>Beschreibung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.logo" resname="tx_tuningtoolshop_domain_model_manufacturer.logo">
 				<source>Logo</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.slug" resname="tx_tuningtoolshop_domain_model_manufacturer.slug">
 				<source>URL-Segment</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.title" resname="tx_tuningtoolshop_domain_model_manufacturer.title">
 				<source>Name</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.website" resname="tx_tuningtoolshop_domain_model_manufacturer.website">
 				<source>Website</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order" resname="tx_tuningtoolshop_domain_model_order">
 				<source>Bestellung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.billing_address" resname="tx_tuningtoolshop_domain_model_order.billing_address">
 				<source>Rechnungsadresse</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.created_at" resname="tx_tuningtoolshop_domain_model_order.created_at">
 				<source>Erstellt am</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.customer_email" resname="tx_tuningtoolshop_domain_model_order.customer_email">
 				<source>Kunden E-Mail</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.customer_name" resname="tx_tuningtoolshop_domain_model_order.customer_name">
 				<source>Kundenname</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.items_json" resname="tx_tuningtoolshop_domain_model_order.items_json">
 				<source>Bestellpositionen (JSON)</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.notes" resname="tx_tuningtoolshop_domain_model_order.notes">
 				<source>Bemerkungen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.order_date" resname="tx_tuningtoolshop_domain_model_order.order_date">
 				<source>Bestelldatum</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.order_items" resname="tx_tuningtoolshop_domain_model_order.order_items">
 				<source>Bestellpositionen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.order_number" resname="tx_tuningtoolshop_domain_model_order.order_number">
 				<source>Bestellnummer</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.payment_method" resname="tx_tuningtoolshop_domain_model_order.payment_method">
 				<source>Zahlungsart</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.payment_method.none" resname="tx_tuningtoolshop_domain_model_order.payment_method.none">
 				<source>Keine Zahlungsart</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.shipping_address" resname="tx_tuningtoolshop_domain_model_order.shipping_address">
 				<source>Lieferadresse</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.shipping_cost" resname="tx_tuningtoolshop_domain_model_order.shipping_cost">
 				<source>Versandkosten</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.shipping_method" resname="tx_tuningtoolshop_domain_model_order.shipping_method">
 				<source>Versandart</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status" resname="tx_tuningtoolshop_domain_model_order.status">
 				<source>Status</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.0" resname="tx_tuningtoolshop_domain_model_order.status.0">
 				<source>Ausstehend</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.1" resname="tx_tuningtoolshop_domain_model_order.status.1">
 				<source>Bestätigt</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.2" resname="tx_tuningtoolshop_domain_model_order.status.2">
 				<source>In Bearbeitung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.3" resname="tx_tuningtoolshop_domain_model_order.status.3">
 				<source>Versendet</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.4" resname="tx_tuningtoolshop_domain_model_order.status.4">
 				<source>Zugestellt</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.5" resname="tx_tuningtoolshop_domain_model_order.status.5">
 				<source>Storniert</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.cancelled" resname="tx_tuningtoolshop_domain_model_order.status.cancelled">
 				<source>Storniert</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.confirmed" resname="tx_tuningtoolshop_domain_model_order.status.confirmed">
 				<source>Bestätigt</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.delivered" resname="tx_tuningtoolshop_domain_model_order.status.delivered">
 				<source>Zugestellt</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.pending" resname="tx_tuningtoolshop_domain_model_order.status.pending">
 				<source>Ausstehend</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.processing" resname="tx_tuningtoolshop_domain_model_order.status.processing">
 				<source>In Bearbeitung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.refunded" resname="tx_tuningtoolshop_domain_model_order.status.refunded">
 				<source>Erstattet</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.status.shipped" resname="tx_tuningtoolshop_domain_model_order.status.shipped">
 				<source>Versendet</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.subtotal" resname="tx_tuningtoolshop_domain_model_order.subtotal">
 				<source>Zwischensumme</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.tax" resname="tx_tuningtoolshop_domain_model_order.tax">
 				<source>MwSt.</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order.total" resname="tx_tuningtoolshop_domain_model_order.total">
 				<source>Gesamtsumme</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem" resname="tx_tuningtoolshop_domain_model_orderitem">
 				<source>Bestellposition</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem.price" resname="tx_tuningtoolshop_domain_model_orderitem.price">
 				<source>Einzelpreis</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem.product" resname="tx_tuningtoolshop_domain_model_orderitem.product">
 				<source>Produkt</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem.product_title" resname="tx_tuningtoolshop_domain_model_orderitem.product_title">
 				<source>Produktname</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem.quantity" resname="tx_tuningtoolshop_domain_model_orderitem.quantity">
 				<source>Menge</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem.sku" resname="tx_tuningtoolshop_domain_model_orderitem.sku">
 				<source>Artikelnummer</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_orderitem.total" resname="tx_tuningtoolshop_domain_model_orderitem.total">
 				<source>Gesamtpreis</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod" resname="tx_tuningtoolshop_domain_model_paymentmethod">
 				<source>Zahlungsart</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.description" resname="tx_tuningtoolshop_domain_model_paymentmethod.description">
 				<source>Beschreibung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.handler_class" resname="tx_tuningtoolshop_domain_model_paymentmethod.handler_class">
 				<source>Handler-Klasse</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.handler_class.description" resname="tx_tuningtoolshop_domain_model_paymentmethod.handler_class.description">
 				<source>PHP-Klasse für die Zahlungsabwicklung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.icon" resname="tx_tuningtoolshop_domain_model_paymentmethod.icon">
 				<source>Icon</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.is_active" resname="tx_tuningtoolshop_domain_model_paymentmethod.is_active">
 				<source>Aktiv</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.sort_order" resname="tx_tuningtoolshop_domain_model_paymentmethod.sort_order">
 				<source>Sortierung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.title" resname="tx_tuningtoolshop_domain_model_paymentmethod.title">
 				<source>Bezeichnung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product" resname="tx_tuningtoolshop_domain_model_product">
 				<source>Produkt</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.categories" resname="tx_tuningtoolshop_domain_model_product.categories">
 				<source>Kategorien</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.category" resname="tx_tuningtoolshop_domain_model_product.category">
 				<source>Kategorie</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.description" resname="tx_tuningtoolshop_domain_model_product.description">
 				<source>Beschreibung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.documents" resname="tx_tuningtoolshop_domain_model_product.documents">
 				<source>Dokumente</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.extensions" resname="tx_tuningtoolshop_domain_model_product.extensions">
 				<source>Erweiterungen</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.features_headline" resname="tx_tuningtoolshop_domain_model_product.features_headline">
 				<source>Features - Überschrift</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.features_text" resname="tx_tuningtoolshop_domain_model_product.features_text">
 				<source>Features - Text</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.headline" resname="tx_tuningtoolshop_domain_model_product.headline">
 				<source>Überschrift</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.images" resname="tx_tuningtoolshop_domain_model_product.images">
 				<source>Bilder</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.is_active" resname="tx_tuningtoolshop_domain_model_product.is_active">
 				<source>Aktiv</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.is_featured" resname="tx_tuningtoolshop_domain_model_product.is_featured">
 				<source>Hervorgehoben</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.lieferumfang" resname="tx_tuningtoolshop_domain_model_product.lieferumfang">
 				<source>Lieferumfang</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.links" resname="tx_tuningtoolshop_domain_model_product.links">
 				<source>Links</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.links.description" resname="tx_tuningtoolshop_domain_model_product.links.description">
 				<source>Externe Links im JSON-Format</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.manufacturer" resname="tx_tuningtoolshop_domain_model_product.manufacturer">
 				<source>Hersteller</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.manufacturer.none" resname="tx_tuningtoolshop_domain_model_product.manufacturer.none">
 				<source>Kein Hersteller</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.operating_costs" resname="tx_tuningtoolshop_domain_model_product.operating_costs">
 				<source>Betriebskosten</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.price" resname="tx_tuningtoolshop_domain_model_product.price">
 				<source>Preis</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type" resname="tx_tuningtoolshop_domain_model_product.product_type">
 				<source>Produkttyp</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.normal" resname="tx_tuningtoolshop_domain_model_product.product_type.normal">
 				<source>Normal</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.starter" resname="tx_tuningtoolshop_domain_model_product.product_type.starter">
 				<source>Starter Paket</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.recommendation_headline" resname="tx_tuningtoolshop_domain_model_product.recommendation_headline">
 				<source>Empfehlung - Überschrift</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.recommendation_text" resname="tx_tuningtoolshop_domain_model_product.recommendation_text">
 				<source>Empfehlung - Text</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.shipping_methods" resname="tx_tuningtoolshop_domain_model_product.shipping_methods">
 				<source>Versandarten</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.short_description" resname="tx_tuningtoolshop_domain_model_product.short_description">
 				<source>Kurzbeschreibung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.sku" resname="tx_tuningtoolshop_domain_model_product.sku">
 				<source>Artikelnummer</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.slug" resname="tx_tuningtoolshop_domain_model_product.slug">
 				<source>URL-Segment</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.special_price" resname="tx_tuningtoolshop_domain_model_product.special_price">
 				<source>Sonderpreis</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.startup_help_headline" resname="tx_tuningtoolshop_domain_model_product.startup_help_headline">
 				<source>Starthilfe - Überschrift</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.startup_help_text" resname="tx_tuningtoolshop_domain_model_product.startup_help_text">
 				<source>Starthilfe - Text</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.stock" resname="tx_tuningtoolshop_domain_model_product.stock">
 				<source>Lagerbestand</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.tax" resname="tx_tuningtoolshop_domain_model_product.tax">
 				<source>Steuersatz</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.tax.none" resname="tx_tuningtoolshop_domain_model_product.tax.none">
 				<source>Kein Steuersatz</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.title" resname="tx_tuningtoolshop_domain_model_product.title">
 				<source>Titel</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.videos" resname="tx_tuningtoolshop_domain_model_product.videos">
 				<source>Videos</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.weight" resname="tx_tuningtoolshop_domain_model_product.weight">
 				<source>Gewicht (kg)</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod" resname="tx_tuningtoolshop_domain_model_shippingmethod">
 				<source>Versandart</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.description" resname="tx_tuningtoolshop_domain_model_shippingmethod.description">
 				<source>Beschreibung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.isActive" resname="tx_tuningtoolshop_domain_model_shippingmethod.isActive">
 				<source>Aktiv</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.logo" resname="tx_tuningtoolshop_domain_model_shippingmethod.logo">
 				<source>Logo</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.price" resname="tx_tuningtoolshop_domain_model_shippingmethod.price">
 				<source>Versandkosten</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.provider" resname="tx_tuningtoolshop_domain_model_shippingmethod.provider">
 				<source>Versanddienstleister</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.sortOrder" resname="tx_tuningtoolshop_domain_model_shippingmethod.sortOrder">
 				<source>Sortierung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_shippingmethod.title" resname="tx_tuningtoolshop_domain_model_shippingmethod.title">
 				<source>Bezeichnung</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_tax" resname="tx_tuningtoolshop_domain_model_tax">
 				<source>Steuersatz</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_tax.country" resname="tx_tuningtoolshop_domain_model_tax.country">
 				<source>Länderkürzel</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_tax.is_default" resname="tx_tuningtoolshop_domain_model_tax.is_default">
 				<source>Standard-Steuersatz</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_tax.rate" resname="tx_tuningtoolshop_domain_model_tax.rate">
 				<source>Steuersatz (%)</source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_tax.title" resname="tx_tuningtoolshop_domain_model_tax.title">
 				<source>Bezeichnung</source>
+				<target></target>
 			</trans-unit>
 		</body>
 	</file>

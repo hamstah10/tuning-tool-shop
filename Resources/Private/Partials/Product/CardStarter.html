@@ -1,0 +1,248 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+     
+      <div class="pricing_item pricing_recommended style_2 tilt">
+            <div class="image_widget">
+                <f:if condition="{product.images.0}">
+                            <f:then>
+                                <f:image image="{product.images.0}" alt="{product.title}" width="400c" />
+                            </f:then>
+                            <f:else>
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
+                                    <i class="bi bi-image fs-1"></i>
+                                </div>
+                            </f:else>
+                        </f:if>
+            </div>
+            <div class="item_badge">Spare {product.price - product.specialPrice}€</div>
+           <f:if condition="{product.manufacturer.logo}">
+                                        <f:then>
+                                            <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="img-fluid" width="120" />
+                                        </f:then>
+                                        <f:else>
+                                            <small class="d-block">{product.manufacturer.title}</small>
+                                        </f:else>
+                                    </f:if>
+                                    <div class="recommended_badge">StarterPaket</div>
+             <h3 class="item_title">
+                <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}">
+
+                                        {product.title}
+                              </f:link.action>
+                </h3>
+                <p class="item_description">
+                    {product.shortDescription}
+                </p>
+                <h4 class="list_title">Lieferumfang</h4>
+                <f:format.html>
+                {product.lieferumfang}
+                </f:format.html>
+                <ul class="icon_list unordered_list_block">
+                  <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Clutch
+                      Oil, Gear Oil Additional</span></li>
+                  <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span
+                      class="list_text">Faucibus ornare suspendisse</span></li>
+                  <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Eget
+                      arcu dictum varius duis</span></li>
+                </ul>
+                <div class="price_value d-flex align-items-start flex-column">
+                    <span class="sale_price">       
+                     <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+</span> 
+
+                    <del
+                    class="remove_price">
+                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+
+                </del>
+                </div><a class="btn btn-primary" href="#!"><span class="btn_text">Get
+                    Service</span></a>
+              </div>
+      <f:comment>
+<div class="product_item">
+     <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="item_image">
+                      
+                        <f:if condition="{product.images.0}">
+                            <f:then>
+                                <f:image image="{product.images.0}" alt="{product.title}" width="300c" />
+                            </f:then>
+                            <f:else>
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
+                                    <i class="bi bi-image fs-1"></i>
+                                </div>
+                            </f:else>
+                        </f:if>
+                   </f:link.action>
+                      <div class="item_content">
+                        <h3 class="item_title">
+                              <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}">
+
+                                        {product.title}
+                              </f:link.action>
+                        </h3>
+                        <f:if condition="{product.manufacturer.logo}">
+                                        <f:then>
+                                            <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="img-fluid" width="80" />
+                                        </f:then>
+                                        <f:else>
+                                            <small class="d-block">{product.manufacturer.title}</small>
+                                        </f:else>
+                                    </f:if>
+                        <div class="item_footer">
+                          <div class="item_price">
+                            <span class="sale_price">
+                                <f:if condition="{product.specialPrice}">
+                                    <f:then>
+                                        <span class="text-muted text-decoration-line-through text-light">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                        </span>
+                                        <br />
+                                        <span class="fw-bold text-danger fs-5 text-light">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                                        </span>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="fw-bold fs-5 text-light">
+                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                        </span>
+                                    </f:else>
+                                </f:if>
+                            </span>
+                          </div>
+                           <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="mb-0">
+                            <f:if condition="{product.stock} > 0">
+                                <f:then>
+                                    <button type="submit" class="btn-link">
+                                        <span class="btn_icon"><span class="iconpack bi-chevron-right"></span></span> 
+                                        <span class="btn_text">In den Warenkorb</span>
+                                    </button>
+                                </f:then>
+                                <f:else>
+                                    <button type="button" class="btn btn-secondary btn-sm w-100" disabled>
+                                        <i class="bi bi-x-circle"></i> Nicht verfügbar
+                                    </button>
+                                </f:else>
+                            </f:if>
+                        </f:form>
+                         
+                        </div>
+                      </div>
+                      <ul class="cart_btns_group unordered_list_block">
+                        <li>
+                          <a href="#!"><i class="fa-light fa-heart"></i></a>
+                        </li>
+                        <li>
+                          <a href="#!"><i class="fa-light fa-eye"></i></a>
+                        </li>
+                        <li>
+                          <a href="#!"
+                            ><i class="fa-light fa-code-compare"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                    
+<div class="card h-100 border-light shadow-sm">
+    <!-- Image Section -->
+    <div class="position-relative overflow-hidden bg-light" style="aspect-ratio: 1;">
+        <f:if condition="{product.images.0}">
+            <f:then>
+                <f:image image="{product.images.0}" alt="{product.title}" class="card-img-top w-100 h-100" style="object-fit: cover;" />
+            </f:then>
+            <f:else>
+                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
+                    <i class="bi bi-image fs-1"></i>
+                </div>
+            </f:else>
+        </f:if>
+
+        <!-- Badges -->
+        <f:if condition="{product.isNew}">
+            <span class="badge bg-success position-absolute top-0 start-0 m-2">NEU</span>
+        </f:if>
+        <f:if condition="{product.discountPrice}">
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">SALE</span>
+        </f:if>
+    </div>
+
+    <!-- Card Body -->
+    <div class="card-body d-flex flex-column">
+        <!-- Manufacturer -->
+        <h6 class="card-subtitle mb-2 text-muted small">
+            {product.manufacturer.title}
+        </h6>
+
+        <!-- Title -->
+        <h5 class="card-title mb-2 flex-grow-1">
+            {product.title}
+        </h5>
+
+        <f:comment>
+        <!-- Description -->
+        <f:if condition="{product.shortDescription}">
+            <p class="card-text text-muted small mb-3">
+                {product.shortDescription}
+            </p>
+        </f:if>
+        </f:comment>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <f:if condition="{product.specialPrice}">
+                <f:then>
+                    <span class="text-muted text-decoration-line-through">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                    </span>
+                    <br />
+                    <span class="fw-bold text-danger fs-5">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                    </span>
+                </f:then>
+                <f:else>
+                    <span class="fw-bold fs-5">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                    </span>
+                </f:else>
+            </f:if>
+            <f:comment>
+            <div class="small text-muted">zzgl. MwSt.</div>
+            </f:comment>
+        </div>
+        <f:comment>
+        <!-- Stock Status -->
+        <div class="mb-3">
+            <f:if condition="{product.stock} > 0">
+                <f:then>
+                    <span class="badge bg-success-subtle text-success">Auf Lager</span>
+                </f:then>
+                <f:else>
+                    <span class="badge bg-danger-subtle text-danger">Nicht verfügbar</span>
+                </f:else>
+            </f:if>
+        </div>
+    </f:comment>
+    </div>
+
+    <!-- Card Footer with Actions -->
+    <div class="card-footer bg-transparent border-top d-grid gap-2">
+        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-eye"></i> Details anzeigen
+        </f:link.action>
+        <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="w-100">
+            <f:if condition="{product.stock} > 0">
+                <f:then>
+                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-cart-plus"></i> In den Warenkorb
+                    </button>
+                </f:then>
+                <f:else>
+                    <button type="button" class="btn btn-secondary btn-sm w-100" disabled>
+                        <i class="bi bi-x-circle"></i> Nicht verfügbar
+                    </button>
+                </f:else>
+            </f:if>
+        </f:form>
+    </div>
+</div>
+</f:comment>
+</html>

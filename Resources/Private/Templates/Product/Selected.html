@@ -4,20 +4,24 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="container">
+    <div class="container mb-5">
+        <f:if condition="{settings.showAllProductsButton}">
          <div class="section_heading">
             <div class="row align-items-center">
               <div class="col-lg-6">
                 <div class="outline_text">Tuning</div>
                 <h2 class="heading_text mb-0 wow" data-splitting>Tools</h2>
               </div>
+              
               <div class="col-lg-6 d-none d-lg-flex justify-content-end">
                 <f:link.page pageUid="{shopListPid}" class="btn btn-primary">
                     <span class="btn_text">Alle Tools</span>
                 </f:link.page>
                 </div>
+              
             </div>
           </div>
+          </f:if>
         <!-- Selected Products -->
         <f:if condition="{products}">
             <f:then>
@@ -36,19 +40,15 @@
                 <f:if condition="{settings.selectedProductsLayout} == 'gridWithType'">
                     <div class="row g-4">
                         <f:for each="{products}" as="product">
-                            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 wow zoomIn">
                                 <div class="position-relative">
                                     <!-- Starter Package Badge -->
                                     <f:if condition="{product.productType} == 'starter'">
                                         <f:then>
-                                            <div class="position-absolute top-0 start-50 translate-middle-x" style="z-index: 10;">
-                                                <span class="badge bg-danger px-3 py-2">
-                                                    <i class="bi bi-star-fill"></i> EMPFOHLEN
-                                                </span>
-                                            </div>
+                                           
                                             <!-- Card with Border for Starter Packages -->
                                             <div class="h-100 border-2 border-danger">
-                                                <f:render partial="Product/Card" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
+                                                <f:render partial="Product/CardStarter" arguments="{product: product, detailPid: detailPid, cartPid: cartPid}" />
                                             </div>
                                         </f:then>
                                         <f:else>

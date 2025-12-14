@@ -8,6 +8,7 @@ use Hamstahstudio\TuningToolShop\Domain\Model\CartItem;
 use Hamstahstudio\TuningToolShop\Domain\Model\Product;
 use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ProductRepository;
+use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -18,6 +19,7 @@ class CartController extends ActionController
         protected readonly CartItemRepository $cartItemRepository,
         protected readonly ProductRepository $productRepository,
         protected readonly PersistenceManager $persistenceManager,
+        protected readonly AuthenticationService $authenticationService,
     ) {}
 
     public function indexAction(): ResponseInterface

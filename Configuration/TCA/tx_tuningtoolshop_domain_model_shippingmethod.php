@@ -87,15 +87,17 @@ return [
                 'eval' => 'required',
             ],
         ],
-        'max_weight' => [
+        'min_weight' => [
             'exclude' => true,
-            'label' => 'Max. Gewicht (kg)',
-            'displayCond' => 'VERSION:IS:false',
+            'label' => 'Min. Gewicht (kg)',
             'config' => [
-                'type' => 'passthrough',
+                'type' => 'number',
+                'format' => 'decimal',
+                'size' => 10,
+                'default' => 0,
             ],
         ],
-        'maxWeight' => [
+        'max_weight' => [
             'exclude' => true,
             'label' => 'Max. Gewicht (kg)',
             'config' => [
@@ -139,7 +141,8 @@ return [
                     description,
                     logo,
                     price,
-                    maxWeight,
+                    min_weight,
+                    max_weight,
                     sortOrder,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                     --palette--;;hidden,

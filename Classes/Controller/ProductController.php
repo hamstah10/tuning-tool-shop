@@ -47,7 +47,7 @@ class ProductController extends ActionController
         $products = $this->applySorting($products, $sortBy);
 
         // Apply items per page limit from FlexForm or TypoScript
-        $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? $this->settings['shop']['itemsPerPage'] ?? 12);
+        $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? $this-zenadfdgrfgsderv >settings['shop']['itemsPerPage'] ?? 12);
         if ($itemsPerPage > 0 && is_array($products)) {
             $products = array_slice($products, 0, $itemsPerPage);
         }

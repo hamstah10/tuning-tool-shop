@@ -34,11 +34,21 @@
             </ROOT>
         </sDEF>
         <sPages>
-            <ROOT>
-                <sheetTitle>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.sheet.pages</sheetTitle>
-                <type>array</type>
-                <el>
-                    <settings.confirmationPid>
+             <ROOT>
+                 <sheetTitle>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.sheet.pages</sheetTitle>
+                 <type>array</type>
+                 <el>
+                     <settings.storagePid>
+                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.storagePid</label>
+                         <config>
+                             <type>group</type>
+                             <allowed>pages</allowed>
+                             <size>1</size>
+                             <minitems>1</minitems>
+                             <maxitems>1</maxitems>
+                         </config>
+                     </settings.storagePid>
+                     <settings.confirmationPid>
                         <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.confirmationPid</label>
                         <config>
                             <type>group</type>
@@ -98,9 +108,29 @@
                             <maxitems>1</maxitems>
                         </config>
                     </settings.shopPid>
-                </el>
-            </ROOT>
-        </sPages>
+                    <settings.femanagerLoginPid>
+                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.femanagerLoginPid</label>
+                        <config>
+                            <type>group</type>
+                            <allowed>pages</allowed>
+                            <size>1</size>
+                            <minitems>0</minitems>
+                            <maxitems>1</maxitems>
+                        </config>
+                    </settings.femanagerLoginPid>
+                    <settings.femanagerRegistrationPid>
+                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.femanagerRegistrationPid</label>
+                        <config>
+                            <type>group</type>
+                            <allowed>pages</allowed>
+                            <size>1</size>
+                            <minitems>0</minitems>
+                            <maxitems>1</maxitems>
+                        </config>
+                    </settings.femanagerRegistrationPid>
+                    </el>
+                    </ROOT>
+                    </sPages>
         <sPayment>
             <ROOT>
                 <sheetTitle>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.sheet.payment</sheetTitle>

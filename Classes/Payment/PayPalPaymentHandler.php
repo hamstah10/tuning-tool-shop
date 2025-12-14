@@ -43,6 +43,11 @@ class PayPalPaymentHandler implements PaymentHandlerInterface
 
     public function handleCallback(array $parameters): PaymentResult
     {
+        // Verify IPN authenticity with PayPal
+        if (!$this->verifyIpn($parameters)) {
+            return PaymentResult::failed('IPN-Verifizierung fehlgeschlagen');
+        }
+
         $paymentStatus = $parameters['payment_status'] ?? '';
         $txnId = $parameters['txn_id'] ?? '';
 
@@ -54,7 +59,35 @@ class PayPalPaymentHandler implements PaymentHandlerInterface
             return PaymentResult::pending('PayPal-Zahlung ausstehend');
         }
 
+        // Declined, expired, failed, voided, refunded, etc.
         return PaymentResult::failed('PayPal-Zahlung fehlgeschlagen: ' . $paymentStatus);
+    }
+
+    protected function verifyIpn(array $parameters): bool
+    {
+        $verifyUrl = (bool)($this->config['sandbox'] ?? true) 
+            ? 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+            : 'https://www.paypal.com/cgi-bin/webscr';
+
+        // Build verification request
+        $verifyData = 'cmd=_notify-validate';
+        foreach ($parameters as $key => $value) {
+            $verifyData .= '&' . urlencode($key) . '=' . urlencode($value);
+        }
+
+        // Send verification request to PayPal
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => 'Content-Type: application/x-www-form-urlencoded',
+                'content' => $verifyData,
+                'timeout' => 10,
+            ],
+        ]);
+
+        $response = @file_get_contents($verifyUrl, false, $context);
+
+        return $response === 'VERIFIED';
     }
 
     public function getDisplayName(): string

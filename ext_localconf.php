@@ -103,3 +103,5 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] = array_merg
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] ?? [],
     require ExtensionManagementUtility::extPath('tuning_tool_shop') . 'Configuration/Backend/DashboardWidgetGroups.php'
 );
+
+

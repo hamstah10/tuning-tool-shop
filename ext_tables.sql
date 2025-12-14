@@ -64,7 +64,8 @@ CREATE TABLE tx_tuningtoolshop_domain_model_shippingmethod (
     provider varchar(255) NOT NULL DEFAULT '',
     logo int unsigned NOT NULL DEFAULT 0,
     price decimal(10,2) NOT NULL DEFAULT 0.00,
-    maxWeight decimal(10,3) NOT NULL DEFAULT 0.000,
+    min_weight decimal(10,2) NOT NULL DEFAULT 0.00,
+    max_weight decimal(10,2) NOT NULL DEFAULT 0.00,
     is_active tinyint(1) unsigned NOT NULL DEFAULT 1,
     sort_order int NOT NULL DEFAULT 0
 );

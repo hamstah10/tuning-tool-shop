@@ -27,12 +27,15 @@
    Base & Layout
    -------------------------------------------------------------------------- */
 .tts-shop {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-    color: var(--tts-text);
+   
     line-height: 1.6;
     max-width: 1400px;
     margin: 0 auto;
     
+}
+
+.pricing_item {
+    padding: 25px 25px !important;
 }
 
 /* --------------------------------------------------------------------------

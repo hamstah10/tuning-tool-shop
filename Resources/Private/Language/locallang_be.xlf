@@ -493,6 +493,18 @@
             <trans-unit id="flexform.listLayout.list" resname="flexform.listLayout.list">
                 <source>Listenansicht</source>
             </trans-unit>
+            <trans-unit id="flexform.showAllProductsButton" resname="flexform.showAllProductsButton">
+                <source>Button "Alle Tools" anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.femanagerLoginPid" resname="flexform.femanagerLoginPid">
+                <source>FEManager Login-Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.femanagerRegistrationPid" resname="flexform.femanagerRegistrationPid">
+                <source>FEManager Registrierungs-Seite</source>
+            </trans-unit>
+            <trans-unit id="flexform.storagePid" resname="flexform.storagePid">
+                <source>Datensatzsammlung (Storage)</source>
+            </trans-unit>
             </body>
             </file>
             </xliff>

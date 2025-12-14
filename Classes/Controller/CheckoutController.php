@@ -9,6 +9,7 @@ use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\OrderRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\PaymentMethodRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ShippingMethodRepository;
+use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -21,10 +22,13 @@ class CheckoutController extends ActionController
         protected readonly PaymentMethodRepository $paymentMethodRepository,
         protected readonly ShippingMethodRepository $shippingMethodRepository,
         protected readonly PersistenceManager $persistenceManager,
+        protected readonly AuthenticationService $authenticationService,
     ) {}
 
     public function indexAction(): ResponseInterface
     {
+        $isUserLoggedIn = $this->authenticationService->isUserLoggedIn($this->request);
+        $frontendUser = $this->authenticationService->getFrontendUser($this->request);
         $sessionId = $this->getSessionId();
         $cartItems = $this->cartItemRepository->findBySessionId($sessionId);
         $paymentMethods = $this->paymentMethodRepository->findAll();
@@ -32,6 +36,8 @@ class CheckoutController extends ActionController
 
         $cartPid = (int)($this->settings['cartPid'] ?? 0);
         $shopPid = (int)($this->settings['shopPid'] ?? 0);
+        $loginPid = (int)($this->settings['femanagerLoginPid'] ?? 0);
+        $registrationPid = (int)($this->settings['femanagerRegistrationPid'] ?? 0);
 
         if ($cartItems->count() === 0) {
             $this->addFlashMessage('Ihr Warenkorb ist leer.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING);
@@ -49,13 +55,22 @@ class CheckoutController extends ActionController
         $availableShippingMethods = $this->filterShippingMethodsByWeight($shippingMethods, $totalWeight);
         $selectedShippingMethod = $this->selectBestShippingMethod($availableShippingMethods, $totalWeight);
         
+        // Pre-select payment method if only one is available
+        $selectedPaymentMethod = null;
+        if ($paymentMethods->count() === 1) {
+            $selectedPaymentMethod = $paymentMethods->getFirst();
+        }
+        
         $termsLink = $this->buildPageLink((int)($this->settings['termsAndConditionsPid'] ?? 0));
         $privacyLink = $this->buildPageLink((int)($this->settings['privacyPid'] ?? 0));
         $cancellationLink = $this->buildPageLink((int)($this->settings['cancellationPid'] ?? 0));
 
         $this->view->assignMultiple([
             'cartItems' => $cartItems,
+            'isUserLoggedIn' => $isUserLoggedIn,
+            'frontendUser' => $frontendUser,
             'paymentMethods' => $paymentMethods,
+            'selectedPaymentMethod' => $selectedPaymentMethod,
             'shippingMethods' => $availableShippingMethods,
             'selectedShippingMethod' => $selectedShippingMethod,
             'total' => $totals['gross'],
@@ -68,6 +83,8 @@ class CheckoutController extends ActionController
             'termsLink' => $termsLink,
             'privacyLink' => $privacyLink,
             'cancellationLink' => $cancellationLink,
+            'loginPid' => $loginPid,
+            'registrationPid' => $registrationPid,
         ]);
 
         return $this->htmlResponse();
@@ -75,6 +92,13 @@ class CheckoutController extends ActionController
 
     public function processAction(): ResponseInterface
     {
+        // Check if user is logged in
+        if (!$this->authenticationService->isUserLoggedIn($this->request)) {
+            $this->addFlashMessage('Sie müssen angemeldet sein, um eine Bestellung zu erstellen.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
+            $loginUrl = $this->authenticationService->getLoginPageUrl($this->settings);
+            return $this->redirectToUri($loginUrl);
+        }
+
         $sessionId = $this->getSessionId();
         $cartItems = $this->cartItemRepository->findBySessionId($sessionId);
 
@@ -85,47 +109,60 @@ class CheckoutController extends ActionController
 
         $orderData = $this->request->hasArgument('order') ? $this->request->getArgument('order') : [];
 
-        $order = new Order();
-        $order->setOrderNumber($this->generateOrderNumber());
-        $order->setCreatedAt(new \DateTime());
-        $order->setStatus(Order::STATUS_NEW);
-        $order->setPid((int)($this->settings['storagePid'] ?? $GLOBALS['TSFE']->id));
+        // Store checkout data in session for later order creation after payment
+        $frontendUser = $this->request->getAttribute('frontend.user');
+        if ($frontendUser !== null) {
+            $frontendUser->setAndSaveSessionData('tx_tuningtoolshop_checkout', [
+                'orderData' => $orderData,
+                'cartSessionId' => $sessionId,
+                'paymentMethodId' => (int)($orderData['paymentMethod'] ?? 0),
+                'shippingMethodId' => (int)($orderData['shippingMethod'] ?? 0),
+                'timestamp' => time(),
+            ]);
+        }
+
+        // Build temporary order object for payment processing
+        $tempOrder = new Order();
+        $tempOrder->setOrderNumber($this->generateOrderNumber());
+        $tempOrder->setCreatedAt(new \DateTime());
+        $tempOrder->setStatus(Order::STATUS_NEW);
+        $tempOrder->setPid((int)($this->settings['storagePid'] ?? $GLOBALS['TSFE']->id));
 
         // Customer data
-        $order->setCustomerEmail(trim((string)($orderData['customerEmail'] ?? '')));
-        $order->setCustomerFirstName(trim((string)($orderData['customerFirstName'] ?? '')));
-        $order->setCustomerLastName(trim((string)($orderData['customerLastName'] ?? '')));
-        $order->setCustomerCompany(trim((string)($orderData['customerCompany'] ?? '')));
+        $tempOrder->setCustomerEmail(trim((string)($orderData['customerEmail'] ?? '')));
+        $tempOrder->setCustomerFirstName(trim((string)($orderData['customerFirstName'] ?? '')));
+        $tempOrder->setCustomerLastName(trim((string)($orderData['customerLastName'] ?? '')));
+        $tempOrder->setCustomerCompany(trim((string)($orderData['customerCompany'] ?? '')));
 
         // Billing address
-        $order->setBillingStreet(trim((string)($orderData['billingStreet'] ?? '')));
-        $order->setBillingZip(substr(trim((string)($orderData['billingZip'] ?? '')), 0, 50));
-        $order->setBillingCity(trim((string)($orderData['billingCity'] ?? '')));
-        $order->setBillingCountry(substr(trim((string)($orderData['billingCountry'] ?? '')), 0, 2));
+        $tempOrder->setBillingStreet(trim((string)($orderData['billingStreet'] ?? '')));
+        $tempOrder->setBillingZip(substr(trim((string)($orderData['billingZip'] ?? '')), 0, 50));
+        $tempOrder->setBillingCity(trim((string)($orderData['billingCity'] ?? '')));
+        $tempOrder->setBillingCountry(substr(trim((string)($orderData['billingCountry'] ?? '')), 0, 2));
 
         // Shipping address
         $shippingSameAsBilling = isset($orderData['shippingSameAsBilling']) && $orderData['shippingSameAsBilling'];
-        $order->setShippingSameAsBilling($shippingSameAsBilling);
+        $tempOrder->setShippingSameAsBilling($shippingSameAsBilling);
         
         if (!$shippingSameAsBilling) {
-            $order->setShippingFirstName(trim((string)($orderData['shippingFirstName'] ?? '')));
-            $order->setShippingLastName(trim((string)($orderData['shippingLastName'] ?? '')));
-            $order->setShippingCompany(trim((string)($orderData['shippingCompany'] ?? '')));
-            $order->setShippingStreet(trim((string)($orderData['shippingStreet'] ?? '')));
-            $order->setShippingZip(substr(trim((string)($orderData['shippingZip'] ?? '')), 0, 50));
-            $order->setShippingCity(trim((string)($orderData['shippingCity'] ?? '')));
-            $order->setShippingCountry(substr(trim((string)($orderData['shippingCountry'] ?? '')), 0, 2));
+            $tempOrder->setShippingFirstName(trim((string)($orderData['shippingFirstName'] ?? '')));
+            $tempOrder->setShippingLastName(trim((string)($orderData['shippingLastName'] ?? '')));
+            $tempOrder->setShippingCompany(trim((string)($orderData['shippingCompany'] ?? '')));
+            $tempOrder->setShippingStreet(trim((string)($orderData['shippingStreet'] ?? '')));
+            $tempOrder->setShippingZip(substr(trim((string)($orderData['shippingZip'] ?? '')), 0, 50));
+            $tempOrder->setShippingCity(trim((string)($orderData['shippingCity'] ?? '')));
+            $tempOrder->setShippingCountry(substr(trim((string)($orderData['shippingCountry'] ?? '')), 0, 2));
         }
 
         // Comment
-        $order->setComment(trim((string)($orderData['comment'] ?? '')));
+        $tempOrder->setComment(trim((string)($orderData['comment'] ?? '')));
 
         // Payment method
         $paymentMethodId = (int)($orderData['paymentMethod'] ?? 0);
         if ($paymentMethodId > 0) {
             $paymentMethod = $this->paymentMethodRepository->findByUidIgnoreStorage($paymentMethodId);
             if ($paymentMethod !== null) {
-                $order->setPaymentMethod($paymentMethod);
+                $tempOrder->setPaymentMethod($paymentMethod);
             }
         }
 
@@ -134,8 +171,8 @@ class CheckoutController extends ActionController
         if ($shippingMethodId > 0) {
             $shippingMethod = $this->shippingMethodRepository->findByUidIgnoreStorage($shippingMethodId);
             if ($shippingMethod !== null) {
-                $order->setShippingMethod($shippingMethod);
-                $order->setShippingCost($shippingMethod->getPrice());
+                $tempOrder->setShippingMethod($shippingMethod);
+                $tempOrder->setShippingCost($shippingMethod->getPrice());
             }
         }
 
@@ -158,19 +195,40 @@ class CheckoutController extends ActionController
         }
 
         $totals = $this->calculateTotals($cartItems->toArray());
-        $order->setSubtotal($totals['net']);
-        $order->setItemsJson(json_encode($items));
-        $order->setTotalAmount($totals['gross'] + $order->getShippingCost() - $order->getDiscount());
+        $tempOrder->setSubtotal($totals['net']);
+        $tempOrder->setItemsJson(json_encode($items));
+        $tempOrder->setTotalAmount($totals['gross'] + $tempOrder->getShippingCost() - $tempOrder->getDiscount());
 
-        $this->orderRepository->add($order);
-
-        foreach ($cartItems as $cartItem) {
-            $this->cartItemRepository->remove($cartItem);
+        // Always save order with payment pending status
+        $paymentMethod = $tempOrder->getPaymentMethod();
+        $handlerClass = $paymentMethod ? $paymentMethod->getHandlerClass() : null;
+        
+        if ($paymentMethod === null || empty($handlerClass)) {
+            // No payment handler: mark as paid and confirmed immediately
+            $tempOrder->setPaymentStatus(Order::PAYMENT_STATUS_PAID);
+            $tempOrder->setStatus(Order::STATUS_CONFIRMED);
+        } else {
+            // Payment handler needed: keep as pending until IPN callback
+            $tempOrder->setPaymentStatus(Order::PAYMENT_STATUS_PENDING);
+            $tempOrder->setStatus(Order::STATUS_PENDING);
         }
 
+        $this->orderRepository->add($tempOrder);
         $this->persistenceManager->persistAll();
 
-        return $this->redirect('confirmation', null, null, ['order' => $order->getUid()]);
+        // If no payment handler needed, confirm order and clear cart
+        if ($paymentMethod === null || empty($handlerClass)) {
+            // Clear cart
+            foreach ($cartItems as $cartItem) {
+                $this->cartItemRepository->remove($cartItem);
+            }
+            $this->persistenceManager->persistAll();
+
+            return $this->redirect('confirmation', 'Checkout', null, ['order' => $tempOrder->getUid()]);
+        }
+
+        // Redirect to payment with temporary order
+        return $this->redirect('redirect', 'Payment', null, ['order' => $tempOrder->getUid()]);
     }
 
     public function confirmationAction(Order $order): ResponseInterface
@@ -292,12 +350,36 @@ class CheckoutController extends ActionController
         $availableMethods = [];
 
         foreach ($shippingMethods as $shippingMethod) {
-            // Include method if maxWeight is 0 (unlimited) or >= totalWeight
-            if ($shippingMethod->getMaxWeight() === 0.0 || $shippingMethod->getMaxWeight() >= $totalWeight) {
-                $availableMethods[] = $shippingMethod;
+            // Check if weight matches the shipping method's range
+            $minWeight = $shippingMethod->getMinWeight();
+            $maxWeight = $shippingMethod->getMaxWeight();
+
+            // Debug logging
+            error_log(sprintf(
+                'Shipping method: %s | minWeight: %.2f | maxWeight: %.2f | totalWeight: %.2f',
+                $shippingMethod->getTitle(),
+                $minWeight,
+                $maxWeight,
+                $totalWeight
+            ));
+
+            // Check minimum weight (0 = no minimum)
+            if ($minWeight > 0 && $totalWeight < $minWeight) {
+                error_log(sprintf('  → Filtered out: totalWeight (%.2f) < minWeight (%.2f)', $totalWeight, $minWeight));
+                continue;
             }
+
+            // Check maximum weight (0 = unlimited)
+            if ($maxWeight > 0 && $totalWeight > $maxWeight) {
+                error_log(sprintf('  → Filtered out: totalWeight (%.2f) > maxWeight (%.2f)', $totalWeight, $maxWeight));
+                continue;
+            }
+
+            error_log('  → Available');
+            $availableMethods[] = $shippingMethod;
         }
 
+        error_log(sprintf('Total available shipping methods: %d', count($availableMethods)));
         return $availableMethods;
     }
 
@@ -307,25 +389,12 @@ class CheckoutController extends ActionController
             return null;
         }
 
-        // Select the shipping method with the lowest maxWeight that still fits
-        // This ensures the most cost-effective option
-        $bestMethod = null;
-        $lowestMaxWeight = PHP_FLOAT_MAX;
+        // Sort by price (lowest first) to select the cheapest option
+        usort($availableMethods, function ($a, $b) {
+            return $a->getPrice() <=> $b->getPrice();
+        });
 
-        foreach ($availableMethods as $method) {
-            $maxWeight = $method->getMaxWeight();
-            
-            // If unlimited (0), only use if no other option exists
-            if ($maxWeight === 0.0) {
-                if ($bestMethod === null) {
-                    $bestMethod = $method;
-                }
-            } elseif ($maxWeight >= $totalWeight && $maxWeight < $lowestMaxWeight) {
-                $bestMethod = $method;
-                $lowestMaxWeight = $maxWeight;
-            }
-        }
-
-        return $bestMethod ?? ($availableMethods[0] ?? null);
+        // Return the cheapest available shipping method
+        return $availableMethods[0];
     }
 }

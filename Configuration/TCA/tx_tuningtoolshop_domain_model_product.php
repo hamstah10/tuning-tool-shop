@@ -344,9 +344,9 @@ return [
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.extensions',
             'config' => [
                 'type' => 'text',
+                'enableRichtext' => true,
                 'cols' => 40,
                 'rows' => 5,
-                'eval' => 'trim',
             ],
         ],
         'startup_help_headline' => [
