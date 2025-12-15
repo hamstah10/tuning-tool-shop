@@ -66,4 +66,10 @@ plugin.tx_tuningtoolshop {
 }
 
 page.includeCSS.tuningToolShop = EXT:tuning_tool_shop/Resources/Public/Css/shop.css
-page.includeJSFooter.tuningToolShop = EXT:tuning_tool_shop/Resources/Public/JavaScript/shop.js
+page {
+    includeJSFooter {
+        tuningToolShopMatchHeight = EXT:tuning_tool_shop/Resources/Public/JavaScript/matchHeight.js
+        tuningToolShop = EXT:tuning_tool_shop/Resources/Public/JavaScript/shop.js
+        
+    }
+}

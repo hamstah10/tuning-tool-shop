@@ -278,7 +278,7 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div>
                                                     <h6 class="mb-1">{document.originalResource.name}</h6>
-                                                    <small class="text-muted">{document.originalResource.size -> f:format.bytes()}</small>
+                                                    <small class="text-muted"><f:format.bytes>{document.originalResource.size}</f:format.bytes></small>
                                                 </div>
                                                 <i class="bi bi-download"></i>
                                             </div>
@@ -507,7 +507,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="mb-1">{document.originalResource.name}</h6>
-                                        <small class="text-muted">{document.originalResource.size -> f:format.bytes()}</small>
+                                        <small class="text-muted"><f:format.bytes>{document.originalResource.size}</f:format.bytes></small>
                                     </div>
                                     <i class="bi bi-download"></i>
                                 </div>

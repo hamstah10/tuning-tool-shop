@@ -2,7 +2,7 @@
       data-namespace-typo3-fluid="true">
 
 <f:if condition="{images}">
-    <f:if condition="{images -> f:count()} > 1">
+    <f:if condition="<f:count>{images}</f:count> > 1">
         <f:then>
             <!-- Bootstrap 5 Carousel für mehrere Bilder -->
             <div id="tts-gallery-carousel" class="carousel slide" data-bs-ride="carousel">

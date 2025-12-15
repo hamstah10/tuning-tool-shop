@@ -2,11 +2,11 @@
 <div class="widget-content-main">
     <div class="widget-stats">
         <div class="stat-box">
-            <div class="stat-value">€ {totalRevenue -> f:format.currency(currencySign: '€', decimals: 2)}</div>
+            <div class="stat-value">€ {totalRevenue | f:format.currency(currencySign: '€', decimals: 2)}</div>
             <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.totalRevenue" /></div>
         </div>
         <div class="stat-box">
-            <div class="stat-value">{pendingOrders -> f:count()}</div>
+            <div class="stat-value"><f:count>{pendingOrders}</f:count></div>
             <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.pendingOrders" /></div>
         </div>
     </div>
@@ -29,7 +29,7 @@
                         <tr>
                             <td>{order.orderNumber}</td>
                             <td>{order.customerFirstName} {order.customerLastName}</td>
-                            <td>€ {order.total -> f:format.currency(currencySign: '€', decimals: 2)}</td>
+                            <td>€ {order.total | f:format.currency(currencySign: '€', decimals: 2)}</td>
                             <td>
                                 <f:switch expression="{order.status}">
                                     <f:case value="0"><span class="badge badge-danger">{order.statusLabel}</span></f:case>

@@ -872,8 +872,8 @@
 .tts-empty-state {
     text-align: center;
     padding: 60px 20px;
-    background: var(--tts-light);
-    border-radius: var(--tts-radius);
+    background: var(--bs-gray-dark);
+    border-radius: 0;
 }
 
 .tts-empty-state__icon {

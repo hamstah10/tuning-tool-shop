@@ -1,11 +1,13 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
-<div class="product_item">
-     <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="item_image">
+<div class="product_item h-100">
+     <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="item_image h-100">
                       
                         <f:if condition="{product.images.0}">
                             <f:then>
+                                 <div class="w-100 h-100 d-flex align-items-center justify-content-center image-div">
                                 <f:image image="{product.images.0}" alt="{product.title}" />
+                                </div>
                             </f:then>
                             <f:else>
                                 <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">

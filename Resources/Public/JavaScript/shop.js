@@ -428,3 +428,7 @@
 
     window.TuningToolShop = TuningToolShop;
 })();
+
+$(function() {
+	$('.image-div').matchHeight();
+});
