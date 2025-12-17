@@ -5,7 +5,7 @@
             <div class="image_widget">
                 <f:if condition="{product.images.0}">
                             <f:then>
-                                <f:image image="{product.images.0}" alt="{product.title}" width="400c" />
+                                <f:image image="{product.images.0}" alt="{product.title}" width="300c" />
                             </f:then>
                             <f:else>
                                 <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
@@ -15,6 +15,7 @@
                         </f:if>
             </div>
             <div class="item_badge">Spare {product.price - product.specialPrice}€</div>
+           
            <f:if condition="{product.manufacturer.logo}">
                                         <f:then>
                                             <f:image image="{product.manufacturer.logo}" alt="{product.manufacturer.title}" class="img-fluid" width="120" />
@@ -23,7 +24,7 @@
                                             <small class="d-block">{product.manufacturer.title}</small>
                                         </f:else>
                                     </f:if>
-                                    <div class="recommended_badge">StarterPaket</div>
+            <div class="recommended_badge">StarterPaket</div>
              <h3 class="item_title">
                 <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}">
 
@@ -34,17 +35,22 @@
                     {product.shortDescription}
                 </p>
                 <h4 class="list_title">Lieferumfang</h4>
-                <f:format.html>
-                {product.lieferumfang}
-                </f:format.html>
-                <ul class="icon_list unordered_list_block">
-                  <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Clutch
-                      Oil, Gear Oil Additional</span></li>
-                  <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span
-                      class="list_text">Faucibus ornare suspendisse</span></li>
-                  <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Eget
-                      arcu dictum varius duis</span></li>
-                </ul>
+                <f:if condition="{product.lieferumfang}">
+                  <f:then>
+                    <ul class="icon_list unordered_list_block">
+                      <f:for each="{product.lieferumfang}" as="item">
+                        <li><span class="list_icon"><i class="bi bi-check-lg"></i></span> <span class="list_text">{item.title}</span></li>
+                      </f:for>
+                    </ul>
+                  </f:then>
+                  <f:else>
+                    <ul class="icon_list unordered_list_block">
+                      <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Clutch Oil, Gear Oil Additional</span></li>
+                      <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Faucibus ornare suspendisse</span></li>
+                      <li><span class="list_icon"><i class="fa-regular fa-check"></i></span> <span class="list_text">Eget arcu dictum varius duis</span></li>
+                    </ul>
+                  </f:else>
+                </f:if>
                 <div class="price_value d-flex align-items-start flex-column">
                     <span class="sale_price">       
                      <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>

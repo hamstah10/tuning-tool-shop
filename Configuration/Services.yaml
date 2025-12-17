@@ -4,6 +4,9 @@ services:
     autoconfigure: true
     public: false
 
+  TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager:
+    public: true
+
   Hamstahstudio\TuningToolShop\:
     resource: '../Classes/*'
     public: true
@@ -50,4 +53,8 @@ services:
         height: 'large'
         width: 'medium'
 
+  Hamstahstudio\TuningToolShop\EventListener\FrontendUserLoginListener:
+    tags:
+      - name: event.listener
+        event: TYPO3\CMS\Core\Authentication\Event\BeforeUserLoggedInEvent
 

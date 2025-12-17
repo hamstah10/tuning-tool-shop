@@ -27,7 +27,45 @@ class ProductController extends ActionController
         $manufacturers = $this->manufacturerRepository->findAll();
         $products = $this->productRepository->findAll();
 
-        // Filter by category if selected
+        // Convert ObjectStorage to array if needed for backend filtering
+        $productsArray = is_array($products) ? $products : $products->toArray();
+        
+        // Apply backend filter settings if configured
+        $backendCategories = $this->settings['categories'] ?? null;
+        $backendManufacturers = $this->settings['manufacturers'] ?? null;
+        
+        if ($backendCategories !== null && $backendCategories !== '') {
+            // Filter products by backend-selected categories
+            $categoryIds = is_array($backendCategories) ? $backendCategories : explode(',', (string)$backendCategories);
+            $categoryIds = array_map('strval', array_filter(array_map('trim', $categoryIds)));
+            
+            $filteredProducts = [];
+            foreach ($productsArray as $product) {
+                foreach ($product->getCategories() as $productCategory) {
+                    if (in_array((string)$productCategory->getUid(), $categoryIds, true)) {
+                        $filteredProducts[$product->getUid()] = $product;
+                        break;
+                    }
+                }
+            }
+            $productsArray = array_values($filteredProducts);
+        }
+        
+        if ($backendManufacturers !== null && $backendManufacturers !== '') {
+            // Filter products by backend-selected manufacturers
+            $manufacturerIds = is_array($backendManufacturers) ? $backendManufacturers : explode(',', (string)$backendManufacturers);
+            $manufacturerIds = array_map('strval', array_filter(array_map('trim', $manufacturerIds)));
+            
+            $productsArray = array_filter($productsArray, function($product) use ($manufacturerIds) {
+                $manufacturer = $product->getManufacturer();
+                return $manufacturer !== null && in_array((string)$manufacturer->getUid(), $manufacturerIds, true);
+            });
+            $productsArray = array_values($productsArray);
+        }
+        
+        $products = $productsArray;
+
+        // Frontend filter by category if selected via form
         if ($category > 0) {
             $selectedCategory = $this->categoryRepository->findByUid($category);
             if ($selectedCategory !== null) {
@@ -35,7 +73,7 @@ class ProductController extends ActionController
             }
         }
 
-        // Filter by manufacturer if selected
+        // Frontend filter by manufacturer if selected via form
         if ($manufacturer > 0) {
             $selectedManufacturer = $this->manufacturerRepository->findByUid($manufacturer);
             if ($selectedManufacturer !== null) {
@@ -47,7 +85,7 @@ class ProductController extends ActionController
         $products = $this->applySorting($products, $sortBy);
 
         // Apply items per page limit from FlexForm or TypoScript
-        $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? $this-zenadfdgrfgsderv >settings['shop']['itemsPerPage'] ?? 12);
+        $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? $this->settings['shop']['itemsPerPage'] ?? 12);
         if ($itemsPerPage > 0 && is_array($products)) {
             $products = array_slice($products, 0, $itemsPerPage);
         }
@@ -63,10 +101,14 @@ class ProductController extends ActionController
             'price_desc' => 'Preis absteigend',
         ];
 
+        // Convert ObjectStorage to array for template
+        $categoriesArray = is_array($categories) ? $categories : $categories->toArray();
+        $manufacturersArray = is_array($manufacturers) ? $manufacturers : $manufacturers->toArray();
+
         $this->view->assignMultiple([
             'products' => $products,
-            'categories' => $categories,
-            'manufacturers' => $manufacturers,
+            'categories' => $categoriesArray,
+            'manufacturers' => $manufacturersArray,
             'detailPid' => $detailPid,
             'cartPid' => $cartPid,
             'selectedCategory' => $category,
@@ -81,7 +123,8 @@ class ProductController extends ActionController
 
     protected function applySorting($products, string $sortBy)
     {
-        $productsArray = $products->toArray();
+        // Convert to array if ObjectStorage
+        $productsArray = is_array($products) ? $products : $products->toArray();
 
         if ($sortBy === '' || count($productsArray) === 0) {
             return $productsArray;

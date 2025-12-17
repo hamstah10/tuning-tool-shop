@@ -23,3 +23,15 @@
 .tuning-tool-shop-module .badge {
     font-size: 0.85em;
 }
+
+.tuning-tool-shop-module .text-dark {
+    color: #161616;
+}
+
+.tuning-tool-shop-module h1 {
+    padding: 25px 0;
+}
+
+.bg-dark {
+    background-color: #121212;
+}

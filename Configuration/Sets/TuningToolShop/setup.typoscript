@@ -8,6 +8,8 @@ plugin.tx_tuningtoolshop {
         storagePid = {$plugin.tx_tuningtoolshop.persistence.storagePid}
     }
     settings {
+        showCategoryFilter = 1
+        showManufacturerFilter = 1
         shop {
             currency = {$settings.tuningToolShop.shop.currency}
             currencySymbol = {$settings.tuningToolShop.shop.currencySymbol}
@@ -71,5 +73,14 @@ page {
         tuningToolShopMatchHeight = EXT:tuning_tool_shop/Resources/Public/JavaScript/matchHeight.js
         tuningToolShop = EXT:tuning_tool_shop/Resources/Public/JavaScript/shop.js
         
+    }
+}
+
+# Register ViewHelpers
+plugin.tx_tuningtoolshop {
+    view {
+        namespaces {
+            tts = Hamstahstudio\TuningToolShop\ViewHelpers
+        }
     }
 }

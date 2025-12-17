@@ -185,10 +185,17 @@ return [
              'exclude' => true,
              'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.lieferumfang',
              'config' => [
-                 'type' => 'text',
-                 'enableRichtext' => true,
-                 'cols' => 40,
-                 'rows' => 5,
+                 'type' => 'inline',
+                 'foreign_table' => 'tx_tuningtoolshop_domain_model_productdeliveryscope',
+                 'foreign_field' => 'lieferumfang',
+                 'maxitems' => 999,
+                 'appearance' => [
+                     'collapseAll' => true,
+                     'expandSingle' => false,
+                     'useSortable' => true,
+                     'newRecordLinkAddTitle' => true,
+                     'levelLinksPosition' => 'bottom',
+                 ],
              ],
          ],
          'manufacturer' => [

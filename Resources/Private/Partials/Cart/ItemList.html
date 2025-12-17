@@ -1,0 +1,117 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+ <ul class="unordered_list">
+                  <li>
+                    <div class="cart_product_item">
+                      <div class="item_image">
+                        <f:if condition="{item.product.images.0}">
+                            <f:then>
+                                <f:image image="{item.product.images.0}" alt="{item.product.title}" class="img-fluid rounded" width="80" height="80" />
+                            </f:then>
+                            <f:else>
+                                <div class="text-muted text-center" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">-</div>
+                            </f:else>
+                        </f:if>
+                      </div>
+                      <div class="item_content">
+                        <h3 class="item_title">
+                            <a data-bs-toggle="offcanvas" href="#offcanvas-{item.product.uid}">{item.product.title}</a>
+                        </h3>
+                        
+                            <f:link.page pageUid="{item.product.manufacturer.manufacturerPage}" class="item_brand" target="_blank">{item.product.manufacturer.title}</f:link.page>
+                      </div>
+                    </div>
+                  </li>
+                  <li><span class="title_text">Preis</span> <span class="price_text">
+                    <div>
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency>
+                    </div>
+                    <small class="text-muted">zzgl. MwSt.</small>
+                  </span></li>
+                  <li><span class="title_text">Menge</span>
+                    <div class="quantity_form">
+                         <f:form action="update" controller="Cart" class="d-flex gap-2">
+                            <f:form.hidden name="cartItem" value="{item.uid}" />
+                        <button type="button" class="input_number_decrement">
+                            <i class="fa-regular fa-minus"></i>
+                        </button> 
+                                    <f:form.textfield name="quantity" value="{item.quantity}" class="input_number" additionalAttributes="{min: '1', type: 'number'}" />
+
+                            
+                        <button type="submit" class="input_number_increment">
+                            <i class="fa-regular fa-plus"></i>
+                        </button>
+                    </f:form>
+                    </div>
+                  
+                  </li>
+                  <li><span class="title_text">Gesamt</span> <span class="price_text">
+                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
+                  </span></li>
+                  <li>
+                    <span class="title_text">Löschen</span> 
+                        <f:form action="remove" controller="Cart" class="d-inline">
+                        <f:form.hidden name="cartItem" value="{item.uid}" />
+                        <button type="submit" class="remove_btn" title="Entfernen">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </f:form>
+                    </li>
+                </ul>
+
+
+
+
+<f:comment>
+<tr class="tts-cart-item">
+    <td>
+        <f:if condition="{item.product.images.0}">
+            <f:then>
+                <f:image image="{item.product.images.0}" alt="{item.product.title}" class="img-fluid rounded" width="80" height="80" />
+            </f:then>
+            <f:else>
+                <div class="text-muted text-center" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">-</div>
+            </f:else>
+        </f:if>
+    </td>
+
+    <td>
+        <strong class="d-block mb-1">{item.product.title}</strong>
+        <f:if condition="{item.product.sku}">
+            <small class="text-muted">Art.-Nr.: {item.product.sku}</small>
+        </f:if>
+    </td>
+
+    <td>
+        <div>
+            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.product.effectivePrice}</f:format.currency>
+        </div>
+        <small class="text-muted">zzgl. MwSt.</small>
+    </td>
+
+    <td>
+        <f:form action="update" controller="Cart" class="d-flex gap-2">
+            <f:form.hidden name="cartItem" value="{item.uid}" />
+            <f:form.textfield name="quantity" value="{item.quantity}" class="form-control form-control-sm" style="width: 60px;" additionalAttributes="{min: '1', type: 'number'}" />
+            <button type="submit" class="btn btn-sm btn-outline-secondary">OK</button>
+        </f:form>
+    </td>
+
+    <td>
+        <strong>
+            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
+        </strong>
+    </td>
+
+    <td class="text-center">
+        <f:form action="remove" controller="Cart" class="d-inline">
+            <f:form.hidden name="cartItem" value="{item.uid}" />
+            <button type="submit" class="btn btn-sm btn-danger" title="Entfernen">
+                ✕
+            </button>
+        </f:form>
+    </td>
+</tr>
+</f:comment>
+</html>

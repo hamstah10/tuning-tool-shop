@@ -19,6 +19,8 @@ class Manufacturer extends AbstractEntity
 
     protected string $website = '';
 
+    protected ?int $manufacturerPage = null;
+
     public function getTitle(): string
     {
         return $this->title;
@@ -67,5 +69,15 @@ class Manufacturer extends AbstractEntity
     public function setWebsite(string $website): void
     {
         $this->website = $website;
+    }
+
+    public function getManufacturerPage(): ?int
+    {
+        return $this->manufacturerPage;
+    }
+
+    public function setManufacturerPage(?int $manufacturerPage): void
+    {
+        $this->manufacturerPage = $manufacturerPage;
     }
 }

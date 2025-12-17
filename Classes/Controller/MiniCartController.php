@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hamstahstudio\TuningToolShop\Controller;
 
 use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
+use Hamstahstudio\TuningToolShop\Service\SessionService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -12,12 +13,13 @@ class MiniCartController extends ActionController
 {
     public function __construct(
         protected readonly CartItemRepository $cartItemRepository,
+        protected readonly SessionService $sessionService,
     ) {}
 
     public function indexAction(): ResponseInterface
     {
         try {
-            $sessionId = $this->getSessionId();
+            $sessionId = $this->sessionService->getSessionIdFromRequest($this->request);
             $cartItems = $this->cartItemRepository->findBySessionId($sessionId)->toArray();
             $itemCount = 0;
             $totalGross = 0.0;
@@ -50,33 +52,4 @@ class MiniCartController extends ActionController
         return $this->htmlResponse();
     }
 
-    private function getSessionId(): string
-    {
-        $frontendUser = $this->request->getAttribute('frontend.user');
-
-        if ($frontendUser !== null && $frontendUser->user !== null) {
-            return 'user_' . $frontendUser->user['uid'];
-        }
-
-        if (!isset($_COOKIE['tx_tuning_tool_shop_session'])) {
-            $sessionId = bin2hex(random_bytes(32));
-            setcookie('tx_tuning_tool_shop_session', $sessionId, [
-                'expires' => time() + 86400 * 30,
-                'path' => '/',
-                'httponly' => true,
-                'samesite' => 'Lax',
-            ]);
-        } else {
-            $sessionId = $_COOKIE['tx_tuning_tool_shop_session'];
-        }
-
-        return $sessionId;
-    }
-
-    private function getCartItems(): array
-    {
-        $sessionId = $this->getSessionId();
-
-        return $this->cartItemRepository->findBySessionId($sessionId)->toArray();
-    }
 }

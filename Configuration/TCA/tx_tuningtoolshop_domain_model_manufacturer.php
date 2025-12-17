@@ -147,14 +147,25 @@ return [
             ],
         ],
         'website' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_manufacturer.website',
-            'config' => [
-                'type' => 'link',
-                'allowedTypes' => ['url'],
-                'size' => 50,
-            ],
-        ],
+             'exclude' => true,
+             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_manufacturer.website',
+             'config' => [
+                 'type' => 'link',
+                 'allowedTypes' => ['url'],
+                 'size' => 50,
+             ],
+         ],
+         'manufacturer_page' => [
+             'exclude' => true,
+             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_manufacturer.manufacturerPage',
+             'config' => [
+                 'type' => 'group',
+                 'allowed' => 'pages',
+                 'size' => 1,
+                 'minitems' => 0,
+                 'maxitems' => 1,
+             ],
+         ],
     ],
     'types' => [
         '1' => [
@@ -164,6 +175,7 @@ return [
                     description,
                     logo,
                     website,
+                    manufacturer_page,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                     --palette--;;language,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,

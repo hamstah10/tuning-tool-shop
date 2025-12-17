@@ -9,8 +9,15 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class CartItem extends AbstractEntity
 {
+    /**
+     * @var int
+     * @Extbase\ORM\Lazy
+     */
     protected int $feUser = 0;
 
+    /**
+     * @var string
+     */
     protected string $sessionId = '';
 
     protected ?Product $product = null;

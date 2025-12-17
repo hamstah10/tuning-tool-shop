@@ -9,6 +9,7 @@ use Hamstahstudio\TuningToolShop\Domain\Model\Product;
 use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ProductRepository;
 use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
+use Hamstahstudio\TuningToolShop\Service\SessionService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -20,11 +21,15 @@ class CartController extends ActionController
         protected readonly ProductRepository $productRepository,
         protected readonly PersistenceManager $persistenceManager,
         protected readonly AuthenticationService $authenticationService,
+        protected readonly SessionService $sessionService,
     ) {}
 
     public function indexAction(): ResponseInterface
     {
-        $cartItems = $this->getCartItems();
+        // Get or create session ID
+        $sessionId = $this->getOrCreateSessionId();
+        
+        $cartItems = $this->cartItemRepository->findBySessionId($sessionId)->toArray();
         $totalGross = 0.0;
         $totalNet = 0.0;
         $totalTax = 0.0;
@@ -61,7 +66,8 @@ class CartController extends ActionController
 
     public function addAction(int $product, int $quantity = 1): ResponseInterface
     {
-        $sessionId = $this->getSessionId();
+        // Get or create session ID
+        $sessionId = $this->getOrCreateSessionId();
         
         $productObject = $this->productRepository->findByUidIgnoreStorage($product);
         if ($productObject === null) {
@@ -122,33 +128,49 @@ class CartController extends ActionController
         return $this->redirect('index');
     }
 
-    private function getSessionId(): string
+    /**
+     * Get or create a session ID for the cart
+     * This ensures the same session ID is used across requests
+     */
+    private function getOrCreateSessionId(): string
     {
+        $cookieName = 'tx_tuning_tool_shop_session';
+        
+        // Check if frontend user is logged in - use user-based session
         $frontendUser = $this->request->getAttribute('frontend.user');
-
         if ($frontendUser !== null && $frontendUser->user !== null) {
             return 'user_' . $frontendUser->user['uid'];
         }
 
-        if (!isset($_COOKIE['tx_tuning_tool_shop_session'])) {
-            $sessionId = bin2hex(random_bytes(32));
-            setcookie('tx_tuning_tool_shop_session', $sessionId, [
-                'expires' => time() + 86400 * 30,
+        // For anonymous users: check if session cookie already exists
+        if (isset($_COOKIE[$cookieName]) && !empty($_COOKIE[$cookieName])) {
+            return $_COOKIE[$cookieName];
+        }
+
+        // Create new anonymous session ID
+        $sessionId = 'anon_' . bin2hex(random_bytes(16));
+
+        // Store in cookie IMMEDIATELY
+        $expires = time() + (365 * 24 * 60 * 60);
+        $secure = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
+        setcookie(
+            $cookieName,
+            $sessionId,
+            [
+                'expires' => $expires,
                 'path' => '/',
+                'domain' => '',
+                'secure' => $secure,
                 'httponly' => true,
                 'samesite' => 'Lax',
-            ]);
-        } else {
-            $sessionId = $_COOKIE['tx_tuning_tool_shop_session'];
-        }
+            ]
+        );
+
+        // Also store in $_COOKIE array for this request
+        $_COOKIE[$cookieName] = $sessionId;
 
         return $sessionId;
     }
 
-    private function getCartItems(): array
-    {
-        $sessionId = $this->getSessionId();
-
-        return $this->cartItemRepository->findBySessionId($sessionId)->toArray();
-    }
 }

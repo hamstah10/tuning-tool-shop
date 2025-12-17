@@ -6,6 +6,7 @@ namespace Hamstahstudio\TuningToolShop\ViewHelpers;
 
 use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Session\UserSessionManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CartCountViewHelper extends AbstractViewHelper
@@ -42,19 +43,17 @@ class CartCountViewHelper extends AbstractViewHelper
             return 'user_' . $frontendUser->user['uid'];
         }
 
-        // Fall back to cookie-based session
-        if (!isset($_COOKIE['tx_tuning_tool_shop_session'])) {
-            $sessionId = bin2hex(random_bytes(32));
-            setcookie('tx_tuning_tool_shop_session', $sessionId, [
-                'expires' => time() + 86400 * 30,
-                'path' => '/',
-                'httponly' => true,
-                'samesite' => 'Lax',
-            ]);
-        } else {
-            $sessionId = $_COOKIE['tx_tuning_tool_shop_session'];
+        // Try to get session from TYPO3 frontend session
+        try {
+            $session = $GLOBALS['TSFE']->fe_user->getSession();
+            if ($session !== null && $session->getIdentifier()) {
+                return $session->getIdentifier();
+            }
+        } catch (\Exception) {
+            // Fallback
         }
 
-        return $sessionId;
+        // Fall back to reading the cookie directly
+        return $_COOKIE['tx_tuning_tool_shop_session'] ?? '';
     }
 }

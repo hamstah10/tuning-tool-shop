@@ -10,7 +10,9 @@ use Hamstahstudio\TuningToolShop\Domain\Repository\OrderRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\PaymentMethodRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ShippingMethodRepository;
 use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
+use Hamstahstudio\TuningToolShop\Service\SessionService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Session\UserSessionManager;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -23,6 +25,7 @@ class CheckoutController extends ActionController
         protected readonly ShippingMethodRepository $shippingMethodRepository,
         protected readonly PersistenceManager $persistenceManager,
         protected readonly AuthenticationService $authenticationService,
+        protected readonly SessionService $sessionService,
     ) {}
 
     public function indexAction(): ResponseInterface
@@ -94,8 +97,9 @@ class CheckoutController extends ActionController
 
     public function processAction(): ResponseInterface
     {
-        // Check if user is logged in
-        if (!$this->authenticationService->isUserLoggedIn($this->request)) {
+        // Check if user is logged in - only if requireLogin setting is enabled
+        $requireLogin = (bool)($this->settings['checkout']['requireLogin'] ?? false);
+        if ($requireLogin && !$this->authenticationService->isUserLoggedIn($this->request)) {
             $this->addFlashMessage('Sie müssen angemeldet sein, um eine Bestellung zu erstellen.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index', 'Checkout');
         }
@@ -260,7 +264,26 @@ class CheckoutController extends ActionController
             return 'user_' . $frontendUser->user['uid'];
         }
 
-        return $_COOKIE['tx_tuning_tool_shop_session'] ?? '';
+        try {
+            $sessionManager = UserSessionManager::create('FE');
+            $session = $sessionManager->createFromRequestOrAnonymous($this->request, 'tx_tuning_tool_shop_session');
+            $sessionId = $session->getIdentifier();
+            
+            // Store the session identifier in session data for reference
+            if (!$session->hasData('tx_tuning_tool_shop_session_id')) {
+                $session->set('tx_tuning_tool_shop_session_id', $sessionId);
+                
+                if ($session->isNew()) {
+                    $sessionManager->fixateAnonymousSession($session, false);
+                } else {
+                    $sessionManager->updateSession($session);
+                }
+            }
+            
+            return $sessionId;
+        } catch (\Exception) {
+            return '';
+        }
     }
 
     private function generateOrderNumber(): string

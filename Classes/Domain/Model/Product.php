@@ -27,7 +27,12 @@ class Product extends AbstractEntity
 
     protected string $headline = '';
 
-    protected string $lieferumfang = '';
+    /**
+     * @var ObjectStorage<ProductDeliveryScope>
+     */
+    #[Extbase\ORM\Lazy]
+    #[Extbase\ORM\Cascade(['value' => 'remove'])]
+    protected ObjectStorage $lieferumfang;
 
     protected ?Manufacturer $manufacturer = null;
 
@@ -103,6 +108,7 @@ class Product extends AbstractEntity
         $this->images = new ObjectStorage();
         $this->videos = new ObjectStorage();
         $this->documents = new ObjectStorage();
+        $this->lieferumfang = new ObjectStorage();
         $this->shippingMethods = new ObjectStorage();
     }
 
@@ -186,14 +192,30 @@ class Product extends AbstractEntity
         $this->headline = $headline;
     }
 
-    public function getLieferumfang(): string
+    /**
+     * @return ObjectStorage<ProductDeliveryScope>
+     */
+    public function getLieferumfang(): ObjectStorage
     {
         return $this->lieferumfang;
     }
 
-    public function setLieferumfang(string $lieferumfang): void
+    /**
+     * @param ObjectStorage<ProductDeliveryScope> $lieferumfang
+     */
+    public function setLieferumfang(ObjectStorage $lieferumfang): void
     {
         $this->lieferumfang = $lieferumfang;
+    }
+
+    public function addLieferumfang(ProductDeliveryScope $lieferumfang): void
+    {
+        $this->lieferumfang->attach($lieferumfang);
+    }
+
+    public function removeLieferumfang(ProductDeliveryScope $lieferumfang): void
+    {
+        $this->lieferumfang->detach($lieferumfang);
     }
 
     public function getManufacturer(): ?Manufacturer

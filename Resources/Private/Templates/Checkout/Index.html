@@ -4,17 +4,16 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    
+    <f:debug>{_all}</f:debug>
     <div class="tts-checkout">
-        <h1 class="tts-checkout__title mb-5">Kasse</h1>
-
+        
         <f:if condition="{cartItems}">
             <f:then>
                 <f:if condition="{isUserLoggedIn}">
                     <f:then>
                         <f:form action="process" controller="Checkout" class="tts-checkout__form">
                             <div class="row g-4">
-                                <div class="col-lg-8">
+                                <div class="col-lg-9">
                                     <!-- Kundendaten -->
                                     <section class="mb-5">
                                         <div class="d-flex align-items-center mb-4">
@@ -22,26 +21,31 @@
                                             <h2 class="ms-3 mb-0">Kundendaten</h2>
                                         </div>
                                         <div class="row g-3">
-                                            <div class="col-sm-6">
-                                                <label for="customerFirstName" class="form-label">Vorname *</label>
-                                                <f:form.textfield name="order[customerFirstName]" id="customerFirstName" class="form-control" value="{frontendUser.first_name}" required="required" />
+                                             <div class="col-sm-4">
+                                                <label for="customerAnrede" class="form-label d-none">Anrede</label>
+                                                <f:form.select name="order[customerAnrede]" id="customerAnrede" options="{Frau: 'Frau', Herr: 'Herr'}" value="{frontendUser.anrede}" class="form-select" required="required" />
                                             </div>
-                                            <div class="col-sm-6">
-                                                <label for="customerLastName" class="form-label">Nachname *</label>
-                                                <f:form.textfield name="order[customerLastName]" id="customerLastName" class="form-control" value="{frontendUser.last_name}" required="required" />
-                                            </div>
-                                            <div class="col-12">
-                                                <label for="customerEmail" class="form-label">E-Mail *</label>
-                                                <f:form.textfield name="order[customerEmail]" id="customerEmail" type="email" class="form-control" value="{frontendUser.email}" required="required" />
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="customerPhone" class="form-label">Telefon</label>
-                                                <f:form.textfield name="order[customerPhone]" id="customerPhone" type="tel" class="form-control" value="{frontendUser.mobile}" />
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="customerCompany" class="form-label">Firma</label>
+                                            <div class="col-sm-4">
+                                                <label for="customerCompany" class="form-label text-muted">Firma</label>
                                                 <f:form.textfield name="order[customerCompany]" id="customerCompany" class="form-control" value="{frontendUser.company}" />
                                             </div>
+                                            <div class="col-sm-4">
+                                                <label for="customerFirstName" class="form-label text-muted">Vorname *</label>
+                                                <f:form.textfield name="order[customerFirstName]" id="customerFirstName" class="form-control" value="{frontendUser.first_name}" required="required" />
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label for="customerLastName" class="form-label text-muted">Nachname *</label>
+                                                <f:form.textfield name="order[customerLastName]" id="customerLastName" class="form-control" value="{frontendUser.last_name}" required="required" />
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label for="customerEmail" class="form-label text-muted">E-Mail *</label>
+                                                <f:form.textfield name="order[customerEmail]" id="customerEmail" type="email" class="form-control" value="{frontendUser.email}" required="required" />
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label for="customerPhone" class="form-label text-muted">Telefon</label>
+                                                <f:form.textfield name="order[customerPhone]" id="customerPhone" type="tel" class="form-control" value="{frontendUser.mobile}" />
+                                            </div>
+                                            
                                         </div>
                                     </section>
 
@@ -53,19 +57,19 @@
                                         </div>
                                         <div class="row g-3">
                                             <div class="col-12">
-                                                <label for="billingStreet" class="form-label">Straße und Hausnummer *</label>
+                                                <label for="billingStreet" class="form-label text-muted">Straße und Hausnummer *</label>
                                                 <f:form.textfield name="order[billingStreet]" id="billingStreet" class="form-control" value="{frontendUser.address}" required="required" />
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="billingZip" class="form-label">PLZ *</label>
+                                                <label for="billingZip" class="form-label text-muted">PLZ *</label>
                                                 <f:form.textfield name="order[billingZip]" id="billingZip" class="form-control" value="{frontendUser.zip}" required="required" />
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="billingCity" class="form-label">Ort *</label>
+                                                <label for="billingCity" class="form-label text-muted">Ort *</label>
                                                 <f:form.textfield name="order[billingCity]" id="billingCity" class="form-control" value="{frontendUser.city}" required="required" />
                                             </div>
                                             <div class="col-12">
-                                                <label for="billingCountry" class="form-label">Land *</label>
+                                                <label for="billingCountry" class="form-label text-muted">Land *</label>
                                                 <f:form.select name="order[billingCountry]" id="billingCountry" options="{countries}" value="{frontendUser.country}" class="form-select" required="required" />
                                             </div>
                                         </div>
@@ -127,31 +131,31 @@
                                         <div id="shippingAddressFields">
                                             <div class="row g-3">
                                                 <div class="col-sm-6">
-                                                    <label for="shippingFirstName" class="form-label">Vorname</label>
+                                                    <label for="shippingFirstName" class="form-label text-muted">Vorname</label>
                                                     <f:form.textfield name="order[shippingFirstName]" id="shippingFirstName" class="form-control" />
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="shippingLastName" class="form-label">Nachname</label>
+                                                    <label for="shippingLastName" class="form-label text-muted">Nachname</label>
                                                     <f:form.textfield name="order[shippingLastName]" id="shippingLastName" class="form-control" />
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="shippingCompany" class="form-label">Firma</label>
+                                                    <label for="shippingCompany" class="form-label text-muted">Firma</label>
                                                     <f:form.textfield name="order[shippingCompany]" id="shippingCompany" class="form-control" />
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="shippingStreet" class="form-label">Straße und Hausnummer</label>
+                                                    <label for="shippingStreet" class="form-label text-muted">Straße und Hausnummer</label>
                                                     <f:form.textfield name="order[shippingStreet]" id="shippingStreet" class="form-control" />
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="shippingZip" class="form-label">PLZ</label>
+                                                    <label for="shippingZip" class="form-label text-muted">PLZ</label>
                                                     <f:form.textfield name="order[shippingZip]" id="shippingZip" class="form-control" />
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="shippingCity" class="form-label">Ort</label>
+                                                    <label for="shippingCity" class="form-label text-muted">Ort</label>
                                                     <f:form.textfield name="order[shippingCity]" id="shippingCity" class="form-control" />
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="shippingCountry" class="form-label">Land</label>
+                                                    <label for="shippingCountry" class="form-label text-muted">Land</label>
                                                     <f:form.select name="order[shippingCountry]" id="shippingCountry" options="{countries}" class="form-select" />
                                                 </div>
                                             </div>
@@ -189,15 +193,16 @@
                                             <h2 class="ms-3 mb-0">Bemerkungen</h2>
                                         </div>
                                         <div>
-                                            <label for="comment" class="form-label">Anmerkungen zur Bestellung</label>
+                                            <label for="comment" class="form-label text-muted">Anmerkungen zur Bestellung</label>
                                             <f:form.textarea name="order[comment]" id="comment" rows="4" class="form-control" placeholder="Besondere Wünsche oder Hinweise..." />
                                         </div>
                                     </section>
                                 </div>
 
                                 <!-- Bestellübersicht Sidebar -->
-                                <div class="col-lg-4">
-                                    <div class="card border-0 shadow-sm sticky-top" style="top: 20px;">
+                                <div class="col-lg-3 ">
+                                    <div class="order_summary">
+                                    <div class="border-0 shadow-sm sticky-top " style="top: 20px;">
                                         <div class="card-body">
                                             <h5 class="card-title mb-4">Ihre Bestellung</h5>
 
@@ -230,7 +235,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="d-flex justify-content-between">
-                                                    <strong>Gesamtsumme (Brutto):</strong>
+                                                    <strong>Gesamtsumme:</strong>
                                                     <strong id="totalSummary" data-total="{total}"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency></strong>
                                                 </div>
                                             </div>
@@ -266,6 +271,7 @@
                                         <p class="text-center small text-muted">
                                             🔒 Sichere Datenübertragung
                                         </p>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

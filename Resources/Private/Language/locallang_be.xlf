@@ -493,6 +493,12 @@
             <trans-unit id="flexform.listLayout.list" resname="flexform.listLayout.list">
                 <source>Listenansicht</source>
             </trans-unit>
+            <trans-unit id="flexform.showCategoryFilter" resname="flexform.showCategoryFilter">
+                <source>Kategorie-Filter anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showManufacturerFilter" resname="flexform.showManufacturerFilter">
+                <source>Hersteller-Filter anzeigen</source>
+            </trans-unit>
             <trans-unit id="flexform.showAllProductsButton" resname="flexform.showAllProductsButton">
                 <source>Button "Alle Tools" anzeigen</source>
             </trans-unit>

@@ -195,6 +195,9 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.website" resname="tx_tuningtoolshop_domain_model_manufacturer.website">
 				<source>Website</source>
 			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_manufacturer.manufacturerPage" resname="tx_tuningtoolshop_domain_model_manufacturer.manufacturerPage">
+				<source>Hersteller-Seite</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_order" resname="tx_tuningtoolshop_domain_model_order">
 				<source>Bestellung</source>
 			</trans-unit>
@@ -486,6 +489,15 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_tax.title" resname="tx_tuningtoolshop_domain_model_tax.title">
 				<source>Bezeichnung</source>
 			</trans-unit>
-		</body>
-	</file>
-</xliff>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productdeliveryscope" resname="tx_tuningtoolshop_domain_model_productdeliveryscope">
+				<source>Lieferumfang</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productdeliveryscope.title" resname="tx_tuningtoolshop_domain_model_productdeliveryscope.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productdeliveryscope.description" resname="tx_tuningtoolshop_domain_model_productdeliveryscope.description">
+				<source>Beschreibung</source>
+			</trans-unit>
+			</body>
+			</file>
+			</xliff>

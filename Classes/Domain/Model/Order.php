@@ -77,7 +77,7 @@ class Order extends AbstractEntity
 
     protected ?ShippingMethod $shippingMethod = null;
 
-    protected int $status = self::STATUS_PENDING;
+    protected int $status = self::STATUS_NEW;
 
     protected float $total = 0.0;
 

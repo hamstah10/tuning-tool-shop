@@ -17,7 +17,8 @@ CREATE TABLE tx_tuningtoolshop_domain_model_manufacturer (
     slug varchar(2048) NOT NULL DEFAULT '',
     logo int unsigned NOT NULL DEFAULT 0,
     description text,
-    website varchar(255) NOT NULL DEFAULT ''
+    website varchar(255) NOT NULL DEFAULT '',
+    manufacturer_page int unsigned NOT NULL DEFAULT 0
 );
 
 #
@@ -32,7 +33,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     description text,
     short_description text,
     headline varchar(255) NOT NULL DEFAULT '',
-    lieferumfang text,
+    lieferumfang int unsigned NOT NULL DEFAULT 0,
     manufacturer int unsigned NOT NULL DEFAULT 0,
     categories int unsigned NOT NULL DEFAULT 0,
     images int unsigned NOT NULL DEFAULT 0,
@@ -53,6 +54,16 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     features_text text,
     recommendation_headline varchar(255) NOT NULL DEFAULT '',
     recommendation_text text
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_domain_model_productdeliveryscope'
+#
+CREATE TABLE tx_tuningtoolshop_domain_model_productdeliveryscope (
+    title varchar(255) NOT NULL DEFAULT '',
+    description text,
+    lieferumfang int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0
 );
 
 #

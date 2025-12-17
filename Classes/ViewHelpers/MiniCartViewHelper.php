@@ -5,20 +5,25 @@ declare(strict_types=1);
 namespace Hamstahstudio\TuningToolShop\ViewHelpers;
 
 use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
+use Hamstahstudio\TuningToolShop\Service\SessionService;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 class MiniCartViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
 
-    private ?CartItemRepository $cartItemRepository = null;
+    private CartItemRepository $cartItemRepository;
+    private SessionService $sessionService;
 
-    public function __construct()
-    {
+    public function __construct(
+        CartItemRepository $cartItemRepository,
+        SessionService $sessionService
+    ) {
+        $this->cartItemRepository = $cartItemRepository;
+        $this->sessionService = $sessionService;
     }
 
     public function initializeArguments(): void
@@ -56,32 +61,44 @@ class MiniCartViewHelper extends AbstractViewHelper
 
     public function render(): string
     {
-        $cartPageUid = $this->arguments['cartPageUid'];
-        $itemsOnly = $this->arguments['itemsOnly'];
-        $listOnly = $this->arguments['listOnly'];
-        $sessionId = $this->getSessionId();
-        $cartItems = $this->getCartItemRepository()->findBySessionId($sessionId);
-        $itemCount = count($cartItems);
+        try {
+            $cartPageUid = $this->arguments['cartPageUid'] ?? 0;
+            $itemsOnly = $this->arguments['itemsOnly'] ?? false;
+            $listOnly = $this->arguments['listOnly'] ?? false;
+            
+            $sessionId = $this->getSessionId();
+            $cartItems = $this->getCartItemRepository()->findBySessionId($sessionId);
+            $itemCount = 0;
 
-        // Return only item count if requested
-        if ($itemsOnly) {
-            return (string)$itemCount;
+            foreach ($cartItems as $item) {
+                if ($item->getProduct() !== null) {
+                    $itemCount += $item->getQuantity();
+                }
+            }
+
+            // Return only item count if requested
+            if ($itemsOnly) {
+                return (string)$itemCount;
+            }
+
+            // Return only list if requested
+            if ($listOnly) {
+                return $this->renderItemsList($cartItems);
+            }
+
+            // Generate cart link
+            $cartLink = $this->generateCartLink($cartPageUid);
+
+            return sprintf(
+                '<a href="%s" class="mini-cart-link"><span class="mini-cart-count">%d</span> %s</a>',
+                htmlspecialchars($cartLink),
+                $itemCount,
+                $itemCount === 1 ? 'Artikel' : 'Artikel'
+            );
+        } catch (\Throwable $e) {
+            // Log error and return empty string
+            return '';
         }
-
-        // Return only list if requested
-        if ($listOnly) {
-            return $this->renderItemsList($cartItems);
-        }
-
-        // Generate cart link
-        $cartLink = $this->generateCartLink($cartPageUid);
-
-        return sprintf(
-            '<a href="%s" class="mini-cart-link"><span class="mini-cart-count">%d</span> %s</a>',
-            htmlspecialchars($cartLink),
-            $itemCount,
-            $itemCount === 1 ? 'Artikel' : 'Artikel'
-        );
     }
 
     private function renderItemsList($cartItems): string
@@ -93,11 +110,13 @@ class MiniCartViewHelper extends AbstractViewHelper
         $html = '<ul class="mini-cart-items">';
         foreach ($cartItems as $item) {
             $product = $item->getProduct();
-            $html .= sprintf(
-                '<li class="mini-cart-item"><span class="item-name">%s</span> <span class="item-qty">x%d</span></li>',
-                htmlspecialchars($product->getTitle()),
-                $item->getQuantity()
-            );
+            if ($product !== null) {
+                $html .= sprintf(
+                    '<li class="mini-cart-item"><span class="item-name">%s</span> <span class="item-qty">x%d</span></li>',
+                    htmlspecialchars($product->getTitle()),
+                    $item->getQuantity()
+                );
+            }
         }
         $html .= '</ul>';
         return $html;
@@ -105,35 +124,32 @@ class MiniCartViewHelper extends AbstractViewHelper
 
     private function getCartItemRepository(): CartItemRepository
     {
-        if ($this->cartItemRepository === null) {
-            $this->cartItemRepository = GeneralUtility::makeInstance(CartItemRepository::class);
-        }
         return $this->cartItemRepository;
+    }
+
+    private function getSessionService(): SessionService
+    {
+        return $this->sessionService;
     }
 
     private function getSessionId(): string
     {
-        // Check if frontend user is logged in
-        $frontendUser = $GLOBALS['TSFE']->fe_user ?? null;
-
-        if ($frontendUser !== null && isset($frontendUser->user['uid'])) {
-            return 'user_' . $frontendUser->user['uid'];
+        // Try to get request from globals (most reliable)
+        if (isset($GLOBALS['TYPO3_REQUEST']) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+            try {
+                return $this->getSessionService()->getSessionIdFromRequest($GLOBALS['TYPO3_REQUEST']);
+            } catch (\Throwable $e) {
+                // Continue with fallback
+            }
         }
 
-        // Fall back to cookie-based session
-        if (!isset($_COOKIE['tx_tuning_tool_shop_session'])) {
-            $sessionId = bin2hex(random_bytes(32));
-            setcookie('tx_tuning_tool_shop_session', $sessionId, [
-                'expires' => time() + 86400 * 30,
-                'path' => '/',
-                'httponly' => true,
-                'samesite' => 'Lax',
-            ]);
-        } else {
-            $sessionId = $_COOKIE['tx_tuning_tool_shop_session'];
+        // Fallback: use SessionService for globals
+        try {
+            return $this->getSessionService()->getSessionIdFromGlobals();
+        } catch (\Throwable $e) {
+            // Final fallback: use random ID
+            return 'fallback_' . md5(session_id() ?: uniqid('', true));
         }
-
-        return $sessionId;
     }
 
     private function generateCartLink(int $pageUid): string

@@ -83,6 +83,20 @@
                             <default>grid</default>
                         </config>
                     </settings.listLayout>
+                    <settings.showCategoryFilter>
+                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.showCategoryFilter</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
+                    </settings.showCategoryFilter>
+                    <settings.showManufacturerFilter>
+                        <label>LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_be.xlf:flexform.showManufacturerFilter</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
+                    </settings.showManufacturerFilter>
                     </el>
             </ROOT>
         </sDEF>

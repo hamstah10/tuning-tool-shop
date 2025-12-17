@@ -4,6 +4,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+    <f:debug>{_all}</f:debug>
     <f:if condition="{displayMode} == 'mini'">
         <f:then>
             <f:render partial="Cart/Mini" arguments="{cartItems: cartItems, itemCount: itemCount, cartPid: cartPid}" />
@@ -16,29 +17,61 @@
                         <div class="row">
                             <!-- Cart Items -->
                             <div class="col-lg-9 tts-cart__items">
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th scope="col" style="width: 80px;">Bild</th>
-                                                <th scope="col">Produkt</th>
-                                                <th scope="col" style="width: 100px;">Einzelpreis</th>
-                                                <th scope="col" style="width: 120px;">Menge</th>
-                                                <th scope="col" style="width: 100px;">Gesamt</th>
-                                                <th scope="col" style="width: 50px;"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <f:for each="{cartItems}" as="item">
-                                                <f:render partial="Cart/Item" arguments="{item: item}" />
-                                            </f:for>
-                                        </tbody>
-                                    </table>
+
+                                <div class="cart_table">
+                                    <ul class="table_head unordered_list ps-0">
+                                        <li>Produkt</li>
+                                        <li>Einzelpreis</li>
+                                        <li>Menge</li>
+                                        <li>Gesamt</li>
+                                        <li> </li>
+                                    </ul>
+                                    <f:for each="{cartItems}" as="item">
+                                        <f:render partial="Cart/ItemList" arguments="{item: item}" />
+                                    </f:for>
                                 </div>
+
+
+                              
                             </div>
 
                             <!-- Cart Summary -->
                             <div class="col-lg-3 tts-cart__summary">
+                                <div class="order_summary">
+                                <h3 class="area_title">Zusammenfassung</h3>
+                                <ul class="unordered_list_block">
+                                <li><span>Netto</span> <span>
+                                                                                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalNet}</f:format.currency>
+
+                                </span></li>
+                                
+                                <li><span>19% MwSt.</span> <span>
+                                                                                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalTax}</f:format.currency>
+
+                                </span></li>
+                                <li><span>Versandkosten</span> <br><span class="text-muted">0,00 €</span></li>
+                                <li><span>Summe*</span> <span>
+                                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency>
+
+                                </span></li>
+                                </ul>
+                                 <div class="d-grid gap-2 mt-4">
+                                           
+                                                <f:link.page pageUid="{checkoutPid}" class="btn btn-primary btn-lg mt-0 mb-1">
+                                                    Zur Kasse
+                                                </f:link.page>
+                                                
+
+                                            <f:if condition="{continuePid} > 0">
+                                                <f:link.page pageUid="{continuePid}" class="btn btn-gray-bg btn-lg mt-0">
+                                                    Weiter einkaufen
+                                                </f:link.page>
+                                            </f:if>
+                                        </div>
+                                <p class="mb-0">*Alle Preise zzgl. Versandkosten. Versandkosten werden im Checkout berechnet
+                                </p>
+                            </div>
+                            <f:comment>
                                 <div class="card border-0 shadow-sm">
                                     <div class="card-body">
                                         <h5 class="card-title mb-4">Zusammenfassung</h5>
@@ -51,13 +84,13 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between mb-2">
-                                            <span>MwSt.:</span>
+                                            <span>19% MwSt.:</span>
                                             <span>
                                                 <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalTax}</f:format.currency>
                                             </span>
                                         </div>
 
-                                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">^
+                                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
                                             <span>Versandkosten:</span>
                                             <span class="text-muted">wird im Checkout berechnet</span>
                                         </div>
@@ -72,16 +105,21 @@
                                         <p class="small text-muted mb-4">Alle Preise zzgl. Versandkosten</p>
 
                                         <div class="d-grid gap-2">
-                                            <f:link.page pageUid="{checkoutPid}" class="btn btn-primary btn-lg">
-                                                Zur Kasse
-                                            </f:link.page>
+                                           
+                                                <f:link.page pageUid="{checkoutPid}" class="btn btn-primary btn-lg">
+                                                    Zur Kasse
+                                                </f:link.page>
+                                                
 
-                                            <f:link.page pageUid="{continuePid}" class="btn btn-outline-secondary">
-                                                Weiter einkaufen
-                                            </f:link.page>
+                                            <f:if condition="{continuePid} > 0">
+                                                <f:link.page pageUid="{continuePid}" class="btn btn-outline-secondary">
+                                                    Weiter einkaufen
+                                                </f:link.page>
+                                            </f:if>
                                         </div>
                                     </div>
                                 </div>
+                                </f:comment>
                             </div>
                         </div>
                     </f:then>
@@ -97,6 +135,31 @@
                     </f:else>
                 </f:if>
             </div>
+            <f:for each="{cartItems}" as="offcanvasItem">
+               
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas-{offcanvasItem.product.uid}" aria-labelledby="offcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasLabel">{offcanvasItem.product.title}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <f:if condition="{offcanvasItem.product.images.0}">
+                            <f:then>
+                                <f:image image="{offcanvasItem.product.images.0}" alt="{offcanvasItem.product.title}" class="img-fluid rounded" width="200" height="200" />
+                            </f:then>
+                            <f:else>
+                                <div class="text-muted text-center" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">-</div>
+                            </f:else>
+                            
+                        </f:if>
+                        <div class="row">
+                                <div class="col-12">
+                                    {offcanvasItem.product.shortDescription}
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </f:for>
         </f:else>
     </f:if>
 </f:section>
