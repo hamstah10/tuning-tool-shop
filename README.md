@@ -78,7 +78,8 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
 📄 **Countdown-Ansicht**: Special Sale Ansicht mit Countdown-Timer
 
 ### Warenkorb
-🛒 **Mini-Warenkorb**: Schwebende Warenkorbanzeige im Header
+🛒 **Mini-Warenkorb**: Schwebende Warenkorbanzeige im Header. 
+
 🛒 **Warenkorb-Seite**: Detaillierte Warenkorbverwaltung
 🛒 **Mengen-Management**: Hinzufügen, Bearbeiten, Löschen von Produkten
 🛒 **Preis-Berechnung**:
