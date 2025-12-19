@@ -24,7 +24,7 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
   - Kompakte Liste
   - Detailliert
   - Countdown
-  
+
 ✓ **Flexible Ansichtsoptionen**:
   - 📊 Anzahl Items pro Seite (einstellbar)
   - 📐 Grid-Spalten (3 oder 4)
@@ -32,12 +32,18 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
   - 📝 Produktbeschreibung anzeigen/verbergen
   - 🖼️ Produktbild anzeigen/verbergen
   - 🛒 "In den Warenkorb" Button anzeigen/verbergen
+
 ✓ **Countdown-Funktion**:
   - ⏱️ Special Sale Template mit Countdown-Timer
   - 📅 Zieldatum konfigurierbar im Backend (Datum + Uhrzeit)
   - ⚡ JavaScript-basierter Live-Countdown
   - 🎉 Ideal für Limited-Time-Angebote (Black Friday, etc.)
-✓ **Sortieroptionen**: Nach Name (A-Z, Z-A), Preis (aufsteigend/absteigend), Erstellungsdatum
+
+✓ **Sortieroptionen**: 
+  Nach Name (A-Z, Z-A), 
+  Preis (aufsteigend/absteigend), 
+  Erstellungsdatum
+  
 ✓ **Filterung**:
   - 🏷️ Nach Kategorie
   - 🏭 Nach Hersteller
