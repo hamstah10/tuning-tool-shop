@@ -10,15 +10,23 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
 
 ✓ **Kategorien & Hersteller**:
    Flexible Kategorisierung und Herstellerverwaltung
-   
+
 ✓ **Produktbilder**: Multi-Image Support mit Fluid-Verarbeitung
+
 ✓ **Videos & Dokumente**: Integration von Videos und Download-Dokumenten
+
 ✓ **Produkttypen**: Normale Produkte, Downloadware, etc.
+
 ✓ **Lieferumfang**: Definierbare Lieferumfangsoptionen
+
 ✓ **Lagerbestand**: Lagerverwaltung mit Verfügbarkeitsprüfung
+
 ✓ **Gewichte & Versand**: Gewichtsangaben für Versandberechnung
+
 ✓ **Versandkostenfrei**: Checkbox zur Markierung versandkostenfreier Produkte
+
 ✓ **Verwandte Produkte**: Cross-Selling durch verwandte Produkte
+
 ✓ **Tags**: Flexible Tagging für verbesserte Filterung
 
 ### Produktdarstellung
