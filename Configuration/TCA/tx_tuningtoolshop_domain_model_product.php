@@ -323,6 +323,20 @@ return [
                 'default' => 1,
             ],
         ],
+        'shipping_free' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.shipping_free',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    [
+                        'label' => '',
+                    ],
+                ],
+                'default' => 0,
+            ],
+        ],
         'tax' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.tax',
@@ -563,7 +577,7 @@ return [
             'showitem' => 'price, special_price, tax',
         ],
         'inventory' => [
-            'showitem' => 'stock, weight, is_active',
+            'showitem' => 'stock, weight, is_active, shipping_free',
         ],
         'language' => [
             'showitem' => 'sys_language_uid, l10n_parent',

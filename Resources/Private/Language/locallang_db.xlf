@@ -375,6 +375,9 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.is_active" resname="tx_tuningtoolshop_domain_model_product.is_active">
 				<source>Aktiv</source>
 			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.shipping_free" resname="tx_tuningtoolshop_domain_model_product.shipping_free">
+				<source>Versandkostenfrei</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.is_featured" resname="tx_tuningtoolshop_domain_model_product.is_featured">
 				<source>Hervorgehoben</source>
 			</trans-unit>

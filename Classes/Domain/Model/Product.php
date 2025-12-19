@@ -71,6 +71,8 @@ class Product extends AbstractEntity
 
     protected bool $isActive = true;
 
+    protected bool $shippingFree = false;
+
     protected ?Tax $tax = null;
 
     /**
@@ -403,6 +405,16 @@ class Product extends AbstractEntity
     public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
+    }
+
+    public function getShippingFree(): bool
+    {
+        return $this->shippingFree;
+    }
+
+    public function setShippingFree(bool $shippingFree): void
+    {
+        $this->shippingFree = $shippingFree;
     }
 
     public function getEffectivePrice(): float

@@ -41,6 +41,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     stock int NOT NULL DEFAULT 0,
     weight decimal(10,3) NOT NULL DEFAULT 0.000,
     is_active tinyint(1) unsigned NOT NULL DEFAULT 1,
+    shipping_free tinyint(1) unsigned NOT NULL DEFAULT 0,
     tax int unsigned NOT NULL DEFAULT 0,
     shipping_methods int unsigned NOT NULL DEFAULT 0,
     product_type varchar(50) NOT NULL DEFAULT 'normal',
