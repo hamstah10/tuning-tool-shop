@@ -5,7 +5,7 @@
 
 <f:section name="main">
     
-    <div class="container-fluid">
+    
       
         <f:if condition="{settings.listTemplate} == 'countdown'">
             <f:then>
@@ -42,16 +42,19 @@
                                  </div>
                              </f:if>
 
-                   <div class="col-12 col-md-6 col-lg-3">
-                   
-                   <f:form.select name="sortBy" id="sortBy" options="{sortOptions}" value="{selectedSort}" class="form-select" />
-                   </div>
+                             <f:if condition="{settings.showSortByFilter}">
+                                 <div class="col-12 col-md-6 col-lg-3">
+                                     <f:form.select name="sortBy" id="sortBy" options="{sortOptions}" value="{selectedSort}" class="form-select" />
+                                 </div>
+                             </f:if>
 
-                   <div class="col-12 col-md-6 col-lg-3">
-                   <button type="submit" class="btn btn-primary w-100">
-                   <i class="bi bi-funnel"></i> Filtern
-                   </button>
-                   </div>
+                             <f:if condition="{settings.showCategoryFilter} || {settings.showManufacturerFilter} || {settings.showSortByFilter}">
+                                 <div class="col-12 col-md-6 col-lg-3">
+                                     <button type="submit" class="btn btn-primary w-100">
+                                         <i class="bi bi-funnel"></i> Filtern
+                                     </button>
+                                 </div>
+                             </f:if>
 
                    <f:if condition="{selectedCategory} || {selectedManufacturer}">
                        <div class="col-12">
@@ -118,7 +121,7 @@
                 </div>
             </f:else>
         </f:if>
-    </div>
+    
 </f:section>
 
 </html>

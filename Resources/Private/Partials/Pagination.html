@@ -2,35 +2,39 @@
       data-namespace-typo3-fluid="true">
 
 <f:if condition="{pagination.numberOfPages} > 1">
-    <nav class="tts-pagination" aria-label="Seitennavigation">
-        <ul class="tts-pagination__list">
+    <nav class="pagination_wrap" aria-label="Seitennavigation">
+        <ul class="pagination_nav unordered_list">
             <f:if condition="{pagination.previousPage}">
-                <li class="tts-pagination__item">
-                    <f:link.action action="{action}" arguments="{currentPage: pagination.previousPage}" class="tts-pagination__link tts-pagination__link--prev">
-                        ‹ Zurück
+                <li class="">
+                    <f:link.action action="{action}" arguments="{currentPage: pagination.previousPage}" class="">
+                        <i class="bi bi-chevron-left"></i>
                     </f:link.action>
                 </li>
             </f:if>
 
             <f:for each="{pagination.pages}" as="page">
-                <li class="tts-pagination__item">
+                
                     <f:if condition="{page.isCurrent}">
                         <f:then>
-                            <span class="tts-pagination__link tts-pagination__link--current">{page.number}</span>
+                            <li class="active">
+                            <a href="#!">{page.number}</a>
+                            </li>
                         </f:then>
                         <f:else>
-                            <f:link.action action="{action}" arguments="{currentPage: page.number}" class="tts-pagination__link">
+                            <li>
+                            <f:link.action action="{action}" arguments="{currentPage: page.number}" class="">
                                 {page.number}
                             </f:link.action>
+                            </li>
                         </f:else>
                     </f:if>
-                </li>
+               
             </f:for>
 
             <f:if condition="{pagination.nextPage}">
-                <li class="tts-pagination__item">
-                    <f:link.action action="{action}" arguments="{currentPage: pagination.nextPage}" class="tts-pagination__link tts-pagination__link--next">
-                        Weiter ›
+                <li class="">
+                    <f:link.action action="{action}" arguments="{currentPage: pagination.nextPage}" class="">
+                       <i class="bi bi-chevron-right"></i>
                     </f:link.action>
                 </li>
             </f:if>

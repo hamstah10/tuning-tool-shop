@@ -45,6 +45,12 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
   - 🖼️ Produktbild anzeigen/verbergen
   - 🛒 "In den Warenkorb" Button anzeigen/verbergen
 
+✓ **Plugin-Konfiguration (Display-Reiter)**:
+  - 📋 Überschrift für Produktliste
+  - 🔍 Kategorie-Filter anzeigen/verbergen
+  - 🏭 Hersteller-Filter anzeigen/verbergen
+  - ↕️ Sortierungs-Filter anzeigen/verbergen
+
 ✓ **Countdown-Funktion**:
   - ⏱️ Special Sale Template mit Countdown-Timer
   - 📅 Zieldatum konfigurierbar im Backend (Datum + Uhrzeit)
@@ -57,10 +63,12 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
   - 📅 Nach Erstellungsdatum
   
 ✓ **Filterung**:
-  - 🏷️ Nach Kategorie
-  - 🏭 Nach Hersteller
+  - 🏷️ Nach Kategorie (optional sichtbar)
+  - 🏭 Nach Hersteller (optional sichtbar)
+  - ↕️ Nach Sortierung (optional sichtbar)
   - 🔍 Frontend-Filter mit Formular
   - ⚙️ Backend-Filter (vordefiniert pro Plugin)
+  - 🚫 Versandkostenfreie Produkte werden bei Versandberechnung ausgeschlossen
 
 ### Listing Features
 📄 **Pagination**: Seitenwechsel mit benutzerdefinierten Items pro Seite
@@ -212,6 +220,22 @@ Zeigt eine filterable und sortierbare Produktliste mit verschiedenen Layout-Opti
 Zeigt Produktdetails mit Bildern, Videos, Dokumenten und "In den Warenkorb"-Button.
 
 **Controller-Action**: `Product::show`
+
+### ProductSlider
+Zeigt Produkte in einem interaktiven Slider/Carousel mit Animations-Effekten.
+
+**Controller-Action**: `ProductSlider::list`
+
+**Konfigurierbare Einstellungen**:
+- Anzahl der Produkte im Slider
+- Detail- und Warenkorb-Seite Link
+
+**Features**:
+- Slick-Carousel Integration
+- Animations-Effekte (fadeInUp, zoomIn, fadeInRight)
+- Automatische Seitenzählung
+- Responsive Design
+- Herstellerinformationen pro Produkt
 
 ### Cart
 Warenkorb-Ansicht mit Mengenänderung, Produktentfernung und Checkout-Link.

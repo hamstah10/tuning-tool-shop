@@ -332,6 +332,9 @@
             <trans-unit id="flexform.itemsPerPage" resname="flexform.itemsPerPage">
                 <source>Produkte pro Seite</source>
             </trans-unit>
+            <trans-unit id="flexform.itemsLimit" resname="flexform.itemsLimit">
+                <source>Anzahl Produkte im Slider</source>
+            </trans-unit>
             <trans-unit id="flexform.sortBy" resname="flexform.sortBy">
                 <source>Sortierung</source>
             </trans-unit>
@@ -498,6 +501,9 @@
             </trans-unit>
             <trans-unit id="flexform.showManufacturerFilter" resname="flexform.showManufacturerFilter">
                 <source>Hersteller-Filter anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showSortByFilter" resname="flexform.showSortByFilter">
+                <source>Sortierung-Filter anzeigen</source>
             </trans-unit>
             <trans-unit id="flexform.showAllProductsButton" resname="flexform.showAllProductsButton">
                 <source>Button "Alle Tools" anzeigen</source>

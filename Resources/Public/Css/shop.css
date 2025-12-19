@@ -1274,3 +1274,19 @@
         border: 2px solid #000;
     }
 }
+
+
+.tts-shop .category-menu a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.tts-shop .manufacturer-menu a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.tts-shop .manufacturer-menu a:hover {
+    color: var(--bs-primary);
+    font-size: 16px;
+}

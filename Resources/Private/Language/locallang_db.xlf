@@ -75,6 +75,12 @@
 			<trans-unit id="plugin.productlist.title" resname="plugin.productlist.title">
 				<source>Shop: Produktliste</source>
 			</trans-unit>
+			<trans-unit id="plugin.productslider.description" resname="plugin.productslider.description">
+				<source>Zeigt Produkte in einem Slider/Carousel an</source>
+			</trans-unit>
+			<trans-unit id="plugin.productslider.title" resname="plugin.productslider.title">
+				<source>Shop: Produkt Slider</source>
+			</trans-unit>
 			<trans-unit id="plugin.selectedproducts.description" resname="plugin.selectedproducts.description">
 				<source>Zeigt manuell ausgewählte Produkte an</source>
 			</trans-unit>

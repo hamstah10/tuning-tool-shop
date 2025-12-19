@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Hamstahstudio\TuningToolShop\Controller\ProductController;
+use Hamstahstudio\TuningToolShop\Controller\ProductSliderController;
 use Hamstahstudio\TuningToolShop\Controller\CartController;
 use Hamstahstudio\TuningToolShop\Controller\CheckoutController;
 use Hamstahstudio\TuningToolShop\Controller\StripeController;
@@ -134,6 +135,15 @@ ExtensionUtility::configurePlugin(
     'ManufacturerMenu',
     [
         ManufacturerController::class => 'list',
+    ],
+    []
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
+    'ProductSlider',
+    [
+        ProductSliderController::class => 'list',
     ],
     []
 );
