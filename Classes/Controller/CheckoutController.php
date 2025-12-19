@@ -354,7 +354,7 @@ class CheckoutController extends ActionController
         $totalWeight = 0.0;
 
         foreach ($cartItems as $cartItem) {
-            if ($cartItem->getProduct() !== null) {
+            if ($cartItem->getProduct() !== null && !$cartItem->getProduct()->getShippingFree()) {
                 $totalWeight += $cartItem->getProduct()->getWeight() * $cartItem->getQuantity();
             }
         }
