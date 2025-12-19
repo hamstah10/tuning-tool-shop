@@ -4,7 +4,6 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <f:debug>{_all}</f:debug>
     <div class="tts-checkout">
         
         <f:if condition="{cartItems}">
@@ -279,11 +278,40 @@
                     </f:then>
                     <f:else>
                         <!-- Login / Registration Section for non-logged-in users -->
-                        <div class="row g-4">
+                        <div class="row g-4 justify-content-center">
                             <div class="col-lg-8">
-                                <div class="alert alert-info mb-5">
-                                    <h3 class="alert-heading mb-3">Willkommen bei der Kasse!</h3>
-                                    <p>Um Ihre Bestellung abzuschließen, müssen Sie sich anmelden oder registrieren.</p>
+                                <div class="alert alert-warning mb-4">
+                                    <h3 class="alert-heading mb-3">Anmeldung erforderlich</h3>
+                                    <p class="mb-0">Um Ihre Bestellung abzuschließen, müssen Sie sich anmelden oder ein neues Konto erstellen.</p>
+                                </div>
+                                
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="card border-0 shadow-sm h-100">
+                                            <div class="card-body text-center p-4">
+                                                <h4 class="card-title mb-3">Bereits Kunde?</h4>
+                                                <p class="text-muted mb-4">Melden Sie sich mit Ihrem bestehenden Konto an.</p>
+                                                <f:if condition="{loginPid}">
+                                                    <f:link.page pageUid="{loginPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-primary btn-lg w-100">
+                                                        Jetzt anmelden
+                                                    </f:link.page>
+                                                </f:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card border-0 shadow-sm h-100">
+                                            <div class="card-body text-center p-4">
+                                                <h4 class="card-title mb-3">Neu hier?</h4>
+                                                <p class="text-muted mb-4">Erstellen Sie ein Konto, um fortzufahren.</p>
+                                                <f:if condition="{registrationPid}">
+                                                    <f:link.page pageUid="{registrationPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-outline-primary btn-lg w-100">
+                                                        Konto erstellen
+                                                    </f:link.page>
+                                                </f:if>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -309,18 +337,8 @@
                                             </div>
                                         </div>
                                         <p class="small text-muted mb-4">Preise inkl. MwSt.</p>
-                                        <f:if condition="{loginPid}">
-                                            <f:link.page pageUid="{loginPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-primary w-100 mb-3">
-                                                Anmelden
-                                            </f:link.page>
-                                        </f:if>
-                                        <f:if condition="{registrationPid}">
-                                            <f:link.page pageUid="{registrationPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-outline-primary w-100 mb-3">
-                                                Registrieren
-                                            </f:link.page>
-                                        </f:if>
-                                        <f:link.page pageUid="{cartPid}" class="d-block text-center text-primary small mb-4" style="text-decoration: none;">
-                                            Warenkorb bearbeiten
+                                        <f:link.page pageUid="{cartPid}" class="d-block text-center text-primary small" style="text-decoration: none;">
+                                            Zurück zum Warenkorb
                                         </f:link.page>
                                     </div>
                                 </div>

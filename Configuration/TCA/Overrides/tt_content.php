@@ -102,4 +102,51 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSi
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Orders.xml'
 );
 
+ExtensionUtility::registerPlugin(
+    'TuningToolShop',
+    'Tags',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.tags.title',
+    'mimetypes-x-content-domain-content'
+);
+
+$pluginSignature = 'tuningtoolshop_tags';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $pluginSignature,
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Tags.xml'
+);
+
+ExtensionUtility::registerPlugin(
+    'TuningToolShop',
+    'CategoryMenu',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.categorymenu.title',
+    'mimetypes-x-content-domain-content'
+);
+
+$pluginSignature = 'tuningtoolshop_categorymenu';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $pluginSignature,
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/CategoryMenu.xml'
+);
+
+ExtensionUtility::registerPlugin(
+    'TuningToolShop',
+    'ManufacturerMenu',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.manufacturermenu.title',
+    'mimetypes-x-content-domain-content'
+);
+
+$pluginSignature = 'tuningtoolshop_manufacturermenu';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $pluginSignature,
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/ManufacturerMenu.xml'
+);
 

@@ -511,6 +511,87 @@
             <trans-unit id="flexform.storagePid" resname="flexform.storagePid">
                 <source>Datensatzsammlung (Storage)</source>
             </trans-unit>
+            <trans-unit id="flexform.sheet.display" resname="flexform.sheet.display">
+                <source>Anzeige</source>
+            </trans-unit>
+            <trans-unit id="flexform.listTemplate" resname="flexform.listTemplate">
+                <source>Anzeige-Template</source>
+            </trans-unit>
+            <trans-unit id="flexform.listTemplate.default" resname="flexform.listTemplate.default">
+                <source>Standard (alle Informationen)</source>
+            </trans-unit>
+            <trans-unit id="flexform.listTemplate.compact" resname="flexform.listTemplate.compact">
+                <source>Kompakt (Titel und Preis)</source>
+            </trans-unit>
+            <trans-unit id="flexform.listTemplate.detailed" resname="flexform.listTemplate.detailed">
+                <source>Detailliert (mit Kategorien und Hersteller)</source>
+            </trans-unit>
+            <trans-unit id="flexform.listTemplate.countdown" resname="flexform.listTemplate.countdown">
+                <source>Countdown - Counter (Titel und Preis)</source>
+            </trans-unit>
+            <trans-unit id="flexform.showProductPrice" resname="flexform.showProductPrice">
+                <source>Preis anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showProductDescription" resname="flexform.showProductDescription">
+                <source>Kurzbeschreibung anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showProductImage" resname="flexform.showProductImage">
+                <source>Produktbild anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.showAddToCartButton" resname="flexform.showAddToCartButton">
+                <source>Button "In den Warenkorb" anzeigen</source>
+            </trans-unit>
+            <!-- Tags FlexForm -->
+            <trans-unit id="flexform.tags.displayMode" resname="flexform.tags.displayMode">
+                <source>Anzeigemodus</source>
+            </trans-unit>
+            <trans-unit id="flexform.tags.displayMode.list" resname="flexform.tags.displayMode.list">
+                <source>Liste</source>
+            </trans-unit>
+            <trans-unit id="flexform.tags.displayMode.cloud" resname="flexform.tags.displayMode.cloud">
+                <source>Tag-Cloud</source>
+            </trans-unit>
+            <trans-unit id="flexform.tags.selectedTags" resname="flexform.tags.selectedTags">
+                <source>Tags auswählen (leer = alle)</source>
+            </trans-unit>
+            <trans-unit id="flexform.tags.tagDetailPid" resname="flexform.tags.tagDetailPid">
+                <source>Tag-Detailseite (zeigt Produkte eines Tags)</source>
+            </trans-unit>
+            <!-- Menu FlexForm -->
+            <trans-unit id="flexform.menu.displayMode" resname="flexform.menu.displayMode">
+                <source>Anzeigemodus</source>
+            </trans-unit>
+            <trans-unit id="flexform.menu.displayMode.list" resname="flexform.menu.displayMode.list">
+                <source>Liste</source>
+            </trans-unit>
+            <trans-unit id="flexform.menu.displayMode.dropdown" resname="flexform.menu.displayMode.dropdown">
+                <source>Dropdown</source>
+            </trans-unit>
+            <trans-unit id="flexform.menu.displayMode.badges" resname="flexform.menu.displayMode.badges">
+                <source>Badges</source>
+            </trans-unit>
+            <trans-unit id="flexform.menu.displayMode.logos" resname="flexform.menu.displayMode.logos">
+                <source>Logos</source>
+            </trans-unit>
+            <trans-unit id="flexform.menu.showProductCount" resname="flexform.menu.showProductCount">
+                <source>Produktanzahl anzeigen</source>
+            </trans-unit>
+            <trans-unit id="flexform.menu.targetPid" resname="flexform.menu.targetPid">
+                <source>Zielseite (Shop-Seite mit ProductList)</source>
+            </trans-unit>
+            <!-- Grid Columns -->
+            <trans-unit id="flexform.gridColumns" resname="flexform.gridColumns">
+                <source>Spalten im Grid</source>
+            </trans-unit>
+            <trans-unit id="flexform.gridColumns.3" resname="flexform.gridColumns.3">
+                <source>3 Spalten</source>
+            </trans-unit>
+            <trans-unit id="flexform.gridColumns.4" resname="flexform.gridColumns.4">
+                <source>4 Spalten</source>
+            </trans-unit>
+            <trans-unit id="flexform.countdownDate" resname="flexform.countdownDate">
+                <source>Countdown-Zieldatum</source>
+            </trans-unit>
             </body>
             </file>
             </xliff>

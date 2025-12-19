@@ -12,7 +12,6 @@ use Hamstahstudio\TuningToolShop\Domain\Repository\ShippingMethodRepository;
 use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
 use Hamstahstudio\TuningToolShop\Service\SessionService;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Session\UserSessionManager;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -258,32 +257,18 @@ class CheckoutController extends ActionController
 
     private function getSessionId(): string
     {
+        $cookieName = 'tx_tuning_tool_shop_session';
+        
         $frontendUser = $this->request->getAttribute('frontend.user');
-
         if ($frontendUser !== null && $frontendUser->user !== null) {
             return 'user_' . $frontendUser->user['uid'];
         }
 
-        try {
-            $sessionManager = UserSessionManager::create('FE');
-            $session = $sessionManager->createFromRequestOrAnonymous($this->request, 'tx_tuning_tool_shop_session');
-            $sessionId = $session->getIdentifier();
-            
-            // Store the session identifier in session data for reference
-            if (!$session->hasData('tx_tuning_tool_shop_session_id')) {
-                $session->set('tx_tuning_tool_shop_session_id', $sessionId);
-                
-                if ($session->isNew()) {
-                    $sessionManager->fixateAnonymousSession($session, false);
-                } else {
-                    $sessionManager->updateSession($session);
-                }
-            }
-            
-            return $sessionId;
-        } catch (\Exception) {
-            return '';
+        if (isset($_COOKIE[$cookieName]) && !empty($_COOKIE[$cookieName])) {
+            return $_COOKIE[$cookieName];
         }
+
+        return '';
     }
 
     private function generateOrderNumber(): string

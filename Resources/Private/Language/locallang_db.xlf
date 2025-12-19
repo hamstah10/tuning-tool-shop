@@ -123,6 +123,9 @@
 			<trans-unit id="tabs.starter_package" resname="tabs.starter_package">
 				<source>Starter Paket</source>
 			</trans-unit>
+			<trans-unit id="tabs.seo" resname="tabs.seo">
+				<source>SEO</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_address" resname="tx_tuningtoolshop_domain_model_address">
 				<source>Adresse</source>
 			</trans-unit>
@@ -497,6 +500,87 @@
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_productdeliveryscope.description" resname="tx_tuningtoolshop_domain_model_productdeliveryscope.description">
 				<source>Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.meta_title" resname="tx_tuningtoolshop_domain_model_product.meta_title">
+				<source>Meta Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.meta_description" resname="tx_tuningtoolshop_domain_model_product.meta_description">
+				<source>Meta Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.meta_keywords" resname="tx_tuningtoolshop_domain_model_product.meta_keywords">
+				<source>Meta Keywords</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.canonical_url" resname="tx_tuningtoolshop_domain_model_product.canonical_url">
+				<source>Canonical URL</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.related_products" resname="tx_tuningtoolshop_domain_model_product.related_products">
+				<source>Ähnliche Produkte</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.tags" resname="tx_tuningtoolshop_domain_model_product.tags">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_tag" resname="tx_tuningtoolshop_domain_model_tag">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_tag.title" resname="tx_tuningtoolshop_domain_model_tag.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_tag.slug" resname="tx_tuningtoolshop_domain_model_tag.slug">
+				<source>URL-Segment</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_tag.description" resname="tx_tuningtoolshop_domain_model_tag.description">
+				<source>Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_tag.color" resname="tx_tuningtoolshop_domain_model_tag.color">
+				<source>Farbe</source>
+			</trans-unit>
+			<trans-unit id="plugin.tags.title" resname="plugin.tags.title">
+				<source>Shop: Tags</source>
+			</trans-unit>
+			<trans-unit id="plugin.tags.description" resname="plugin.tags.description">
+				<source>Zeigt Tags und Produkte nach Tags an</source>
+			</trans-unit>
+			<trans-unit id="plugin.categorymenu.title" resname="plugin.categorymenu.title">
+				<source>Shop: Kategorien-Menü</source>
+			</trans-unit>
+			<trans-unit id="plugin.categorymenu.description" resname="plugin.categorymenu.description">
+				<source>Zeigt Kategorien als Menü an</source>
+			</trans-unit>
+			<trans-unit id="plugin.manufacturermenu.title" resname="plugin.manufacturermenu.title">
+				<source>Shop: Hersteller-Menü</source>
+			</trans-unit>
+			<trans-unit id="plugin.manufacturermenu.description" resname="plugin.manufacturermenu.description">
+				<source>Zeigt Hersteller als Menü an</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_video" resname="tx_tuningtoolshop_domain_model_video">
+				<source>Video</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_video.title" resname="tx_tuningtoolshop_domain_model_video.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_video.description" resname="tx_tuningtoolshop_domain_model_video.description">
+				<source>Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_video.file" resname="tx_tuningtoolshop_domain_model_video.file">
+				<source>Videodatei</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_video.video_url" resname="tx_tuningtoolshop_domain_model_video.video_url">
+				<source>Video URL (z.B. YouTube/Vimeo)</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_video.video_url.description" resname="tx_tuningtoolshop_domain_model_video.video_url.description">
+				<source>Externe Video-URL für Embedding (YouTube, Vimeo, etc.)</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_download" resname="tx_tuningtoolshop_domain_model_download">
+				<source>Download</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_download.title" resname="tx_tuningtoolshop_domain_model_download.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_download.description" resname="tx_tuningtoolshop_domain_model_download.description">
+				<source>Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_download.file" resname="tx_tuningtoolshop_domain_model_download.file">
+				<source>Datei</source>
 			</trans-unit>
 			</body>
 			</file>

@@ -7,9 +7,11 @@ namespace Hamstahstudio\TuningToolShop\Controller;
 use Hamstahstudio\TuningToolShop\Domain\Model\Category;
 use Hamstahstudio\TuningToolShop\Domain\Model\Manufacturer;
 use Hamstahstudio\TuningToolShop\Domain\Model\Product;
+use Hamstahstudio\TuningToolShop\Domain\Model\Tag;
 use Hamstahstudio\TuningToolShop\Domain\Repository\CategoryRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ManufacturerRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ProductRepository;
+use Hamstahstudio\TuningToolShop\Domain\Repository\TagRepository;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -19,6 +21,7 @@ class ProductController extends ActionController
         protected readonly ProductRepository $productRepository,
         protected readonly CategoryRepository $categoryRepository,
         protected readonly ManufacturerRepository $manufacturerRepository,
+        protected readonly TagRepository $tagRepository,
     ) {}
 
     public function listAction(int $category = 0, int $manufacturer = 0, string $sortBy = ''): ResponseInterface
@@ -86,8 +89,30 @@ class ProductController extends ActionController
 
         // Apply items per page limit from FlexForm or TypoScript
         $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? $this->settings['shop']['itemsPerPage'] ?? 12);
+        $currentPage = (int)($this->request->hasArgument('currentPage') ? $this->request->getArgument('currentPage') : 1);
+        
+        $totalProducts = is_array($products) ? count($products) : $products->count();
+        $totalPages = $itemsPerPage > 0 ? ceil($totalProducts / $itemsPerPage) : 1;
+        
         if ($itemsPerPage > 0 && is_array($products)) {
-            $products = array_slice($products, 0, $itemsPerPage);
+            $offset = ($currentPage - 1) * $itemsPerPage;
+            $products = array_slice($products, $offset, $itemsPerPage);
+        }
+
+        // Build pagination data
+        $pagination = [
+            'numberOfPages' => $totalPages,
+            'currentPage' => $currentPage,
+            'previousPage' => $currentPage > 1 ? $currentPage - 1 : null,
+            'nextPage' => $currentPage < $totalPages ? $currentPage + 1 : null,
+            'pages' => [],
+        ];
+        
+        for ($i = 1; $i <= $totalPages; $i++) {
+            $pagination['pages'][] = [
+                'number' => $i,
+                'isCurrent' => $i === $currentPage,
+            ];
         }
 
         $detailPid = (int)($this->settings['detailPid'] ?? 0);
@@ -107,6 +132,7 @@ class ProductController extends ActionController
 
         $this->view->assignMultiple([
             'products' => $products,
+            'pagination' => $pagination,
             'categories' => $categoriesArray,
             'manufacturers' => $manufacturersArray,
             'detailPid' => $detailPid,
@@ -225,6 +251,22 @@ class ProductController extends ActionController
         $this->view->assignMultiple([
             'products' => $products,
             'shopListPid' => $shopListPid,
+            'detailPid' => $detailPid,
+            'cartPid' => $cartPid,
+        ]);
+
+        return $this->htmlResponse();
+    }
+
+    public function tagAction(Tag $tag): ResponseInterface
+    {
+        $products = $this->productRepository->findByTag($tag);
+        $detailPid = (int)($this->settings['detailPid'] ?? 0);
+        $cartPid = (int)($this->settings['cartPid'] ?? 0);
+
+        $this->view->assignMultiple([
+            'tag' => $tag,
+            'products' => $products,
             'detailPid' => $detailPid,
             'cartPid' => $cartPid,
         ]);

@@ -4,7 +4,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <f:debug>{_all}</f:debug>
+    
     <f:if condition="{displayMode} == 'mini'">
         <f:then>
             <f:render partial="Cart/Mini" arguments="{cartItems: cartItems, itemCount: itemCount, cartPid: cartPid}" />

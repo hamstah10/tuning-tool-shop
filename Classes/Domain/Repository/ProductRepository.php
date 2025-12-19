@@ -7,6 +7,7 @@ namespace Hamstahstudio\TuningToolShop\Domain\Repository;
 use Hamstahstudio\TuningToolShop\Domain\Model\Category;
 use Hamstahstudio\TuningToolShop\Domain\Model\Manufacturer;
 use Hamstahstudio\TuningToolShop\Domain\Model\Product;
+use Hamstahstudio\TuningToolShop\Domain\Model\Tag;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -120,5 +121,14 @@ class ProductRepository extends Repository
     public function countAll(): int
     {
         return $this->findAllIgnoreStorage()->count();
+    }
+
+    public function findByTag(Tag $tag): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->contains('tags', $tag)
+        );
+        return $query->execute();
     }
 }

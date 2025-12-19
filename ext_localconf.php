@@ -8,6 +8,9 @@ use Hamstahstudio\TuningToolShop\Controller\CheckoutController;
 use Hamstahstudio\TuningToolShop\Controller\StripeController;
 use Hamstahstudio\TuningToolShop\Controller\PaymentController;
 use Hamstahstudio\TuningToolShop\Controller\OrdersController;
+use Hamstahstudio\TuningToolShop\Controller\TagController;
+use Hamstahstudio\TuningToolShop\Controller\CategoryController;
+use Hamstahstudio\TuningToolShop\Controller\ManufacturerController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -30,7 +33,7 @@ ExtensionUtility::configurePlugin(
     'TuningToolShop',
     'ProductList',
     [
-        ProductController::class => 'list,category,manufacturer,search',
+        ProductController::class => 'list,category,manufacturer,tag,search',
     ],
     [
         ProductController::class => 'list,search',
@@ -104,6 +107,33 @@ ExtensionUtility::configurePlugin(
     'Orders',
     [
         OrdersController::class => 'list,detail',
+    ],
+    []
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
+    'Tags',
+    [
+        TagController::class => 'list,show',
+    ],
+    []
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
+    'CategoryMenu',
+    [
+        CategoryController::class => 'list',
+    ],
+    []
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
+    'ManufacturerMenu',
+    [
+        ManufacturerController::class => 'list',
     ],
     []
 );

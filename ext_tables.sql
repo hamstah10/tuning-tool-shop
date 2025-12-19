@@ -37,8 +37,6 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     manufacturer int unsigned NOT NULL DEFAULT 0,
     categories int unsigned NOT NULL DEFAULT 0,
     images int unsigned NOT NULL DEFAULT 0,
-    videos int unsigned NOT NULL DEFAULT 0,
-    documents int unsigned NOT NULL DEFAULT 0,
     links int unsigned NOT NULL DEFAULT 0,
     stock int NOT NULL DEFAULT 0,
     weight decimal(10,3) NOT NULL DEFAULT 0.000,
@@ -53,7 +51,36 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     features_headline varchar(255) NOT NULL DEFAULT '',
     features_text text,
     recommendation_headline varchar(255) NOT NULL DEFAULT '',
-    recommendation_text text
+    recommendation_text text,
+    meta_title varchar(255) NOT NULL DEFAULT '',
+    meta_description text,
+    meta_keywords varchar(255) NOT NULL DEFAULT '',
+    canonical_url varchar(2048) NOT NULL DEFAULT '',
+    related_products int unsigned NOT NULL DEFAULT 0,
+    tags int unsigned NOT NULL DEFAULT 0
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_domain_model_video'
+#
+CREATE TABLE tx_tuningtoolshop_domain_model_video (
+    title varchar(255) NOT NULL DEFAULT '',
+    description text,
+    file int unsigned NOT NULL DEFAULT 0,
+    video_url varchar(2048) NOT NULL DEFAULT '',
+    product int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_domain_model_download'
+#
+CREATE TABLE tx_tuningtoolshop_domain_model_download (
+    title varchar(255) NOT NULL DEFAULT '',
+    description text,
+    file int unsigned NOT NULL DEFAULT 0,
+    product int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0
 );
 
 #
@@ -170,6 +197,44 @@ CREATE TABLE tx_tuningtoolshop_product_category_mm (
 # Table structure for table 'tx_tuningtoolshop_product_shippingmethod_mm'
 #
 CREATE TABLE tx_tuningtoolshop_product_shippingmethod_mm (
+    uid_local int unsigned NOT NULL DEFAULT 0,
+    uid_foreign int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0,
+    sorting_foreign int unsigned NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (uid_local,uid_foreign),
+    KEY uid_local (uid_local),
+    KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_product_relatedproducts_mm'
+#
+CREATE TABLE tx_tuningtoolshop_product_relatedproducts_mm (
+    uid_local int unsigned NOT NULL DEFAULT 0,
+    uid_foreign int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0,
+    sorting_foreign int unsigned NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (uid_local,uid_foreign),
+    KEY uid_local (uid_local),
+    KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_domain_model_tag'
+#
+CREATE TABLE tx_tuningtoolshop_domain_model_tag (
+    title varchar(255) NOT NULL DEFAULT '',
+    slug varchar(2048) NOT NULL DEFAULT '',
+    description text,
+    color varchar(7) NOT NULL DEFAULT '#6c757d'
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_product_tag_mm'
+#
+CREATE TABLE tx_tuningtoolshop_product_tag_mm (
     uid_local int unsigned NOT NULL DEFAULT 0,
     uid_foreign int unsigned NOT NULL DEFAULT 0,
     sorting int unsigned NOT NULL DEFAULT 0,

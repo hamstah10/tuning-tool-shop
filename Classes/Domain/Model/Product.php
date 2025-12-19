@@ -50,14 +50,14 @@ class Product extends AbstractEntity
     protected ObjectStorage $images;
 
     /**
-     * @var ObjectStorage<FileReference>
+     * @var ObjectStorage<Video>
      */
     #[Extbase\ORM\Lazy]
     #[Extbase\ORM\Cascade(['value' => 'remove'])]
     protected ObjectStorage $videos;
 
     /**
-     * @var ObjectStorage<FileReference>
+     * @var ObjectStorage<Download>
      */
     #[Extbase\ORM\Lazy]
     #[Extbase\ORM\Cascade(['value' => 'remove'])]
@@ -97,6 +97,26 @@ class Product extends AbstractEntity
 
     protected string $recommendationText = '';
 
+    protected string $metaTitle = '';
+
+    protected string $metaDescription = '';
+
+    protected string $metaKeywords = '';
+
+    protected string $canonicalUrl = '';
+
+    /**
+     * @var ObjectStorage<Product>
+     */
+    #[Extbase\ORM\Lazy]
+    protected ObjectStorage $relatedProducts;
+
+    /**
+     * @var ObjectStorage<Tag>
+     */
+    #[Extbase\ORM\Lazy]
+    protected ObjectStorage $tags;
+
     public function __construct()
     {
         $this->initializeObject();
@@ -110,6 +130,8 @@ class Product extends AbstractEntity
         $this->documents = new ObjectStorage();
         $this->lieferumfang = new ObjectStorage();
         $this->shippingMethods = new ObjectStorage();
+        $this->relatedProducts = new ObjectStorage();
+        $this->tags = new ObjectStorage();
     }
 
     public function getTitle(): string
@@ -281,7 +303,7 @@ class Product extends AbstractEntity
     }
 
     /**
-     * @return ObjectStorage<FileReference>
+     * @return ObjectStorage<Video>
      */
     public function getVideos(): ObjectStorage
     {
@@ -289,25 +311,25 @@ class Product extends AbstractEntity
     }
 
     /**
-     * @param ObjectStorage<FileReference> $videos
+     * @param ObjectStorage<Video> $videos
      */
     public function setVideos(ObjectStorage $videos): void
     {
         $this->videos = $videos;
     }
 
-    public function addVideo(FileReference $video): void
+    public function addVideo(Video $video): void
     {
         $this->videos->attach($video);
     }
 
-    public function removeVideo(FileReference $video): void
+    public function removeVideo(Video $video): void
     {
         $this->videos->detach($video);
     }
 
     /**
-     * @return ObjectStorage<FileReference>
+     * @return ObjectStorage<Download>
      */
     public function getDocuments(): ObjectStorage
     {
@@ -315,19 +337,19 @@ class Product extends AbstractEntity
     }
 
     /**
-     * @param ObjectStorage<FileReference> $documents
+     * @param ObjectStorage<Download> $documents
      */
     public function setDocuments(ObjectStorage $documents): void
     {
         $this->documents = $documents;
     }
 
-    public function addDocument(FileReference $document): void
+    public function addDocument(Download $document): void
     {
         $this->documents->attach($document);
     }
 
-    public function removeDocument(FileReference $document): void
+    public function removeDocument(Download $document): void
     {
         $this->documents->detach($document);
     }
@@ -535,5 +557,97 @@ class Product extends AbstractEntity
     public function setRecommendationText(string $recommendationText): void
     {
         $this->recommendationText = $recommendationText;
+    }
+
+    public function getMetaTitle(): string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(string $metaTitle): void
+    {
+        $this->metaTitle = $metaTitle;
+    }
+
+    public function getMetaDescription(): string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(string $metaDescription): void
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+    public function getMetaKeywords(): string
+    {
+        return $this->metaKeywords;
+    }
+
+    public function setMetaKeywords(string $metaKeywords): void
+    {
+        $this->metaKeywords = $metaKeywords;
+    }
+
+    public function getCanonicalUrl(): string
+    {
+        return $this->canonicalUrl;
+    }
+
+    public function setCanonicalUrl(string $canonicalUrl): void
+    {
+        $this->canonicalUrl = $canonicalUrl;
+    }
+
+    /**
+     * @return ObjectStorage<Product>
+     */
+    public function getRelatedProducts(): ObjectStorage
+    {
+        return $this->relatedProducts;
+    }
+
+    /**
+     * @param ObjectStorage<Product> $relatedProducts
+     */
+    public function setRelatedProducts(ObjectStorage $relatedProducts): void
+    {
+        $this->relatedProducts = $relatedProducts;
+    }
+
+    public function addRelatedProduct(Product $relatedProduct): void
+    {
+        $this->relatedProducts->attach($relatedProduct);
+    }
+
+    public function removeRelatedProduct(Product $relatedProduct): void
+    {
+        $this->relatedProducts->detach($relatedProduct);
+    }
+
+    /**
+     * @return ObjectStorage<Tag>
+     */
+    public function getTags(): ObjectStorage
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ObjectStorage<Tag> $tags
+     */
+    public function setTags(ObjectStorage $tags): void
+    {
+        $this->tags = $tags;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        $this->tags->attach($tag);
+    }
+
+    public function removeTag(Tag $tag): void
+    {
+        $this->tags->detach($tag);
     }
 }
