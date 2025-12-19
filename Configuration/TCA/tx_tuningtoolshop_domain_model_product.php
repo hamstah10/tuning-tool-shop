@@ -492,6 +492,17 @@ return [
                 'eval' => 'trim',
             ],
         ],
+        'badge' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.badge',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'max' => 255,
+                'eval' => 'trim',
+                'placeholder' => 'z.B. Neu, Angebot, Top-Seller',
+            ],
+        ],
         'related_products' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.related_products',
@@ -529,6 +540,7 @@ return [
                      --palette--;;sku_headline,
                      --palette--;;prices,
                      product_type,
+                     badge,
                      short_description,
                       description,
                       lieferumfang,

@@ -1,10 +1,11 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:tuning="http://typo3.org/ns/Hamstahstudio/TuningToolShop/ViewHelpers"
       data-namespace-typo3-fluid="true">
-    <f:debug>{_all}</f:debug>
 
 <f:layout name="Default" />
 
 <f:section name="main">
+    <tuning:seoMetaTags product="{product}" />
     <f:if condition="{settings.productLayout} == 'auto' ? {product.productType} == 'starter' : {settings.productLayout} == 'starter'">
         <f:then>
             <!-- Starter Package Layout -->

@@ -45,9 +45,11 @@ class CartCountViewHelper extends AbstractViewHelper
 
         // Try to get session from TYPO3 frontend session
         try {
-            $session = $GLOBALS['TSFE']->fe_user->getSession();
-            if ($session !== null && $session->getIdentifier()) {
-                return $session->getIdentifier();
+            if ($frontendUser !== null) {
+                $session = $frontendUser->getSession();
+                if ($session !== null && $session->getIdentifier()) {
+                    return $session->getIdentifier();
+                }
             }
         } catch (\Exception) {
             // Fallback

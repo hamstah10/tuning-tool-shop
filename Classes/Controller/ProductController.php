@@ -12,6 +12,7 @@ use Hamstahstudio\TuningToolShop\Domain\Repository\CategoryRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ManufacturerRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ProductRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\TagRepository;
+use Hamstahstudio\TuningToolShop\Seo\ProductPageTitleProvider;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -22,6 +23,7 @@ class ProductController extends ActionController
         protected readonly CategoryRepository $categoryRepository,
         protected readonly ManufacturerRepository $manufacturerRepository,
         protected readonly TagRepository $tagRepository,
+        protected readonly ProductPageTitleProvider $pageTitle,
     ) {}
 
     public function listAction(int $category = 0, int $manufacturer = 0, string $sortBy = ''): ResponseInterface

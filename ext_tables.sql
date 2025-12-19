@@ -57,6 +57,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     meta_description text,
     meta_keywords varchar(255) NOT NULL DEFAULT '',
     canonical_url varchar(2048) NOT NULL DEFAULT '',
+    badge varchar(255) NOT NULL DEFAULT '',
     related_products int unsigned NOT NULL DEFAULT 0,
     tags int unsigned NOT NULL DEFAULT 0
 );

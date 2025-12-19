@@ -1,16 +1,16 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
-      
+     
 <div class="product_item h-100 wow zoomIn">
      <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="item_image h-100">
-        <f:if condition="{product.productType} == 'starter'">
-            <ul class="badge_group unordered_list"><li><span class="badge">SALE</span></li></ul>
+        <f:if condition="{product.badge}">
+            <ul class="badge_group unordered_list"><li><span class="badge">{product.badge}</span></li></ul>
         </f:if>
                       
                         <f:if condition="{product.images.0}">
                             <f:then>
                                  <div class="w-100 h-100 d-flex align-items-center justify-content-center image-div">
-                                <f:image image="{product.images.0}" alt="{product.title}" />
+                                <f:image image="{product.images.0}" alt="{product.title}" width="315c"  />
                                 </div>
                             </f:then>
                             <f:else>
@@ -27,7 +27,10 @@
                                         {product.title}
                               </f:link.action>
                         </h3>
-                        <a class="item_brand" href="#!">{product.manufacturer.title}</a>
+                        
+                         <f:link.page pageUid="{product.manufacturer.uid}"  class="item_brand">
+                            {product.manufacturer.title}
+                         </f:link.page>
                         <div class="item_footer">
                           <div class="item_price">
                             <span class="sale_price">

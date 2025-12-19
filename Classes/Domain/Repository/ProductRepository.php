@@ -131,4 +131,32 @@ class ProductRepository extends Repository
         );
         return $query->execute();
     }
+
+    /**
+     * Find products by an array of UIDs
+     *
+     * @param array<int> $ids
+     * @return QueryResultInterface
+     */
+    public function findByIds(array $ids): QueryResultInterface
+    {
+        if (empty($ids)) {
+            return $this->createQuery()->execute();
+        }
+
+        $query = $this->createQuery();
+        $constraints = [];
+
+        foreach ($ids as $id) {
+            $constraints[] = $query->equals('uid', (int)$id);
+        }
+
+        if (count($constraints) === 1) {
+            $query->matching($constraints[0]);
+        } else {
+            $query->matching($query->logicalOr(...$constraints));
+        }
+
+        return $query->execute();
+    }
 }

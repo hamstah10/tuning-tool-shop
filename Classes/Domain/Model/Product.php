@@ -107,6 +107,8 @@ class Product extends AbstractEntity
 
     protected string $canonicalUrl = '';
 
+    protected string $badge = '';
+
     /**
      * @var ObjectStorage<Product>
      */
@@ -609,6 +611,16 @@ class Product extends AbstractEntity
     public function setCanonicalUrl(string $canonicalUrl): void
     {
         $this->canonicalUrl = $canonicalUrl;
+    }
+
+    public function getBadge(): string
+    {
+        return $this->badge;
+    }
+
+    public function setBadge(string $badge): void
+    {
+        $this->badge = $badge;
     }
 
     /**

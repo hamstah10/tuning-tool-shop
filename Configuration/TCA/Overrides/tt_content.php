@@ -2,151 +2,133 @@
 
 declare(strict_types=1);
 
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-
 defined('TYPO3') or die();
 
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+// ProductList Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
     'ProductList',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.productlist.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/ProductList.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_productlist';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tuningtoolshop_productlist'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'tuningtoolshop_productlist',
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/ProductList.xml'
 );
 
+// ProductDetail Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
-    'SelectedProducts',
-    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.selectedproducts.title',
-    'mimetypes-x-content-domain-content'
-);
-
-$pluginSignature = 'tuningtoolshop_selectedproducts';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/SelectedProducts.xml'
-);
-
-ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
     'ProductDetail',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.productdetail.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/ProductDetail.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_productdetail';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/ProductDetail.xml'
-);
-
+// ProductSlider Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
+    'ProductSlider',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.productslider.title',
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
+);
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tuningtoolshop_productslider'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'tuningtoolshop_productslider',
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/ProductSlider.xml'
+);
+
+// Cart Plugin
+ExtensionUtility::registerPlugin(
+    'tuning_tool_shop',
     'Cart',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.cart.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Cart.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_cart';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tuningtoolshop_cart'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'tuningtoolshop_cart',
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Cart.xml'
 );
 
+// Checkout Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
     'Checkout',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.checkout.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Checkout.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_checkout';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tuningtoolshop_checkout'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'tuningtoolshop_checkout',
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Checkout.xml'
 );
 
+// Orders Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
     'Orders',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.orders.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_orders';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tuningtoolshop_orders'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'tuningtoolshop_orders',
     'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Orders.xml'
 );
 
+// SelectedProducts Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
+    'SelectedProducts',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.selectedproducts.title',
+    'EXT:tuning_tool_shop/Resources/Public/Icons/SelectedProducts.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
+);
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['tuningtoolshop_selectedproducts'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'tuningtoolshop_selectedproducts',
+    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/SelectedProducts.xml'
+);
+
+// Tags Plugin
+ExtensionUtility::registerPlugin(
+    'tuning_tool_shop',
     'Tags',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.tags.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_tags';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/Tags.xml'
-);
-
+// CategoryMenu Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
     'CategoryMenu',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.categorymenu.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
 
-$pluginSignature = 'tuningtoolshop_categorymenu';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/CategoryMenu.xml'
-);
-
+// ManufacturerMenu Plugin
 ExtensionUtility::registerPlugin(
-    'TuningToolShop',
+    'tuning_tool_shop',
     'ManufacturerMenu',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin.manufacturermenu.title',
-    'mimetypes-x-content-domain-content'
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
-
-$pluginSignature = 'tuningtoolshop_manufacturermenu';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'recursive,select_key';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:tuning_tool_shop/Configuration/FlexForms/ManufacturerMenu.xml'
-);
-

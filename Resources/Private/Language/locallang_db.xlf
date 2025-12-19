@@ -522,6 +522,9 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.canonical_url" resname="tx_tuningtoolshop_domain_model_product.canonical_url">
 				<source>Canonical URL</source>
 			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.badge" resname="tx_tuningtoolshop_domain_model_product.badge">
+				<source>Badge</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.related_products" resname="tx_tuningtoolshop_domain_model_product.related_products">
 				<source>Ähnliche Produkte</source>
 			</trans-unit>
@@ -590,6 +593,9 @@
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_download.file" resname="tx_tuningtoolshop_domain_model_download.file">
 				<source>Datei</source>
+			</trans-unit>
+			<trans-unit id="plugin_group.tuning-tool-shop" resname="plugin_group.tuning-tool-shop">
+				<source>Shop</source>
 			</trans-unit>
 			</body>
 			</file>
