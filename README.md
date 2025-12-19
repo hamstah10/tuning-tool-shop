@@ -5,139 +5,144 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
 ## Features
 
 ### Produktverwaltung
-- **Produktkatalog**: Umfassende Produktdatenbank mit SKU, Beschreibung, Preis, Spezialpreis
-- **Kategorien & Hersteller**: Flexible Kategorisierung und Herstellerverwaltung
-- **Produktbilder**: Multi-Image Support mit Fluid-Verarbeitung
-- **Videos & Dokumente**: Integration von Videos und Download-Dokumenten
-- **Produkttypen**: Normale Produkte, Downloadware, etc.
-- **Lieferumfang**: Definierbare Lieferumfangsoptionen
-- **Lagerbestand**: Lagerverwaltung mit Verfügbarkeitsprüfung
-- **Gewichte & Versand**: Gewichtsangaben für Versandberechnung
-- **Verwandte Produkte**: Cross-Selling durch verwandte Produkte
-- **Tags**: Flexible Tagging für verbesserte Filterung
+✓ **Produktkatalog**: Umfassende Produktdatenbank mit SKU, Beschreibung, Preis, Spezialpreis
+✓ **Kategorien & Hersteller**: Flexible Kategorisierung und Herstellerverwaltung
+✓ **Produktbilder**: Multi-Image Support mit Fluid-Verarbeitung
+✓ **Videos & Dokumente**: Integration von Videos und Download-Dokumenten
+✓ **Produkttypen**: Normale Produkte, Downloadware, etc.
+✓ **Lieferumfang**: Definierbare Lieferumfangsoptionen
+✓ **Lagerbestand**: Lagerverwaltung mit Verfügbarkeitsprüfung
+✓ **Gewichte & Versand**: Gewichtsangaben für Versandberechnung
+✓ **Verwandte Produkte**: Cross-Selling durch verwandte Produkte
+✓ **Tags**: Flexible Tagging für verbesserte Filterung
 
 ### Produktdarstellung
-- **Mehrere Templates**: Grid, Grid mit Typ, Kompakte Liste, Detailliert, Countdown
-- **Flexible Ansichtsoptionen**:
-  - Anzahl Items pro Seite (einstellbar)
-  - Grid-Spalten (3 oder 4)
-  - Produktpreis anzeigen/verbergen
-  - Produktbeschreibung anzeigen/verbergen
-  - Produktbild anzeigen/verbergen
-  - "In den Warenkorb" Button anzeigen/verbergen
-- **Sortieroptionen**: Nach Name (A-Z, Z-A), Preis (aufsteigend/absteigend), Erstellungsdatum
-- **Filterung**:
-  - Nach Kategorie
-  - Nach Hersteller
-  - Frontend-Filter mit Formular
-  - Backend-Filter (vordefiniert pro Plugin)
+✓ **Mehrere Templates**: Grid, Grid mit Typ, Kompakte Liste, Detailliert, Countdown
+✓ **Flexible Ansichtsoptionen**:
+  - 📊 Anzahl Items pro Seite (einstellbar)
+  - 📐 Grid-Spalten (3 oder 4)
+  - 💰 Produktpreis anzeigen/verbergen
+  - 📝 Produktbeschreibung anzeigen/verbergen
+  - 🖼️ Produktbild anzeigen/verbergen
+  - 🛒 "In den Warenkorb" Button anzeigen/verbergen
+✓ **Countdown-Funktion**:
+  - ⏱️ Special Sale Template mit Countdown-Timer
+  - 📅 Zieldatum konfigurierbar im Backend (Datum + Uhrzeit)
+  - ⚡ JavaScript-basierter Live-Countdown
+  - 🎉 Ideal für Limited-Time-Angebote (Black Friday, etc.)
+✓ **Sortieroptionen**: Nach Name (A-Z, Z-A), Preis (aufsteigend/absteigend), Erstellungsdatum
+✓ **Filterung**:
+  - 🏷️ Nach Kategorie
+  - 🏭 Nach Hersteller
+  - 🔍 Frontend-Filter mit Formular
+  - ⚙️ Backend-Filter (vordefiniert pro Plugin)
 
 ### Listing Features
-- **Pagination**: Seitenwechsel mit benutzerdefinierten Items pro Seite
-- **URL-Integration**: SEO-freundliche URLs über Route Enhancers
-- **Kategorieseiten**: Dedizierte Kategorieseiten mit Produktübersicht
-- **Herstellerseiten**: Hersteller-Detailseiten mit deren Produkten
-- **Tag-Seiten**: Tag-basierte Produktsammlung
-- **Suche**: Volltextsuche über Produkttitel und Beschreibung
-- **Countdown-Ansicht**: Special Sale Ansicht mit Countdown-Timer
+✓ **Pagination**: Seitenwechsel mit benutzerdefinierten Items pro Seite
+✓ **URL-Integration**: SEO-freundliche URLs über Route Enhancers
+✓ **Kategorieseiten**: Dedizierte Kategorieseiten mit Produktübersicht
+✓ **Herstellerseiten**: Hersteller-Detailseiten mit deren Produkten
+✓ **Tag-Seiten**: Tag-basierte Produktsammlung
+✓ **Suche**: Volltextsuche über Produkttitel und Beschreibung
+✓ **Countdown-Ansicht**: Special Sale Ansicht mit Countdown-Timer
 
 ### Warenkorb
-- **Mini-Warenkorb**: Schwebende Warenkorbanzeige im Header
-- **Warenkorb-Seite**: Detaillierte Warenkorbverwaltung
-- **Mengen-Management**: Hinzufügen, Bearbeiten, Löschen von Produkten
-- **Preis-Berechnung**:
-  - Zwischensumme (Netto)
-  - Steuern (konfigurierbar pro Produkt)
-  - Versandkosten
-  - Gesamtsumme (Brutto)
-- **Persistierung**: Warenkorb in der Session/Datenbank
+🛒 **Mini-Warenkorb**: Schwebende Warenkorbanzeige im Header
+🛒 **Warenkorb-Seite**: Detaillierte Warenkorbverwaltung
+🛒 **Mengen-Management**: Hinzufügen, Bearbeiten, Löschen von Produkten
+🛒 **Preis-Berechnung**:
+  - 💵 Zwischensumme (Netto)
+  - 📊 Steuern (konfigurierbar pro Produkt)
+  - 🚚 Versandkosten
+  - 💳 Gesamtsumme (Brutto)
+🛒 **Persistierung**: Warenkorb in der Session/Datenbank
 
 ### Checkout & Bestellung
-- **One-Page Checkout**: Vereinfachter Bestellprozess auf einer Seite
-- **Kundendaten**:
-  - Rechnungsadresse
-  - Lieferadresse
-  - E-Mail-Bestätigung
-- **Versandoptionen**: Auswahl aus konfigurierten Versandmethoden
-- **Gewichtsbasierte Versandberechnung**: Automatische Berechnung basierend auf Produktgewicht
-- **Versandmethoden**: Verschiedene Versandarten mit unterschiedlichen Kosten
-- **Zahlungsmethoden**: 
-  - Vorkasse
-  - Nachnahme
-  - PayPal
-  - Stripe/Kreditkarte
-  - Klarna
-- **Bestellbearbeitung**: 
-  - Bestelldetails speichern
-  - Bestätigungsemail
-  - Bestellhistorie für Kunden
+📦 **One-Page Checkout**: Vereinfachter Bestellprozess auf einer Seite
+📦 **Kundendaten**:
+  - 🏠 Rechnungsadresse
+  - 📬 Lieferadresse
+  - ✉️ E-Mail-Bestätigung
+📦 **Versandoptionen**: Auswahl aus konfigurierten Versandmethoden
+📦 **Gewichtsbasierte Versandberechnung**: Automatische Berechnung basierend auf Produktgewicht
+📦 **Versandmethoden**: Verschiedene Versandarten mit unterschiedlichen Kosten
+📦 **Zahlungsmethoden**: 
+  - 💳 Vorkasse
+  - 📮 Nachnahme
+  - 🅿️ PayPal
+  - 💳 Stripe/Kreditkarte
+  - 🛍️ Klarna
+📦 **Bestellbearbeitung**: 
+  - 📋 Bestelldetails speichern
+  - ✉️ Bestätigungsemail
+  - 📚 Bestellhistorie für Kunden
 
 ### Zahlungsintegration
-- **Stripe Integration**:
-  - Kreditkarten-Zahlung (Visa, Mastercard, etc.)
-  - Webhook-Unterstützung
-  - Sichere Zahlungsabwicklung
-  - Fehlerbehandlung
-- **PayPal Integration**:
-  - PayPal Express Checkout
-  - Standard Zahlungsoptionen
-  - Webhook-Verarbeitung
-  - Order-Synchronisierung
-- **Klarna Integration**:
-  - Buy now, pay later (BNPL)
-  - Ratenkauf
-  - Sichere Zahlungsabwicklung
-- **Vorkasse & Nachnahme**: Manuelle Zahlungsmethoden
+💳 **Stripe Integration**:
+  - 🎫 Kreditkarten-Zahlung (Visa, Mastercard, etc.)
+  - 🔗 Webhook-Unterstützung
+  - 🔒 Sichere Zahlungsabwicklung
+  - ⚠️ Fehlerbehandlung
+💳 **PayPal Integration**:
+  - 🅿️ PayPal Express Checkout
+  - 💰 Standard Zahlungsoptionen
+  - 🔗 Webhook-Verarbeitung
+  - 🔄 Order-Synchronisierung
+💳 **Klarna Integration**:
+  - 📊 Buy now, pay later (BNPL)
+  - 📈 Ratenkauf
+  - 🔒 Sichere Zahlungsabwicklung
+💳 **Vorkasse & Nachnahme**: Manuelle Zahlungsmethoden
 
 ### Bestellverwaltung
-- **Kundenbestellübersicht**: Alle Bestellungen im Frontend sichtbar
-- **Bestelldetails**: Einzelbestellansicht mit:
-  - Bestellnummer
-  - Bestelldatum
-  - Bestellstatus
-  - Positionen & Preise
-  - Zahlungsstatus
-  - Versandstatus
-- **Bestellverlauf**: Chronologische Übersicht aller Bestellungen
-- **Download-Verwaltung**: Automatische Downloads für digitale Produkte
+📋 **Kundenbestellübersicht**: Alle Bestellungen im Frontend sichtbar
+📋 **Bestelldetails**: Einzelbestellansicht mit:
+  - 🔢 Bestellnummer
+  - 📅 Bestelldatum
+  - 📊 Bestellstatus
+  - 📦 Positionen & Preise
+  - 💳 Zahlungsstatus
+  - 🚚 Versandstatus
+📋 **Bestellverlauf**: Chronologische Übersicht aller Bestellungen
+📋 **Download-Verwaltung**: Automatische Downloads für digitale Produkte
 
 ### Produkteigenschaften
-- **Steuern**: Konfigurierbare Steuersätze pro Produkt
-- **Spezialpreis**: Verkaufspreisermäßigung mit automatischer Berechnung
-- **Aktivierungsstatus**: Sichtbarkeit von Produkten steuern
-- **Metadaten**: 
-  - Meta Title für SEO
-  - Meta Description
-  - Meta Keywords
-  - Canonical URL
-- **Rich Content**:
-  - Startup-Hilfe (Überschrift + Text)
-  - Features (Überschrift + Text)
-  - Empfehlungen (Überschrift + Text)
-  - Rich HTML Editor Support
+⚙️ **Steuern**: Konfigurierbare Steuersätze pro Produkt
+⚙️ **Spezialpreis**: Verkaufspreisermäßigung mit automatischer Berechnung
+⚙️ **Aktivierungsstatus**: Sichtbarkeit von Produkten steuern
+⚙️ **Metadaten**: 
+  - 🔍 Meta Title für SEO
+  - 🔍 Meta Description
+  - 🔍 Meta Keywords
+  - 🔗 Canonical URL
+⚙️ **Rich Content**:
+  - 📝 Startup-Hilfe (Überschrift + Text)
+  - ⭐ Features (Überschrift + Text)
+  - 👍 Empfehlungen (Überschrift + Text)
+  - 📄 Rich HTML Editor Support
 
 ### Admin-Features
-- **Backend-Module**: Verwaltungsmodul für Shop-Einstellungen
-- **Plugin-Konfiguration** (FlexForm):
-  - Separate Konfiguration pro Plugin (ProductList, Cart, Checkout, etc.)
-  - Template-Auswahl
-  - Filtereinstellungen
-  - Seiten-Links (Detail-, Warenkorb-, Checkout-Seite)
-  - Anzahl Items
-  - Sortieroptionen
-- **Datenbankmanagement**: SQL-Updates für Migration und Setup
+⚙️ **Backend-Module**: Verwaltungsmodul für Shop-Einstellungen
+⚙️ **Plugin-Konfiguration** (FlexForm):
+  - 🔧 Separate Konfiguration pro Plugin (ProductList, Cart, Checkout, etc.)
+  - 📐 Template-Auswahl
+  - 🔍 Filtereinstellungen
+  - 🔗 Seiten-Links (Detail-, Warenkorb-, Checkout-Seite)
+  - 📊 Anzahl Items
+  - ↕️ Sortieroptionen
+⚙️ **Datenbankmanagement**: SQL-Updates für Migration und Setup
 
 ### SEO & Performance
-- **URL-Rewriting**: Freundliche URLs durch Route Enhancers
-- **Slug-Support**: Automatische Slug-Generierung für Kategorien, Hersteller, Produkte
-- **Pagination URL**: SEO-freundliche Seitennummerierung (z.B. `/produkte/2`)
-- **Responsive Design**: Bootstrap-basiertes Responsive Design
+🚀 **URL-Rewriting**: Freundliche URLs durch Route Enhancers
+🚀 **Slug-Support**: Automatische Slug-Generierung für Kategorien, Hersteller, Produkte
+🚀 **Pagination URL**: SEO-freundliche Seitennummerierung (z.B. `/produkte/2`)
+🚀 **Responsive Design**: Bootstrap-basiertes Responsive Design
 
 ### Datenschutz & Sicherheit
-- **Frontend User Integration**: Benutzer-Registration & Login
-- **Benutzergruppen**: Rollenbasierte Zugriffskontrolle möglich
-- **Session-Management**: Sichere Warenkorb-Sessions
-- **TYPO3 Security**: Verwendung von TYPO3 Security Best Practices
+🔒 **Frontend User Integration**: Benutzer-Registration & Login
+🔒 **Benutzergruppen**: Rollenbasierte Zugriffskontrolle möglich
+🔒 **Session-Management**: Sichere Warenkorb-Sessions
+🔒 **TYPO3 Security**: Verwendung von TYPO3 Security Best Practices
 
 ## Anforderungen
 
