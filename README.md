@@ -40,9 +40,9 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
   - 🎉 Ideal für Limited-Time-Angebote (Black Friday, etc.)
 
 ✓ **Sortieroptionen**: 
-  Nach Name (A-Z, Z-A), 
-  Preis (aufsteigend/absteigend), 
-  Erstellungsdatum
+  - 📝 Nach Name (A-Z, Z-A), 
+  - 💵 Nach Preis (aufsteigend/absteigend), 
+  - 📅 Nach Erstellungsdatum
   
 ✓ **Filterung**:
   - 🏷️ Nach Kategorie
@@ -52,8 +52,11 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
 
 ### Listing Features
 📄 **Pagination**: Seitenwechsel mit benutzerdefinierten Items pro Seite
+
 📄 **URL-Integration**: SEO-freundliche URLs über Route Enhancers
+
 📄 **Kategorieseiten**: Dedizierte Kategorieseiten mit Produktübersicht
+
 📄 **Herstellerseiten**: Hersteller-Detailseiten mit deren Produkten
 📄 **Tag-Seiten**: Tag-basierte Produktsammlung
 📄 **Suche**: Volltextsuche über Produkttitel und Beschreibung
