@@ -592,6 +592,9 @@
             <trans-unit id="flexform.countdownDate" resname="flexform.countdownDate">
                 <source>Countdown-Zieldatum</source>
             </trans-unit>
+            <trans-unit id="flexform.listHeadline" resname="flexform.listHeadline">
+                <source>Überschrift Produktliste</source>
+            </trans-unit>
             </body>
             </file>
             </xliff>
