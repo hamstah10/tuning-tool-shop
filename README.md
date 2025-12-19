@@ -58,8 +58,11 @@ TYPO3 13 Shop Extension für Chiptuning Geräte und Zubehör mit vollständiger 
 📄 **Kategorieseiten**: Dedizierte Kategorieseiten mit Produktübersicht
 
 📄 **Herstellerseiten**: Hersteller-Detailseiten mit deren Produkten
+
 📄 **Tag-Seiten**: Tag-basierte Produktsammlung
+
 📄 **Suche**: Volltextsuche über Produkttitel und Beschreibung
+
 📄 **Countdown-Ansicht**: Special Sale Ansicht mit Countdown-Timer
 
 ### Warenkorb
