@@ -342,11 +342,11 @@
             <div class="col-12 col-lg-6">
                 <div class="image_gallery_carousel h-100">
                     <div class="details_image_carousel">
-                        <f:render partial="Product/Gallery" arguments="{images: product.images, alt: product.title}" />
+                        <f:render partial="Product/GallerySlick" arguments="{images: product.images, alt: product.title}" />
                     </div>
                     <div class="details_image_carousel_nav">
                         
-                                                <f:render partial="Product/GallerySlick" arguments="{images: product.images, alt: product.title}" />
+                        <f:render partial="Product/GallerySlickNav" arguments="{images: product.images, alt: product.title}" />
 
                     </div>
                 </div>
