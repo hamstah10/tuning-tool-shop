@@ -1,0 +1,94 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<tr>
+    <f:if condition="{settings.showProductImage}">
+        <td>
+            <f:if condition="{product.images.0}">
+                <f:then>
+                    <f:image image="{product.images.0}" alt="{product.title}" width="40" height="40" style="object-fit: cover; border-radius: 4px;" />
+                </f:then>
+                <f:else>
+                    <i class="bi bi-image"></i>
+                </f:else>
+            </f:if>
+        </td>
+    </f:if>
+
+    <td>
+        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="text-decoration-none">
+            <strong>{product.title}</strong>
+        </f:link.action>
+        <f:if condition="{product.productType} == 'starter'">
+            <br />
+            <span class="badge bg-success">Starter Paket</span>
+        </f:if>
+    </td>
+
+    <f:if condition="{settings.showProductDescription}">
+        <td>
+            <f:if condition="{product.shortDescription}">
+                <small class="text-muted">
+                    <f:format.crop maxCharacters="80">{product.shortDescription}</f:format.crop>
+                </small>
+            </f:if>
+        </td>
+    </f:if>
+
+    <td>
+        <f:for each="{product.categories}" as="category" iteration="iter">
+            <f:if condition="{iter.isFirst}">
+                {category.title}
+            </f:if>
+        </f:for>
+    </td>
+
+    <f:if condition="{settings.showProductPrice}">
+        <td>
+            <f:if condition="{product.specialPrice}">
+                <f:then>
+                    <del class="text-muted small">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                    </del>
+                    <br />
+                    <span class="text-danger fw-bold">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                    </span>
+                </f:then>
+                <f:else>
+                    <span class="fw-bold">
+                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                    </span>
+                </f:else>
+            </f:if>
+        </td>
+    </f:if>
+
+    <td>
+        <f:if condition="{product.stock} > 0">
+            <f:then>
+                <span class="badge bg-success">Lager: {product.stock}</span>
+            </f:then>
+            <f:else>
+                <span class="badge bg-danger">Nicht verfügbar</span>
+            </f:else>
+        </f:if>
+    </td>
+
+    <td>
+        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-sm btn-outline-primary" title="Details">
+            <i class="bi bi-eye"></i>
+        </f:link.action>
+        <f:if condition="{settings.showAddToCartButton}">
+            <f:if condition="{product.stock} > 0">
+                <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-success" title="In den Warenkorb">
+                        <i class="bi bi-cart-plus"></i>
+                    </button>
+                </f:form>
+            </f:if>
+        </f:if>
+    </td>
+</tr>
+
+</html>

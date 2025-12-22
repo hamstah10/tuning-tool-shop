@@ -564,6 +564,12 @@
 			<trans-unit id="plugin.manufacturermenu.description" resname="plugin.manufacturermenu.description">
 				<source>Zeigt Hersteller als Menü an</source>
 			</trans-unit>
+			<trans-unit id="plugin.admin.title" resname="plugin.admin.title">
+				<source>Shop: Administration</source>
+			</trans-unit>
+			<trans-unit id="plugin.admin.description" resname="plugin.admin.description">
+				<source>Frontend-Administration für Produkte, Kategorien und Hersteller</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_video" resname="tx_tuningtoolshop_domain_model_video">
 				<source>Video</source>
 			</trans-unit>
@@ -596,6 +602,15 @@
 			</trans-unit>
 			<trans-unit id="plugin_group.tuning-tool-shop" resname="plugin_group.tuning-tool-shop">
 				<source>Shop</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productlink" resname="tx_tuningtoolshop_domain_model_productlink">
+				<source>Produktlink</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productlink.title" resname="tx_tuningtoolshop_domain_model_productlink.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productlink.url" resname="tx_tuningtoolshop_domain_model_productlink.url">
+				<source>URL</source>
 			</trans-unit>
 			</body>
 			</file>

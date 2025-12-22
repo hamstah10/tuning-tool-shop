@@ -282,12 +282,18 @@ return [
         'links' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.links',
-            'description' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_product.links.description',
             'config' => [
-                'type' => 'text',
-                'cols' => 40,
-                'rows' => 5,
-                'eval' => 'trim',
+                'type' => 'inline',
+                'foreign_table' => 'tx_tuningtoolshop_domain_model_productlink',
+                'foreign_field' => 'product',
+                'maxitems' => 999,
+                'appearance' => [
+                    'collapseAll' => true,
+                    'expandSingle' => false,
+                    'useSortable' => true,
+                    'newRecordLinkAddTitle' => true,
+                    'levelLinksPosition' => 'bottom',
+                ],
             ],
         ],
         'stock' => [

@@ -1,0 +1,73 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="manufacturer-menu">
+        <f:if condition="{settings.displayMode} == 'dropdown'">
+            <f:then>
+                <!-- Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Hersteller
+                    </button>
+                    <ul class="dropdown-menu">
+                        <f:for each="{manufacturers}" as="manufacturer">
+                            <li>
+                                <f:link.action action="manufacturer" controller="Product" pluginName="ProductList" arguments="{manufacturer: manufacturer}" pageUid="{settings.targetPid}" class="dropdown-item">
+                                    {manufacturer.title}
+                                </f:link.action>
+                            </li>
+                        </f:for>
+                    </ul>
+                </div>
+            </f:then>
+            <f:else if="{settings.displayMode} == 'badges'">
+                <!-- Badges -->
+                <div class="d-flex flex-wrap gap-2">
+                    <f:for each="{manufacturers}" as="manufacturer">
+                        <f:link.action action="manufacturer" controller="Product" pluginName="ProductList" arguments="{manufacturer: manufacturer}" pageUid="{settings.targetPid}" class="badge bg-secondary text-decoration-none">
+                            {manufacturer.title}
+                        </f:link.action>
+                    </f:for>
+                </div>
+            </f:else>
+            <f:else if="{settings.displayMode} == 'logos'">
+                <!-- Logos -->
+                <div class="d-flex flex-wrap gap-3 align-items-center">
+                    <f:for each="{manufacturers}" as="manufacturer">
+                        <f:link.action action="manufacturer" controller="Product" pluginName="ProductList" arguments="{manufacturer: manufacturer}" pageUid="{settings.targetPid}" class="text-decoration-none">
+                            <f:if condition="{manufacturer.logo}">
+                                <f:then>
+                                    <f:image image="{manufacturer.logo}" alt="{manufacturer.title}" width="80" class="img-fluid" />
+                                </f:then>
+                                <f:else>
+                                    <span class="badge bg-secondary">{manufacturer.title}</span>
+                                </f:else>
+                            </f:if>
+                        </f:link.action>
+                    </f:for>
+                </div>
+            </f:else>
+            <f:else>
+                <!-- List (default) -->
+                  <div class="widget">
+                    <h3 class="widget_title">Hersteller</h3>
+                <ul class="info_list unordered_list_block">
+                    <f:for each="{manufacturers}" as="manufacturer">
+                        <li>
+                            <f:link.action action="manufacturer" controller="Product" pluginName="ProductList" arguments="{manufacturer: manufacturer}" pageUid="{settings.targetPid}" class="list-group-item list-group-item-action d-flex align-items-center">
+                             <span class="info_icon"><img src="/fileadmin/comp/icon_square.svg" alt="Tuningfiles Download"> </span>
+                                <span class="info_text">{manufacturer.title}</span>
+                            
+                        </f:link.action></li>
+                    </f:for>
+                </ul>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

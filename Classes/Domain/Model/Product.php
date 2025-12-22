@@ -63,7 +63,12 @@ class Product extends AbstractEntity
     #[Extbase\ORM\Cascade(['value' => 'remove'])]
     protected ObjectStorage $documents;
 
-    protected string $links = '';
+    /**
+     * @var ObjectStorage<ProductLink>
+     */
+    #[Extbase\ORM\Lazy]
+    #[Extbase\ORM\Cascade(['value' => 'remove'])]
+    protected ObjectStorage $links;
 
     protected int $stock = 0;
 
@@ -133,6 +138,7 @@ class Product extends AbstractEntity
         $this->videos = new ObjectStorage();
         $this->documents = new ObjectStorage();
         $this->lieferumfang = new ObjectStorage();
+        $this->links = new ObjectStorage();
         $this->shippingMethods = new ObjectStorage();
         $this->relatedProducts = new ObjectStorage();
         $this->tags = new ObjectStorage();
@@ -358,25 +364,30 @@ class Product extends AbstractEntity
         $this->documents->detach($document);
     }
 
-    public function getLinks(): string
+    /**
+     * @return ObjectStorage<ProductLink>
+     */
+    public function getLinks(): ObjectStorage
     {
         return $this->links;
     }
 
-    public function setLinks(string $links): void
+    /**
+     * @param ObjectStorage<ProductLink> $links
+     */
+    public function setLinks(ObjectStorage $links): void
     {
         $this->links = $links;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getLinksDecoded(): array
+    public function addLink(ProductLink $link): void
     {
-        if ($this->links === '') {
-            return [];
-        }
-        return json_decode($this->links, true) ?? [];
+        $this->links->attach($link);
+    }
+
+    public function removeLink(ProductLink $link): void
+    {
+        $this->links->detach($link);
     }
 
     public function getStock(): int

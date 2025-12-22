@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tag-products">
+        <!-- Tag Header with Back Button -->
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <h1>
+                    <span class="badge me-2" style="background-color: {tag.color}; color: #fff;">{tag.title}</span>
+                </h1>
+                <f:if condition="{tag.description}">
+                    <p class="lead text-muted mb-0">{tag.description}</p>
+                </f:if>
+            </div>
+            <f:link.action action="list" controller="Product" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Alle Produkte
+            </f:link.action>
+        </div>
+
+        <!-- Products with this tag -->
+        <f:if condition="{products}">
+            <f:then>
+                <f:if condition="{settings.listTemplate} == 'compact'">
+                    <f:then>
+                        <f:render partial="Product/ListCompact" arguments="{products: products, detailPid: detailPid, cartPid: cartPid, settings: settings}" />
+                    </f:then>
+                    <f:else>
+                        <f:render partial="Product/ListDefault" arguments="{products: products, detailPid: detailPid, cartPid: cartPid, settings: settings}" />
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <div class="alert alert-info">
+                    Keine Produkte mit diesem Tag gefunden.
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

@@ -12,6 +12,7 @@ use Hamstahstudio\TuningToolShop\Controller\OrdersController;
 use Hamstahstudio\TuningToolShop\Controller\TagController;
 use Hamstahstudio\TuningToolShop\Controller\CategoryController;
 use Hamstahstudio\TuningToolShop\Controller\ManufacturerController;
+use Hamstahstudio\TuningToolShop\Controller\AdminController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -146,6 +147,17 @@ ExtensionUtility::configurePlugin(
         ProductSliderController::class => 'list',
     ],
     []
+);
+
+ExtensionUtility::configurePlugin(
+    'TuningToolShop',
+    'Admin',
+    [
+        AdminController::class => 'dashboard,listProducts,newProduct,editProduct,saveProduct,deleteProduct,listCategories,newCategory,editCategory,saveCategory,deleteCategory,listManufacturers,newManufacturer,editManufacturer,saveManufacturer,deleteManufacturer',
+    ],
+    [
+        AdminController::class => 'saveProduct,deleteProduct,saveCategory,deleteCategory,saveManufacturer,deleteManufacturer',
+    ]
 );
 
 // Register dashboard widget groups

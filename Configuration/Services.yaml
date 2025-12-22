@@ -17,6 +17,10 @@ services:
     public: true
     autowire: true
 
+  Hamstahstudio\TuningToolShop\Controller\AdminController:
+    public: true
+    autowire: true
+
   Hamstahstudio\TuningToolShop\Payment\PaymentResult:
     public: true
     autowire: false

@@ -132,3 +132,12 @@ ExtensionUtility::registerPlugin(
     'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
     'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
 );
+
+// Admin Plugin
+ExtensionUtility::registerPlugin(
+    'tuning_tool_shop',
+    'Admin',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_fe.xlf:plugin.admin.title',
+    'EXT:tuning_tool_shop/Resources/Public/Icons/Extension.svg',
+    'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:plugin_group.tuning-tool-shop'
+);

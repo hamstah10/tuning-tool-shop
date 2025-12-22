@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+       <f:for each="{images}" as="image" iteration="iter">
+            <div class="gallery_image">
+                 <f:image image="{image}" alt="{alt}" class="d-block w-100" width="600" height="600" />
+
+            </div>
+       </f:for>
+<f:comment>
+<f:if condition="{images}">
+    <f:if condition="<f:count>{images}</f:count> > 1">
+        <f:then>
+            <!-- Bootstrap 5 Carousel für mehrere Bilder -->
+            <div id="tts-gallery-carousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <f:for each="{images}" as="image" iteration="iter">
+                        <div class="carousel-item{f:if(condition: iter.isFirst, then: ' active')}">
+                            <f:image image="{image}" alt="{alt}" class="d-block w-100" width="600" height="600" />
+                        </div>
+                    </f:for>
+                </div>
+                
+                <button class="carousel-control-prev" type="button" data-bs-target="#tts-gallery-carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Vorheriges</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#tts-gallery-carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Nächstes</span>
+                </button>
+                
+                <div class="carousel-indicators">
+                    <f:for each="{images}" as="image" iteration="iter">
+                        <button type="button" 
+                                data-bs-target="#tts-gallery-carousel" 
+                                data-bs-slide-to="{iter.index}"{f:if(condition: iter.isFirst, then: ' class="active" aria-current="true"')} 
+                                aria-label="Bild {iter.cycle}">
+                        </button>
+                    </f:for>
+                </div>
+            </div>
+        </f:then>
+        <f:else>
+            <!-- Einfache Anzeige für ein Bild -->
+            <div class="tts-gallery">
+                <f:if condition="{images.0}">
+                    <f:image image="{images.0}" alt="{alt}" class="img-fluid" width="600" height="600" />
+                </f:if>
+            </div>
+        </f:else>
+    </f:if>
+</f:if>
+</f:comment>
+</html>

@@ -1,0 +1,123 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="admin-panel">
+        <div class="admin-header">
+            <h1>Kategorien</h1>
+            <f:link.action action="newCategory" class="btn btn-success">+ Neue Kategorie</f:link.action>
+        </div>
+
+        <f:if condition="{categories}">
+            <f:then>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Übergeordnete Kategorie</th>
+                                <th>Beschreibung</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{categories}" as="category">
+                                <tr>
+                                    <td><strong>{category.title}</strong></td>
+                                    <td>
+                                        <f:if condition="{category.parent}">
+                                            {category.parent.title}
+                                        </f:if>
+                                    </td>
+                                    <td>{category.description -> f:format.crop(maxCharacters: 50)}</td>
+                                    <td>
+                                        <f:link.action action="editCategory" arguments="{category: category}" class="btn btn-primary btn-sm">
+                                            Bearbeiten
+                                        </f:link.action>
+                                        <f:link.action action="deleteCategory" arguments="{category: category}" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?')">
+                                            Löschen
+                                        </f:link.action>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                    </table>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="alert alert-info">
+                    <p>Keine Kategorien vorhanden.</p>
+                    <f:link.action action="newCategory" class="btn btn-success">+ Erste Kategorie erstellen</f:link.action>
+                </div>
+            </f:else>
+        </f:if>
+
+        <style>
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            .table th {
+                background: #f8f9fa;
+                padding: 12px;
+                text-align: left;
+                font-weight: bold;
+                border-bottom: 2px solid #dee2e6;
+            }
+
+            .table td {
+                padding: 12px;
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            .table-striped tbody tr:nth-child(odd) {
+                background: #f8f9fa;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-size: 0.9em;
+                border: none;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .btn-primary {
+                background: #007bff;
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background: #0056b3;
+            }
+
+            .btn-danger {
+                background: #dc3545;
+                color: white;
+            }
+
+            .btn-danger:hover {
+                background: #c82333;
+            }
+
+            .btn-success {
+                background: #28a745;
+                color: white;
+            }
+
+            .btn-success:hover {
+                background: #218838;
+            }
+
+            .btn-sm {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        </style>
+    </div>
+</f:section>
+</html>

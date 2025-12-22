@@ -1,0 +1,126 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!-- Detailed Template: Full Information with Categories and Manufacturer -->
+<div class="row mb-4">
+    <f:for each="{products}" as="product">
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div class="card h-100 border-light shadow-sm">
+                <!-- Image Section -->
+                <f:if condition="{settings.showProductImage}">
+                    <div class="position-relative overflow-hidden bg-light" style="aspect-ratio: 1;">
+                        <f:if condition="{product.images.0}">
+                            <f:then>
+                                <f:image image="{product.images.0}" alt="{product.title}" class="card-img-top w-100 h-100" style="object-fit: cover;" />
+                            </f:then>
+                            <f:else>
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
+                                    <i class="bi bi-image fs-1"></i>
+                                </div>
+                            </f:else>
+                        </f:if>
+
+                        <!-- Badges -->
+                        <f:if condition="{product.productType} == 'starter'">
+                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">EMPFOHLEN</span>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <!-- Card Body -->
+                <div class="card-body d-flex flex-column">
+                    <!-- Manufacturer -->
+                    <f:if condition="{product.manufacturer}">
+                        <h6 class="card-subtitle mb-2 text-muted small">
+                            {product.manufacturer.title}
+                        </h6>
+                    </f:if>
+
+                    <!-- Title -->
+                    <h5 class="card-title mb-2 flex-grow-1">
+                        <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="text-decoration-none">
+                            {product.title}
+                        </f:link.action>
+                    </h5>
+
+                    <!-- Description -->
+                    <f:if condition="{settings.showProductDescription}">
+                        <f:if condition="{product.shortDescription}">
+                            <p class="card-text text-muted small mb-3">
+                                <f:format.crop maxCharacters="100">{product.shortDescription}</f:format.crop>
+                            </p>
+                        </f:if>
+                    </f:if>
+
+                    <!-- Categories -->
+                    <f:if condition="{product.categories}">
+                        <div class="mb-2">
+                            <small class="text-muted d-block mb-1"><strong>Kategorien:</strong></small>
+                            <div>
+                                <f:for each="{product.categories}" as="category" iteration="iter">
+                                    <f:if condition="{iter.isFirst}">
+                                        <f:then>
+                                            <span class="badge bg-light text-dark border border-secondary">{category.title}</span>
+                                        </f:then>
+                                        <f:else>
+                                            <f:if condition="{iter.index} < 2">
+                                                <span class="badge bg-light text-dark border border-secondary">{category.title}</span>
+                                            </f:if>
+                                        </f:else>
+                                    </f:if>
+                                </f:for>
+                            </div>
+                        </div>
+                    </f:if>
+
+                    <!-- Price -->
+                    <f:if condition="{settings.showProductPrice}">
+                        <div class="mb-3 mt-2">
+                            <f:if condition="{product.specialPrice}">
+                                <f:then>
+                                    <span class="text-muted text-decoration-line-through small">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                    </span>
+                                    <br />
+                                    <span class="fw-bold text-danger fs-5">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.specialPrice}</f:format.currency>
+                                    </span>
+                                </f:then>
+                                <f:else>
+                                    <span class="fw-bold fs-5">
+                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency>
+                                    </span>
+                                </f:else>
+                            </f:if>
+                        </div>
+                    </f:if>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer bg-transparent border-top d-grid gap-2">
+                    <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i> Details
+                    </f:link.action>
+                    <f:if condition="{settings.showAddToCartButton}">
+                        <f:form action="add" controller="Cart" pluginName="Cart" pageUid="{cartPid}" arguments="{product: product.uid, quantity: 1}" class="w-100">
+                            <f:if condition="{product.stock} > 0">
+                                <f:then>
+                                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                                        <i class="bi bi-cart-plus"></i> Warenkorb
+                                    </button>
+                                </f:then>
+                                <f:else>
+                                    <button type="button" class="btn btn-secondary btn-sm w-100" disabled>
+                                        Nicht verfügbar
+                                    </button>
+                                </f:else>
+                            </f:if>
+                        </f:form>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </f:for>
+</div>
+
+</html>

@@ -1,0 +1,120 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="admin-panel">
+        <div class="admin-header">
+            <h1>
+                <f:if condition="{manufacturer}">
+                    <f:then>Hersteller bearbeiten: {manufacturer.title}</f:then>
+                    <f:else>Neuer Hersteller</f:else>
+                </f:if>
+            </h1>
+            <f:link.action action="listManufacturers" class="btn btn-secondary">← Zurück</f:link.action>
+        </div>
+
+        <form action="{f:uri.action(action: 'saveManufacturer')}" method="POST" class="form-edit">
+            <input type="hidden" name="manufacturer_uid" value="{manufacturer.uid}" />
+
+            <div class="form-group">
+                <label for="title">Name *</label>
+                <input type="text" id="title" name="title" value="{manufacturer.title}" required />
+            </div>
+
+            <div class="form-group">
+                <label for="website">Website</label>
+                <input type="url" id="website" name="website" value="{manufacturer.website}" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Beschreibung</label>
+                <textarea id="description" name="description" rows="6">{manufacturer.description}</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">Speichern</button>
+                <f:link.action action="listManufacturers" class="btn btn-secondary">Abbrechen</f:link.action>
+            </div>
+        </form>
+
+        <style>
+            .form-edit {
+                background: white;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 30px;
+                margin-top: 20px;
+                max-width: 600px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="url"],
+            .form-group textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1em;
+                font-family: inherit;
+            }
+
+            .form-group input:focus,
+            .form-group textarea:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            }
+
+            .form-group textarea {
+                resize: vertical;
+            }
+
+            .form-actions {
+                margin-top: 30px;
+                display: flex;
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-size: 1em;
+                border: none;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-weight: bold;
+            }
+
+            .btn-success {
+                background: #28a745;
+                color: white;
+            }
+
+            .btn-success:hover {
+                background: #218838;
+            }
+
+            .btn-secondary {
+                background: #6c757d;
+                color: white;
+            }
+
+            .btn-secondary:hover {
+                background: #5a6268;
+            }
+        </style>
+    </div>
+</f:section>
+</html>

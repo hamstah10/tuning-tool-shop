@@ -1,0 +1,35 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="tags-list">
+        <f:if condition="{settings.displayMode} == 'cloud'">
+            <f:then>
+                <!-- Tag Cloud -->
+                <div class="tag-cloud d-flex flex-wrap gap-2 justify-content-center">
+                    <f:for each="{tags}" as="tag">
+                        <f:link.action action="tag" controller="Product" pluginName="ProductList" arguments="{tag: tag}" pageUid="{settings.tagDetailPid}" class="badge fs-6" style="background-color: {tag.color}; color: #fff;">
+                            {tag.title}
+                        </f:link.action>
+                    </f:for>
+                </div>
+            </f:then>
+            <f:else>
+                <!-- Tag List -->
+                <div class="row g-3">
+                    <f:for each="{tags}" as="tag">
+                        <div class="col-auto">
+                            <f:link.action action="tag" controller="Product" pluginName="ProductList" arguments="{tag: tag}" pageUid="{settings.tagDetailPid}" class="badge" style="background-color: {tag.color}; color: #fff;">
+                                {tag.title}
+                            </f:link.action>
+                        </div>
+                    </f:for>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

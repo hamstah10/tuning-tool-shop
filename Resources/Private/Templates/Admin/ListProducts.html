@@ -1,0 +1,121 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="admin-panel">
+        <div class="admin-header">
+            <h1>Produkte</h1>
+            <f:link.action action="newProduct" class="btn btn-success">+ Neues Produkt</f:link.action>
+        </div>
+
+        <f:if condition="{products}">
+            <f:then>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Titel</th>
+                                <th>SKU</th>
+                                <th>Preis</th>
+                                <th>Lager</th>
+                                <th>Hersteller</th>
+                                <th>Status</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{products}" as="product">
+                                <tr>
+                                    <td><strong>{product.title}</strong></td>
+                                    <td>{product.sku}</td>
+                                    <td>{product.price -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+                                    <td>
+                                        <span class="badge {product.stock > 0 ? 'badge-success' : 'badge-danger'}">
+                                            {product.stock}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <f:if condition="{product.manufacturer}">
+                                            {product.manufacturer.title}
+                                        </f:if>
+                                    </td>
+                                    <td>
+                                        <span class="badge {product.isActive ? 'badge-success' : 'badge-secondary'}">
+                                            <f:if condition="{product.isActive}">
+                                                <f:then>Aktiv</f:then>
+                                                <f:else>Inaktiv</f:else>
+                                            </f:if>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <f:link.action action="editProduct" arguments="{product: product}" class="btn btn-primary btn-sm">
+                                            Bearbeiten
+                                        </f:link.action>
+                                        <f:link.action action="deleteProduct" arguments="{product: product}" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?')">
+                                            Löschen
+                                        </f:link.action>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                    </table>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="alert alert-info">
+                    <p>Keine Produkte vorhanden.</p>
+                    <f:link.action action="newProduct" class="btn btn-success">+ Erstes Produkt erstellen</f:link.action>
+                </div>
+            </f:else>
+        </f:if>
+
+        <style>
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            .table th {
+                background: #f8f9fa;
+                padding: 12px;
+                text-align: left;
+                font-weight: bold;
+                border-bottom: 2px solid #dee2e6;
+            }
+
+            .table td {
+                padding: 12px;
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            .table-striped tbody tr:nth-child(odd) {
+                background: #f8f9fa;
+            }
+
+            .badge {
+                display: inline-block;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 0.85em;
+                font-weight: bold;
+            }
+
+            .badge-success {
+                background: #d4edda;
+                color: #155724;
+            }
+
+            .badge-danger {
+                background: #f8d7da;
+                color: #721c24;
+            }
+
+            .badge-secondary {
+                background: #e2e3e5;
+                color: #383d41;
+            }
+        </style>
+    </div>
+</f:section>
+</html>

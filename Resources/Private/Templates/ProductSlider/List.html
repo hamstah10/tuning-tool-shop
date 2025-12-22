@@ -1,0 +1,79 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <section class="main_slider_section main_slider_2">
+        <div class="container position-relative">
+            <div class="main_slider" data-slick='{"arrows": false}'>
+                <f:if condition="{products}">
+                    <f:then>
+                        <f:for each="{products}" as="product">
+                            <div class="slider_item section_space_lg">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="slider_image" data-animation="zoomIn" data-delay=".2s">
+                                            <f:if condition="{product.images}">
+                                                <f:then>
+                                                    <f:image image="{product.images.0}" alt="{product.title}" width="400" />
+                                                </f:then>
+                                                <f:else>
+                                                    <img src="assets/images/hero/slider_image_6.png" alt="{product.title}">
+                                                </f:else>
+                                            </f:if>
+                                        </div>
+                                    </div>
+                                    <div class="order-lg-first col-lg-3">
+                                        <h3 class="title_text" data-animation="fadeInUp2" data-delay=".4s">{product.headline}</h3>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="slider_content" data-animation="fadeInRight" data-delay=".6s">
+                                            <f:if condition="{product.manufacturer}">
+                                                <a class="item_brand" href="#!">{product.manufacturer.title}</a>
+                                            </f:if>
+                                            <h3 class="item_title">{product.title}</h3>
+                                            <p>{product.shortDescription}</p>
+                                            <div class="item_price">
+                                                <span class="sale_price">{product.effectivePrice -> f:format.currency(currencySign: '€', decimalSeparator: ',', thousandsSeparator: '.')}</span>
+                                            </div>
+                                            <div class="btn_wrap pb-0">
+                                                <f:if condition="{detailPid}">
+                                                    <f:link.action action="show" controller="Product" arguments="{product: product}" pageUid="{detailPid}" class="btn btn-primary">
+                                                        <span class="btn_text">Details anzeigen</span>
+                                                    </f:link.action>
+                                                </f:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:for>
+                    </f:then>
+                    <f:else>
+                        <div class="slider_item section_space_lg">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <p class="text-center">Keine Produkte vorhanden</p>
+                                </div>
+                            </div>
+                        </div>
+                    </f:else>
+                </f:if>
+            </div>
+            <div class="main_slider_nav d-none">
+                <f:for each="{products}" as="product">
+                    <div class="slider_nav_item"></div>
+                </f:for>
+            </div>
+            <div class="slick-progress"><span></span></div>
+            <div class="slide_count_wrap">
+                <span class="current">1</span>
+                <span>/</span>
+                <span class="total">{products -> f:count()}</span>
+            </div>
+        </div>
+    </section>
+</f:section>
+
+</html>
