@@ -67,10 +67,17 @@ plugin.tx_tuningtoolshop {
     }
 }
 
-page.includeCSS.tuningToolShop = EXT:tuning_tool_shop/Resources/Public/Css/shop.css
 page {
+    includeCSS {
+        tuningToolShopdatatables = EXT:tuning_tool_shop/Resources/Public/JavaScript/vendor/datatables/dataTables.bootstrap5.css
+
+        tuningToolShop = EXT:tuning_tool_shop/Resources/Public/Css/shop.css
+     }
     includeJSFooter {
         tuningToolShopMatchHeight = EXT:tuning_tool_shop/Resources/Public/JavaScript/matchHeight.js
+        
+        tuningToolShopDataTables = EXT:tuning_tool_shop/Resources/Public/JavaScript/vendor/datatables/dataTables.js
+        tuningToolShopDataTablesBootstrap = EXT:tuning_tool_shop/Resources/Public/JavaScript/vendor/datatables/dataTables.bootstrap5.js
         tuningToolShop = EXT:tuning_tool_shop/Resources/Public/JavaScript/shop.js
         
     }

@@ -59,8 +59,9 @@ class ProductRepository extends Repository
     public function findActive(): QueryResultInterface
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
-            $query->equals('active', true)
+            $query->equals('isActive', true)
         );
         return $query->execute();
     }
@@ -68,10 +69,11 @@ class ProductRepository extends Repository
     public function findFeatured(int $limit = 10): QueryResultInterface
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
             $query->logicalAnd(
                 $query->equals('featured', true),
-                $query->equals('active', true)
+                $query->equals('isActive', true)
             )
         );
         $query->setLimit($limit);
@@ -81,6 +83,7 @@ class ProductRepository extends Repository
     public function searchByTerm(string $term): QueryResultInterface
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $searchTerm = '%' . $term . '%';
         $query->matching(
             $query->logicalAnd(
@@ -103,6 +106,7 @@ class ProductRepository extends Repository
     public function findRecent(int $limit = 10): QueryResultInterface
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
             $query->equals('isActive', true)
         );

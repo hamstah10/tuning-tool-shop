@@ -2,9 +2,9 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="admin-panel">
-        <div class="admin-header">
-            <h1>
+    <div class="container-lg py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h2 m-0">
                 <f:if condition="{product}">
                     <f:then>Produkt bearbeiten: {product.title}</f:then>
                     <f:else>Neues Produkt</f:else>
@@ -13,356 +13,227 @@
             <f:link.action action="listProducts" class="btn btn-secondary">← Zurück</f:link.action>
         </div>
 
-        <form action="{f:uri.action(action: 'saveProduct')}" method="POST" class="form-edit">
+        <form action="{f:uri.action(action: 'saveProduct')}" method="POST">
             <input type="hidden" name="product_uid" value="{product.uid}" />
 
-            <div class="form-section">
-                <h2>Grundinformationen</h2>
-
-                <div class="form-group">
-                    <label for="title">Titel *</label>
-                    <input type="text" id="title" name="title" value="{product.title}" required />
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Grundinformationen</h5>
                 </div>
-
-                <div class="form-group">
-                    <label for="sku">Artikelnummer (SKU) *</label>
-                    <input type="text" id="sku" name="sku" value="{product.sku}" required />
-                </div>
-
-                <div class="form-group">
-                    <label for="headline">Überschrift</label>
-                    <input type="text" id="headline" name="headline" value="{product.headline}" />
-                </div>
-
-                <div class="form-group">
-                    <label for="short_description">Kurzbeschreibung</label>
-                    <textarea id="short_description" name="short_description" rows="3">{product.shortDescription}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Beschreibung</label>
-                    <textarea id="description" name="description" rows="6">{product.description}</textarea>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h2>Preise & Lager</h2>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="price">Preis (€) *</label>
-                        <input type="number" id="price" name="price" step="0.01" value="{product.price}" required />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="title" class="form-label">Titel *</label>
+                            <input type="text" id="title" name="title" class="form-control" value="{product.title}" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="sku" class="form-label">Artikelnummer (SKU) *</label>
+                            <input type="text" id="sku" name="sku" class="form-control" value="{product.sku}" required />
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="special_price">Sonderpreis (€)</label>
-                        <input type="number" id="special_price" name="special_price" step="0.01" value="{product.specialPrice}" />
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="stock">Lagerbestand</label>
-                        <input type="number" id="stock" name="stock" value="{product.stock}" />
+                    <div class="mb-3">
+                        <label for="headline" class="form-label">Überschrift</label>
+                        <input type="text" id="headline" name="headline" class="form-control" value="{product.headline}" />
                     </div>
 
-                    <div class="form-group">
-                        <label for="weight">Gewicht (kg)</label>
-                        <input type="number" id="weight" name="weight" step="0.001" value="{product.weight}" />
+                    <div class="mb-3">
+                        <label for="short_description" class="form-label">Kurzbeschreibung</label>
+                        <textarea id="short_description" name="short_description" class="form-control" rows="3">{product.shortDescription}</textarea>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="shipping_free" value="1" {product.shippingFree ? 'checked' : ''} />
-                        Versandkostenfrei
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h2>Kategorien & Hersteller</h2>
-
-                <div class="form-group">
-                    <label for="manufacturer">Hersteller</label>
-                    <select id="manufacturer" name="manufacturer">
-                        <option value="">-- Keine --</option>
-                        <f:for each="{manufacturers}" as="mfr">
-                            <option value="{mfr.uid}" {product.manufacturer.uid == mfr.uid ? 'selected' : ''}>
-                                {mfr.title}
-                            </option>
-                        </f:for>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Kategorien</label>
-                    <div class="checkbox-group">
-                        <f:for each="{categories}" as="cat">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="categories[]" value="{cat.uid}" <f:if condition="{cat.isSelected}">checked="checked"</f:if> />
-                                {cat.title}
-                            </label>
-                        </f:for>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Beschreibung</label>
+                        <textarea id="description" name="description" class="form-control" rows="6">{product.description}</textarea>
                     </div>
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2>Bilder</h2>
-                <f:if condition="{product.images}">
-                    <f:then>
-                        <div class="media-gallery">
-                            <f:for each="{product.images}" as="image">
-                                <div class="media-item">
-                                    <img src="{image.originalResource.publicUrl}" alt="Produktbild" style="max-width: 100px; max-height: 100px;" />
-                                    <p>{image.originalResource.name}</p>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="alert('Bild-Löschung muss im Backend erfolgen')">Löschen</button>
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Preise & Lager</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="price" class="form-label">Preis (€) *</label>
+                            <input type="number" id="price" name="price" class="form-control" step="0.01" value="{product.price}" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="special_price" class="form-label">Sonderpreis (€)</label>
+                            <input type="number" id="special_price" name="special_price" class="form-control" step="0.01" value="{product.specialPrice}" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="stock" class="form-label">Lagerbestand</label>
+                            <input type="number" id="stock" name="stock" class="form-control" value="{product.stock}" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="weight" class="form-label">Gewicht (kg)</label>
+                            <input type="number" id="weight" name="weight" class="form-control" step="0.001" value="{product.weight}" />
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" id="shipping_free" name="shipping_free" class="form-check-input" value="1" <f:if condition="{product.shippingFree}">checked</f:if> />
+                        <label class="form-check-label" for="shipping_free">Versandkostenfrei</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Kategorien & Hersteller</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="manufacturer" class="form-label">Hersteller</label>
+                        <select id="manufacturer" name="manufacturer" class="form-select">
+                            <option value="">-- Keine --</option>
+                            <f:for each="{manufacturers}" as="mfr">
+                                <option value="{mfr.uid}" <f:if condition="{product.manufacturer.uid} == {mfr.uid}">selected</f:if>>
+                                    {mfr.title}
+                                </option>
+                            </f:for>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Kategorien</label>
+                        <div class="border rounded p-3">
+                            <f:for each="{categories}" as="cat">
+                                <div class="form-check">
+                                    <input type="checkbox" id="cat_{cat.uid}" name="categories[]" class="form-check-input" value="{cat.uid}" <f:if condition="{cat.isSelected}">checked</f:if> />
+                                    <label class="form-check-label" for="cat_{cat.uid}">{cat.title}</label>
                                 </div>
                             </f:for>
                         </div>
-                    </f:then>
-                    <f:else>
-                        <p style="color: #999;">Keine Bilder vorhanden</p>
-                    </f:else>
-                </f:if>
-                <p style="font-size: 0.9em; color: #666;">Bilder können in der Backend-Verwaltung hinzugefügt werden.</p>
-            </div>
-
-            <div class="form-section">
-                <h2>Videos</h2>
-                <f:if condition="{product.videos}">
-                    <f:then>
-                        <div class="media-list">
-                            <f:for each="{product.videos}" as="video">
-                                <div class="media-item" style="margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-left: 3px solid #007bff;">
-                                    <strong>{video.title}</strong>
-                                    <p>URL: <code>{video.url}</code></p>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="alert('Video-Löschung muss im Backend erfolgen')">Löschen</button>
-                                </div>
-                            </f:for>
-                        </div>
-                    </f:then>
-                    <f:else>
-                        <p style="color: #999;">Keine Videos vorhanden</p>
-                    </f:else>
-                </f:if>
-                <p style="font-size: 0.9em; color: #666;">Videos können in der Backend-Verwaltung hinzugefügt werden.</p>
-            </div>
-
-            <div class="form-section">
-                <h2>Dokumente</h2>
-                <f:if condition="{product.documents}">
-                    <f:then>
-                        <div class="media-list">
-                            <f:for each="{product.documents}" as="document">
-                                <div class="media-item" style="margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-left: 3px solid #28a745;">
-                                    <strong>{document.title}</strong>
-                                    <p>Datei: <code>{document.file.originalResource.name}</code></p>
-                                    <a href="{document.file.originalResource.publicUrl}" class="btn btn-primary btn-sm" target="_blank">Download</a>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="alert('Dokument-Löschung muss im Backend erfolgen')">Löschen</button>
-                                </div>
-                            </f:for>
-                        </div>
-                    </f:then>
-                    <f:else>
-                        <p style="color: #999;">Keine Dokumente vorhanden</p>
-                    </f:else>
-                </f:if>
-                <p style="font-size: 0.9em; color: #666;">Dokumente können in der Backend-Verwaltung hinzugefügt werden.</p>
-            </div>
-
-            <div class="form-section">
-                <h2>Links</h2>
-                <f:if condition="{product.links}">
-                    <f:then>
-                        <div class="media-list">
-                            <f:for each="{product.links}" as="link">
-                                <div class="media-item" style="margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-left: 3px solid #6c757d;">
-                                    <strong>{link.title}</strong>
-                                    <p>URL: <a href="{link.url}" target="_blank">{link.url}</a></p>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="alert('Link-Löschung muss im Backend erfolgen')">Löschen</button>
-                                </div>
-                            </f:for>
-                        </div>
-                    </f:then>
-                    <f:else>
-                        <p style="color: #999;">Keine Links vorhanden</p>
-                    </f:else>
-                </f:if>
-                <p style="font-size: 0.9em; color: #666;">Links können in der Backend-Verwaltung hinzugefügt werden.</p>
-            </div>
-
-            <div class="form-section">
-                <h2>Status</h2>
-
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="is_active" value="1" {product.isActive ? 'checked' : ''} />
-                        Produkt ist aktiv
-                    </label>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-actions">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Bilder</h5>
+                </div>
+                <div class="card-body">
+                    <f:if condition="{product.images}">
+                        <f:then>
+                            <div class="row g-3">
+                                <f:for each="{product.images}" as="image">
+                                    <div class="col-md-3">
+                                        <div class="card h-100">
+                                            <img src="{image.originalResource.publicUrl}" class="card-img-top" alt="Produktbild" />
+                                            <div class="card-body p-2">
+                                                <small class="text-muted">{image.originalResource.name}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:for>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <p class="text-muted">Keine Bilder vorhanden</p>
+                        </f:else>
+                    </f:if>
+                    <p class="small text-muted mt-2">Bilder können in der Backend-Verwaltung hinzugefügt werden.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Videos</h5>
+                </div>
+                <div class="card-body">
+                    <f:if condition="{product.videos}">
+                        <f:then>
+                            <div class="list-group list-group-flush">
+                                <f:for each="{product.videos}" as="video">
+                                    <div class="list-group-item">
+                                        <h6 class="mb-1">{video.title}</h6>
+                                        <code class="text-muted small">{video.url}</code>
+                                    </div>
+                                </f:for>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <p class="text-muted">Keine Videos vorhanden</p>
+                        </f:else>
+                    </f:if>
+                    <p class="small text-muted mt-2">Videos können in der Backend-Verwaltung hinzugefügt werden.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Dokumente</h5>
+                </div>
+                <div class="card-body">
+                    <f:if condition="{product.documents}">
+                        <f:then>
+                            <div class="list-group list-group-flush">
+                                <f:for each="{product.documents}" as="document">
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">{document.title}</h6>
+                                            <code class="text-muted small">{document.file.originalResource.name}</code>
+                                        </div>
+                                        <a href="{document.file.originalResource.publicUrl}" class="btn btn-sm btn-primary" target="_blank">Download</a>
+                                    </div>
+                                </f:for>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <p class="text-muted">Keine Dokumente vorhanden</p>
+                        </f:else>
+                    </f:if>
+                    <p class="small text-muted mt-2">Dokumente können in der Backend-Verwaltung hinzugefügt werden.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Links</h5>
+                </div>
+                <div class="card-body">
+                    <f:if condition="{product.links}">
+                        <f:then>
+                            <div class="list-group list-group-flush">
+                                <f:for each="{product.links}" as="link">
+                                    <div class="list-group-item">
+                                        <h6 class="mb-1">{link.title}</h6>
+                                        <a href="{link.url}" target="_blank" class="text-decoration-none">{link.url}</a>
+                                    </div>
+                                </f:for>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <p class="text-muted">Keine Links vorhanden</p>
+                        </f:else>
+                    </f:if>
+                    <p class="small text-muted mt-2">Links können in der Backend-Verwaltung hinzugefügt werden.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="m-0">Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-check">
+                        <input type="checkbox" id="is_active" name="is_active" class="form-check-input" value="1" <f:if condition="{product.isActive}">checked</f:if> />
+                        <label class="form-check-label" for="is_active">Produkt ist aktiv</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mb-4">
                 <button type="submit" class="btn btn-success">Speichern</button>
                 <f:link.action action="listProducts" class="btn btn-secondary">Abbrechen</f:link.action>
             </div>
         </form>
-
-        <style>
-            .form-edit {
-                background: white;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                padding: 30px;
-                margin-top: 20px;
-            }
-
-            .form-section {
-                margin-bottom: 30px;
-                padding-bottom: 30px;
-                border-bottom: 1px solid #eee;
-            }
-
-            .form-section:last-child {
-                border-bottom: none;
-            }
-
-            .form-section h2 {
-                font-size: 1.3em;
-                margin-bottom: 20px;
-                color: #333;
-            }
-
-            .form-group {
-                margin-bottom: 20px;
-            }
-
-            .form-row {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
-
-            .form-group label {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: bold;
-                color: #333;
-            }
-
-            .form-group input[type="text"],
-            .form-group input[type="number"],
-            .form-group textarea,
-            .form-group select {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-size: 1em;
-                font-family: inherit;
-            }
-
-            .form-group input:focus,
-            .form-group textarea:focus,
-            .form-group select:focus {
-                outline: none;
-                border-color: #007bff;
-                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-            }
-
-            .form-group textarea {
-                resize: vertical;
-            }
-
-            .checkbox-group {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 12px;
-                margin-top: 10px;
-            }
-
-            .checkbox-label {
-                display: flex;
-                align-items: center;
-                font-weight: normal;
-            }
-
-            .checkbox-label input[type="checkbox"] {
-                margin-right: 8px;
-            }
-
-            .form-actions {
-                margin-top: 30px;
-                display: flex;
-                gap: 10px;
-            }
-
-            .btn {
-                padding: 12px 24px;
-                border-radius: 4px;
-                text-decoration: none;
-                font-size: 1em;
-                border: none;
-                cursor: pointer;
-                transition: all 0.2s;
-                font-weight: bold;
-            }
-
-            .btn-success {
-                background: #28a745;
-                color: white;
-            }
-
-            .btn-success:hover {
-                background: #218838;
-            }
-
-            .btn-secondary {
-                background: #6c757d;
-                color: white;
-            }
-
-            .btn-secondary:hover {
-                background: #5a6268;
-            }
-
-            .media-gallery {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 15px;
-                margin-bottom: 15px;
-            }
-
-            .media-item {
-                text-align: center;
-                padding: 10px;
-                background: #f9f9f9;
-                border-radius: 4px;
-            }
-
-            .media-gallery .media-item img {
-                border-radius: 4px;
-                margin-bottom: 10px;
-            }
-
-            .media-list {
-                margin-bottom: 15px;
-            }
-
-            @media (max-width: 768px) {
-                .form-row {
-                    grid-template-columns: 1fr;
-                }
-                .checkbox-group {
-                    grid-template-columns: 1fr;
-                }
-                .media-gallery {
-                    grid-template-columns: 1fr;
-                }
-            }
-        </style>
     </div>
 </f:section>
 </html>

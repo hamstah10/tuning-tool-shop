@@ -1,31 +1,42 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <div class="widget-content">
     <div class="widget-header">
-        <h2><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title" /></h2>
+        <h2>
+            <f:translate
+                key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.title" />
+        </h2>
     </div>
 
     <div class="widget-stats">
         <div class="stat-box">
             <div class="stat-value">{totalProducts}</div>
-            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.total" /></div>
+            <div class="stat-label">
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.total" />
+            </div>
         </div>
     </div>
 
-    <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.recent" /></h3>
+    <h3>
+        <f:translate
+            key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.recent" />
+    </h3>
     <f:if condition="{recentProducts}">
         <f:then>
             <ul class="product-list">
                 <f:for each="{recentProducts}" as="product">
                     <li class="product-item">
                         <div class="product-name">{product.title}</div>
-                        <div class="product-price">€ {product.price | f:format.currency(currencySign: '€', decimals: 2)}</div>
+                        <div class="product-price">€ {product.price | f:format.currency(currencySign: '€', decimals: 2)}
+                        </div>
                     </li>
                 </f:for>
             </ul>
         </f:then>
         <f:else>
             <div class="text-center text-muted">
-                <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.noProducts" />
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.products.noProducts" />
             </div>
         </f:else>
     </f:if>
@@ -57,7 +68,7 @@
 
     .stat-box {
         padding: 1rem;
-        background-color: #f8f9fa;
+        background-color: #bd1e23;
         border-radius: 0.25rem;
         text-align: center;
     }
@@ -118,5 +129,7 @@
     .text-muted {
         color: #6c757d;
     }
+
 </style>
+
 </html>

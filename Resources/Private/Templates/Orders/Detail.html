@@ -6,7 +6,7 @@
 <f:section name="main">
     <div class="tts-order-detail">
         <div class="mb-4">
-            <f:link.action action="list" controller="Orders" class="btn btn-outline-primary">
+            <f:link.action action="list" controller="Orders" class="btn btn-primary">
                 ← Zurück zu Bestellungen
             </f:link.action>
         </div>
@@ -110,14 +110,14 @@
 
         <!-- Bestellte Produkte -->
         <div class="card mb-5">
-            <div class="card-header bg-light">
+            <div class="card-header bg_gray_dark">
                 <h5 class="mb-0">Bestellte Produkte</h5>
             </div>
             <div class="card-body">
                 <f:if condition="{order.itemsJson}">
                     <div class="table-responsive">
                         <table class="table mb-0">
-                            <thead class="table-light">
+                            <thead class=" ">
                                 <tr>
                                     <th>Produkt</th>
                                     <th class="text-center">Menge</th>
@@ -154,7 +154,7 @@
             <!-- Rechnungsadresse -->
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-light">
+                    <div class="card-header bg_gray_dark">
                         <h5 class="mb-0">Rechnungsadresse</h5>
                     </div>
                     <div class="card-body">
@@ -174,7 +174,7 @@
             <!-- Lieferadresse -->
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-light">
+                    <div class="card-header bg_gray_dark">
                         <h5 class="mb-0">Lieferadresse</h5>
                     </div>
                     <div class="card-body">
@@ -205,7 +205,7 @@
         <div class="row g-4 mb-5">
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-light">
+                    <div class="card-header bg_gray_dark">
                         <h5 class="mb-0">Zahlungsmethode</h5>
                     </div>
                     <div class="card-body">
@@ -220,7 +220,7 @@
 
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-light">
+                    <div class="card-header bg_gray_dark">
                         <h5 class="mb-0">Versandmethode</h5>
                     </div>
                     <div class="card-body">
@@ -239,7 +239,7 @@
 
         <!-- Bestellübersicht -->
         <div class="card mb-5">
-            <div class="card-header bg-light">
+            <div class="card-header bg_gray_dark">
                 <h5 class="mb-0">Bestellübersicht</h5>
             </div>
             <div class="card-body">
@@ -270,7 +270,7 @@
         <!-- Bemerkungen -->
         <f:if condition="{order.comment}">
             <div class="card mb-5">
-                <div class="card-header bg-light">
+                <div class="card-header bg_gray_dark">
                     <h5 class="mb-0">Bemerkungen</h5>
                 </div>
                 <div class="card-body">

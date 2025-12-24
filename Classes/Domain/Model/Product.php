@@ -126,6 +126,13 @@ class Product extends AbstractEntity
     #[Extbase\ORM\Lazy]
     protected ObjectStorage $tags;
 
+    /**
+     * @var ObjectStorage<ProductOption>
+     */
+    #[Extbase\ORM\Lazy]
+    #[Extbase\ORM\Cascade(['value' => 'remove'])]
+    protected ObjectStorage $options;
+
     public function __construct()
     {
         $this->initializeObject();
@@ -142,6 +149,7 @@ class Product extends AbstractEntity
         $this->shippingMethods = new ObjectStorage();
         $this->relatedProducts = new ObjectStorage();
         $this->tags = new ObjectStorage();
+        $this->options = new ObjectStorage();
     }
 
     public function getTitle(): string
@@ -684,5 +692,31 @@ class Product extends AbstractEntity
     public function removeTag(Tag $tag): void
     {
         $this->tags->detach($tag);
+    }
+
+    /**
+     * @return ObjectStorage<ProductOption>
+     */
+    public function getOptions(): ObjectStorage
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param ObjectStorage<ProductOption> $options
+     */
+    public function setOptions(ObjectStorage $options): void
+    {
+        $this->options = $options;
+    }
+
+    public function addOption(ProductOption $option): void
+    {
+        $this->options->attach($option);
+    }
+
+    public function removeOption(ProductOption $option): void
+    {
+        $this->options->detach($option);
     }
 }

@@ -129,6 +129,9 @@
 			<trans-unit id="tabs.starter_package" resname="tabs.starter_package">
 				<source>Starter Paket</source>
 			</trans-unit>
+			<trans-unit id="tabs.options" resname="tabs.options">
+				<source>Optionen</source>
+			</trans-unit>
 			<trans-unit id="tabs.seo" resname="tabs.seo">
 				<source>SEO</source>
 			</trans-unit>
@@ -414,6 +417,12 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.normal" resname="tx_tuningtoolshop_domain_model_product.product_type.normal">
 				<source>Normal</source>
 			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.configurable" resname="tx_tuningtoolshop_domain_model_product.product_type.configurable">
+				<source>Konfigurierbares Produkt</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.digital" resname="tx_tuningtoolshop_domain_model_product.product_type.digital">
+				<source>Digitales Produkt</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.product_type.starter" resname="tx_tuningtoolshop_domain_model_product.product_type.starter">
 				<source>Starter Paket</source>
 			</trans-unit>
@@ -531,6 +540,9 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_product.tags" resname="tx_tuningtoolshop_domain_model_product.tags">
 				<source>Tags</source>
 			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_product.options" resname="tx_tuningtoolshop_domain_model_product.options">
+				<source>Produktoptionen</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_tag" resname="tx_tuningtoolshop_domain_model_tag">
 				<source>Tag</source>
 			</trans-unit>
@@ -611,6 +623,51 @@
 			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_productlink.url" resname="tx_tuningtoolshop_domain_model_productlink.url">
 				<source>URL</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption" resname="tx_tuningtoolshop_domain_model_productoption">
+				<source>Produktoption</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.title" resname="tx_tuningtoolshop_domain_model_productoption.title">
+				<source>Optionsname</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.type" resname="tx_tuningtoolshop_domain_model_productoption.type">
+				<source>Eingabetyp</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.type.select" resname="tx_tuningtoolshop_domain_model_productoption.type.select">
+				<source>Dropdown (Select)</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.type.checkbox" resname="tx_tuningtoolshop_domain_model_productoption.type.checkbox">
+				<source>Checkboxen</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.type.radio" resname="tx_tuningtoolshop_domain_model_productoption.type.radio">
+				<source>Radiobuttons</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.is_required" resname="tx_tuningtoolshop_domain_model_productoption.is_required">
+				<source>Erforderlich</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoption.values" resname="tx_tuningtoolshop_domain_model_productoption.values">
+				<source>Optionswerte</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue" resname="tx_tuningtoolshop_domain_model_productoptionvalue">
+				<source>Optionswert</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue.title" resname="tx_tuningtoolshop_domain_model_productoptionvalue.title">
+				<source>Wertname</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue.description" resname="tx_tuningtoolshop_domain_model_productoptionvalue.description">
+				<source>Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue.image" resname="tx_tuningtoolshop_domain_model_productoptionvalue.image">
+				<source>Bild</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue.price_modifier" resname="tx_tuningtoolshop_domain_model_productoptionvalue.price_modifier">
+				<source>Aufpreis</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue.price_modifier.description" resname="tx_tuningtoolshop_domain_model_productoptionvalue.price_modifier.description">
+				<source>EUR-Betrag, der zum Grundpreis addiert wird. Beispiele: 0 = Keine Zusatzkosten, 50.00 = +50 EUR, -20.00 = 20 EUR Rabatt</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_productoptionvalue.special_price" resname="tx_tuningtoolshop_domain_model_productoptionvalue.special_price">
+				<source>Sonderpreis</source>
 			</trans-unit>
 			</body>
 			</file>

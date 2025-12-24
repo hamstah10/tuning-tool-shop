@@ -247,6 +247,30 @@ CREATE TABLE tx_tuningtoolshop_product_tag_mm (
 );
 
 #
+# Table structure for table 'tx_tuningtoolshop_domain_model_productoption'
+#
+CREATE TABLE tx_tuningtoolshop_domain_model_productoption (
+    title varchar(255) NOT NULL DEFAULT '',
+    type varchar(50) NOT NULL DEFAULT 'select',
+    is_required tinyint(1) unsigned NOT NULL DEFAULT 0,
+    product int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0
+);
+
+#
+# Table structure for table 'tx_tuningtoolshop_domain_model_productoptionvalue'
+#
+CREATE TABLE tx_tuningtoolshop_domain_model_productoptionvalue (
+    title varchar(255) NOT NULL DEFAULT '',
+    description text,
+    price_modifier decimal(10,2) NOT NULL DEFAULT 0.00,
+    special_price decimal(10,2) NOT NULL DEFAULT 0.00,
+    image int unsigned NOT NULL DEFAULT 0,
+    product_option int unsigned NOT NULL DEFAULT 0,
+    sorting int unsigned NOT NULL DEFAULT 0
+);
+
+#
 # Table structure for table 'tx_tuningtoolshop_domain_model_productlink'
 #
 CREATE TABLE tx_tuningtoolshop_domain_model_productlink (

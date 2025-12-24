@@ -1,28 +1,54 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <div class="widget-content">
     <div class="widget-header">
-        <h2><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.title" /></h2>
+        <h2>
+            <f:translate
+                key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.title" />
+        </h2>
     </div>
 
     <div class="widget-stats">
         <div class="stat-box">
             <div class="stat-value">€ {totalRevenue | f:format.currency(currencySign: '€', decimals: 2)}</div>
-            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.totalRevenue" /></div>
+            <div class="stat-label">
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.totalRevenue" />
+            </div>
         </div>
         <div class="stat-box">
-            <div class="stat-value"><f:count>{pendingOrders}</f:count></div>
-            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.pendingOrders" /></div>
+            <div class="stat-value">
+                <f:count>{pendingOrders}</f:count>
+            </div>
+            <div class="stat-label">
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.pendingOrders" />
+            </div>
         </div>
     </div>
 
-    <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.recentOrders" /></h3>
+    <h3>
+        <f:translate
+            key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.recentOrders" />
+    </h3>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.orderNumber" /></th>
-                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.customer" /></th>
-                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.amount" /></th>
-                <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.status" /></th>
+                <th>
+                    <f:translate
+                        key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.orderNumber" />
+                </th>
+                <th>
+                    <f:translate
+                        key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.customer" />
+                </th>
+                <th>
+                    <f:translate
+                        key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.amount" />
+                </th>
+                <th>
+                    <f:translate
+                        key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.status" />
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -35,12 +61,17 @@
                             <td>€ {order.total | f:format.currency(currencySign: '€', decimals: 2)}</td>
                             <td>
                                 <f:switch expression="{order.status}">
-                                    <f:case value="0"><span class="badge badge-danger">{order.statusLabel}</span></f:case>
-                                    <f:case value="1"><span class="badge badge-warning">{order.statusLabel}</span></f:case>
+                                    <f:case value="0"><span class="badge badge-danger">{order.statusLabel}</span>
+                                    </f:case>
+                                    <f:case value="1"><span class="badge badge-warning">{order.statusLabel}</span>
+                                    </f:case>
                                     <f:case value="2"><span class="badge badge-info">{order.statusLabel}</span></f:case>
-                                    <f:case value="3"><span class="badge badge-primary">{order.statusLabel}</span></f:case>
-                                    <f:case value="4"><span class="badge badge-success">{order.statusLabel}</span></f:case>
-                                    <f:defaultCase><span class="badge badge-secondary">{order.statusLabel}</span></f:defaultCase>
+                                    <f:case value="3"><span class="badge badge-primary">{order.statusLabel}</span>
+                                    </f:case>
+                                    <f:case value="4"><span class="badge badge-success">{order.statusLabel}</span>
+                                    </f:case>
+                                    <f:defaultCase><span class="badge badge-secondary">{order.statusLabel}</span>
+                                    </f:defaultCase>
                                 </f:switch>
                             </td>
                         </tr>
@@ -49,7 +80,8 @@
                 <f:else>
                     <tr>
                         <td colspan="4" class="text-center text-muted">
-                            <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.noOrders" />
+                            <f:translate
+                                key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.orders.noOrders" />
                         </td>
                     </tr>
                 </f:else>
@@ -84,7 +116,7 @@
 
     .stat-box {
         padding: 1rem;
-        background-color: #f8f9fa;
+        background-color: #bd1e23;
         border-radius: 0.25rem;
         text-align: center;
     }
@@ -148,5 +180,7 @@
     .text-muted {
         color: #6c757d;
     }
+
 </style>
+
 </html>

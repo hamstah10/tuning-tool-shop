@@ -160,6 +160,17 @@ ExtensionUtility::configurePlugin(
     ]
 );
 
+// Register nnrestapi endpoints
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['nnrestapi'])) {
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['nnrestapi']['classes'] = array_merge(
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['nnrestapi']['classes'] ?? [],
+        [
+            'Hamstahstudio\\TuningToolShop\\Api\\Product',
+            'Hamstahstudio\\TuningToolShop\\Api\\Order',
+        ]
+    );
+}
+
 // Register dashboard widget groups
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] = array_merge(
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] ?? [],

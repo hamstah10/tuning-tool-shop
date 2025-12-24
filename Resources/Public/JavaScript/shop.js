@@ -432,5 +432,13 @@
 $(function() {
 	$('.image-div').matchHeight();
     const offcanvasElementList = document.querySelectorAll('.offcanvas')
-const offcanvasList = [...offcanvasElementList].map(offcanvasEl => new bootstrap.Offcanvas(offcanvasEl))
+    const offcanvasList = [...offcanvasElementList].map(offcanvasEl => new bootstrap.Offcanvas(offcanvasEl))
+        const tableProduct = document.querySelector('#tableProduct')
+        if (tableProduct) {
+            new DataTable(tableProduct)
+        }
+        const tablePrice = document.querySelector('#priceTable')
+        if (tablePrice) {
+            new DataTable(tablePrice)
+        }
 });

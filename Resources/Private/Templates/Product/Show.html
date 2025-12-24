@@ -66,6 +66,9 @@
                             <small class="text-muted d-block mt-2">zzgl. MwSt. und Versandkosten</small>
                         </div>
 
+                        <!-- Product Options -->
+                        <f:render partial="Product/Options" arguments="{product: product, cartPid: cartPid}" />
+
                         <!-- Stock Status -->
                         <div class="mb-4">
                             <f:if condition="{product.stock} > 0 && {settings.showStock} == 1">
@@ -399,6 +402,10 @@
                         </f:if>
                         <small class="text-muted d-block mt-1">zzgl. MwSt. und Versandkosten</small>
                     </div>
+
+                    <!-- Product Options -->
+                    <f:render partial="Product/Options" arguments="{product: product, cartPid: cartPid}" />
+
                      <f:if condition="{product.shortDescription}">
                         <div class="mb-5 text-muted">
                             <f:format.html>{product.shortDescription}</f:format.html>
