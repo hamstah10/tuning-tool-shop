@@ -1,0 +1,8 @@
+.. This includes file is used to define all the snippets that are included
+   elsewhere in this manual.
+
+.. |---|  unicode:: U+2013 .. EN DASH
+   :trim:
+
+.. |_version| replace:: 1.0.0
+.. |_year| date:: %Y

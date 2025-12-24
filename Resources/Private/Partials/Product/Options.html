@@ -1,0 +1,248 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{product.options}">
+    <div class="product-options mb-4 p-4">
+        <h4 class="mb-3">Produktoptionen</h4>
+        
+        <div class="product-options-form" data-base-price="{product.price}">
+            <f:for each="{product.options}" as="option" iteration="iteration">
+                <div class="option-group mb-3">
+                    <label class="form-label fw-bold">
+                        {option.title}
+                        <f:if condition="{option.isRequired}">
+                            <span class="text-danger">*</span>
+                        </f:if>
+                    </label>
+                    
+                    <!-- Select Dropdown -->
+                    <f:if condition="{option.type} == 'select'">
+                        <select name="options[{option.uid}]" class="form-select option-select" 
+                                <f:if condition="{option.isRequired}">required</f:if>
+                                data-option-id="{option.uid}">
+                            <option value="" data-price="0">-- Bitte wählen --</option>
+                            <f:for each="{option.values}" as="value" iteration="valueIter">
+                                <option value="{value.uid}" data-price="{value.priceModifier}">
+                                    {value.title}
+                                    <f:if condition="{value.priceModifier}">
+                                        <f:then> (+<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{value.priceModifier}</f:format.currency>)</f:then>
+                                    </f:if>
+                                </option>
+                            </f:for>
+                        </select>
+                    </f:if>
+                    
+                    <!-- Radio Buttons -->
+                    <f:if condition="{option.type} == 'radio'">
+                        <div class="option-radio-group">
+                            <f:for each="{option.values}" as="value" iteration="valueIter">
+                                <div class="form-check">
+                                    <input class="form-check-input option-radio" type="radio" 
+                                           name="options[{option.uid}]" 
+                                           value="{value.uid}" 
+                                           id="option-{option.uid}-{valueIter.index}"
+                                           data-price="{value.priceModifier}"
+                                           data-modal-id="modal-{option.uid}-{value.uid}"
+                                           <f:if condition="{option.isRequired}">required</f:if>>
+                                    <label class="form-check-label" for="option-{option.uid}-{valueIter.index}">
+                                        {value.title}
+                                        <f:if condition="{value.priceModifier}">
+                                            <small class="text-muted">(+<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{value.priceModifier}</f:format.currency>)</small>
+                                        </f:if>
+                                        <f:if condition="{value.description} || {value.image}">
+                                            <button type="button" class="btn btn-link btn-sm p-0 ms-2 option-detail-btn" data-modal-id="modal-{option.uid}-{value.uid}">
+                                                <i class="bi bi-info-circle"></i> Details
+                                            </button>
+                                        </f:if>
+                                    </label>
+                                </div>
+                                
+                                <!-- Modal für Details -->
+                                <f:if condition="{value.description} || {value.image}">
+                                    <div class="modal fade" id="modal-{option.uid}-{value.uid}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{value.title}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <f:if condition="{value.image}">
+                                                        <div class="mb-3">
+                                                            <f:for each="{value.image}" as="img">
+                                                                <f:image image="{img}" alt="{value.title}" class="img-fluid rounded" />
+                                                            </f:for>
+                                                        </div>
+                                                    </f:if>
+                                                    
+                                                    <f:if condition="{value.description}">
+                                                        <div class="mb-3">
+                                                            <h6 class="text-muted">Beschreibung:</h6>
+                                                            <p>{value.description}</p>
+                                                        </div>
+                                                    </f:if>
+                                                    
+                                                    <f:if condition="{value.specialPrice}">
+                                                        <div class="alert alert-info">
+                                                            <strong>Sonderpreis:</strong> <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{value.specialPrice}</f:format.currency>
+                                                        </div>
+                                                    </f:if>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:if>
+                            </f:for>
+                        </div>
+                    </f:if>
+                    
+                    <!-- Checkboxes -->
+                    <f:if condition="{option.type} == 'checkbox'">
+                        <div class="option-checkbox-group">
+                            <f:for each="{option.values}" as="value" iteration="valueIter">
+                                <div class="form-check">
+                                    <input class="form-check-input option-checkbox" type="checkbox" 
+                                           name="options[{option.uid}][]" 
+                                           value="{value.uid}" 
+                                           id="option-{option.uid}-{valueIter.index}"
+                                           data-price="{value.priceModifier}"
+                                           data-modal-id="modal-{option.uid}-{value.uid}">
+                                    <label class="form-check-label" for="option-{option.uid}-{valueIter.index}">
+                                        {value.title}
+                                        <f:if condition="{value.priceModifier}">
+                                            <small class="text-muted">(+<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{value.priceModifier}</f:format.currency>)</small>
+                                        </f:if>
+                                        <f:if condition="{value.description} || {value.image}">
+                                            <button type="button" class="btn btn-link btn-sm p-0 ms-2 option-detail-btn" data-modal-id="modal-{option.uid}-{value.uid}">
+                                                <i class="bi bi-info-circle"></i> Details
+                                            </button>
+                                        </f:if>
+                                    </label>
+                                </div>
+                                
+                                <!-- Modal für Details -->
+                                <f:if condition="{value.description} || {value.image}">
+                                    <div class="modal fade" id="modal-{option.uid}-{value.uid}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{value.title}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <f:if condition="{value.image}">
+                                                        <div class="mb-3">
+                                                            <f:for each="{value.image}" as="img">
+                                                                <f:image image="{img}" alt="{value.title}" class="img-fluid rounded" />
+                                                            </f:for>
+                                                        </div>
+                                                    </f:if>
+                                                    
+                                                    <f:if condition="{value.description}">
+                                                        <div class="mb-3">
+                                                            <h6 class="text-muted">Beschreibung:</h6>
+                                                            <p>{value.description}</p>
+                                                        </div>
+                                                    </f:if>
+                                                    
+                                                    <f:if condition="{value.specialPrice}">
+                                                        <div class="alert alert-info">
+                                                            <strong>Sonderpreis:</strong> <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{value.specialPrice}</f:format.currency>
+                                                        </div>
+                                                    </f:if>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:if>
+                            </f:for>
+                        </div>
+                    </f:if>
+                </div>
+            </f:for>
+            
+            <!-- Price Display with Option Modifier -->
+            <div class="alert alert-info mt-4" id="option-price-display">
+                <strong>Gesamtpreis:</strong> <span id="total-price"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{product.price}</f:format.currency></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const optionsContainer = document.querySelector('.product-options-form');
+            if (!optionsContainer) return;
+            
+            const basePrice = parseFloat(optionsContainer.dataset.basePrice) || 0;
+            const priceDisplay = document.getElementById('total-price');
+            
+            console.log('Base Price:', basePrice);
+            
+            function updatePrice() {
+                let totalModifier = 0;
+                
+                // Select dropdowns
+                document.querySelectorAll('.option-select').forEach(select => {
+                    const selectedOption = select.options[select.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.price) {
+                        const price = parseFloat(selectedOption.dataset.price) || 0;
+                        console.log('Select:', select.name, 'Price:', price);
+                        totalModifier += price;
+                    }
+                });
+                
+                // Radio buttons
+                document.querySelectorAll('.option-radio:checked').forEach(radio => {
+                    const price = parseFloat(radio.dataset.price) || 0;
+                    console.log('Radio:', radio.name, 'Price:', price);
+                    totalModifier += price;
+                });
+                
+                // Checkboxes
+                document.querySelectorAll('.option-checkbox:checked').forEach(checkbox => {
+                    const price = parseFloat(checkbox.dataset.price) || 0;
+                    console.log('Checkbox:', checkbox.name, 'Price:', price);
+                    totalModifier += price;
+                });
+                
+                const finalPrice = basePrice + totalModifier;
+                console.log('Total Modifier:', totalModifier, 'Final Price:', finalPrice);
+                
+                const formatter = new Intl.NumberFormat('de-DE', {
+                    style: 'currency',
+                    currency: 'EUR'
+                });
+                priceDisplay.textContent = formatter.format(finalPrice);
+            }
+            
+            // Attach change listeners
+            document.querySelectorAll('.option-select, .option-radio, .option-checkbox').forEach(elem => {
+                elem.addEventListener('change', updatePrice);
+            });
+            
+            // Modal detail buttons
+            document.querySelectorAll('.option-detail-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const modalId = this.dataset.modalId;
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        const bsModal = new bootstrap.Modal(modal);
+                        bsModal.show();
+                    }
+                });
+            });
+            
+            // Initial update
+            updatePrice();
+        })();
+    </script>
+</f:if>
+
+</html>

@@ -1,0 +1,605 @@
+openapi: 3.0.0
+info:
+  title: TuningToolShop REST API
+  description: REST API for products and orders in the tuning_tool_shop TYPO3 extension
+  version: 1.0.0
+  contact:
+    name: TuningToolShop Support
+    url: https://tfd.hamstahstudio.de
+  license:
+    name: MIT
+
+servers:
+  - url: https://tfd.hamstahstudio.de/api
+    description: Production server
+  - url: http://localhost:8000/api
+    description: Local development server
+
+tags:
+  - name: Products
+    description: Product API endpoints
+  - name: Orders
+    description: Order API endpoints
+
+paths:
+  /product/all:
+    get:
+      tags:
+        - Products
+      summary: Get all products
+      description: Retrieve a list of all products
+      operationId: getAllProducts
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  count:
+                    type: integer
+                    example: 10
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /product/{uid}:
+    get:
+      tags:
+        - Products
+      summary: Get product by ID
+      description: Retrieve a single product by its unique identifier
+      operationId: getProductById
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Product unique identifier
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /product/active:
+    get:
+      tags:
+        - Products
+      summary: Get active products
+      description: Retrieve all active products
+      operationId: getActiveProducts
+      responses:
+        '200':
+          description: List of active products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  count:
+                    type: integer
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /product/search:
+    get:
+      tags:
+        - Products
+      summary: Search products
+      description: Search products by term (name, description, etc.)
+      operationId: searchProducts
+      parameters:
+        - name: term
+          in: query
+          required: true
+          description: Search term
+          schema:
+            type: string
+            example: chiptuning
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  count:
+                    type: integer
+        '400':
+          description: Missing or invalid search term
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /product/recent:
+    get:
+      tags:
+        - Products
+      summary: Get recent products
+      description: Retrieve recently created or updated products
+      operationId: getRecentProducts
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of products to return
+          schema:
+            type: integer
+            default: 10
+            example: 5
+      responses:
+        '200':
+          description: List of recent products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  count:
+                    type: integer
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /product/sku:
+    get:
+      tags:
+        - Products
+      summary: Get product by SKU
+      description: Retrieve a product by its SKU (stock keeping unit)
+      operationId: getProductBySku
+      parameters:
+        - name: sku
+          in: query
+          required: true
+          description: Product SKU
+          schema:
+            type: string
+            example: CHT-001
+      responses:
+        '200':
+          description: Product with matching SKU
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Product'
+        '400':
+          description: Missing SKU parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Product with this SKU not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/all:
+    get:
+      tags:
+        - Orders
+      summary: Get all orders
+      description: Retrieve a list of all orders
+      operationId: getAllOrders
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  count:
+                    type: integer
+                    example: 5
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/{uid}:
+    get:
+      tags:
+        - Orders
+      summary: Get order by ID
+      description: Retrieve a single order by its unique identifier
+      operationId: getOrderById
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Order unique identifier
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/number:
+    get:
+      tags:
+        - Orders
+      summary: Get order by number
+      description: Retrieve an order by its order number
+      operationId: getOrderByNumber
+      parameters:
+        - name: number
+          in: query
+          required: true
+          description: Order number
+          schema:
+            type: string
+            example: ORD-2024-0001
+      responses:
+        '200':
+          description: Order with matching number
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '400':
+          description: Missing order number parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/email:
+    get:
+      tags:
+        - Orders
+      summary: Get orders by customer email
+      description: Retrieve all orders for a specific customer email
+      operationId: getOrdersByEmail
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: Customer email address
+          schema:
+            type: string
+            format: email
+            example: customer@example.com
+      responses:
+        '200':
+          description: Orders for the specified email
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  count:
+                    type: integer
+        '400':
+          description: Missing or invalid email parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/status:
+    get:
+      tags:
+        - Orders
+      summary: Get orders by status
+      description: Retrieve all orders with a specific status
+      operationId: getOrdersByStatus
+      parameters:
+        - name: status
+          in: query
+          required: true
+          description: Order status code
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3, 4]
+            example: 2
+      responses:
+        '200':
+          description: Orders with the specified status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  count:
+                    type: integer
+        '400':
+          description: Missing or invalid status parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/recent:
+    get:
+      tags:
+        - Orders
+      summary: Get recent orders
+      description: Retrieve recently created or updated orders
+      operationId: getRecentOrders
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of orders to return
+          schema:
+            type: integer
+            default: 10
+            example: 5
+      responses:
+        '200':
+          description: List of recent orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  count:
+                    type: integer
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order/user:
+    get:
+      tags:
+        - Orders
+      summary: Get orders by user
+      description: Retrieve all orders for a specific frontend user
+      operationId: getOrdersByUser
+      parameters:
+        - name: user
+          in: query
+          required: true
+          description: Frontend user ID
+          schema:
+            type: integer
+            example: 123
+      responses:
+        '200':
+          description: Orders for the specified user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  count:
+                    type: integer
+        '400':
+          description: Missing or invalid user ID parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/Error'
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        uid:
+          type: integer
+          description: Product unique identifier
+          example: 1
+        title:
+          type: string
+          description: Product name
+          example: Chiptuning ECU Remap
+        description:
+          type: string
+          description: Product description
+          example: Professional ECU remapping service for performance tuning
+        sku:
+          type: string
+          description: Stock keeping unit
+          example: CHT-001
+        price:
+          type: number
+          format: float
+          description: Product price
+          example: 299.99
+        hidden:
+          type: boolean
+          description: Whether product is active (not hidden)
+          example: false
+        crdate:
+          type: string
+          format: date-time
+          description: Creation timestamp
+          example: '2024-01-15T10:30:00Z'
+        tstamp:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+          example: '2024-01-20T14:45:00Z'
+
+    Order:
+      type: object
+      properties:
+        uid:
+          type: integer
+          description: Order unique identifier
+          example: 1
+        order_number:
+          type: string
+          description: Order number
+          example: ORD-2024-0001
+        crdate:
+          type: string
+          format: date-time
+          description: Order creation timestamp
+          example: '2024-01-15T10:30:00Z'
+        tstamp:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+          example: '2024-01-20T14:45:00Z'
+        customer_email:
+          type: string
+          format: email
+          description: Customer email address
+          example: customer@example.com
+        fe_user:
+          type: integer
+          description: Frontend user ID
+          example: 123
+        total_price:
+          type: number
+          format: float
+          description: Total order price
+          example: 499.99
+        status:
+          type: integer
+          description: Order status code
+          enum: [0, 1, 2, 3, 4]
+          example: 2
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          description: Error message
+          example: Product not found
+
+  responses:
+    Error:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
