@@ -71,23 +71,50 @@ class SessionService
      */
     public function getSessionIdFromGlobals(): string
     {
-        // Check if frontend user is logged in
-        $frontendUser = $GLOBALS['TSFE']->fe_user ?? null;
-        if ($frontendUser !== null && isset($frontendUser->user['uid'])) {
-            return 'user_' . $frontendUser->user['uid'];
+        // 1. Check if frontend user is logged in
+        try {
+            $frontendUser = $GLOBALS['TSFE']?->fe_user;
+            if ($frontendUser !== null && is_array($frontendUser->user) && isset($frontendUser->user['uid'])) {
+                return 'user_' . $frontendUser->user['uid'];
+            }
+        } catch (\Throwable) {
+            // TSFE not available, continue with fallback
         }
 
-        // For anonymous users, use persistent cookie if available
-        if (isset($_COOKIE[self::COOKIE_NAME])) {
-            return $_COOKIE[self::COOKIE_NAME];
+        // 2. For anonymous users, use persistent cookie if available
+        if (isset($_COOKIE[self::COOKIE_NAME]) && !empty($_COOKIE[self::COOKIE_NAME])) {
+            $cookie = $_COOKIE[self::COOKIE_NAME];
+            // Only use it if it's an anonymous session (starts with 'anon_')
+            if (strpos($cookie, 'anon_') === 0) {
+                return $cookie;
+            }
         }
 
-        // If no cookie, try PHP session
-        if (session_id()) {
-            return 'session_' . session_id();
+        // 3. If no valid cookie, generate a new anonymous session
+        $newSessionId = 'anon_' . bin2hex(random_bytes(16));
+        
+        // Try to store it in cookie for next request
+        try {
+            $expires = time() + (365 * 24 * 60 * 60);
+            $secure = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+            
+            setcookie(
+                self::COOKIE_NAME,
+                $newSessionId,
+                [
+                    'expires' => $expires,
+                    'path' => '/',
+                    'domain' => '',
+                    'secure' => $secure,
+                    'httponly' => true,
+                    'samesite' => 'Lax',
+                ]
+            );
+            $_COOKIE[self::COOKIE_NAME] = $newSessionId;
+        } catch (\Throwable) {
+            // Cookie setting failed, continue anyway
         }
 
-        // Fallback: use a unique identifier
-        return 'anon_' . md5(php_uname() . time() . mt_rand());
+        return $newSessionId;
     }
 }

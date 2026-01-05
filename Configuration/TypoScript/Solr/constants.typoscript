@@ -1,0 +1,5 @@
+# Solr Product Settings
+plugin.tx_tuningtoolshop.settings {
+	# Page ID where the product detail view is located
+	productDetailPid = 
+}

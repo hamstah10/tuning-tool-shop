@@ -133,6 +133,8 @@ class Product extends AbstractEntity
     #[Extbase\ORM\Cascade(['value' => 'remove'])]
     protected ObjectStorage $options;
 
+    protected string $lexofficeProductId = '';
+
     public function __construct()
     {
         $this->initializeObject();
@@ -718,5 +720,15 @@ class Product extends AbstractEntity
     public function removeOption(ProductOption $option): void
     {
         $this->options->detach($option);
+    }
+
+    public function getLexofficeProductId(): string
+    {
+        return $this->lexofficeProductId;
+    }
+
+    public function setLexofficeProductId(string $lexofficeProductId): void
+    {
+        $this->lexofficeProductId = $lexofficeProductId;
     }
 }

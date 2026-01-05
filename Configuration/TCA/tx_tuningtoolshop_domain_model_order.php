@@ -319,6 +319,21 @@ return [
                 'default' => 0,
             ],
         ],
+        'export_status' => [
+            'exclude' => true,
+            'label' => 'Exportstatus',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['label' => 'Nicht exportiert', 'value' => 0],
+                    ['label' => 'Export läuft', 'value' => 1],
+                    ['label' => 'Exportiert', 'value' => 2],
+                    ['label' => 'Export fehlgeschlagen', 'value' => 3],
+                ],
+                'default' => 0,
+            ],
+        ],
         'total' => [
             'exclude' => true,
             'label' => 'LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang_db.xlf:tx_tuningtoolshop_domain_model_order.total',
@@ -436,7 +451,7 @@ return [
             'showitem' => 'subtotal, shipping_cost, discount, total',
         ],
         'status' => [
-            'showitem' => 'status, payment_status',
+            'showitem' => 'status, payment_status, export_status',
         ],
     ],
 ];

@@ -1,0 +1,49 @@
+image: php:8.1-cli
+
+clone:
+  depth: full
+
+definitions:
+  steps:
+    - step: &publish-ter
+        name: Publish to TER
+        caches:
+          - composer
+        script:
+          # Install required system packages
+          - apt-get update && apt-get install -y git unzip libzip-dev
+          - docker-php-ext-install zip
+
+          # Install Composer
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+          # Install TYPO3 TER Client
+          - composer global require typo3/tailor --no-interaction
+
+          # Add composer global bin to PATH
+          - export PATH="$PATH:$(composer global config bin-dir --absolute)"
+
+          # Debug: Show version info
+          - grep "version" ext_emconf.php
+          - echo "BITBUCKET_TAG='$BITBUCKET_TAG'"
+          - echo "VERSION='${BITBUCKET_TAG#v}'"
+          
+          # Upload extension to TER
+          # Tailor uses TYPO3_API_TOKEN or TYPO3_API_USERNAME + TYPO3_API_PASSWORD env vars
+          - export TYPO3_API_USERNAME="$TYPO3_TER_USERNAME"
+          - export TYPO3_API_PASSWORD="$TYPO3_TER_PASSWORD"
+          - export VERSION="${BITBUCKET_TAG#v}"
+          - echo "Publishing version '$VERSION' for nnrestapi"
+          - tailor ter:publish --comment "Release version $VERSION" "$VERSION" nnrestapi
+
+pipelines:
+  tags:
+    # Trigger on version tags like 12.0.1, v12.0.1, etc.
+    '[0-9]*.[0-9]*.[0-9]*':
+      - step: *publish-ter
+    'v[0-9]*.[0-9]*.[0-9]*':
+      - step: *publish-ter
+
+  custom:
+    publish-to-ter:
+      - step: *publish-ter

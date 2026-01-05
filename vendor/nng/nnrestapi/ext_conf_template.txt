@@ -1,0 +1,44 @@
+# cat=basic/auth; type=user[Nng\Nnhelpers\Helpers\ExtConfTemplateHelper->textfield]; label=API-Keys for BasicAuth. One user with key per line, user and key separeted with a colon
+apiKeys = examplefeUserName:exampleApiKey
+
+# cat=basic/tsfe; type=text; label=Session expires after seconds (0 = never)
+maxSessionLifetime = 3600
+
+# cat=basic/misc; type=boolean; label=Disable all default endpoints from nnrestapi
+disableDefaultEndpoints = 0
+
+# cat=basic/misc; type=boolean; label=Disable all warnings and checks during installation
+disablePreCheck = 0
+
+# cat=basic/misc; type=boolean; label=Disable donation information
+disableDonationWarning = 0
+
+# cat=basic/misc; type=text; label=Key for file encryption
+fileEncryptionKey =
+
+# cat=logging/custom/10; type=boolean; label=Enable custom logging: Allows logging of request to the API based on the @Api\Log() annotation
+loggingEnabled = 0
+
+# cat=logging/custom/20; type=options[all requests - except if disabled by @Api\Log(false) annotation (all)=all,only requests enabled by @Api\Log() annotation (explicit)=explicit,force logging of all requests - ignores Annotations (forced)=force]; label=Custom logging - what to log: Decides what to log based on the @Api\Log() annotation
+loggingMode = all
+
+# cat=logging/error/30; type=boolean; label=Enable error logging: Logs errors to the API
+errorLoggingEnabled = 0
+
+# cat=logging/error/40; type=options[all errors (all)=all,only critical errors like PHP exceptions (exception)=exception, only errors called by \nn\rest::ApiError() (api)=api]; label=Error logging - what to log: Decides what type of errors to log
+errorLoggingMode = all
+
+# cat=logging/clear/50; type=text; label=Remove log entries older than X days: The logs will be deleted by a scheduler task - make sure you include this task in your crontab
+loggingAutoClear = 7
+
+# cat=logging/clear/60; type=text; label=Duration of temporary logging in minutes: How long the logging will stay active when enabled it in the RestApi backend module
+loggingTempDuration = 30
+
+# cat=logging/clear/70; type=boolean; label=Save logs in logfile: Will keep a backup of the logfiles as CSV in /var/log after deleting them from the database.
+logfiles = 0
+
+# cat=logging/clear/80; type=options[Do not save (none)=none, anonymized IP (anonymized)=anonymized, hashed & salted IP (hashed)=hashed, Full IP (ip)=ip]; label=How to anonymize IP addresses in logs: Important to protect privacy of the users
+logIpMode = anonymized
+
+# cat=logging/clear/85; type=boolean; label=Log payload: Whether to log the payload of the request
+logPayload = 1

@@ -1,0 +1,90 @@
+/* Dark theme matching old TYPO3 docs style */
+.code-block-wrapper {
+    background-color: #212121 !important;
+    border-radius: .25rem;
+}
+
+pre.code-block {
+    background-color: #212121 !important;
+    padding: 1rem;
+}
+
+pre.code-block code,
+pre.code-block code.hljs {
+    background-color: #212121 !important;
+    color: #eff !important;
+}
+
+/* Bright syntax colors matching old TYPO3 docs */
+.hljs-comment,
+.hljs-quote { color: #6a9955 !important; font-style: italic; }
+
+.hljs-keyword,
+.hljs-literal { color: #ffff00 !important; }
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-meta .hljs-string { color: #ff79c6 !important; }
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attr,
+.hljs-tag,
+.hljs-name { color: #8be9fd !important; }
+
+.hljs-number { color: #bd93f9 !important; }
+
+.hljs-built_in,
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_,
+.hljs-class .hljs-title,
+.hljs-section { color: #50fa7b !important; }
+
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-selector-id { color: #ffb86c !important; }
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-operator { color: #ff79c6 !important; }
+
+.hljs-doctag,
+.hljs-formula { color: #f1fa8c !important; }
+
+.hljs-deletion,
+.hljs-subst { color: #ff5555 !important; }
+
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: bold; }
+
+.code-block-copy,
+.code-block-actions button {
+    color: #ffffff !important;
+    opacity: 0.7;
+}
+.code-block-copy:hover,
+.code-block-actions button:hover {
+    opacity: 1;
+    color: #ffffff !important;
+}
+.code-block-copy .icon,
+.code-block-copy i,
+.code-block-copy-icon {
+    color: #ffffff !important;
+}
+
+.highlight, pre.literal-block {
+    background-color: #212121 !important;
+    border-radius: .25rem;
+}
+
+.highlight pre, pre.literal-block {
+    background-color: #212121 !important;
+    color: #eff !important;
+}

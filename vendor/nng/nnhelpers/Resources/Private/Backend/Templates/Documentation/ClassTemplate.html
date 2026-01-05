@@ -1,0 +1,37 @@
+
+.. include:: ../../../Includes.txt
+
+.. _{infos.classNameShort}:
+
+==============================================
+{infos.classNameShort}
+==============================================
+
+\\nn\\t3::{infos.classNameShort}()
+----------------------------------------------
+
+{infos.comment->f:format.raw()->nnt3:format.htmlToSphinx()}
+
+Overview of Methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+<f:for each="{infos.methods}" as="method" key="methodName">
+\\nn\\t3::{infos.classNameShort}()->{methodName}({f:if(condition:method.paramString, then:'``{method.paramString->f:format.raw()}``')});
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+{method.comment->f:format.raw()->nnt3:format.htmlToSphinx()}
+
+| :ref:`➜ Go to source code of {infos.classNameShort}::{methodName}() <{infos.classNameShort}-{methodName}>`
+
+</f:for>
+
+Methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   *
+   !Index

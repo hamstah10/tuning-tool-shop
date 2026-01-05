@@ -18,6 +18,14 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3') or die();
 
+// Register ViewHelpers namespace
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['tts'] = [
+    'Hamstahstudio\\TuningToolShop\\ViewHelpers',
+];
+
+$typoscriptPath = ExtensionManagementUtility::extPath('tuning_tool_shop') . 'Configuration/TypoScript/PaymentSuccess.typoscript';
+$paymentSuccessTypoScript = file_exists($typoscriptPath) ? file_get_contents($typoscriptPath) : '';
+
 ExtensionManagementUtility::addTypoScriptSetup('
 plugin.tx_tuningtoolshop {
     view {
@@ -29,7 +37,8 @@ plugin.tx_tuningtoolshop {
         storagePid =
     }
 }
-');
+
+' . $paymentSuccessTypoScript);
 
 ExtensionUtility::configurePlugin(
     'TuningToolShop',
@@ -176,5 +185,6 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] = array_merg
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dashboard']['widgetGroups'] ?? [],
     require ExtensionManagementUtility::extPath('tuning_tool_shop') . 'Configuration/Backend/DashboardWidgetGroups.php'
 );
+// Solr queue configuration is handled via TypoScript in Configuration/TypoScript/Solr/setup.typoscript
 
 

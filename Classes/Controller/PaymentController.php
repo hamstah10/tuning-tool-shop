@@ -8,7 +8,6 @@ use Hamstahstudio\TuningToolShop\Domain\Model\Order;
 use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\OrderRepository;
 use Hamstahstudio\TuningToolShop\Payment\PaymentHandlerInterface;
-use Hamstahstudio\TuningToolShop\Payment\PayPalPaymentHandler;
 use Hamstahstudio\TuningToolShop\Payment\KlarnaPaymentHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -27,27 +26,31 @@ class PaymentController extends ActionController
 
     public function redirectAction(Order $order): ResponseInterface
     {
-        $this->logger->info('PaymentController::redirectAction called', [
+        $this->logger->info('=== CHECKOUT PAYMENT START ===', [
             'orderId' => $order->getUid(),
             'orderNumber' => $order->getOrderNumber(),
+            'totalAmount' => $order->getTotalAmount(),
+            'timestamp' => date('Y-m-d H:i:s'),
         ]);
 
         $paymentMethod = $order->getPaymentMethod();
 
         if ($paymentMethod === null) {
-            $this->logger->warning('No payment method found for order', ['orderId' => $order->getUid()]);
+            $this->logger->error('CHECKOUT: No payment method found', [
+                'orderId' => $order->getUid(),
+            ]);
             $this->addFlashMessage('Keine Zahlungsart gewählt.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index', 'Checkout');
         }
 
         $handlerClass = $paymentMethod->getHandlerClass();
-        $this->logger->info('Payment method found', [
+        $this->logger->info('CHECKOUT: Payment method found', [
             'handlerClass' => $handlerClass,
             'paymentMethodTitle' => $paymentMethod->getTitle(),
         ]);
 
         if (empty($handlerClass) || !class_exists($handlerClass)) {
-            $this->logger->info('No payment handler needed, marking order as confirmed');
+            $this->logger->info('CHECKOUT: No handler needed, marking as paid');
             $order->setPaymentStatus(Order::PAYMENT_STATUS_PAID);
             $order->setStatus(Order::STATUS_CONFIRMED);
             $this->orderRepository->update($order);
@@ -56,49 +59,53 @@ class PaymentController extends ActionController
             return $this->redirect('confirmation', 'Checkout', null, ['order' => $order->getUid()]);
         }
 
+        // Get handler instance with dependency injection
         /** @var PaymentHandlerInterface $handler */
-        $handler = GeneralUtility::makeInstance($handlerClass);
-
-        // Pass payment provider settings to handler if applicable
-        if ($handler instanceof PayPalPaymentHandler && isset($this->settings['paypal'])) {
-            $this->logger->info('Setting PayPal configuration');
-            $handler->setConfiguration($this->settings['paypal']);
+        try {
+            $handler = GeneralUtility::makeInstance($handlerClass);
+            $this->logger->info('CHECKOUT: Handler instantiated', ['class' => $handlerClass]);
+        } catch (\Exception $e) {
+            $this->logger->error('CHECKOUT: Failed to instantiate handler', [
+                'class' => $handlerClass,
+                'error' => $e->getMessage(),
+            ]);
+            $this->addFlashMessage('Zahlungsmodul konnte nicht geladen werden.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
+            return $this->redirect('index', 'Checkout');
         }
 
+        // Pass payment provider settings to handler if applicable
         if ($handler instanceof KlarnaPaymentHandler && isset($this->settings['klarna'])) {
-            $this->logger->info('Setting Klarna configuration');
+            $this->logger->info('CHECKOUT: Setting Klarna configuration');
             $handler->setConfiguration($this->settings['klarna']);
         }
 
-        $result = $handler->processPayment($order);
-        $this->logger->info('Payment handler result', [
+        $this->logger->info('CHECKOUT: Calling handler->processPayment()');
+        try {
+            $result = $handler->processPayment($order);
+        } catch (\Exception $e) {
+            $this->logger->error('CHECKOUT: Handler threw exception', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            $this->addFlashMessage('Fehler beim Zahlungsabwickeln.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
+            return $this->redirect('index', 'Checkout');
+        }
+
+        $this->logger->info('CHECKOUT: Handler result', [
             'hasForm' => $result->hasForm(),
             'requiresRedirect' => $result->requiresRedirect(),
             'isSuccess' => $result->isSuccess(),
+            'redirectUrl' => $result->getRedirectUrl() ? substr($result->getRedirectUrl(), 0, 100) : null,
         ]);
 
         if ($result->hasForm()) {
-            $this->logger->info('Rendering payment form');
-            $successPid = (int)($this->settings['payment']['successPid'] ?? ($this->settings['confirmationPid'] ?? $GLOBALS['TSFE']->id ?? 0));
-            $cancelPid = (int)($this->settings['payment']['cancelPid'] ?? $GLOBALS['TSFE']->id ?? 0);
-            $notifyPid = (int)($this->settings['payment']['notifyPid'] ?? $GLOBALS['TSFE']->id ?? 0);
-            
-            // Fallback: use current page if no PIDs configured
-            if (!$successPid) $successPid = (int)($GLOBALS['TSFE']->id ?? 0);
-            if (!$cancelPid) $cancelPid = (int)($GLOBALS['TSFE']->id ?? 0);
-            if (!$notifyPid) $notifyPid = (int)($GLOBALS['TSFE']->id ?? 0);
-
-            $formFields = $result->getFormFields();
-
-            if ($handler instanceof PayPalPaymentHandler) {
-                $urls = $handler->buildReturnUrls($successPid, $cancelPid, $notifyPid);
-                $formFields = array_merge($formFields, $urls);
-            }
-
+            $this->logger->info('CHECKOUT: Rendering payment form', [
+                'formAction' => $result->getFormAction(),
+            ]);
             $this->view->assignMultiple([
                 'order' => $order,
                 'formAction' => $result->getFormAction(),
-                'formFields' => $formFields,
+                'formFields' => $result->getFormFields(),
                 'paymentMethod' => $paymentMethod,
             ]);
 
@@ -106,12 +113,14 @@ class PaymentController extends ActionController
         }
 
         if ($result->requiresRedirect() && $result->getRedirectUrl()) {
-            $this->logger->info('Redirecting to payment URL', ['url' => $result->getRedirectUrl()]);
+            $this->logger->info('CHECKOUT: Redirecting to payment provider', [
+                'url' => substr($result->getRedirectUrl(), 0, 150),
+            ]);
             return $this->redirectToUri($result->getRedirectUrl());
         }
 
         if ($result->isSuccess()) {
-            $this->logger->info('Payment successful, marking order as confirmed');
+            $this->logger->info('CHECKOUT: Payment immediate success, marking as paid');
             $order->setPaymentStatus(Order::PAYMENT_STATUS_PAID);
             $order->setStatus(Order::STATUS_CONFIRMED);
             $order->setTransactionId($result->getTransactionId());
@@ -121,17 +130,19 @@ class PaymentController extends ActionController
             return $this->redirect('confirmation', 'Checkout', null, ['order' => $order->getUid()]);
         }
 
-        $this->logger->error('Payment failed', ['message' => $result->getMessage()]);
-        $this->addFlashMessage($result->getMessage(), 'Zahlungsfehler', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
+        $message = $result->getMessage() ?? 'Unbekannter Fehler';
+        $this->logger->error('CHECKOUT: Payment failed', ['message' => $message]);
+        $this->addFlashMessage($message, 'Zahlungsfehler', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
         return $this->redirect('index', 'Checkout');
     }
 
     public function successAction(): ResponseInterface
     {
-        $orderUid = (int)($this->request->getQueryParams()['custom'] ?? 0);
+        $queryParams = $this->request->getQueryParams();
+        $orderUid = (int)($queryParams['custom'] ?? $queryParams['order'] ?? 0);
 
         if ($orderUid === 0) {
-            $orderUid = (int)($this->request->getQueryParams()['tx_tuningtoolshop_payment']['order'] ?? 0);
+            $orderUid = (int)($queryParams['tx_tuningtoolshop_payment']['order'] ?? 0);
         }
 
         $order = $this->orderRepository->findByUid($orderUid);

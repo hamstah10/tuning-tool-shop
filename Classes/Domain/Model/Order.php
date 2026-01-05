@@ -21,6 +21,11 @@ class Order extends AbstractEntity
     public const PAYMENT_STATUS_FAILED = 2;
     public const PAYMENT_STATUS_REFUNDED = 3;
 
+    public const EXPORT_STATUS_NOT_EXPORTED = 0;
+    public const EXPORT_STATUS_PENDING = 1;
+    public const EXPORT_STATUS_EXPORTED = 2;
+    public const EXPORT_STATUS_FAILED = 3;
+
     protected string $orderNumber = '';
 
     protected string $transactionId = '';
@@ -90,6 +95,8 @@ class Order extends AbstractEntity
     protected ?int $frontendUserId = null;
 
     protected float $taxAmount = 0.0;
+
+    protected int $exportStatus = self::EXPORT_STATUS_NOT_EXPORTED;
 
     public function __construct()
     {
@@ -620,6 +627,27 @@ class Order extends AbstractEntity
             self::STATUS_COMPLETED => 'delivered',
             self::STATUS_CANCELLED => 'cancelled',
             default => 'unknown',
+        };
+    }
+
+    public function getExportStatus(): int
+    {
+        return $this->exportStatus;
+    }
+
+    public function setExportStatus(int $exportStatus): void
+    {
+        $this->exportStatus = $exportStatus;
+    }
+
+    public function getExportStatusLabel(): string
+    {
+        return match ($this->exportStatus) {
+            self::EXPORT_STATUS_NOT_EXPORTED => 'Nicht exportiert',
+            self::EXPORT_STATUS_PENDING => 'Export läuft',
+            self::EXPORT_STATUS_EXPORTED => 'Exportiert',
+            self::EXPORT_STATUS_FAILED => 'Export fehlgeschlagen',
+            default => 'Unbekannt',
         };
     }
 }

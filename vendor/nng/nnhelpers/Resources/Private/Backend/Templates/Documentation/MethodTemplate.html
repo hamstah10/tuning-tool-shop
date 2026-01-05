@@ -1,0 +1,21 @@
+
+.. include:: ../../../../Includes.txt
+
+.. _{infos.classNameShort}-{methodName}:
+
+==============================================
+{infos.classNameShort}::{methodName}()
+==============================================
+
+\\nn\\t3::{infos.classNameShort}()->{methodName}({f:if(condition:method.paramString, then:'``{method.paramString->f:format.raw()}``')});
+----------------------------------------------
+
+{method.comment->f:format.raw()->nnt3:format.htmlToSphinx()}
+
+Source Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+{method.sourceCode->f:format.raw()->nnt3:format.indentCode(spaces: 3)}
+

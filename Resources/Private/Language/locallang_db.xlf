@@ -351,6 +351,21 @@
 			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.title" resname="tx_tuningtoolshop_domain_model_paymentmethod.title">
 				<source>Bezeichnung</source>
 			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.credentials" resname="tx_tuningtoolshop_domain_model_paymentmethod.credentials">
+				<source>API-Zugangsdaten</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.client_id" resname="tx_tuningtoolshop_domain_model_paymentmethod.client_id">
+				<source>Client ID / API Key</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.secret" resname="tx_tuningtoolshop_domain_model_paymentmethod.secret">
+				<source>Secret / API Secret</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.api_url" resname="tx_tuningtoolshop_domain_model_paymentmethod.api_url">
+				<source>API URL</source>
+			</trans-unit>
+			<trans-unit id="tx_tuningtoolshop_domain_model_paymentmethod.is_sandbox" resname="tx_tuningtoolshop_domain_model_paymentmethod.is_sandbox">
+				<source>Sandbox-Modus</source>
+			</trans-unit>
 			<trans-unit id="tx_tuningtoolshop_domain_model_product" resname="tx_tuningtoolshop_domain_model_product">
 				<source>Produkt</source>
 			</trans-unit>

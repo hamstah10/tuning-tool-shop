@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:tuning_tool_shop/Resources/Private/Language/locallang_fe.xlf" date="2025-12-25T01:02:42Z" product-name="tuning_tool_shop">
+		<header/>
+		<body>
+			<trans-unit id="plugin.admin.description" resname="plugin.admin.description">
+				<source>Frontend administration panel for managing products, categories, and manufacturers</source>
+				<target>Frontend-Verwaltungspanel zur Verwaltung von Produkten, Kategorien und Herstellern</target>
+			</trans-unit>
+			<trans-unit id="plugin.admin.title" resname="plugin.admin.title">
+				<source>Shop: Administration</source>
+				<target>Shop: Verwaltung</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

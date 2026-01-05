@@ -1,0 +1,184 @@
+<!--
+	============================================================
+	EXT:nnrestapi/Resources/Private/Backend/Partials/Logs.html
+	JS-Controller: Resources/Public/JavaScript/modules/Logger.js
+	============================================================
+-->
+
+<div class="mb-4 logger" x-data="alpineModLogger({config->f:format.json()})">
+
+	<!-- <pre x-text="JSON.stringify(config.extConf.disableDefaultEndpoints, null, 2)"></pre> -->
+
+	<div class="alert alert-warning" x-show="parseBool(config.extConf.disableDefaultEndpoints)">
+		<div>
+			<b>Sorry, I can't load the logs.</b><br>
+			The default endpoints for EXT:nnrestapi were disabled in the extension manager.<br>
+			Enable them in the extension manager and clear the cache to load the logs.
+		</div>
+	</div>
+
+	<div x-show="!parseBool(config.extConf.disableDefaultEndpoints)">
+		<div class="logger-list">
+
+			<div class="d-xl-flex mb-1 text-nowrap align-items-center">
+
+				<label class="toggle-switch me-3 mb-3">
+					<input :disabled="config.logger.enabled" @change="toggleTemporaryLogging();" type="checkbox" x-model="logger.enabled">
+					<span x-show="config.logger.enabled">Enabled in ext-manager</span>
+					<span x-show="!config.logger.enabled">
+						Enable logging
+						(<span x-text="config.extConf.loggingMode"></span>)
+					</span>
+				</label>
+
+				<label class="toggle-switch mb-3">
+					<input @change="loadMore(true)" type="checkbox" x-model="filter.errors">
+					Filter errors
+				</label>
+
+				<div class="ms-xl-auto flex-grow-1 search-container ps-xl-4 mb-3">
+					<div class="input-group">
+						<input x-model="search.keyword" @input.debounce.300ms="loadMore(true)" type="text" class="search form-control" />
+						<select :class="{minified:!search.field}" class="input-append-select px-2" x-model="search.field" @change="loadMore(true)">
+							<option value=""></option>
+							<template x-for="(field, key) in FIELDS" :key="key">
+								<option :selected="field.alias == search.field || key == search.field" :value="field.alias || key" x-show="!field.disabled && key !== 'info'" x-text="field.label || (field.alias || key)"></option>
+							</template>
+						</select>
+						<div class="input-group-append">
+							<span class="input-group-text h-100">
+								<i class="fas fa-search" x-show="!search.keyword"></i>
+								<i class="fas fa-times" x-show="search.keyword" @click="clearSearch"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<button class="ms-xl-4 mb-3 btn btn-sm btn-danger" @click="clearLogs">
+					<i class="fa fa-trash"></i>
+				</button>
+				<button :class="{loading: loading}" class="ms-2 mb-3 btn btn-sm btn-primary" @click="loadMore(true)">
+					<i class="fa fa-sync" :class="loading ? 'fa-spin' : ''"></i>
+				</button>
+			</div>
+
+			<div class="logs">
+				<div class="logger-result" @scroll="onScroll">
+					<table class="log-table user-select-none">
+						<thead>
+							<tr>
+								<template x-for="(field, key) in FIELDS" :key="key">
+									<th x-show="!field.hidden" :class="'th-' + key + (filter.sortBy === key ? (filter.sort === 'ASC' ? ' sort-asc' : ' sort-desc') : '')" @click="onSortBy(key)">
+										<template x-if="key == 'info'">
+											<div class="dropdown d-inline-flex" @click.outside="columnDropdownOpen = false">
+												<button @click.stop="toggleColumnDropdown()" type="button" class="hover-scale btn btn-sm btn-unstyled" :aria-expanded="columnDropdownOpen ? 'true' : 'false'">
+													<i class="fa fa-lg fa-columns"></i>
+												</button>
+												<div class="dropdown-menu mt-5 flex-column py-3 px-3" :class="{show: columnDropdownOpen}">
+													<template x-for="(f, k) in FIELDS" :key="k">
+														<label class="d-flex px-1 py-1 toggle-switch" :class="{'d-none': k === 'info'}">
+															<input :checked="!f.hidden" @change="toggleColumnVisibility(k)" type="checkbox">
+															<span x-text="f.label || (f.alias || k)"></span>
+														</label>
+													</template>
+												</div>
+											</div>
+										</template>
+										<span x-text="field.label"></span>
+									</th>
+								</template>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="td-spacer" colspan="100%">
+								<div :style="topSpacerStyle"></div>
+							</td>
+						</tr>
+						<template x-for="log in visibleRows" :key="log.uid">
+							<tr @click.stop="showDetails(log, $event)" :class="{'text-danger': log.status >= 500}">
+								<template x-for="(field, key) in FIELDS" :key="key">
+									<td :class="'td-' + key" x-show="!field.hidden">
+										<template x-if="key === 'info'">
+											<button class="hover-scale btn btn-sm btn-unstyled">
+												<i :class="'text-' + getColorClassForStatus(log.status) + ' fa fa-xl ' + getIconClassForStatus(log.status)"></i>
+											</button>
+										</template>
+										<span x-show="key === 'datetime'" x-text="formatDateTime(log[key])"></span>
+										<span x-show="key === 'method'" @click.stop="replayRequest(log, $event)" class="hover-scale-sm req-type" :class="'req-type-' + (log.method || '').toLowerCase()"></span>
+										<code x-show="key === 'payload'" x-text="log[key]"></code>
+										<span x-show="!['method', 'payload', 'datetime'].includes(key)" x-text="log[key]"></span>
+									</td>
+								</template>
+							</tr>
+						</template>
+						<tr>
+							<td class="td-spacer" colspan="100%">
+								<div :style="bottomSpacerStyle"></div>
+							</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-none">
+		<div class="logger-details px-4 pb-5">
+
+			<div class="d-flex">
+				<span class="req-type req-type-full" @click="replayRequest(selectedLog)" :class="'req-type-' + (selectedLog.method || '').toLowerCase()"></span>
+				<input @click="copyToClipboard($event.target)" readonly class="form-control border-0 bg-black text-white" :value="getFullUrl(selectedLog)" />
+				<button class="btn bg-black" @click="replayRequest(selectedLog)">
+					<i class="fa fa-lg fa-sign-out-alt"></i>
+				</button>
+			</div>
+			<div class="result-code" x-show="selectedLog.payload && config.logger.logPayload">
+				<pre><code class="language-json" x-text="JSON.stringify(JSON.parse(selectedLog.payload || '{}'), null, 2)"></code></pre>
+			</div>
+
+			<table class="log-detail-table mt-3">
+				<tr>
+					<th>Status</th>
+					<td>
+						<span class="badge" :class="'badge-' + getColorClassForStatus(selectedLog.status)" x-text="selectedLog.status"></span>
+					</td>
+				</tr>
+				<tr x-show="selectedLog.error">
+					<th>Error</th>
+					<td>
+						<div class="bg-grey text-danger" x-text="selectedLog.error"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>Target</th>
+					<td>
+						<div class="bg-grey" x-text="selectedLog.target"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>Time</th>
+					<td x-text="selectedLog.datetime"></td>
+				</tr>
+				<tr>
+					<th>Duration</th>
+					<td><span x-text="selectedLog.duration"></span> ms</td>
+				</tr>
+				<tr x-show="!FIELDS.iphash.disabled">
+					<th>IP <span x-text="getIpModeLabel()"></span></th>
+					<td x-text="selectedLog.iphash"></td>
+				</tr>
+				<tr x-show="selectedLog.feuser">
+					<th>FE User</th>
+					<td x-text="selectedLog.feuser"></td>
+				</tr>
+				<tr x-show="selectedLog.queryparams">
+					<th>Query Params</th>
+					<td><code x-text="selectedLog.queryparams"></code></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+</div>

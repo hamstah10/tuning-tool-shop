@@ -6,7 +6,6 @@ namespace Hamstahstudio\TuningToolShop\ViewHelpers;
 
 use Hamstahstudio\TuningToolShop\Domain\Repository\CategoryRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ManufacturerRepository;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -14,11 +13,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 class CategoriesViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
-
-    public function __construct(
-        protected readonly CategoryRepository $categoryRepository,
-        protected readonly ManufacturerRepository $manufacturerRepository,
-    ) {}
 
     public function initializeArguments(): void
     {
@@ -48,7 +42,8 @@ class CategoriesViewHelper extends AbstractViewHelper
 
     private function getCategories(): mixed
     {
-        $query = $this->categoryRepository->createQuery();
+        $categoryRepository = GeneralUtility::makeInstance(CategoryRepository::class);
+        $query = $categoryRepository->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->equals('parent', 0));
         $query->setOrderings(['sorting' => QueryInterface::ORDER_ASCENDING, 'title' => QueryInterface::ORDER_ASCENDING]);
@@ -57,7 +52,8 @@ class CategoriesViewHelper extends AbstractViewHelper
 
     private function getChildren(int $parentUid): mixed
     {
-        $query = $this->categoryRepository->createQuery();
+        $categoryRepository = GeneralUtility::makeInstance(CategoryRepository::class);
+        $query = $categoryRepository->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->equals('parent', $parentUid));
         $query->setOrderings(['sorting' => QueryInterface::ORDER_ASCENDING, 'title' => QueryInterface::ORDER_ASCENDING]);
@@ -66,7 +62,8 @@ class CategoriesViewHelper extends AbstractViewHelper
 
     private function getManufacturers(): mixed
     {
-        $query = $this->manufacturerRepository->createQuery();
+        $manufacturerRepository = GeneralUtility::makeInstance(ManufacturerRepository::class);
+        $query = $manufacturerRepository->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->setOrderings(['title' => QueryInterface::ORDER_ASCENDING]);
         return $query->execute();

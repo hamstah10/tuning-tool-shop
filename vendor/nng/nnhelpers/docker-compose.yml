@@ -1,0 +1,6 @@
+services:
+  t3docmake:
+    image: ghcr.io/typo3-documentation/render-guides:latest
+    volumes:
+      - ./:/project
+    command: --config=/project/Documentation

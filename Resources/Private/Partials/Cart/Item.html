@@ -29,7 +29,7 @@
 
     <td>
         <f:form action="update" controller="Cart" class="d-flex gap-2">
-            <f:form.hidden name="cartItem" value="{item.uid}" />
+            <f:form.hidden name="product" value="{item.product.uid}" />
             <f:form.textfield name="quantity" value="{item.quantity}" class="form-control form-control-sm" style="width: 60px;" additionalAttributes="{min: '1', type: 'number'}" />
             <button type="submit" class="btn btn-sm btn-outline-secondary">OK</button>
         </f:form>
@@ -43,7 +43,7 @@
 
     <td class="text-center">
         <f:form action="remove" controller="Cart" class="d-inline">
-            <f:form.hidden name="cartItem" value="{item.uid}" />
+            <f:form.hidden name="product" value="{item.product.uid}" />
             <button type="submit" class="btn btn-sm btn-danger" title="Entfernen">
                 ✕
             </button>

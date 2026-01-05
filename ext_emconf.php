@@ -1,11 +1,12 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Tuning Tool Shop',
+    'title' => 'TuningFux Shop',
     'description' => 'Shop Extension für Chiptuning Geräte und Zubehör',
     'category' => 'plugin',
-    'author' => 'Hamstahstudio',
-    'author_email' => '',
+    'author' => 'Andre Sancken',
+    'author_email' => 'info@tuningfux.de',
+    'author_company' => 'Tuningfux',
     'state' => 'stable',
     'version' => '1.0.0',
     'constraints' => [

@@ -21,6 +21,14 @@ class PaymentMethod extends AbstractEntity
 
     protected string $handlerClass = '';
 
+    protected string $clientId = '';
+
+    protected string $secret = '';
+
+    protected string $apiUrl = '';
+
+    protected bool $isSandbox = true;
+
     public function getTitle(): string
     {
         return $this->title;
@@ -79,5 +87,45 @@ class PaymentMethod extends AbstractEntity
     public function setHandlerClass(string $handlerClass): void
     {
         $this->handlerClass = $handlerClass;
+    }
+
+    public function getClientId(): string
+    {
+        return $this->clientId;
+    }
+
+    public function setClientId(string $clientId): void
+    {
+        $this->clientId = $clientId;
+    }
+
+    public function getSecret(): string
+    {
+        return $this->secret;
+    }
+
+    public function setSecret(string $secret): void
+    {
+        $this->secret = $secret;
+    }
+
+    public function getApiUrl(): string
+    {
+        return $this->apiUrl;
+    }
+
+    public function setApiUrl(string $apiUrl): void
+    {
+        $this->apiUrl = $apiUrl;
+    }
+
+    public function getIsSandbox(): bool
+    {
+        return $this->isSandbox;
+    }
+
+    public function setIsSandbox(bool $isSandbox): void
+    {
+        $this->isSandbox = $isSandbox;
     }
 }

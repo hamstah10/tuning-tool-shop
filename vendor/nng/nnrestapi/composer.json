@@ -1,0 +1,27 @@
+{
+  "name": "nng/nnrestapi",
+  "version": "13.2.4",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0-or-later",
+  "description": "A RESTful Api Extension for TYPO3. Sets TYPO3 up with everything you need to get your own REST Api up and running without headaches.",
+  "authors": [],
+  "require": {
+    "typo3/cms-core": "^13.0",
+    "nng/nnhelpers": "^13.1 || dev-13*"
+  },
+    "autoload": {
+    "psr-4": {
+      "Nng\\Nnrestapi\\": "Classes"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nng\\Nnrestapi\\Tests\\": "Tests"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "nnrestapi"
+    }
+  }
+}

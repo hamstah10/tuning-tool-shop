@@ -38,4 +38,9 @@ interface PaymentHandlerInterface
      * Set configuration for the payment handler
      */
     public function setConfiguration(array $config): void;
+
+    /**
+     * Set return URL for payment callback
+     */
+    public function setReturnUrl(string $returnUrl): void;
 }

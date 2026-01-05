@@ -13,6 +13,7 @@ class KlarnaPaymentHandler implements PaymentHandlerInterface
     protected array $config = [];
     protected string $apiUrl = 'https://api.klarna.com';
     protected string $sandboxUrl = 'https://api.sandbox.klarna.com';
+    protected string $returnUrl = '';
 
     public function __construct()
     {
@@ -103,6 +104,11 @@ class KlarnaPaymentHandler implements PaymentHandlerInterface
     public function setConfiguration(array $config): void
     {
         $this->config = array_merge($this->config, $config);
+    }
+
+    public function setReturnUrl(string $returnUrl): void
+    {
+        $this->returnUrl = $returnUrl;
     }
 
     /**

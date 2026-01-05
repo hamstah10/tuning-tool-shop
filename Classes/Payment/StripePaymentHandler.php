@@ -14,6 +14,7 @@ use Stripe\Exception\ApiErrorException;
 class StripePaymentHandler implements PaymentHandlerInterface
 {
     protected array $config = [];
+    protected string $returnUrl = '';
 
     public function __construct()
     {
@@ -124,6 +125,11 @@ class StripePaymentHandler implements PaymentHandlerInterface
     public function setConfiguration(array $config): void
     {
         $this->config = array_merge($this->config, $config);
+    }
+
+    public function setReturnUrl(string $returnUrl): void
+    {
+        $this->returnUrl = $returnUrl;
     }
 
     /**

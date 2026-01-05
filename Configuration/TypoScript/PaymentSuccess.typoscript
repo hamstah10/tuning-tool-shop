@@ -1,0 +1,11 @@
+page.123 = PAGE
+page.123 {
+    typeNum = 123
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = none
+        no_cache = 1
+    }
+    10 = USER
+    10.userFunc = Hamstahstudio\TuningToolShop\Controller\PaymentController->successAction
+}

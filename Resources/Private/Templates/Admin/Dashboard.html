@@ -1,78 +1,74 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:layout name="Default" />
-
-<f:section name="main">
-    <div class="container-lg py-5">
-        <div class="text-center mb-5">
-            <h1 class="h2 mb-2">Shop-Verwaltung</h1>
-            <p class="text-muted">Verwalten Sie Produkte, Kategorien und Hersteller</p>
+    <f:layout name="Default"/>
+    <f:section name="main">
+        <div class="">
+            <div class="text-center mb-5">
+                <h1 class="h2 mb-2">Shop-Verwaltung</h1>
+                <p class="text-muted">Verwalten Sie Produkte, Kategorien und Hersteller</p>
+            </div>
+            <f:if condition="{feUser}">
+                <f:then>
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-1 mb-3">📦</div>
+                                    <h5 class="card-title">Produkte</h5>
+                                    <p class="display-6 fw-bold text-primary mb-3">{productsCount}</p>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <f:link.action action="listProducts" class="btn btn-primary btn-sm">
+                                            Verwalten
+                                        </f:link.action>
+                                        <f:link.action action="newProduct" class="btn btn-success btn-sm">
+                                            Neu
+                                        </f:link.action>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-1 mb-3">📂</div>
+                                    <h5 class="card-title">Kategorien</h5>
+                                    <p class="display-6 fw-bold text-primary mb-3">{categoriesCount}</p>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <f:link.action action="listCategories" class="btn btn-primary btn-sm">
+                                            Verwalten
+                                        </f:link.action>
+                                        <f:link.action action="newCategory" class="btn btn-success btn-sm">
+                                            Neu
+                                        </f:link.action>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-1 mb-3">🏭</div>
+                                    <h5 class="card-title">Hersteller</h5>
+                                    <p class="display-6 fw-bold text-primary mb-3">{manufacturersCount}</p>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <f:link.action action="listManufacturers" class="btn btn-primary btn-sm">
+                                            Verwalten
+                                        </f:link.action>
+                                        <f:link.action action="newManufacturer" class="btn btn-success btn-sm">
+                                            Neu
+                                        </f:link.action>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </f:then>
+                <f:else>
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Zugriff verweigert</h4>
+                        <p>Sie müssen angemeldet sein, um auf die Shop-Verwaltung zugreifen zu können.</p>
+                    </div>
+                </f:else>
+            </f:if>
         </div>
-
-        <f:if condition="{feUser}">
-            <f:then>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center">
-                                <div class="fs-1 mb-3">📦</div>
-                                <h5 class="card-title">Produkte</h5>
-                                <p class="display-6 fw-bold text-primary mb-3">{productsCount}</p>
-                                <div class="d-flex gap-2 justify-content-center">
-                                    <f:link.action action="listProducts" class="btn btn-primary btn-sm">
-                                        Verwalten
-                                    </f:link.action>
-                                    <f:link.action action="newProduct" class="btn btn-success btn-sm">
-                                        Neu
-                                    </f:link.action>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center">
-                                <div class="fs-1 mb-3">📂</div>
-                                <h5 class="card-title">Kategorien</h5>
-                                <p class="display-6 fw-bold text-primary mb-3">{categoriesCount}</p>
-                                <div class="d-flex gap-2 justify-content-center">
-                                    <f:link.action action="listCategories" class="btn btn-primary btn-sm">
-                                        Verwalten
-                                    </f:link.action>
-                                    <f:link.action action="newCategory" class="btn btn-success btn-sm">
-                                        Neu
-                                    </f:link.action>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center">
-                                <div class="fs-1 mb-3">🏭</div>
-                                <h5 class="card-title">Hersteller</h5>
-                                <p class="display-6 fw-bold text-primary mb-3">{manufacturersCount}</p>
-                                <div class="d-flex gap-2 justify-content-center">
-                                    <f:link.action action="listManufacturers" class="btn btn-primary btn-sm">
-                                        Verwalten
-                                    </f:link.action>
-                                    <f:link.action action="newManufacturer" class="btn btn-success btn-sm">
-                                        Neu
-                                    </f:link.action>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </f:then>
-            <f:else>
-                <div class="alert alert-danger" role="alert">
-                    <h4 class="alert-heading">Zugriff verweigert</h4>
-                    <p>Sie müssen angemeldet sein, um auf die Shop-Verwaltung zugreifen zu können.</p>
-                </div>
-            </f:else>
-        </f:if>
-    </div>
-</f:section>
+    </f:section>
 </html>

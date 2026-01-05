@@ -2,50 +2,28 @@
 namespace Hamstahstudio\TuningToolShop\Api;
 
 use Nng\Nnrestapi\Annotations as Api;
-use Nng\Nnrestapi\Api\AbstractApi;
 
 /**
  * @Api\Endpoint()
  */
-class TuningShop extends AbstractApi
-{
-   
+class TuningShop extends \Nng\Nnrestapi\Api\AbstractApi {
+
    /**
-    * @Api\Route("/tuningshop")
     * @Api\Access("public")
-    * 
     * @return array
     */
    public function getIndexAction()
    {
-     return ['welcome'=>'TuningShop API is working!'];
+      return ['great'=>'it works!'];
    }
 
-   /**
-    * @Api\Route("/tuningshop/raw/{uid}")
-   * @Api\Access("public")
-   * @Api\Localize()
-   * 
-   * @param int $uid
-   * @return array
-   */
-   public function getRawAction( int $uid = null )
+   public function getRawAction()
    {
-      // Get raw data from table tt_content and include FAL-relations
-      $data = \nn\t3::Content()->get( $uid, true );
-      return $data;
+      return ['great'=>'it works!'];
    }
 
-   /**
-    * @Api\Route("/tuningshop/produkt/{name}")
-    * @Api\Access("public")
-    * 
-    * @return array
-    */
-   public function getProduktAction( $name = null )
+   public function getProduktAction()
    {
-      $args = $this->request->getArguments();
-      return ['message'=>"Hello, {$name}!"];
+      return ['great'=>'it works!'];
    }
 }
-

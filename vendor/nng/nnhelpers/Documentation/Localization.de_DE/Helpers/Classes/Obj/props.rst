@@ -1,0 +1,40 @@
+
+.. include:: ../../../../Includes.txt
+
+.. _Obj-props:
+
+==============================================
+Obj::props()
+==============================================
+
+\\nn\\t3::Obj()->props(``$obj, $keys = []``);
+----------------------------------------------
+
+Einzelne Properties eines Objects oder Arrays holen
+
+.. code-block:: php
+
+	\nn\t3::Obj()->props( $obj, ['uid', 'pid'] );
+	\nn\t3::Obj()->props( $obj, 'uid' );
+
+| ``@return array``
+
+Source Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+   
+   public function props ( $obj, $keys = [] )
+   {
+   	if (is_string($keys)) {
+   		$keys = [$keys];
+   	}
+   	$arr = [];
+   	foreach ($keys as $k) {
+   		$arr[$k] = $this->prop( $obj, $k );
+   	}
+   	return $arr;
+   }
+   
+

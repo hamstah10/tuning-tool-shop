@@ -2,32 +2,32 @@
 namespace Hamstahstudio\TuningToolShop\Api;
 
 use Nng\Nnrestapi\Annotations as Api;
-use Nng\Nnrestapi\Api\AbstractApi;
 
 /**
  * @Api\Endpoint()
  */
-class Article extends AbstractApi
-{
+class Article extends \Nng\Nnrestapi\Api\AbstractApi {
+
    /**
     * @Api\Access("public")
     * @return array
     */
    public function getIndexAction()
    {
-     return ['great'=>'it works!'];
+      return ['great'=>'it works!'];
    }
-   
+
+   public function getRouteAction()
+   {
+      return ['great'=>'it works!'];
+   }
+
    /**
-    * @Api\Route("/article/route/{uid}")
     * @Api\Access("public")
-    * 
     * @return array
     */
-   public function getRouteAction( $uid = null )
+   public function getProduktAction()
    {
-      $args = $this->request->getArguments();
-      return ['message'=>"Hello, {$uid}!"];
+      return ['great'=>'it works!'];
    }
 }
-

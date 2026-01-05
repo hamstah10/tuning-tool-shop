@@ -23,6 +23,10 @@ return [
     ],
     'tuning-tool-shop-module' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:tuning_tool_shop/Resources/Public/Icons/tuning-icon.svg',
+        'source' => 'EXT:tuning_tool_shop/Resources/Public/Icons/Tuningfux-icon.svg',
+    ],
+    'tuningfux-module' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:tuning_tool_shop/Resources/Public/Icons/module-tuningfux.svg',
     ],
 ];

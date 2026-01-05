@@ -1,0 +1,146 @@
+
+
+# Solr Index Queue Configuration for tuning_tool_shop Products
+plugin.tx_solr.index.queue {
+
+	product = 1
+	product {
+		type = tx_tuningtoolshop_domain_model_product
+		table = tx_tuningtoolshop_domain_model_product
+		initialization = Hamstahstudio\TuningToolShop\Indexer\ProductInitializer
+		# Index only active products
+		where = is_active = 1
+		
+		fields {
+			# Core searchable fields - direct mapping
+			title = title
+
+			product_type_stringS = title
+			
+			
+			sku_stringS = sku
+			
+			slug_stringS = slug
+			
+			price_f = price
+			special_price_f = special_price
+			
+			stock_i = stock
+			weight_f = weight
+			
+			# Main content for search
+			content = description
+			
+			# Summary/teaser
+			abstract = short_description
+			
+			# Additional searchable fields
+			headline_stringS = headline
+			
+			# Operating costs and extensions
+			operating_costs_stringS = operating_costs
+			
+			extensions_stringS = extensions
+			
+			# Meta fields for SEO
+			metaTitle = meta_title
+			
+			metaDescription = meta_description
+			
+			metaKeywords = meta_keywords
+			
+			canonical_url_stringS = canonical_url
+			
+			badge_stringS = badge
+			
+			# Product URL
+			url = TEXT
+			url {
+				typolink {
+					parameter = 26
+					additionalParams = &tx_tuningtoolshop_productdetail[product]={field:uid}
+					returnLast = url
+				}
+			}
+			
+			# Set rootline
+			rootline = 29
+		}
+	}
+
+}
+
+# Logging
+plugin.tx_solr.logging.indexing.queue.product = 1
+
+# Search result rendering
+plugin.tx_solr.search.detailPage.tx_tuningtoolshop_domain_model_product = 26
+
+plugin.tx_solr.search {
+    faceting = 1
+    faceting {
+        facets {
+            contentType {
+                label = Inhalt
+                renderingInstruction = CASE
+				renderingInstruction {
+				key.field = optionValue
+				
+				pages = TEXT
+				pages.value = Seiten
+				
+				tx_news_domain_model_news = TEXT
+				tx_news_domain_model_news.value = News
+				
+				tx_solr_file = TEXT
+				tx_solr_file.value = Files
+				
+				tx_tuningtoolshop_domain_model_product = TEXT
+				tx_tuningtoolshop_domain_model_product.value = Produkte
+				}
+            }
+		
+        }
+		
+    }
+}
+
+plugin.tx_solr.search {
+    faceting = 1
+    faceting.facets {
+        creationDateRange {
+            label = Created Between
+            field = created
+            type = dateRange
+        }
+    }
+}
+
+plugin.tx_solr.search {
+    faceting = 1
+    faceting {
+        facets {
+            pageHierarchy {
+                field = rootline
+                label = Rootline
+                type = hierarchy
+            }
+         }
+    }
+}
+
+plugin.tx_solr.search {
+    faceting = 1
+    faceting.facets {
+        pidRangeRange {
+            field = pid
+            label = Pid Range
+            type = numericRange
+            numericRange {
+                start = 0
+                end = 100
+                gap = 1
+            }
+        }
+    }
+}

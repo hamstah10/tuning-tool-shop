@@ -39,24 +39,16 @@ class CartItemRepository extends Repository
         return $query->execute();
     }
 
-    public function findBySessionOrUser(string $sessionId, int $feUserUid = 0): QueryResultInterface
+    public function findByFeUserAndProduct(int $feUserUid, int $productUid): ?object
     {
         $query = $this->createQuery();
-
-        if ($feUserUid > 0) {
-            $query->matching(
-                $query->logicalOr(
-                    $query->equals('sessionId', $sessionId),
-                    $query->equals('feUser', $feUserUid)
-                )
-            );
-        } else {
-            $query->matching(
-                $query->equals('sessionId', $sessionId)
-            );
-        }
-
-        return $query->execute();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('feUser', $feUserUid),
+                $query->equals('product', $productUid)
+            )
+        );
+        return $query->execute()->getFirst();
     }
 
     public function removeBySessionId(string $sessionId): void

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides
+    xmlns="https://www.phpdoc.org/guides"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.phpdoc.org/guides vendor/phpdocumentor/guides/resources/schema/guides.xsd"
+>
+    <project
+        title="RESTful Api for TYPO3"
+        version="13.2.3"
+        copyright="by 99°, David Bascom"
+    />
+
+    <extension
+        class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+        project-home=""
+        project-contact="info@99grad.de"
+        project-repository="https://bitbucket.org/99grad-team/nnrestapi"
+        project-issues=""
+        edit-on-github=""
+        edit-on-github-branch=""
+    />
+
+    <inventory id="h2document" url="https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/"/>
+    <inventory id="t3install" url="https://docs.typo3.org/m/typo3/guide-installation/main/en-us/"/>
+    <inventory id="t3tsref" url="https://docs.typo3.org/m/typo3/reference-typoscript/main/en-us/"/>
+</guides>

@@ -1,21 +1,23 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="category-menu">
+    <div class="category-menu js-sticky-widget sticky-top">
         <f:if condition="{settings.displayMode} == 'dropdown'">
             <f:then>
                 <!-- Dropdown -->
                 <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Kategorien
                     </button>
                     <ul class="dropdown-menu">
                         <f:for each="{categories}" as="category">
                             <li>
-                                <f:link.action action="category" controller="Product" pluginName="ProductList" arguments="{category: category}" pageUid="{settings.targetPid}" class="dropdown-item">
+                                <f:link.action action="category" controller="Product" pluginName="ProductList"
+                                    arguments="{category: category}" pageUid="{settings.targetPid}"
+                                    class="dropdown-item">
                                     {category.title}
                                     <f:if condition="{settings.showProductCount}">
                                         <span class="badge bg-secondary ms-1">{category.products -> f:count()}</span>
@@ -30,7 +32,9 @@
                 <!-- Badges -->
                 <div class="d-flex flex-wrap gap-2">
                     <f:for each="{categories}" as="category">
-                        <f:link.action action="category" controller="Product" pluginName="ProductList" arguments="{category: category}" pageUid="{settings.targetPid}" class="badge bg-secondary text-decoration-none">
+                        <f:link.action action="category" controller="Product" pluginName="ProductList"
+                            arguments="{category: category}" pageUid="{settings.targetPid}"
+                            class="badge bg-secondary text-decoration-none">
                             {category.title}
                             <f:if condition="{settings.showProductCount}">
                                 <span class="ms-1">({category.products -> f:count()})</span>
@@ -41,22 +45,26 @@
             </f:else>
             <f:else>
                 <!-- List (default) -->
-                 <div class="widget">
+                <div class="widget">
                     <h3 class="widget_title">Kategorie</h3>
                     <ul class="info_list unordered_list_block">
                         <f:for each="{categories}" as="category">
                             <li>
-                                <f:link.action action="category" controller="Product" pluginName="ProductList" arguments="{category: category}" pageUid="{settings.targetPid}" class="">
-                                <span class="info_icon"><img src="/fileadmin/comp/icon_square.svg" alt="Tuningfiles Download"> </span>
-                               <span class="info_text"> {category.title}</span>
-                                <f:if condition="{settings.showProductCount}">
-                                    <span class="badge bg-primary rounded-pill">{category.products -> f:count()}</span>
-                                </f:if>
-                            </f:link.action></li>
+                                <f:link.action action="category" controller="Product" pluginName="ProductList"
+                                    arguments="{category: category}" pageUid="{settings.targetPid}" class="">
+                                    <span class="info_icon"><img src="/fileadmin/comp/icon_square.svg"
+                                            alt="Tuningfiles Download"> </span>
+                                    <span class="info_text"> {category.title}</span>
+                                    <f:if condition="{settings.showProductCount}">
+                                        <span class="badge bg-primary rounded-pill">{category.products ->
+                                            f:count()}</span>
+                                    </f:if>
+                                </f:link.action>
+                            </li>
                         </f:for>
                     </ul>
-                 </div>
-                
+                </div>
+
             </f:else>
         </f:if>
     </div>

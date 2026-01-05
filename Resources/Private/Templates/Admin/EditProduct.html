@@ -2,7 +2,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="container-lg py-4">
+    <div class="">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h2 m-0">
                 <f:if condition="{product}">
@@ -10,14 +10,14 @@
                     <f:else>Neues Produkt</f:else>
                 </f:if>
             </h1>
-            <f:link.action action="listProducts" class="btn btn-secondary">← Zurück</f:link.action>
+            <f:link.action action="listProducts" class="btn btn-primary">← Zurück</f:link.action>
         </div>
 
         <form action="{f:uri.action(action: 'saveProduct')}" method="POST">
             <input type="hidden" name="product_uid" value="{product.uid}" />
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Grundinformationen</h5>
                 </div>
                 <div class="card-body">
@@ -34,7 +34,7 @@
 
                     <div class="mb-3">
                         <label for="headline" class="form-label">Überschrift</label>
-                        <input type="text" id="headline" name="headline" class="form-control" value="{product.headline}" />
+                        <input type="text" id="headline" name="headline" class="form-control" placeholder="Überschrift eingeben" value="{product.headline}" />
                     </div>
 
                     <div class="mb-3">
@@ -49,8 +49,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Preise & Lager</h5>
                 </div>
                 <div class="card-body">
@@ -83,8 +83,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Kategorien & Hersteller</h5>
                 </div>
                 <div class="card-body">
@@ -114,8 +114,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Bilder</h5>
                 </div>
                 <div class="card-body">
@@ -142,8 +142,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Videos</h5>
                 </div>
                 <div class="card-body">
@@ -166,8 +166,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Dokumente</h5>
                 </div>
                 <div class="card-body">
@@ -193,8 +193,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Links</h5>
                 </div>
                 <div class="card-body">
@@ -217,8 +217,8 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-light">
+            <div class="card mb-4 rounded-0 bg_gray_dark">
+                <div class="card-header bg-dark rounded-0">
                     <h5 class="m-0">Status</h5>
                 </div>
                 <div class="card-body">
@@ -230,7 +230,7 @@
             </div>
 
             <div class="d-flex gap-2 mb-4">
-                <button type="submit" class="btn btn-success">Speichern</button>
+                <button type="submit" class="btn btn-primary button">Speichern</button>
                 <f:link.action action="listProducts" class="btn btn-secondary">Abbrechen</f:link.action>
             </div>
         </form>

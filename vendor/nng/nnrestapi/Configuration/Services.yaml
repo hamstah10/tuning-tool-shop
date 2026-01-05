@@ -1,0 +1,42 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Nng\Nnrestapi\Middleware\:
+    resource: '../Classes/Middleware/*'
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Nng\Nnrestapi\:
+    resource: '../Classes/*'
+    exclude: 
+      - '../Classes/Domain/Model/*'
+      - '../Classes/Utilities/nnrest.php'
+
+  Nng\Nnrestapi\Resource\EventListener\ModifyFileDumpEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'nng/nnrestapi/modify-file-dump'
+
+  Nng\Nnrestapi\Controller\FileDumpController:
+    public: true
+
+  Nng\Nnrestapi\Controller\ModController:
+    tags: ['backend.controller']
+
+  Nng\Nnrestapi\EventListener\ModifyCspForModuleListener:
+    tags:
+      - name: event.listener
+        identifier: 'nng/nnrestapi/modify-csp-for-module'
+        event: TYPO3\CMS\Core\Security\ContentSecurityPolicy\Event\PolicyMutatedEvent
+
+  Nng\Nnrestapi\Command\NnrestapiCommand:
+    tags:
+      - name: 'console.command'
+        command: 'nnrestapi:run'
+        description: 'Run maintenance tasks for nnrestapi'
+        hidden: false
+        schedulable: true

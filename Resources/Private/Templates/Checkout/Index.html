@@ -1,365 +1,513 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
-
-<f:layout name="Default" />
-
-<f:section name="main">
-    <div class="tts-checkout">
-        
-        <f:if condition="{cartItems}">
-            <f:then>
-                <f:if condition="{isUserLoggedIn}">
-                    <f:then>
-                        <f:form action="process" controller="Checkout" class="tts-checkout__form">
-                            <div class="row g-4">
-                                <div class="col-lg-9">
-                                    <!-- Kundendaten -->
-                                    <section class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">1</span>
-                                            <h2 class="ms-3 mb-0">Kundendaten</h2>
-                                        </div>
-                                        <div class="row g-3">
-                                             <div class="col-sm-4">
-                                                <label for="customerAnrede" class="form-label d-none">Anrede</label>
-                                                <f:form.select name="order[customerAnrede]" id="customerAnrede" options="{Frau: 'Frau', Herr: 'Herr'}" value="{frontendUser.anrede}" class="form-select" required="required" />
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:layout name="Default"/>
+    <f:section name="main">
+        <div class="tts-checkout">
+            <f:if condition="{cartItems}">
+                <f:then>
+                    <f:if condition="{isUserLoggedIn}">
+                        <f:then>
+                            <f:form action="process" controller="Checkout" class="tts-checkout__form">
+                                <div class="row g-4">
+                                    <div class="col-lg-9">
+                                        <!-- Kundendaten -->
+                                        <section class="mb-5">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">1</span>
+                                                <h2 class="ms-3 mb-0">Kundendaten</h2>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <label for="customerCompany" class="form-label text-muted">Firma</label>
-                                                <f:form.textfield name="order[customerCompany]" id="customerCompany" class="form-control" value="{frontendUser.company}" />
+                                            <div class="row g-3">
+                                                <div class="col-sm-4">
+                                                    <label for="customerAnrede" class="form-label d-none">Anrede</label>
+                                                    <f:form.select
+                                                        name="order[customerAnrede]"
+                                                        id="customerAnrede"
+                                                        options="{Frau: 'Frau', Herr: 'Herr'}"
+                                                        value="{frontendUser.anrede}"
+                                                        class="form-select"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="customerCompany" class="form-label text-muted">Firma</label>
+                                                    <f:form.textfield
+                                                        name="order[customerCompany]"
+                                                        id="customerCompany"
+                                                        class="form-control"
+                                                        value="{frontendUser.company}"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="customerFirstName" class="form-label text-muted">
+                                                        Vorname
+                                                    *
+                                                    </label>
+                                                    <f:form.textfield
+                                                        name="order[customerFirstName]"
+                                                        id="customerFirstName"
+                                                        class="form-control"
+                                                        value="{frontendUser.first_name}"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="customerLastName" class="form-label text-muted">
+                                                        Nachname
+                                                    *
+                                                    </label>
+                                                    <f:form.textfield
+                                                        name="order[customerLastName]"
+                                                        id="customerLastName"
+                                                        class="form-control"
+                                                        value="{frontendUser.last_name}"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="customerEmail" class="form-label text-muted">
+                                                        E-Mail
+                                                    *
+                                                    </label>
+                                                    <f:form.textfield
+                                                        name="order[customerEmail]"
+                                                        id="customerEmail"
+                                                        type="email"
+                                                        class="form-control"
+                                                        value="{frontendUser.email}"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="customerPhone" class="form-label text-muted">Telefon</label>
+                                                    <f:form.textfield
+                                                        name="order[customerPhone]"
+                                                        id="customerPhone"
+                                                        type="tel"
+                                                        class="form-control"
+                                                        value="{frontendUser.mobile}"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <label for="customerFirstName" class="form-label text-muted">Vorname *</label>
-                                                <f:form.textfield name="order[customerFirstName]" id="customerFirstName" class="form-control" value="{frontendUser.first_name}" required="required" />
+                                        </section>
+                                        <!-- Rechnungsadresse -->
+                                        <section class="mb-5">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">2</span>
+                                                <h2 class="ms-3 mb-0">Rechnungsadresse</h2>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <label for="customerLastName" class="form-label text-muted">Nachname *</label>
-                                                <f:form.textfield name="order[customerLastName]" id="customerLastName" class="form-control" value="{frontendUser.last_name}" required="required" />
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label for="billingStreet" class="form-label text-muted">
+                                                        Straße und
+                                                    Hausnummer *
+                                                    </label>
+                                                    <f:form.textfield
+                                                        name="order[billingStreet]"
+                                                        id="billingStreet"
+                                                        class="form-control"
+                                                        value="{frontendUser.address}"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="billingZip" class="form-label text-muted">PLZ *</label>
+                                                    <f:form.textfield
+                                                        name="order[billingZip]"
+                                                        id="billingZip"
+                                                        class="form-control"
+                                                        value="{frontendUser.zip}"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="billingCity" class="form-label text-muted">Ort *</label>
+                                                    <f:form.textfield
+                                                        name="order[billingCity]"
+                                                        id="billingCity"
+                                                        class="form-control"
+                                                        value="{frontendUser.city}"
+                                                        required="required"
+                                                    />
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="billingCountry" class="form-label text-muted">Land *</label>
+                                                    <f:form.select
+                                                        name="order[billingCountry]"
+                                                        id="billingCountry"
+                                                        options="{countries}"
+                                                        value="{frontendUser.country}"
+                                                        class="form-select"
+                                                        required="required"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <label for="customerEmail" class="form-label text-muted">E-Mail *</label>
-                                                <f:form.textfield name="order[customerEmail]" id="customerEmail" type="email" class="form-control" value="{frontendUser.email}" required="required" />
+                                        </section>
+                                        <!-- Versandart -->
+                                        <section class="mb-5">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">3</span>
+                                                <h2 class="ms-3 mb-0">Versandart *</h2>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <label for="customerPhone" class="form-label text-muted">Telefon</label>
-                                                <f:form.textfield name="order[customerPhone]" id="customerPhone" type="tel" class="form-control" value="{frontendUser.mobile}" />
-                                            </div>
-                                            
-                                        </div>
-                                    </section>
-
-                                    <!-- Rechnungsadresse -->
-                                    <section class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">2</span>
-                                            <h2 class="ms-3 mb-0">Rechnungsadresse</h2>
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col-12">
-                                                <label for="billingStreet" class="form-label text-muted">Straße und Hausnummer *</label>
-                                                <f:form.textfield name="order[billingStreet]" id="billingStreet" class="form-control" value="{frontendUser.address}" required="required" />
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="billingZip" class="form-label text-muted">PLZ *</label>
-                                                <f:form.textfield name="order[billingZip]" id="billingZip" class="form-control" value="{frontendUser.zip}" required="required" />
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="billingCity" class="form-label text-muted">Ort *</label>
-                                                <f:form.textfield name="order[billingCity]" id="billingCity" class="form-control" value="{frontendUser.city}" required="required" />
-                                            </div>
-                                            <div class="col-12">
-                                                <label for="billingCountry" class="form-label text-muted">Land *</label>
-                                                <f:form.select name="order[billingCountry]" id="billingCountry" options="{countries}" value="{frontendUser.country}" class="form-select" required="required" />
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    <!-- Versandart -->
-                                    <section class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">3</span>
-                                            <h2 class="ms-3 mb-0">Versandart *</h2>
-                                        </div>
-                                        <f:if condition="{selectedShippingMethod}">
-                                            <f:then>
-                                                <div class="row g-2" id="shippingMethodsGroup">
-                                                    <div class="col-12">
-                                                        <f:form.radio name="order[shippingMethod]" id="shipping_{selectedShippingMethod.uid}" value="{selectedShippingMethod.uid}" checked="1" class="btn-check tts-shipping-method-radio" data-price="{selectedShippingMethod.price}" required="required" />
-                                                        <label for="shipping_{selectedShippingMethod.uid}" class="btn btn-outline-secondary w-100 p-3 text-start d-flex gap-3 align-items-start">
-                                                            <f:if condition="{selectedShippingMethod.logo}">
-                                                                <img src="{selectedShippingMethod.logo}" alt="{selectedShippingMethod.provider}" style="max-width: 50px; height: auto; flex-shrink: 0;" />
-                                                            </f:if>
-                                                            <div class="flex-grow-1">
-                                                                <h5 class="mb-0 fw-bold">{selectedShippingMethod.title}</h5>
-                                                                <p class="mb-1 text-muted small">{selectedShippingMethod.provider}</p>
-                                                                <f:if condition="{selectedShippingMethod.description}">
-                                                                    <p class="mb-0 small">{selectedShippingMethod.description}</p>
+                                            <f:if condition="{selectedShippingMethod}">
+                                                <f:then>
+                                                    <div class="row g-2" id="shippingMethodsGroup">
+                                                        <div class="col-12">
+                                                            <f:form.radio
+                                                                name="order[shippingMethod]"
+                                                                id="shipping_{selectedShippingMethod.uid}"
+                                                                value="{selectedShippingMethod.uid}"
+                                                                checked="1"
+                                                                class="btn-check tts-shipping-method-radio"
+                                                                data-price="{selectedShippingMethod.price}"
+                                                                required="required"
+                                                            />
+                                                            <label for="shipping_{selectedShippingMethod.uid}" class="btn btn-outline-secondary w-100 p-3 text-start d-flex gap-3 align-items-start">
+                                                                <f:if condition="{selectedShippingMethod.logo}">
+                                                                    <img src="{selectedShippingMethod.logo}" alt="{selectedShippingMethod.provider}" style="max-width: 50px; height: auto; flex-shrink: 0;">
                                                                 </f:if>
-                                                            </div>
-                                                            <div class="ms-auto text-end flex-shrink-0">
-                                                                <strong>+<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{selectedShippingMethod.price}</f:format.currency></strong>
-                                                            </div>
+                                                                <div class="flex-grow-1">
+                                                                    <h5 class="mb-0 fw-bold">
+                                                                        {selectedShippingMethod.title}
+                                                                    </h5>
+                                                                    <p class="mb-1 text-muted small">
+                                                                        {selectedShippingMethod.provider}
+                                                                    </p>
+                                                                    <f:if condition="{selectedShippingMethod.description}">
+                                                                        <p class="mb-0 small">
+                                                                            {selectedShippingMethod.description}
+                                                                        </p>
+                                                                    </f:if>
+                                                                </div>
+                                                                <div class="ms-auto text-end flex-shrink-0">
+                                                                    <strong>
+                                                                        +
+                                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+                                                                            {selectedShippingMethod.price}
+                                                                        </f:format.currency>
+                                                                    </strong>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </f:then>
+                                                <f:else>
+                                                    <div class="alert alert-warning">
+                                                        Keine passende Versandart für das aktuelle Gesamtgewicht
+                                                    ({totalWeight} kg) gefunden.
+                                                    </div>
+                                                </f:else>
+                                            </f:if>
+                                        </section>
+                                        <!-- Lieferadresse -->
+                                        <section class="mb-5">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">4</span>
+                                                <h2 class="ms-3 mb-0">Lieferadresse</h2>
+                                            </div>
+                                            <div class="mb-4">
+                                                <div class="form-check">
+                                                    <f:form.checkbox
+                                                        name="order[shippingSameAsBilling]"
+                                                        id="shippingSameAsBilling"
+                                                        value="1"
+                                                        checked="1"
+                                                        class="form-check-input"
+                                                    />
+                                                    <label for="shippingSameAsBilling" class="form-check-label">
+                                                        Lieferadresse entspricht der Rechnungsadresse
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div id="shippingAddressFields">
+                                                <div class="row g-3">
+                                                    <div class="col-sm-6">
+                                                        <label for="shippingFirstName" class="form-label text-muted">Vorname</label>
+                                                        <f:form.textfield name="order[shippingFirstName]" id="shippingFirstName" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="shippingLastName" class="form-label text-muted">Nachname</label>
+                                                        <f:form.textfield name="order[shippingLastName]" id="shippingLastName" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="shippingCompany" class="form-label text-muted">Firma</label>
+                                                        <f:form.textfield name="order[shippingCompany]" id="shippingCompany" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="shippingStreet" class="form-label text-muted">
+                                                            Straße und
+                                                        Hausnummer
                                                         </label>
+                                                        <f:form.textfield name="order[shippingStreet]" id="shippingStreet" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="shippingZip" class="form-label text-muted">PLZ</label>
+                                                        <f:form.textfield name="order[shippingZip]" id="shippingZip" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="shippingCity" class="form-label text-muted">Ort</label>
+                                                        <f:form.textfield name="order[shippingCity]" id="shippingCity" class="form-control"/>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="shippingCountry" class="form-label text-muted">Land</label>
+                                                        <f:form.select
+                                                            name="order[shippingCountry]"
+                                                            id="shippingCountry"
+                                                            options="{countries}"
+                                                            class="form-select"
+                                                        />
                                                     </div>
                                                 </div>
-                                            </f:then>
-                                            <f:else>
-                                                <div class="alert alert-warning">
-                                                    Keine passende Versandart für das aktuelle Gesamtgewicht ({totalWeight} kg) gefunden.
-                                                </div>
-                                            </f:else>
-                                        </f:if>
-                                    </section>
-
-                                    <!-- Lieferadresse -->
-                                    <section class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">4</span>
-                                            <h2 class="ms-3 mb-0">Lieferadresse</h2>
-                                        </div>
-
-                                        <div class="mb-4">
-                                            <div class="form-check">
-                                                <f:form.checkbox name="order[shippingSameAsBilling]" id="shippingSameAsBilling" value="1" checked="1" class="form-check-input" />
-                                                <label for="shippingSameAsBilling" class="form-check-label">
-                                                    Lieferadresse entspricht der Rechnungsadresse
+                                            </div>
+                                        </section>
+                                        <!-- Zahlungsart -->
+                                        <section class="mb-5">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">5</span>
+                                                <h2 class="ms-3 mb-0">Zahlungsart *</h2>
+                                            </div>
+                                            <div class="row g-2" id="paymentMethodsGroup">
+                                                <f:for each="{paymentMethods}" as="paymentMethod">
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <f:form.radio
+                                                            name="order[paymentMethod]"
+                                                            id="payment_{paymentMethod.uid}"
+                                                            value="{paymentMethod.uid}"
+                                                            checked="{f:if(condition:'{selectedPaymentMethod} && {selectedPaymentMethod.uid} == {paymentMethod.uid}', then:1, else:0)}"
+                                                            class="btn-check tts-payment-method-radio"
+                                                            required="required"
+                                                            autocomplete="off"
+                                                        />
+                                                        <label for="payment_{paymentMethod.uid}" class="btn btn-outline-secondary w-100 d-flex flex-column align-items-center p-3">
+                                                            <f:if condition="{paymentMethod.icon}">
+                                                                <f:image
+                                                                    image="{paymentMethod.icon}"
+                                                                    alt=""
+                                                                    width="150c"
+                                                                    class="img-fluid"
+                                                                />
+                                                            </f:if>
+                                                            <span class="mt-2 small">{paymentMethod.title}</span>
+                                                        </label>
+                                                    </div>
+                                                </f:for>
+                                            </div>
+                                            <div class="alert alert-danger mt-3" id="paymentMethodError" style="display: none;">
+                                                Bitte wählen Sie eine Zahlungsart aus
+                                            </div>
+                                        </section>
+                                        <!-- Bemerkungen -->
+                                        <section class="mb-5">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">6</span>
+                                                <h2 class="ms-3 mb-0">Bemerkungen</h2>
+                                            </div>
+                                            <div>
+                                                <label for="comment" class="form-label text-muted">
+                                                    Anmerkungen zur
+                                                Bestellung
                                                 </label>
+                                                <f:form.textarea
+                                                    name="order[comment]"
+                                                    id="comment"
+                                                    rows="4"
+                                                    class="form-control"
+                                                    placeholder="Besondere Wünsche oder Hinweise..."
+                                                />
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <!-- Bestellübersicht Sidebar -->
+                                    <div class="col-lg-3 ">
+                                        <div class="order_summary">
+                                            <div class="border-0 shadow-sm sticky-top " style="top: 20px;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-4">Ihre Bestellung</h5>
+                                                    <div class="mb-4">
+                                                        <f:for each="{cartItems}" as="item">
+                                                            <div class="d-flex justify-content-between align-items-start mb-3 pb-3 border-bottom" style="font-size: 0.9rem;">
+                                                                <div>
+                                                                    <strong>{item.quantity}×</strong>
+                                                                    {item.product.title}
+                                                                </div>
+                                                                <div class="text-end">
+                                                                    <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+                                                                        {item.subtotalNet}
+                                                                    </f:format.currency>
+                                                                </div>
+                                                            </div>
+                                                        </f:for>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>Netto:</span>
+                                                            <span>
+                                                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalNet}</f:format.currency>
+                                                            </span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>MwSt.:</span>
+                                                            <span>
+                                                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalTax}</f:format.currency>
+                                                            </span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                                                            <span>Versandkosten:</span>
+                                                            <span id="shippingCostSummary">
+                                                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+                                                                    {selectedShippingMethod.price}
+                                                                </f:format.currency>
+                                                            </span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <strong>Gesamtsumme:</strong>
+                                                            <strong id="totalSummary" data-total="{total}">
+                                                                <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <p class="small text-muted mb-3">Preise inkl. MwSt.</p>
+                                                    <f:link.page pageUid="{cartPid}" class="d-block text-center text-primary small mb-4" style="text-decoration: none;">
+                                                        Warenkorb bearbeiten
+                                                    </f:link.page>
+                                                </div>
+                                            </div>
+                                            <!-- AGB & Bestellbutton -->
+                                            <div class="mt-4">
+                                                <div class="form-check mb-3">
+                                                    <f:form.checkbox
+                                                        name="order[acceptTerms]"
+                                                        id="acceptTerms"
+                                                        value="1"
+                                                        class="form-check-input"
+                                                        required="required"
+                                                    />
+                                                    <label for="acceptTerms" class="form-check-label small">
+                                                        Ich akzeptiere die
+                                                        <a href="{termsLink}" target="_blank">AGB</a>
+                                                        und
+                                                    habe die
+                                                        <a href="{privacyLink}" target="_blank">Datenschutzerklärung</a>
+                                                        gelesen. *
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-4">
+                                                    <f:form.checkbox
+                                                        name="order[acceptCancellation]"
+                                                        id="acceptCancellation"
+                                                        value="1"
+                                                        class="form-check-input"
+                                                        required="required"
+                                                    />
+                                                    <label for="acceptCancellation" class="form-check-label small">
+                                                        Ich habe die
+                                                        <a href="{cancellationLink}" target="_blank">Widerrufsbelehrung</a>
+                                                        zur Kenntnis genommen. *
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                                    Zahlungspflichtig bestellen
+                                                </button>
+                                                <p class="text-center small text-muted">
+                                                    🔒 Sichere Datenübertragung
+                                                </p>
                                             </div>
                                         </div>
-
-                                        <div id="shippingAddressFields">
-                                            <div class="row g-3">
-                                                <div class="col-sm-6">
-                                                    <label for="shippingFirstName" class="form-label text-muted">Vorname</label>
-                                                    <f:form.textfield name="order[shippingFirstName]" id="shippingFirstName" class="form-control" />
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label for="shippingLastName" class="form-label text-muted">Nachname</label>
-                                                    <f:form.textfield name="order[shippingLastName]" id="shippingLastName" class="form-control" />
-                                                </div>
-                                                <div class="col-12">
-                                                    <label for="shippingCompany" class="form-label text-muted">Firma</label>
-                                                    <f:form.textfield name="order[shippingCompany]" id="shippingCompany" class="form-control" />
-                                                </div>
-                                                <div class="col-12">
-                                                    <label for="shippingStreet" class="form-label text-muted">Straße und Hausnummer</label>
-                                                    <f:form.textfield name="order[shippingStreet]" id="shippingStreet" class="form-control" />
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label for="shippingZip" class="form-label text-muted">PLZ</label>
-                                                    <f:form.textfield name="order[shippingZip]" id="shippingZip" class="form-control" />
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label for="shippingCity" class="form-label text-muted">Ort</label>
-                                                    <f:form.textfield name="order[shippingCity]" id="shippingCity" class="form-control" />
-                                                </div>
-                                                <div class="col-12">
-                                                    <label for="shippingCountry" class="form-label text-muted">Land</label>
-                                                    <f:form.select name="order[shippingCountry]" id="shippingCountry" options="{countries}" class="form-select" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    <!-- Zahlungsart -->
-                                    <section class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">5</span>
-                                            <h2 class="ms-3 mb-0">Zahlungsart *</h2>
-                                        </div>
-                                        <div class="row g-2" id="paymentMethodsGroup">
-                                             <f:for each="{paymentMethods}" as="paymentMethod">
-                                                 <div class="col-sm-6 col-md-4">
-                                                     <f:form.radio name="order[paymentMethod]" id="payment_{paymentMethod.uid}" value="{paymentMethod.uid}" checked="{f:if(condition:'{selectedPaymentMethod} && {selectedPaymentMethod.uid} == {paymentMethod.uid}', then:1, else:0)}" class="btn-check tts-payment-method-radio" required="required" autocomplete="off" />
-                                                     <label for="payment_{paymentMethod.uid}" class="btn btn-outline-secondary w-100 d-flex flex-column align-items-center p-3">
-                                                         <f:if condition="{paymentMethod.icon}">
-                                                             <f:image image="{paymentMethod.icon}" alt="" width="50" height="50" />
-                                                         </f:if>
-                                                         <span class="mt-2 small">{paymentMethod.title}</span>
-                                                     </label>
-                                                 </div>
-                                             </f:for>
-                                         </div>
-                                        <div class="alert alert-danger mt-3" id="paymentMethodError" style="display: none;">
-                                            Bitte wählen Sie eine Zahlungsart aus
-                                        </div>
-                                    </section>
-
-                                    <!-- Bemerkungen -->
-                                    <section class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <span class="badge bg-primary rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">6</span>
-                                            <h2 class="ms-3 mb-0">Bemerkungen</h2>
-                                        </div>
-                                        <div>
-                                            <label for="comment" class="form-label text-muted">Anmerkungen zur Bestellung</label>
-                                            <f:form.textarea name="order[comment]" id="comment" rows="4" class="form-control" placeholder="Besondere Wünsche oder Hinweise..." />
-                                        </div>
-                                    </section>
+                                    </div>
                                 </div>
-
-                                <!-- Bestellübersicht Sidebar -->
-                                <div class="col-lg-3 ">
-                                    <div class="order_summary">
-                                    <div class="border-0 shadow-sm sticky-top " style="top: 20px;">
+                            </f:form>
+                        </f:then>
+                        <f:else>
+                            <!-- Login / Registration Section for non-logged-in users -->
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-warning mb-4">
+                                        <h3 class="alert-heading mb-3">Anmeldung erforderlich</h3>
+                                        <p class="mb-0">
+                                            Um Ihre Bestellung abzuschließen, müssen Sie sich anmelden oder ein
+                                        neues Konto erstellen.
+                                        </p>
+                                    </div>
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <div class="card border-0 shadow-sm h-100">
+                                                <div class="card-body text-center p-4">
+                                                    <h4 class="card-title mb-3">Bereits Kunde?</h4>
+                                                    <p class="text-muted mb-4">
+                                                        Melden Sie sich mit Ihrem bestehenden Konto
+                                                    an.
+                                                    </p>
+                                                    <f:if condition="{loginPid}">
+                                                        <f:link.page pageUid="{loginPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-primary btn-lg w-100">
+                                                            Jetzt anmelden
+                                                        </f:link.page>
+                                                    </f:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card border-0 shadow-sm h-100">
+                                                <div class="card-body text-center p-4">
+                                                    <h4 class="card-title mb-3">Neu hier?</h4>
+                                                    <p class="text-muted mb-4">Erstellen Sie ein Konto, um fortzufahren.</p>
+                                                    <f:if condition="{registrationPid}">
+                                                        <f:link.page pageUid="{registrationPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-outline-primary btn-lg w-100">
+                                                            Konto erstellen
+                                                        </f:link.page>
+                                                    </f:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card border-0 shadow-sm">
                                         <div class="card-body">
                                             <h5 class="card-title mb-4">Ihre Bestellung</h5>
-
                                             <div class="mb-4">
                                                 <f:for each="{cartItems}" as="item">
                                                     <div class="d-flex justify-content-between align-items-start mb-3 pb-3 border-bottom" style="font-size: 0.9rem;">
                                                         <div>
-                                                            <strong>{item.quantity}×</strong> {item.product.title}
+                                                            <strong>{item.quantity}×</strong>
+                                                            {item.product.title}
                                                         </div>
                                                         <div class="text-end">
-                                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
+                                                            <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+                                                                {item.subtotalNet}
+                                                            </f:format.currency>
                                                         </div>
                                                     </div>
                                                 </f:for>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>Netto:</span>
-                                                    <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalNet}</f:format.currency></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>MwSt.:</span>
-                                                    <span><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{totalTax}</f:format.currency></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                                                    <span>Versandkosten:</span>
-                                                    <span id="shippingCostSummary">
-                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{selectedShippingMethod.price}</f:format.currency>
-                                                    </span>
-                                                </div>
                                                 <div class="d-flex justify-content-between">
-                                                    <strong>Gesamtsumme:</strong>
-                                                    <strong id="totalSummary" data-total="{total}"><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency></strong>
+                                                    <strong>Gesamtsumme (Brutto):</strong>
+                                                    <strong>
+                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency>
+                                                    </strong>
                                                 </div>
                                             </div>
-
-                                            <p class="small text-muted mb-3">Preise inkl. MwSt.</p>
-
-                                            <f:link.page pageUid="{cartPid}" class="d-block text-center text-primary small mb-4" style="text-decoration: none;">
-                                                Warenkorb bearbeiten
+                                            <p class="small text-muted mb-4">Preise inkl. MwSt.</p>
+                                            <f:link.page pageUid="{cartPid}" class="d-block text-center text-primary small" style="text-decoration: none;">
+                                                Zurück zum Warenkorb
                                             </f:link.page>
                                         </div>
                                     </div>
-
-                                    <!-- AGB & Bestellbutton -->
-                                    <div class="mt-4">
-                                        <div class="form-check mb-3">
-                                            <f:form.checkbox name="order[acceptTerms]" id="acceptTerms" value="1" class="form-check-input" required="required" />
-                                            <label for="acceptTerms" class="form-check-label small">
-                                                Ich akzeptiere die <a href="{termsLink}" target="_blank">AGB</a> und habe die <a href="{privacyLink}" target="_blank">Datenschutzerklärung</a> gelesen. *
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check mb-4">
-                                            <f:form.checkbox name="order[acceptCancellation]" id="acceptCancellation" value="1" class="form-check-input" required="required" />
-                                            <label for="acceptCancellation" class="form-check-label small">
-                                                Ich habe die <a href="{cancellationLink}" target="_blank">Widerrufsbelehrung</a> zur Kenntnis genommen. *
-                                            </label>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
-                                            Zahlungspflichtig bestellen
-                                        </button>
-
-                                        <p class="text-center small text-muted">
-                                            🔒 Sichere Datenübertragung
-                                        </p>
-                                    </div>
-                                    </div>
                                 </div>
                             </div>
-                        </f:form>
-                    </f:then>
-                    <f:else>
-                        <!-- Login / Registration Section for non-logged-in users -->
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="alert alert-warning mb-4">
-                                    <h3 class="alert-heading mb-3">Anmeldung erforderlich</h3>
-                                    <p class="mb-0">Um Ihre Bestellung abzuschließen, müssen Sie sich anmelden oder ein neues Konto erstellen.</p>
-                                </div>
-                                
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <div class="card border-0 shadow-sm h-100">
-                                            <div class="card-body text-center p-4">
-                                                <h4 class="card-title mb-3">Bereits Kunde?</h4>
-                                                <p class="text-muted mb-4">Melden Sie sich mit Ihrem bestehenden Konto an.</p>
-                                                <f:if condition="{loginPid}">
-                                                    <f:link.page pageUid="{loginPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-primary btn-lg w-100">
-                                                        Jetzt anmelden
-                                                    </f:link.page>
-                                                </f:if>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card border-0 shadow-sm h-100">
-                                            <div class="card-body text-center p-4">
-                                                <h4 class="card-title mb-3">Neu hier?</h4>
-                                                <p class="text-muted mb-4">Erstellen Sie ein Konto, um fortzufahren.</p>
-                                                <f:if condition="{registrationPid}">
-                                                    <f:link.page pageUid="{registrationPid}" additionalParams="{redirect_url: '{checkoutUrl}'}" class="btn btn-outline-primary btn-lg w-100">
-                                                        Konto erstellen
-                                                    </f:link.page>
-                                                </f:if>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card border-0 shadow-sm">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-4">Ihre Bestellung</h5>
-                                        <div class="mb-4">
-                                            <f:for each="{cartItems}" as="item">
-                                                <div class="d-flex justify-content-between align-items-start mb-3 pb-3 border-bottom" style="font-size: 0.9rem;">
-                                                    <div>
-                                                        <strong>{item.quantity}×</strong> {item.product.title}
-                                                    </div>
-                                                    <div class="text-end">
-                                                        <f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{item.subtotalNet}</f:format.currency>
-                                                    </div>
-                                                </div>
-                                            </f:for>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between">
-                                                <strong>Gesamtsumme (Brutto):</strong>
-                                                <strong><f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">{total}</f:format.currency></strong>
-                                            </div>
-                                        </div>
-                                        <p class="small text-muted mb-4">Preise inkl. MwSt.</p>
-                                        <f:link.page pageUid="{cartPid}" class="d-block text-center text-primary small" style="text-decoration: none;">
-                                            Zurück zum Warenkorb
-                                        </f:link.page>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </f:else>
-                </f:if>
-            </f:then>
-            <f:else>
-                <div class="text-center py-5">
-                    <p class="text-muted mb-4">Ihr Warenkorb ist leer. Bitte fügen Sie zunächst Produkte hinzu.</p>
-                    <f:link.page pageUid="{shopPid}" class="btn btn-primary">
-                        Zum Shop
-                    </f:link.page>
-                </div>
-            </f:else>
-        </f:if>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+                        </f:else>
+                    </f:if>
+                </f:then>
+                <f:else>
+                    <div class="text-center py-5">
+                        <p class="text-muted mb-4">Ihr Warenkorb ist leer. Bitte fügen Sie zunächst Produkte hinzu.</p>
+                        <f:link.page pageUid="{shopPid}" class="btn btn-primary">
+                            Zum Shop
+                        </f:link.page>
+                    </div>
+                </f:else>
+            </f:if>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
             const sameAsBillingCheckbox = document.getElementById('shippingSameAsBilling');
             const shippingFields = document.getElementById('shippingAddressFields');
             const form = document.querySelector('.tts-checkout__form');
@@ -396,7 +544,7 @@
 
             // Bind shipping method change
             shippingMethodRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
+                radio.addEventListener('change', function () {
                     updateShippingCost();
                     if (shippingMethodError) {
                         shippingMethodError.style.display = 'none';
@@ -407,7 +555,7 @@
             // Toggle shipping address fields
             function toggleShippingFields() {
                 const shippingInputs = shippingFields.querySelectorAll('input[type="text"], input[type="tel"], select');
-                
+
                 if (sameAsBillingCheckbox.checked) {
                     shippingFields.style.display = 'none';
                     // Remove required attribute when hidden
@@ -473,7 +621,7 @@
 
             // Add form submit validation
             if (form) {
-                form.addEventListener('submit', function(e) {
+                form.addEventListener('submit', function (e) {
                     const paymentValid = validatePaymentMethod();
                     const shippingValid = validateShippingMethod();
 
@@ -492,7 +640,7 @@
 
             // Hide error message when a payment method is selected
             paymentMethodRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
+                radio.addEventListener('change', function () {
                     if (this.checked) {
                         paymentMethodError.style.display = 'none';
                     }
@@ -502,7 +650,6 @@
             // Initialize shipping cost display
             updateShippingCost();
         });
-    </script>
-</f:section>
-
+        </script>
+    </f:section>
 </html>

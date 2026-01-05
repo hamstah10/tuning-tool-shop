@@ -7,11 +7,23 @@ stripe.publishableKey=
 # cat=basic; type=string; label=Stripe Webhook Secret:
 stripe.webhookSecret=
 
-# cat=basic; type=string; label=PayPal Sandbox Mode:
-paypal.sandbox=1
+# cat=paypal; type=options[sandbox=Sandbox,live=Live]; label=PayPal Mode:
+payPalMode=sandbox
 
-# cat=basic; type=string; label=PayPal Business Account:
-paypal.business=
+# cat=paypal; type=string; label=PayPal URL:
+payPalUrl=https://api-m.sandbox.paypal.com/v1
 
-# cat=basic; type=string; label=PayPal Currency:
-paypal.currency=EUR
+# cat=paypal; type=string; label=PayPal Sandbox Client ID:
+payPalSandboxClientId=
+
+# cat=paypal; type=string; label=PayPal Sandbox Client Secret:
+payPalSandboxClientSecret=
+
+# cat=paypal; type=string; label=PayPal Live Client ID:
+payPalLiveClientId=
+
+# cat=paypal; type=string; label=PayPal Live Client Secret:
+payPalLiveClientSecret=
+
+# cat=paypal; type=int+; label=PayPal Return Page UID:
+paypalReturnPageUid=1

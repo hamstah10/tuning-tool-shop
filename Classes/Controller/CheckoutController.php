@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hamstahstudio\TuningToolShop\Controller;
 
 use Hamstahstudio\TuningToolShop\Domain\Model\Order;
-use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\OrderRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\PaymentMethodRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ShippingMethodRepository;
 use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
+use Hamstahstudio\TuningToolShop\Service\CartService;
 use Hamstahstudio\TuningToolShop\Service\SessionService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -18,12 +18,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class CheckoutController extends ActionController
 {
     public function __construct(
-        protected readonly CartItemRepository $cartItemRepository,
         protected readonly OrderRepository $orderRepository,
         protected readonly PaymentMethodRepository $paymentMethodRepository,
         protected readonly ShippingMethodRepository $shippingMethodRepository,
         protected readonly PersistenceManager $persistenceManager,
         protected readonly AuthenticationService $authenticationService,
+        protected readonly CartService $cartService,
         protected readonly SessionService $sessionService,
     ) {}
 
@@ -31,8 +31,8 @@ class CheckoutController extends ActionController
     {
         $isUserLoggedIn = $this->authenticationService->isUserLoggedIn($this->request);
         $frontendUser = $this->authenticationService->getFrontendUser($this->request);
-        $sessionId = $this->getSessionId();
-        $cartItems = $this->cartItemRepository->findBySessionId($sessionId);
+        $frontendUserAuth = $this->request->getAttribute('frontend.user');
+        $cartItems = $this->cartService->getCartItemsFromSession($frontendUserAuth);
         $paymentMethods = $this->paymentMethodRepository->findAll();
         $shippingMethods = $this->shippingMethodRepository->findActive();
 
@@ -41,7 +41,7 @@ class CheckoutController extends ActionController
         $loginPid = (int)($this->settings['femanagerLoginPid'] ?? 0);
         $registrationPid = (int)($this->settings['femanagerRegistrationPid'] ?? 0);
 
-        if ($cartItems->count() === 0) {
+        if (count($cartItems) === 0) {
             $this->addFlashMessage('Ihr Warenkorb ist leer.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING);
             if ($cartPid > 0) {
                 return $this->redirectToUri($this->uriBuilder->reset()->setTargetPageUid($cartPid)->build());
@@ -49,8 +49,8 @@ class CheckoutController extends ActionController
             return $this->htmlResponse();
         }
 
-        $totals = $this->calculateTotals($cartItems->toArray());
-        $totalWeight = $this->calculateTotalWeight($cartItems->toArray());
+        $totals = $this->calculateTotals($cartItems);
+         $totalWeight = $this->calculateTotalWeight($cartItems);
         $countries = $this->getCountries();
         
         // Filter shipping methods by weight and select the best match
@@ -59,14 +59,15 @@ class CheckoutController extends ActionController
         
         // Pre-select payment method if only one is available
         $selectedPaymentMethod = null;
-        if ($paymentMethods->count() === 1) {
-            $selectedPaymentMethod = $paymentMethods->getFirst();
+        $paymentMethodsArray = $paymentMethods->toArray();
+        if (count($paymentMethodsArray) === 1) {
+            $selectedPaymentMethod = $paymentMethodsArray[0];
         }
         
         $termsLink = $this->buildPageLink((int)($this->settings['termsAndConditionsPid'] ?? 0));
         $privacyLink = $this->buildPageLink((int)($this->settings['privacyPid'] ?? 0));
         $cancellationLink = $this->buildPageLink((int)($this->settings['cancellationPid'] ?? 0));
-        $checkoutUrl = $this->uriBuilder->reset()->setTargetPageUid((int)$GLOBALS['TSFE']->id)->build();
+        $checkoutUrl = $this->uriBuilder->reset()->setTargetPageUid((int)$this->request->getAttribute('site')->getRootPageId())->build();
 
         $this->view->assignMultiple([
             'cartItems' => $cartItems,
@@ -103,10 +104,10 @@ class CheckoutController extends ActionController
             return $this->redirect('index', 'Checkout');
         }
 
-        $sessionId = $this->getSessionId();
-        $cartItems = $this->cartItemRepository->findBySessionId($sessionId);
+        $frontendUserAuth = $this->request->getAttribute('frontend.user');
+        $cartItems = $this->cartService->getCartItemsFromSession($frontendUserAuth);
 
-        if ($cartItems->count() === 0) {
+        if (count($cartItems) === 0) {
             $this->addFlashMessage('Ihr Warenkorb ist leer.', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index', 'Cart');
         }
@@ -132,7 +133,7 @@ class CheckoutController extends ActionController
         $tempOrder->setOrderNumber($this->generateOrderNumber());
         $tempOrder->setCreatedAt(new \DateTime());
         $tempOrder->setStatus(Order::STATUS_NEW);
-        $tempOrder->setPid((int)($this->settings['storagePid'] ?? $GLOBALS['TSFE']->id));
+        $tempOrder->setPid((int)($this->settings['storagePid'] ?? $this->request->getAttribute('site')->getRootPageId()));
         
         // Set frontend user ID
         if ($frontendUser !== null) {
@@ -188,24 +189,24 @@ class CheckoutController extends ActionController
         }
 
         $items = [];
-        
-        foreach ($cartItems as $cartItem) {
-            if ($cartItem->getProduct() !== null) {
-                $itemSubtotal = $cartItem->getProduct()->getPrice() * $cartItem->getQuantity();
-                $items[] = [
-                    'sku' => $cartItem->getProduct()->getSku(),
-                    'title' => $cartItem->getProduct()->getTitle(),
-                    'productName' => $cartItem->getProduct()->getTitle(),
-                    'productId' => $cartItem->getProduct()->getUid(),
-                    'quantity' => $cartItem->getQuantity(),
-                    'price' => $cartItem->getProduct()->getPrice(),
-                    'subtotal' => $itemSubtotal,
-                    'total' => $itemSubtotal,
-                ];
-            }
-        }
+         
+         foreach ($cartItems as $cartItem) {
+             if ($cartItem->getProduct() !== null) {
+                 $itemSubtotal = $cartItem->getProduct()->getPrice() * $cartItem->getQuantity();
+                 $items[] = [
+                     'sku' => $cartItem->getProduct()->getSku(),
+                     'title' => $cartItem->getProduct()->getTitle(),
+                     'productName' => $cartItem->getProduct()->getTitle(),
+                     'productId' => $cartItem->getProduct()->getUid(),
+                     'quantity' => $cartItem->getQuantity(),
+                     'price' => $cartItem->getProduct()->getPrice(),
+                     'subtotal' => $itemSubtotal,
+                     'total' => $itemSubtotal,
+                 ];
+             }
+         }
 
-        $totals = $this->calculateTotals($cartItems->toArray());
+         $totals = $this->calculateTotals($cartItems);
         $tempOrder->setSubtotal($totals['net']);
         $tempOrder->setTaxAmount($totals['tax']);
         $tempOrder->setItemsJson(json_encode($items));
@@ -230,17 +231,53 @@ class CheckoutController extends ActionController
 
         // If no payment handler needed, confirm order and clear cart
         if ($paymentMethod === null || empty($handlerClass)) {
-            // Clear cart
-            foreach ($cartItems as $cartItem) {
-                $this->cartItemRepository->remove($cartItem);
-            }
-            $this->persistenceManager->persistAll();
+            // Clear cart from session
+            $this->cartService->storeCartInSession($frontendUserAuth, []);
 
-            return $this->redirect('confirmation', 'Checkout', null, ['order' => $tempOrder->getUid()]);
+            return $this->redirect('confirmation', 'Checkout', null, ['order' => $tempOrder]);
         }
 
-        // Redirect to payment with temporary order
-        return $this->redirect('redirect', 'Payment', null, ['order' => $tempOrder->getUid()]);
+        // Get payment handler and process
+         try {
+             // Build return URL for payment callback - PayPal appends success parameter
+             $baseUrl = \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+             $returnUrl = $baseUrl . 'index.php?type=123&order=' . intval($tempOrder->getUid() ?? 0);
+            
+            /** @var \Hamstahstudio\TuningToolShop\Payment\PaymentHandlerInterface $handler */
+            $handler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($handlerClass);
+            $handler->setReturnUrl($returnUrl);
+            $result = $handler->processPayment($tempOrder);
+
+            if ($result->hasForm()) {
+                $this->view->assignMultiple([
+                    'order' => $tempOrder,
+                    'formAction' => $result->getFormAction(),
+                    'formFields' => $result->getFormFields(),
+                    'paymentMethod' => $paymentMethod,
+                ]);
+                return $this->htmlResponse();
+            }
+
+            if ($result->requiresRedirect() && $result->getRedirectUrl()) {
+                return $this->redirectToUri($result->getRedirectUrl());
+            }
+
+            if ($result->isSuccess()) {
+                $tempOrder->setPaymentStatus(Order::PAYMENT_STATUS_PAID);
+                $tempOrder->setStatus(Order::STATUS_CONFIRMED);
+                $tempOrder->setTransactionId($result->getTransactionId());
+                $this->orderRepository->update($tempOrder);
+                $this->persistenceManager->persistAll();
+                return $this->redirect('confirmation', 'Checkout', null, ['order' => $tempOrder]);
+            }
+
+            $this->addFlashMessage($result->getMessage() ?? 'Zahlung fehlgeschlagen', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
+            return $this->redirect('index', 'Checkout');
+        } catch (\Exception $e) {
+            \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Psr\Log\LoggerInterface::class)->error('[Checkout] Payment handler error: ' . $e->getMessage(), ['exception' => $e->getTraceAsString()]);
+            $this->addFlashMessage('Zahlungsmodul konnte nicht geladen werden: ' . $e->getMessage(), '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
+            return $this->redirect('index', 'Checkout');
+        }
     }
 
     public function confirmationAction(Order $order): ResponseInterface

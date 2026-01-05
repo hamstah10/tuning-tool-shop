@@ -3,70 +3,106 @@
     <div class="widget-stats">
         <div class="stat-box">
             <div class="stat-value">{totalStock}</div>
-            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.totalStock" /></div>
+            <div class="stat-label">
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.totalStock" />
+            </div>
         </div>
         <div class="stat-box">
             <div class="stat-value">{productsCount}</div>
-            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.productsCount" /></div>
+            <div class="stat-label">
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.productsCount" />
+            </div>
         </div>
         <div class="stat-box">
-            <div class="stat-value"><f:count>{lowStockProducts}</f:count></div>
-            <div class="stat-label"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStockCount" /></div>
+            <div class="stat-value">
+                <f:count>{lowStockProducts}</f:count>
+            </div>
+            <div class="stat-label">
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStockCount" />
+            </div>
         </div>
     </div>
 
-    <h3><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStockProducts" /></h3>
+    <h3>
+        <f:translate
+            key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStockProducts" />
+    </h3>
     <f:if condition="{lowStockProducts}">
         <f:then>
             <div class="inventory-table-wrapper">
                 <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.productName" /></th>
-                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.sku" /></th>
-                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.stock" /></th>
-                        <th><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.status" /></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <f:for each="{lowStockProducts}" as="product">
+                    <thead>
                         <tr>
-                            <td>
-                                <strong>{product.title}</strong>
-                            </td>
-                            <td>{product.sku}</td>
-                            <td>
-                                <f:if condition="{product.stock} <= 5">
-                                    <f:then><span class="stock-badge badge-critical">{product.stock}</span></f:then>
-                                    <f:else><span class="stock-badge badge-warning">{product.stock}</span></f:else>
-                                </f:if>
-                            </td>
-                            <td>
-                                <f:if condition="{product.stock} == 0">
-                                    <f:then>
-                                        <span class="badge badge-critical"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.outOfStock" /></span>
-                                    </f:then>
-                                    <f:else>
-                                        <f:if condition="{product.stock} <= 5">
-                                            <f:then>
-                                                <span class="badge badge-critical"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.criticalStock" /></span>
-                                            </f:then>
-                                            <f:else>
-                                                <span class="badge badge-warning"><f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStock" /></span>
-                                            </f:else>
-                                        </f:if>
-                                    </f:else>
-                                </f:if>
-                            </td>
+                            <th>
+                                <f:translate
+                                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.productName" />
+                            </th>
+                            <th>
+                                <f:translate
+                                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.sku" />
+                            </th>
+                            <th>
+                                <f:translate
+                                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.stock" />
+                            </th>
+                            <th>
+                                <f:translate
+                                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.status" />
+                            </th>
                         </tr>
-                    </f:for>
-                </tbody>
+                    </thead>
+                    <tbody>
+                        <f:for each="{lowStockProducts}" as="product">
+                            <tr>
+                                <td>
+                                    <strong>{product.title}</strong>
+                                </td>
+                                <td>{product.sku}</td>
+                                <td>
+                                    <f:if condition="{product.stock} <= 5">
+                                        <f:then><span class="stock-badge badge-critical">{product.stock}</span></f:then>
+                                        <f:else><span class="stock-badge badge-warning">{product.stock}</span></f:else>
+                                    </f:if>
+                                </td>
+                                <td>
+                                    <f:if condition="{product.stock} == 0">
+                                        <f:then>
+                                            <span class="badge badge-critical">
+                                                <f:translate
+                                                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.outOfStock" />
+                                            </span>
+                                        </f:then>
+                                        <f:else>
+                                            <f:if condition="{product.stock} <= 5">
+                                                <f:then>
+                                                    <span class="badge badge-critical">
+                                                        <f:translate
+                                                            key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.criticalStock" />
+                                                    </span>
+                                                </f:then>
+                                                <f:else>
+                                                    <span class="badge badge-warning">
+                                                        <f:translate
+                                                            key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.lowStock" />
+                                                    </span>
+                                                </f:else>
+                                            </f:if>
+                                        </f:else>
+                                    </f:if>
+                                </td>
+                            </tr>
+                        </f:for>
+                    </tbody>
                 </table>
             </div>
         </f:then>
         <f:else>
             <div class="alert alert-success">
-                <f:translate key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.allStocked" />
+                <f:translate
+                    key="LLL:EXT:tuning_tool_shop/Resources/Private/Language/locallang.xlf:dashboard.inventory.allStocked" />
             </div>
         </f:else>
     </f:if>
@@ -82,21 +118,21 @@
 
     .stat-box {
         padding: 1rem;
-        background-color: #f8f9fa;
+        background-color: #262626 !important;
         border-radius: 0.25rem;
         text-align: center;
-        border-left: 3px solid #007bff;
+        border-left: 3px solid #bd1e23;
     }
 
     .stat-value {
         font-size: 1.75rem;
         font-weight: 700;
-        color: #333;
+        color: #fff !important;
     }
 
     .stat-label {
         font-size: 0.75rem;
-        color: #666;
+        color: #fff !important;
         margin-top: 0.5rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -188,5 +224,7 @@
         color: #155724;
         border: 1px solid #c3e6cb;
     }
+
 </style>
+
 </html>

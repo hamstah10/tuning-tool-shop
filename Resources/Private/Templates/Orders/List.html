@@ -16,6 +16,7 @@
                                 <th>Bestellnummer</th>
                                 <th>Datum</th>
                                 <th>Status</th>
+                                <th>Exportstatus</th>
                                 <th>Gesamtbetrag</th>
                                 <th>Aktion</th>
                             </tr>
@@ -58,6 +59,37 @@
                                                                                 <span class="badge bg-secondary">{order.status}</span>
                                                                             </f:else>
                                                                         </f:if>
+                                                                    </f:else>
+                                                                </f:if>
+                                                            </f:else>
+                                                        </f:if>
+                                                    </f:else>
+                                                </f:if>
+                                            </f:else>
+                                        </f:if>
+                                    </td>
+                                    <td>
+                                        <f:if condition="{order.exportStatus} == 0">
+                                            <f:then>
+                                                <span class="badge bg-secondary">Nicht exportiert</span>
+                                            </f:then>
+                                            <f:else>
+                                                <f:if condition="{order.exportStatus} == 1">
+                                                    <f:then>
+                                                        <span class="badge bg-info">Export läuft</span>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <f:if condition="{order.exportStatus} == 2">
+                                                            <f:then>
+                                                                <span class="badge bg-success">Exportiert</span>
+                                                            </f:then>
+                                                            <f:else>
+                                                                <f:if condition="{order.exportStatus} == 3">
+                                                                    <f:then>
+                                                                        <span class="badge bg-danger">Export fehlgeschlagen</span>
+                                                                    </f:then>
+                                                                    <f:else>
+                                                                        <span class="badge bg-secondary">Unbekannt</span>
                                                                     </f:else>
                                                                 </f:if>
                                                             </f:else>

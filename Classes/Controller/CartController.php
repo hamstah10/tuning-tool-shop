@@ -5,31 +5,25 @@ declare(strict_types=1);
 namespace Hamstahstudio\TuningToolShop\Controller;
 
 use Hamstahstudio\TuningToolShop\Domain\Model\CartItem;
-use Hamstahstudio\TuningToolShop\Domain\Model\Product;
-use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
 use Hamstahstudio\TuningToolShop\Domain\Repository\ProductRepository;
-use Hamstahstudio\TuningToolShop\Service\AuthenticationService;
-use Hamstahstudio\TuningToolShop\Service\SessionService;
+use Hamstahstudio\TuningToolShop\Service\CartService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 class CartController extends ActionController
 {
     public function __construct(
-        protected readonly CartItemRepository $cartItemRepository,
         protected readonly ProductRepository $productRepository,
-        protected readonly PersistenceManager $persistenceManager,
-        protected readonly AuthenticationService $authenticationService,
-        protected readonly SessionService $sessionService,
+        protected readonly CartService $cartService,
     ) {}
 
     public function indexAction(): ResponseInterface
     {
-        // Get or create session ID
-        $sessionId = $this->getOrCreateSessionId();
-        
-        $cartItems = $this->cartItemRepository->findBySessionId($sessionId)->toArray();
+        // Get cart items from TYPO3 session
+        $frontendUser = $this->getFrontendUser();
+        $cartItems = $this->cartService->getCartItemsFromSession($frontendUser);
         $totalGross = 0.0;
         $totalNet = 0.0;
         $totalTax = 0.0;
@@ -66,8 +60,7 @@ class CartController extends ActionController
 
     public function addAction(int $product, int $quantity = 1): ResponseInterface
     {
-        // Get or create session ID
-        $sessionId = $this->getOrCreateSessionId();
+        error_log('[CartController::addAction] Adding product: ' . $product . ', qty: ' . $quantity);
         
         $productObject = $this->productRepository->findByUidIgnoreStorage($product);
         if ($productObject === null) {
@@ -75,22 +68,34 @@ class CartController extends ActionController
             return $this->redirect('index');
         }
 
-        $existingItem = $this->cartItemRepository->findBySessionIdAndProduct($sessionId, $product);
+        // Get cart items from session
+        $frontendUser = $this->getFrontendUser();
+        error_log('[CartController::addAction] Frontend user: ' . ($frontendUser ? 'yes' : 'no'));
+        
+        $cartItems = $this->cartService->getCartItemsFromSession($frontendUser);
 
-        if ($existingItem !== null) {
-            $existingItem->setQuantity($existingItem->getQuantity() + $quantity);
-            $this->cartItemRepository->update($existingItem);
-        } else {
-            $cartItem = new CartItem();
-            $cartItem->setPid((int)($this->settings['storagePid'] ?? $GLOBALS['TSFE']->id));
-            $cartItem->setSessionId($sessionId);
-            $cartItem->setProduct($productObject);
-            $cartItem->setQuantity($quantity);
-
-            $this->cartItemRepository->add($cartItem);
+        // Check if product is already in cart
+        $existingKey = null;
+        foreach ($cartItems as $key => $item) {
+            if ($item->getProduct()?->getUid() === $product) {
+                $existingKey = $key;
+                break;
+            }
         }
 
-        $this->persistenceManager->persistAll();
+        if ($existingKey !== null) {
+            // Update quantity
+            $cartItems[$existingKey]->setQuantity($cartItems[$existingKey]->getQuantity() + $quantity);
+        } else {
+            // Create new cart item
+            $cartItem = new CartItem();
+            $cartItem->setProduct($productObject);
+            $cartItem->setQuantity($quantity);
+            $cartItems[] = $cartItem;
+        }
+
+        // Store updated cart in session
+        $this->cartService->storeCartInSession($frontendUser, $cartItems);
 
         $this->addFlashMessage('Produkt wurde zum Warenkorb hinzugefügt.');
 
@@ -98,79 +103,62 @@ class CartController extends ActionController
         if ($cartPid > 0) {
             return $this->redirectToUri($this->uriBuilder->reset()->setTargetPageUid($cartPid)->build());
         }
-        
+
         return $this->redirect('index');
     }
 
-    public function updateAction(CartItem $cartItem, int $quantity): ResponseInterface
+    public function updateAction(int $product, int $quantity): ResponseInterface
     {
+        $frontendUser = $this->getFrontendUser();
+        $cartItems = $this->cartService->getCartItemsFromSession($frontendUser);
+
         if ($quantity <= 0) {
-            $this->cartItemRepository->remove($cartItem);
+            // Remove item
+            $cartItems = array_filter($cartItems, fn($item) => $item->getProduct()?->getUid() !== $product);
             $this->addFlashMessage('Artikel wurde aus dem Warenkorb entfernt.');
         } else {
-            $cartItem->setQuantity($quantity);
-            $this->cartItemRepository->update($cartItem);
+            // Update quantity
+            foreach ($cartItems as $item) {
+                if ($item->getProduct()?->getUid() === $product) {
+                    $item->setQuantity($quantity);
+                    break;
+                }
+            }
             $this->addFlashMessage('Menge wurde aktualisiert.');
         }
 
-        $this->persistenceManager->persistAll();
+        $this->cartService->storeCartInSession($frontendUser, $cartItems);
 
         return $this->redirect('index');
     }
 
-    public function removeAction(CartItem $cartItem): ResponseInterface
+    public function removeAction(int $product): ResponseInterface
     {
-        $this->cartItemRepository->remove($cartItem);
-        $this->persistenceManager->persistAll();
+        $frontendUser = $this->getFrontendUser();
+        $cartItems = $this->cartService->getCartItemsFromSession($frontendUser);
+
+        // Remove item from cart
+        $cartItems = array_filter($cartItems, fn($item) => $item->getProduct()?->getUid() !== $product);
+
+        $this->cartService->storeCartInSession($frontendUser, $cartItems);
 
         $this->addFlashMessage('Artikel wurde aus dem Warenkorb entfernt.');
 
         return $this->redirect('index');
     }
 
+
+
     /**
-     * Get or create a session ID for the cart
-     * This ensures the same session ID is used across requests
+     * Get frontend user - creates anonymous user if none is logged in
      */
-    private function getOrCreateSessionId(): string
+    private function getFrontendUser(): FrontendUserAuthentication
     {
-        $cookieName = 'tx_tuning_tool_shop_session';
-        
-        // Check if frontend user is logged in - use user-based session
         $frontendUser = $this->request->getAttribute('frontend.user');
-        if ($frontendUser !== null && $frontendUser->user !== null) {
-            return 'user_' . $frontendUser->user['uid'];
+        if ($frontendUser === null) {
+            error_log('[CartController::getFrontendUser] Frontend user is NULL!');
+            throw new \RuntimeException('Frontend user is not available');
         }
-
-        // For anonymous users: check if session cookie already exists
-        if (isset($_COOKIE[$cookieName]) && !empty($_COOKIE[$cookieName])) {
-            return $_COOKIE[$cookieName];
-        }
-
-        // Create new anonymous session ID
-        $sessionId = 'anon_' . bin2hex(random_bytes(16));
-
-        // Store in cookie IMMEDIATELY
-        $expires = time() + (365 * 24 * 60 * 60);
-        $secure = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
-
-        setcookie(
-            $cookieName,
-            $sessionId,
-            [
-                'expires' => $expires,
-                'path' => '/',
-                'domain' => '',
-                'secure' => $secure,
-                'httponly' => true,
-                'samesite' => 'Lax',
-            ]
-        );
-
-        // Also store in $_COOKIE array for this request
-        $_COOKIE[$cookieName] = $sessionId;
-
-        return $sessionId;
+        return $frontendUser;
     }
-
 }

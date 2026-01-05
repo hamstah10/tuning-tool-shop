@@ -19,7 +19,7 @@ TuningToolShop
    shop, ecommerce, products, orders, cart, payment
 
 :Copyright:
-   2024
+   2026
 
 :Author:
    Hamstahstudio

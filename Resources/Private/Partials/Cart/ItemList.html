@@ -32,7 +32,7 @@
                   <li><span class="title_text">Menge</span>
                     <div class="quantity_form">
                          <f:form action="update" controller="Cart" class="d-flex gap-2">
-                            <f:form.hidden name="cartItem" value="{item.uid}" />
+                            <f:form.hidden name="product" value="{item.product.uid}" />
                         <button type="button" class="input_number_decrement">
                             <i class="fa-regular fa-minus"></i>
                         </button> 
@@ -52,7 +52,7 @@
                   <li>
                     <span class="title_text">Löschen</span> 
                         <f:form action="remove" controller="Cart" class="d-inline">
-                        <f:form.hidden name="cartItem" value="{item.uid}" />
+                        <f:form.hidden name="product" value="{item.product.uid}" />
                         <button type="submit" class="remove_btn" title="Entfernen">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>

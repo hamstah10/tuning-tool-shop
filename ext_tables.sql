@@ -58,7 +58,8 @@ CREATE TABLE tx_tuningtoolshop_domain_model_product (
     canonical_url varchar(2048) NOT NULL DEFAULT '',
     badge varchar(255) NOT NULL DEFAULT '',
     related_products int unsigned NOT NULL DEFAULT 0,
-    tags int unsigned NOT NULL DEFAULT 0
+    tags int unsigned NOT NULL DEFAULT 0,
+    lexoffice_product_id varchar(36) NOT NULL DEFAULT ''
 );
 
 #
@@ -118,7 +119,11 @@ CREATE TABLE tx_tuningtoolshop_domain_model_paymentmethod (
     icon int unsigned NOT NULL DEFAULT 0,
     is_active tinyint(1) unsigned NOT NULL DEFAULT 1,
     sort_order int NOT NULL DEFAULT 0,
-    handler_class varchar(255) NOT NULL DEFAULT ''
+    handler_class varchar(255) NOT NULL DEFAULT '',
+    client_id varchar(500) NOT NULL DEFAULT '',
+    secret varchar(500) NOT NULL DEFAULT '',
+    api_url varchar(2048) NOT NULL DEFAULT '',
+    is_sandbox tinyint(1) unsigned NOT NULL DEFAULT 1
 );
 
 #
@@ -154,6 +159,7 @@ CREATE TABLE tx_tuningtoolshop_domain_model_order (
     shipping_method int unsigned NOT NULL DEFAULT 0,
     status int NOT NULL DEFAULT 0,
     payment_status int NOT NULL DEFAULT 0,
+    export_status int NOT NULL DEFAULT 0,
     total decimal(10,2) NOT NULL DEFAULT 0.00,
     items_json text,
     notes text,

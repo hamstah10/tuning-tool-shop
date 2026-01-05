@@ -91,3 +91,6 @@ plugin.tx_tuningtoolshop {
         }
     }
 }
+
+# Include Solr configuration
+@import 'EXT:tuning_tool_shop/Configuration/TypoScript/Solr/setup.typoscript'

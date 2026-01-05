@@ -12,6 +12,23 @@ services:
     public: true
     exclude:
       - '../Classes/Payment/PaymentResult.php'
+      - '../Classes/ViewHelpers/'
+
+  Hamstahstudio\TuningToolShop\ViewHelpers\CartCountViewHelper:
+    public: false
+    autowire: false
+
+  Hamstahstudio\TuningToolShop\ViewHelpers\MiniCartViewHelper:
+    public: false
+    autowire: false
+
+  Hamstahstudio\TuningToolShop\ViewHelpers\CategoriesViewHelper:
+    public: false
+    autowire: false
+
+  Hamstahstudio\TuningToolShop\ViewHelpers\SeoMetaTagsViewHelper:
+    public: false
+    autowire: false
 
   Hamstahstudio\TuningToolShop\Controller\ProductController:
     public: true
@@ -60,11 +77,6 @@ services:
         groupNames: 'tuning_tool_shop'
         height: 'large'
         width: 'medium'
-
-  Hamstahstudio\TuningToolShop\EventListener\FrontendUserLoginListener:
-    tags:
-      - name: event.listener
-        event: TYPO3\CMS\Core\Authentication\Event\BeforeUserLoggedInEvent
 
   Hamstahstudio\TuningToolShop\Seo\ProductPageTitleProvider:
     public: true

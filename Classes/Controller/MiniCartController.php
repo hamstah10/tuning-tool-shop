@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Hamstahstudio\TuningToolShop\Controller;
 
-use Hamstahstudio\TuningToolShop\Domain\Repository\CartItemRepository;
-use Hamstahstudio\TuningToolShop\Service\SessionService;
+use Hamstahstudio\TuningToolShop\Service\CartService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class MiniCartController extends ActionController
 {
     public function __construct(
-        protected readonly CartItemRepository $cartItemRepository,
-        protected readonly SessionService $sessionService,
+        protected readonly CartService $cartService,
     ) {}
 
     public function indexAction(): ResponseInterface
     {
         try {
-            $sessionId = $this->sessionService->getSessionIdFromRequest($this->request);
-            $cartItems = $this->cartItemRepository->findBySessionId($sessionId)->toArray();
+            $frontendUserAuth = $this->request->getAttribute('frontend.user');
+            $cartItems = $this->cartService->getCartItemsFromSession($frontendUserAuth);
             $itemCount = 0;
             $totalGross = 0.0;
 
